@@ -1,0 +1,519 @@
+<!--
+@license
+Copyright 2016 The Advanced REST client authors <arc@mulesoft.com>
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-masked-input/paper-masked-input.html">
+<link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../oauth2-scope-selector/oauth2-scope-selector.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="auth-methods-behavior.html">
+<!--
+The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.
+
+### Example
+```
+<auth-method-oauth2></auth-method-oauth2>
+```
+
+This element uses `oauth2-scope-selector` so the `allowedScopes`, `preventCustomScopes` and
+`scopes` properties will be set on this element. See documentation of `oauth2-scope-selector`
+for more description.
+
+### Forcing the user to select scope from the list
+```
+<auth-method-oauth2 allowed-scopes="['profile']" prevent-custom-scopes></auth-method-oauth2>
+```
+
+## Authorization
+This element do not perform user authorization. It is only a UI for the auth settings form.
+This element fires `oauth2-token-requested` event that shoule be intercepted by other elements
+or the app. When the authorization is performed the app / other element should set back
+`tokenValue` property of this element so the change will be reflected in the UI.
+
+
+### Styling
+`<auth-methods>` provides the following custom properties and mixins for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--basic-auth-panel` | Mixin applied to the element. | `{}`
+`---auth-method-panel` | Mixin applied to all uath elements. | `{}`
+
+### Theming
+Use this mixins as a theming option across all ARC elements.
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
+`--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
+`--input-line-color` | Mixin applied to the input underline | `{}`
+
+@group UI Elements
+@element auth-method-oauth2
+@demo demo/oauth2.html
+-->
+<dom-module id="auth-method-oauth2">
+  <template>
+    <style>
+    :host {
+      display: block;
+      @apply(--auth-method-panel);
+      @apply(--auth-method-oauth2);
+
+      --paper-icon-button: {
+        color: var(--hint-trigger-color, rgba(0, 0, 0, 0.54));
+        transition: color 0.25s linear;
+        @apply(--icon-button);
+      }
+
+      --paper-icon-button-hover: {
+        color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.78));
+        @apply(--icon-button-hover);
+      }
+
+      --paper-input-container-focus-color: {
+        @apply(--input-line-color);
+      }
+    }
+
+    paper-input,
+    paper-masked-input {
+      max-width: 700px;
+    }
+
+    .hints .hint {
+      display: none;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .hints .hint[active] {
+      display: block;
+    }
+
+    .form-panel {
+      @apply(--layout-horizontal);
+    }
+
+    .form {
+      @apply(--layout-flex);
+      max-width: 700px;
+    }
+
+    .hints {
+      margin-left: 0;
+      padding-left: 0;
+      border-left: 1px rgba(0,0,0,0) solid;
+      max-width: 300px;
+      width: 0;
+      @apply(--paper-font-body1);
+      transition: width 0.35s linear, margin 0.2s linear, padding 0.2s linear, border-color 0.15s linear;
+      overflow: hidden;
+    }
+
+    .hints.active {
+      width: 100%;
+      margin-left: 16px;
+      padding-left: 16px;
+      border-left-color: rgba(0,0,0,0.12);
+      overflow: auto;
+    }
+
+    oauth2-scope-selector {
+      margin: 24px 0;
+    }
+
+    .grant-dropdown {
+      width: 320px;
+    }
+
+    .auth-button {
+      background-color: var(--primary-color);
+      color: rgba(255, 255, 255, 0.87);
+    }
+
+    .auth-button[disabled] {
+      background-color: rgba(0, 0, 0, 0.24);
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .authorize-actions {
+      margin-top: 12px;
+    }
+
+    .read-only-param-field {
+      padding: 12px;
+      background-color: rgba(0, 0, 0, 0.12);
+      @apply(--paper-font-body1);
+      display: block;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+
+    .current-token {
+      margin-top: 24px;
+    }
+
+    .top-line {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+    }
+
+    .enable-container {
+      @apply(--layout-flex);
+    }
+
+    label {
+
+      @apply(--form-label);
+    }
+
+    </style>
+    <div class="top-line">
+      <div class="enable-container">
+        <paper-toggle-button checked="{{enabled}}">OFF</paper-toggle-button>
+      </div>
+      <paper-icon-button class="hint-trigger" on-tap="_toggleHints" icon="arc:info-outline" alt="Display hints icon" title="Display / hide hints"></paper-icon-button>
+    </div>
+
+    <div class="form-panel">
+      <div class="form">
+        <form is="iron-form" id="form">
+          <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
+            <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
+              <paper-item data-type="access_token">Browser flow (access token)</paper-item>
+              <paper-item data-type="authorization_code">Server flow (authorization code)</paper-item>
+              <paper-item data-type="client_credentials">Client credentials</paper-item>
+              <paper-item data-type="password">Password</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+          <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" data-field="clientId" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" label="Client secret" value="{{clientSecret}}" data-field="clientSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+
+          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]" label="Authorization url" value="{{authUrl}}" type="text" data-field="authUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
+            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+          </paper-input>
+
+          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" label="Access token URL" value="{{accessTokenUrl}}" type="text" data-field="accessTokenUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
+            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+          </paper-input>
+
+          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Username" value="{{username}}" data-field="username" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Password" value="{{password}}" data-field="password" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+
+          <div hidden$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]">
+            <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]"></oauth2-scope-selector>
+          </div>
+
+          <div hidden$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]">
+            <label>Redirect url</label>
+            <p>Set this callback URL in your provider's OAuth settings</p>
+            <p class="read-only-param-field">[[redirectUrl]]</p>
+          </div>
+
+          <div class="authorize-actions">
+            <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
+            <paper-spinner active="[[_authorizing]]"></paper-spinner>
+          </div>
+
+          <div class="current-token" hidden$="[[!tokenValue]]">
+            <label>Current token</label>
+            <p class="read-only-param-field">[[tokenValue]]</p>
+          </div>
+        </form>
+      </div>
+      <div class$="[[_computeHintsClass(hintsEnabled)]]">
+        <p class="hint" field="authUrl">The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.</p>
+        <p class="hint" field="accessTokenUrl">The access token URL is used by server implementations to exchange access code for access token.</p>
+        <p class="hint" field="clientId">Your client ID registered in your OAuth provider. </p>
+        <p class="hint" field="clientSecret">The client secret is generated by your provider unique string for your app. Check provider's console to get the code.</p>
+        <p class="hint" field="scope">Enter authorization scopes for this API endpoint. Check your provider's documentation for more information about scopes.</p>
+        <p class="hint" field="username">The username required for this OAuth authentication.</p>
+        <p class="hint" field="password">The password required for this OAuth authentication.</p>
+      </div>
+    </div>
+    <paper-toast text="" duration="5000"></paper-toast>
+  </template>
+  <script>
+  Polymer({
+    is: 'auth-method-oauth2',
+    behaviors: [ArcBehaviors.AuthMethodsBehavior],
+
+    /**
+     * Fired when user requested to perform an authorization.
+     * The details object vary depends on the `grantType` property.
+     * However this event always fire two properties set on the `detail` object: `type` and
+     * `clientId`.
+     *
+     * @event oauth2-token-requested
+     * @param {String} type The type of grant option selected by the user. `access_token` is
+     * the browser flow where token ir requested. `authorization_code` or server flow is where
+     * client asks for the authorization code and exchange it later for the auth token using
+     * client secret. Other options are `password` and `client_credentials`.
+     * @param {String} clientId Every type requires `clientId`.
+     * @param {String} authorizationUrl Token authorization URL. Used in `access_token` and
+     * `authorization_code` types. In both cases means the initial endpoint to request for token
+     * or the authorization code.
+     * @param {Array<String>} scopes A list of scopes seleted by the user. Used in `access_token`
+     * and `authorization_code` types.
+     * @param {String} redirectUrl A redirect URL of the client after authorization (or error).
+     * This must be set in the provider's OAuth settings. Callback URL must communicate with
+     * the app to pass the information back to the application. User can't change the `redirectUrl`
+     * but the app shouldn't rely on this value since in browser environment it is possible to
+     * temper with variables. The `redirectUrl` must be set to this element by owner app (which
+     * must know this value). A `redirectUrl` is set for `access_token` and `authorization_code`
+     * types.
+     * @param {String} clientSecret The client secret that user can get from the OAuth provider
+     * settings console. User in `authorization_code` and `client_credentials` types.
+     * @param {String} accessTokenUrl An URL to exchange code for the access token. Used by
+     * `authorization_code`, `client_credentials` and `password` types.
+     * @param {String} username Used with `password` type.
+     * @param {String} password Used with `password` type.
+     */
+    properties: {
+      // Seleted authorization grand type.
+      grantType: {
+        type: String,
+        value: '',
+        notify: true
+      },
+      // The client ID for the auth token.
+      clientId: {
+        type: String,
+        notify: true
+      },
+      // The client secret. It to be used when selected server flow.
+      clientSecret: {
+        type: String,
+        notify: true
+      },
+      // The authorization URL to initialize the OAuth flow.
+      authUrl: {
+        type: String,
+        notify: true
+      },
+      // The access token URL to exchange code for token. It is used in server flow.
+      accessTokenUrl: {
+        type: String,
+        notify: true
+      },
+      // The password. To be used with the password flow.
+      password: {
+        type: String,
+        notify: true
+      },
+      // The password. To be used with the password flow.
+      username: {
+        type: String,
+        notify: true
+      },
+      /**
+       * A callback URL to be used with this element.
+       * User can't change the callback URL and it will inform the user to setup OAuth to use
+       * this value.
+       *
+       * This is relevant when selected flow is the browser flow.
+       *
+       * TODO: Implementation of getting access token from the callback URL.
+       */
+      redirectUrl: String,
+      // If true then half of the space will be available for hints.
+      hintsEnabled: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * List of user selected scopes.
+       * It can be pre-populated with list of scopes (array of strings).
+       */
+      scopes: Array,
+      /**
+       * List of pre-defined scopes to choose from. It will be passed to the `oauth2-scope-selector`
+       * element.
+       */
+      allowedScopes: Array,
+      /**
+       * If true then the `oauth2-scope-selector` will disallow to add a scope that is not
+       * in the `allowedScopes` list. Has no effect if the `allowedScopes` is not set.
+       */
+      preventCustomScopes: Boolean,
+      // True when currently authorizing the user.
+      _authorizing: Boolean,
+      /**
+       * When the user authorized the app it should be set to the token value.
+       * This element do not perform authorization. Other elements must intercept
+       * `oauth2-token-requested` and perform the authorization. As a result the element
+       * performing an authorization should set back the auth token on the event target object
+       * (this element).
+       */
+      tokenValue: {
+        type: String,
+        value: ''
+      }
+    },
+
+    observers: ['_tokenValueChanged(tokenValue)'],
+
+    attached: function() {
+      this.listen(window, 'oauth2-error', '_oauth2ErrorHandler');
+    },
+
+    detached: function() {
+      this.unlisten(window, 'oauth2-error', '_oauth2ErrorHandler');
+    },
+
+    // Removes a value from the (paper-)input going up through path of the event.
+    _clearField: function(e) {
+      e = Polymer.dom(e);
+      var path = e.path;
+      var inputTarget;
+      while ((inputTarget = path.shift())) {
+        if (inputTarget.nodeName === 'INPUT' || inputTarget.nodeName === 'PAPER-INPUT') {
+          break;
+        }
+      }
+      if (!inputTarget) {
+        return;
+      }
+      inputTarget.value = '';
+    },
+    // Checks if the HTML element should be visible in the UI for given properties.
+    _isFieldHidden: function() {
+      var args = Array.from(arguments);
+      var grantType = args.splice(0, 1)[0];
+      return args.indexOf(grantType) === -1;
+    },
+    // Handler for UI events to activate a hint.
+    _activateHint: function(e) {
+      if (!this.hintsEnabled) {
+        return;
+      }
+      var field = this.__getHintField(e);
+      if (!field) {
+        return;
+      }
+      field.setAttribute('active', true);
+    },
+    // Handler for UI events to deactivate a hint.
+    _deactivateHint: function(e) {
+      if (!this.hintsEnabled) {
+        return;
+      }
+      var field = this.__getHintField(e);
+      if (!field) {
+        return;
+      }
+      field.removeAttribute('active');
+    },
+    // Searches the DOM for related to evet's target hint.
+    __getHintField: function(e) {
+      e = Polymer.dom(e);
+      var set = e.localTarget.dataset;
+      if (!('field' in set)) {
+        return;
+      }
+      var field = set.field;
+      return Polymer.dom(this.root).querySelector('.hint[field="' + field + '"]');
+    },
+    // Computes class for hints pane depending on `hintsEnabled` state.
+    _computeHintsClass: function(hintsEnabled) {
+      var clazz = 'hints';
+      if (hintsEnabled) {
+        clazz += ' active';
+      }
+      return clazz;
+    },
+    // Toggles hits panel
+    _toggleHints: function() {
+      this.hintsEnabled = !this.hintsEnabled;
+    },
+
+    // Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
+    authorize: function() {
+      var validationResult = this.$.form.validate();
+      if (!validationResult) {
+        return;
+      }
+      var detail = this.getSettings();
+      this._authorizing = true;
+      this.fire('oauth2-token-requested', detail);
+    },
+
+    /**
+     * Returns current configuration of the OAuth2.
+     *
+     * @return {Object} Current OAuth2 configuration.
+     */
+    getSettings: function() {
+      var detail = {
+        type: this.grantType,
+        clientId: this.clientId
+      };
+
+      switch (this.grantType) {
+        case 'access_token':
+          // The browser flow.
+          detail.authorizationUrl = this.authUrl;
+          detail.redirectUrl = this.redirectUrl;
+          detail.scopes = this.scopes;
+          break;
+        case 'authorization_code':
+          // The server flow.
+          detail.authorizationUrl = this.authUrl;
+          detail.clientSecret = this.clientSecret;
+          detail.accessTokenUrl = this.accessTokenUrl;
+          detail.redirectUrl = this.redirectUrl;
+          detail.scopes = this.scopes;
+          break;
+        case 'client_credentials':
+          // The server flow.
+          detail.clientSecret = this.clientSecret;
+          detail.accessTokenUrl = this.accessTokenUrl;
+          break;
+        case 'password':
+          // The server flow.
+          detail.username = this.username;
+          detail.password = this.password;
+          detail.accessTokenUrl = this.accessTokenUrl;
+          break;
+      }
+      return detail;
+    },
+
+    _tokenValueChanged: function() {
+      this._authorizing = false;
+    },
+
+    _oauth2ErrorHandler: function(e, detail) {
+      this._authorizing = false;
+
+      var toast = this.$$('paper-toast');
+      toast.text = detail.message;
+      toast.opened = true;
+    }
+
+  });
+  </script>
+</dom-module>

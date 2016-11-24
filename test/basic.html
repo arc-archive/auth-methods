@@ -1,0 +1,66 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../auth-methods.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <auth-method-basic></auth-method-basic>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global suite, test, fixture, assert, setup, expect, MockInteractions, sinon */
+    suite('basic', function() {
+      var element;
+      setup(function() {
+        element = fixture('basic');
+      });
+      test('Hash to be undefined', function() {
+        expect(element.hash).to.be.undefined;
+      });
+
+      test('Hash to be set', function() {
+        element.username = 'test';
+        element.password = 'test';
+        expect(element.hash).to.be.equal('dGVzdDp0ZXN0');
+      });
+
+      test('Fire enabled event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('authorization-enabled', spy);
+        var toggle = Polymer.dom(element.root).querySelector('paper-toggle-button');
+        MockInteractions.tap(toggle);
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Hash populates password and username', function() {
+        element.hash = 'dGVzdDp0ZXN0';
+        expect(element.username).to.be.equal('test');
+        expect(element.password).to.be.equal('test');
+      });
+
+    });
+    </script>
+
+  </body>
+</html>
