@@ -1,3 +1,2 @@
-# `<auth-methods>`
+[![Build Status](https://travis-ci.org/advanced-rest-client/auth-methods.svg?branch=master)](https://travis-ci.org/advanced-rest-client/auth-methods)  
 
-A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc
