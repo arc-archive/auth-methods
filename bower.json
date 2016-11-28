@@ -6,11 +6,20 @@
   ],
   "keywords": [
     "web-components",
-    "polymer"
+    "polymer",
+    "authorization forms",
+    "http",
+    "oauth1",
+    "oauth2",
+    "basic",
+    "ntlm"
   ],
   "private": true,
   "main": [
-    "auth-methods.html"
+    "auth-method-basic.html",
+    "auth-method-ntlm.html",
+    "auth-method-oauth1.html",
+    "auth-method-oauth2.html"
   ],
   "repository": {
     "type": "git",
