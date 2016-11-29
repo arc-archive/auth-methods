@@ -38,9 +38,9 @@ This example will produce a form with prefilled username and passowrd with value
 Custom property | Description | Default
 ----------------|-------------|----------
 `--auth-method-basic` | Mixin applied to the element. | `{}`
-`---auth-method-panel` | Mixin applied to all uath elements. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
 
-This is very basic element. Style inputs using input's or toggle's css variables.
+This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`'s css variables.
 
 @group UI Elements
 @element auth-method-basic
@@ -110,6 +110,17 @@ This is very basic element. Style inputs using input's or toggle's css variables
      */
     get settings() {
       return this._getSettings();
+    },
+
+    /**
+     * Validate the form.
+     *
+     * @param {Boolean} passive If true then it will check validity of the form but will not
+     * highlight the fields when invalid. Default to false.
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate: function(passive) {
+      return passive ? this.$.form.checkValidity() : this.$.form.validate();
     },
 
     observers: [

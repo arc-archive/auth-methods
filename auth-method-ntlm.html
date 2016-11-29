@@ -24,6 +24,9 @@ The `<auth-method-ntlm>` element displays a form to provide the NTLM auth creden
 It only provides data since NTLM authentication and all calculations must be conducted
 when working on socket.
 
+This form requires to provide at least username and password. The domain parameter is not required
+in NTLM so it may be empty.
+
 ### Example
 ```
 <auth-method-basic username="john" password="doe" domain="my-nt-domain"></auth-method-basic>
@@ -33,8 +36,8 @@ when working on socket.
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--auth-method-basic` | Mixin applied to the element. | `{}`
-`---auth-method-ntlm` | Mixin applied to all uath elements. | `{}`
+`--auth-method-panel` | Mixin applied to the element. | `{}`
+`--auth-method-ntlm` | Mixin applied to all uath elements. | `{}`
 
 This is very basic element. Style inputs using input's or toggle's css variables.
 
@@ -113,6 +116,17 @@ This is very basic element. Style inputs using input's or toggle's css variables
      */
     get settings() {
       return this._getSettings();
+    },
+
+    /**
+     * Validate the form.
+     *
+     * @param {Boolean} passive If true then it will check validity of the form but will not
+     * highlight the fields when invalid. Default to false.
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate: function(passive) {
+      return passive ? this.$.form.checkValidity() : this.$.form.validate();
     },
 
     observers: [

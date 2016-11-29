@@ -33,17 +33,23 @@ The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a setti
 
 ### Example
 ```
-<auth-method-oauth1></auth-method-oauth1>
+<auth-method-oauth1 consumer-key="xyz" toke="abc"></auth-method-oauth1>
 ```
 
+### Required form fields
+- Consumer key
+- Token
+- Timestamp
+- Nonce
+- Signature method
 
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--basic-auth-panel` | Mixin applied to the element. | `{}`
-`---auth-method-panel` | Mixin applied to all uath elements. | `{}`
+`--auth-method-oauth1` | Mixin applied to the element. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
 
 ### Theming
 Use this mixins as a theming option across all ARC elements.
@@ -53,6 +59,7 @@ Custom property | Description | Default
 `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
+`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
 
 @group UI Elements
 @element auth-method-oauth1
@@ -64,7 +71,7 @@ Custom property | Description | Default
     :host {
       display: block;
       @apply(--auth-method-panel);
-      @apply(--auth-method-oauth2);
+      @apply(--auth-method-oauth1);
 
       --paper-icon-button: {
         color: var(--hint-trigger-color, rgba(0, 0, 0, 0.54));
@@ -170,7 +177,6 @@ Custom property | Description | Default
     }
 
     label {
-
       @apply(--form-label);
     }
 
@@ -238,6 +244,22 @@ Custom property | Description | Default
   Polymer({
     is: 'auth-method-oauth1',
     behaviors: [ArcBehaviors.AuthMethodsBehavior],
+    /**
+     * Fired when user requested to perform an authorization.
+     * The details object vary depends on the `grantType` property.
+     * However this event always fire two properties set on the `detail` object: `type` and
+     * `clientId`.
+     *
+     * @event oauth1-token-requested
+     * @param {String} consumeKey The consumer key. May be undefined if not provided.
+     * @param {String} consumerSecret May be undefined if not provided.
+     * @param {String} token May be undefined if not provided.
+     * @param {String} tokenSecret May be undefined if not provided.
+     * @param {String} timestamp May be undefined if not provided.
+     * @param {String} nonce May be undefined if not provided.
+     * @param {String} realm May be undefined if not provided.
+     * @param {String} signatureMethod May be undefined if not provided.
+     */
     /**
      * Fired when the any of the auth method settings has changed.
      * This event will be fired quite frequently - each time anything in the text field changed.
@@ -326,6 +348,17 @@ Custom property | Description | Default
      */
     get settings() {
       return this._getSettings();
+    },
+
+    /**
+     * Validate the form.
+     *
+     * @param {Boolean} passive If true then it will check validity of the form but will not
+     * highlight the fields when invalid. Default to false.
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate: function(passive) {
+      return passive ? this.$.form.checkValidity() : this.$.form.validate();
     },
 
     _settingsChanged: function() {

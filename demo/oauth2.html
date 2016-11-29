@@ -41,14 +41,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body unresolved>
   <div class="vertical-section-container centered">
     <h3>The `auth-method-oauth2`</h3>
-    <arc-demo-snippet userscopes='["email","profile"]' scopes='["user", "user:email", "user:follow", "public_repo", "repo", "repo_deployment", "repo:status", "delete_repo", "notifications", "gist", "read:repo_hook", "write:repo_hook", "admin:repo_hook", "admin:org_hook", "read:org", "write:org", "admin:org", "read:public_key", "write:public_key", "admin:public_key", "read:gpg_key", "write:gpg_key", "admin:gpg_key"]'>
+    <arc-demo-snippet userscopes='["email","profile"]' scopes='["user", "profile", "https://www.googleapis.com/auth/analytics.readonly", "https://www.googleapis.com/auth/bigquery", "https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/devstorage.read_only", "https://www.googleapis.com/auth/blogger.readonly", "https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/compute", "https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/firebase", "https://www.googleapis.com/auth/fitness.activity.read", "https://www.googleapis.com/auth/fitness.body.read", "https://www.googleapis.com/auth/fitness.location.read", "https://www.googleapis.com/auth/fitness.nutrition.read", "https://www.googleapis.com/auth/games", "https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/plus.me", "openid", "https://www.googleapis.com/auth/contacts.readonly", "https://www.googleapis.com/auth/user.addresses.read", "https://www.googleapis.com/auth/user.emails.read", "https://www.googleapis.com/auth/user.birthday.read","https://www.googleapis.com/auth/user.phonenumbers.read"]'>
       <template>
-        <auth-method-oauth2 access-token-url="https://www.googleapis.com/oauth2/v4/token" client-secret="-qRSYmgR4mE1C-rz8I5kkK6I" scopes="[[userscopes]]" allowed-scopes="[[scopes]]" client-id="612126244161-umjue1dnr3nupkciaoecnav7eepqv5rn.apps.googleusercontent.com" auth-url="https://accounts.google.com/o/oauth2/v2/auth" grant-type="authorization_code"></auth-method-oauth2>
+        <auth-method-oauth2
+          access-token-url="https://www.googleapis.com/oauth2/v4/token"
+          client-secret="hmhUZi8NaHmuFkmrPUwHzt7W"
+          scopes="[[userscopes]]"
+          allowed-scopes="[[scopes]]"
+          client-id="821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com"
+          auth-url="https://accounts.google.com/o/oauth2/v2/auth"
+          grant-type="access_token"></auth-method-oauth2>
         <oauth2-authorization></oauth2-authorization>
 
         <output id="log"></output>
         <style>auth-method-oauth2 {margin-bottom: 40px;}</style>
 
+        <b>Disclaimer: This demo authorizes with provided parameters in the API but it will not make any other request to this API now and in the future using generated access tokens / access codes.</b>
+        <p>If you have concerns about how this works, please, conact me: arc@mulesoft.com</p>
         <script>
           var provider = document.querySelector('auth-method-oauth2');
           var redirectUrl = location.href.replace('/auth-methods/demo/oauth2.html',
