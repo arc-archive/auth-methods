@@ -118,6 +118,17 @@ This is very basic element. Style inputs using input's or toggle's css variables
       return this._getSettings();
     },
 
+    /**
+     * Validate the form.
+     *
+     * @param {Boolean} passive If true then it will check validity of the form but will not
+     * highlight the fields when invalid. Default to false.
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate: function(passive) {
+      return passive ? this.$.form.checkValidity() : this.$.form.validate();
+    },
+
     observers: [
       '_settingsChanged(username, password, domain)'
     ],

@@ -112,6 +112,17 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       return this._getSettings();
     },
 
+    /**
+     * Validate the form.
+     *
+     * @param {Boolean} passive If true then it will check validity of the form but will not
+     * highlight the fields when invalid. Default to false.
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate: function(passive) {
+      return passive ? this.$.form.checkValidity() : this.$.form.validate();
+    },
+
     observers: [
       '_hashChanged(hash)',
       '_userInputChanged(username, password)',

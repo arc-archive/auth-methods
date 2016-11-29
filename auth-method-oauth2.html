@@ -442,6 +442,16 @@ Custom property | Description | Default
     get settings() {
       return this._getSettings();
     },
+    /**
+     * Validate the form.
+     *
+     * @param {Boolean} passive If true then it will check validity of the form but will not
+     * highlight the fields when invalid. Default to false.
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate: function(passive) {
+      return passive ? this.$.form.checkValidity() : this.$.form.validate();
+    },
 
     _settingsChanged: function() {
       var validationResult = this.$.form.validate();
