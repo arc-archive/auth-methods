@@ -1,3 +1,21 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/advanced-rest-client/auth-methods/compare/0.0.4...v1.0.2) (2016-11-29)
+
+
+### Docs
+
+* Updated documentation and demos  for the elements ([fa24c14cebe77ba5923180452df8deb9bc01fa06](https://github.com/advanced-rest-client/auth-methods/commit/fa24c14cebe77ba5923180452df8deb9bc01fa06))
+
+### New
+
+* Added validation methods ([94cd4d0ea1b5703e26bd385e5a7a2c30a9b3b210](https://github.com/advanced-rest-client/auth-methods/commit/94cd4d0ea1b5703e26bd385e5a7a2c30a9b3b210))
+
+### Update
+
+* Bumping version to stable ([6c52d8a4326da5bda627942215ecc7675228b7c2](https://github.com/advanced-rest-client/auth-methods/commit/6c52d8a4326da5bda627942215ecc7675228b7c2))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/advanced-rest-client/auth-methods/compare/0.0.4...v1.0.1) (2016-11-29)
 
