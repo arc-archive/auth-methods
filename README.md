@@ -20,15 +20,16 @@ This example will produce a form with prefilled username and passowrd with value
 Custom property | Description | Default
 ----------------|-------------|----------
 `--auth-method-basic` | Mixin applied to the element. | `{}`
-`---auth-method-panel` | Mixin applied to all uath elements. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
 
-This is very basic element. Style inputs using input's or toggle's css variables.
+This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`'s css variables.
 
 
 
 ### Events
 | Name | Description | Params |
 | --- | --- | --- |
+| auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | __none__ |
 | authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
 | authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
 | error | Fired when error occured when decoding hash. | error **Error** - The error object. |
@@ -37,6 +38,9 @@ This is very basic element. Style inputs using input's or toggle's css variables
 The `<auth-method-ntlm>` element displays a form to provide the NTLM auth credentials.
 It only provides data since NTLM authentication and all calculations must be conducted
 when working on socket.
+
+This form requires to provide at least username and password. The domain parameter is not required
+in NTLM so it may be empty.
 
 ### Example
 ```
@@ -47,8 +51,8 @@ when working on socket.
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--auth-method-basic` | Mixin applied to the element. | `{}`
-`---auth-method-ntlm` | Mixin applied to all uath elements. | `{}`
+`--auth-method-panel` | Mixin applied to the element. | `{}`
+`--auth-method-ntlm` | Mixin applied to all uath elements. | `{}`
 
 This is very basic element. Style inputs using input's or toggle's css variables.
 
@@ -57,6 +61,7 @@ This is very basic element. Style inputs using input's or toggle's css variables
 ### Events
 | Name | Description | Params |
 | --- | --- | --- |
+| auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed.  The `domain` field is not required in the form so check for missing `domain` value if it's required in your application. | __none__ |
 | authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
 | authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
 | error | Fired when error occured when decoding hash. | error **Error** - The error object. |
@@ -66,21 +71,23 @@ The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a setti
 
 ### Example
 ```
-<auth-method-oauth1></auth-method-oauth1>
+<auth-method-oauth1 consumer-key="xyz" toke="abc"></auth-method-oauth1>
 ```
 
-
-
-
-
+### Required form fields
+- Consumer key
+- Token
+- Timestamp
+- Nonce
+- Signature method
 
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--basic-auth-panel` | Mixin applied to the element. | `{}`
-`---auth-method-panel` | Mixin applied to all uath elements. | `{}`
+`--auth-method-oauth1` | Mixin applied to the element. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
 
 ### Theming
 Use this mixins as a theming option across all ARC elements.
@@ -90,14 +97,24 @@ Custom property | Description | Default
 `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
+`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
 
 
 
 ### Events
 | Name | Description | Params |
 | --- | --- | --- |
+| auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | __none__ |
 | authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
 | authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
+| oauth1-token-requested | Fired when user requested to perform an authorization. The details object vary depends on the `grantType` property. However this event always fire two properties set on the `detail` object: `type` and `clientId`. | consumeKey **String** - The consumer key. May be undefined if not provided. |
+consumerSecret **String** - May be undefined if not provided. |
+token **String** - May be undefined if not provided. |
+tokenSecret **String** - May be undefined if not provided. |
+timestamp **String** - May be undefined if not provided. |
+nonce **String** - May be undefined if not provided. |
+realm **String** - May be undefined if not provided. |
+signatureMethod **String** - May be undefined if not provided. |
 # auth-method-oauth2
 
 The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.
@@ -113,23 +130,49 @@ for more description.
 
 ### Forcing the user to select scope from the list
 ```
-<auth-method-oauth2 allowed-scopes="['profile']" prevent-custom-scopes></auth-method-oauth2>
+<auth-method-oauth2 prevent-custom-scopes></auth-method-oauth2>
+```
+```
+var form = document.querySelector('auth-method-oauth2');
+form.allowedScopes = ['profile', 'email'];
 ```
 
-## Authorization
-This element do not perform user authorization. It is only a UI for the auth settings form.
-This element fires `oauth2-token-requested` event that shoule be intercepted by other elements
-or the app. When the authorization is performed the app / other element should set back
-`tokenValue` property of this element so the change will be reflected in the UI.
+## Authorizing the user
+The element sends the `oauth2-token-requested` with the OAuth settings provided with the form.
+Any element / app can handle this event and perform authorization.
 
+When the authorization is performed the app / other element should set back `tokenValue` property
+of this element or send the `oauth2-token-response` with token response value so the change will
+can reflected in the UI.
+ARC provides the `oauth2-authorization` element that can handle this events.
+
+### Example
+```
+<auth-method-oauth2></auth-method-oauth2>
+<oauth2-authorization></oauth2-authorization>
+```
+The `oauth2-authorization` can be set anywhere in the DOM up from this element siblings to the
+body. See demo for example usage.
+
+## Redirect URL
+Most OAuth 2 providers requires setting the redirect URL with the request. This can't be changed
+by the user and redirect URL can be only set in the provider's settings panel. The element
+accepts the `redirectUrl` property which will be displayed to the user that (s)he has to set up
+this callback URL in the OAuth provider settings. It can be any URL where token / code will be
+handled properly and the value returned to the `oauth2-authorization` element.
+See `oauth2-authorization` documentation for more information.
+
+If you going to use `oauth2-authorization` popup then the redirect URL value must be set to:
+`/bower_components/oauth-authorization/oauth-popup.html`. Mind missing `2` in `oauth-authorization`.
+This popup is a common popup for auth methods.
 
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--basic-auth-panel` | Mixin applied to the element. | `{}`
-`---auth-method-panel` | Mixin applied to all uath elements. | `{}`
+`--auth-method-oauth2` | Mixin applied to the element. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
 
 ### Theming
 Use this mixins as a theming option across all ARC elements.
@@ -139,12 +182,14 @@ Custom property | Description | Default
 `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
+`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
 
 
 
 ### Events
 | Name | Description | Params |
 | --- | --- | --- |
+| auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed.  This event will set current settings as a detail object which are the same as for the `oauth2-token-requested` event. Additionally it will contain a `tokenValue` property. This valye can be `undefined` if token hasn't been requested yet by the user. Clients should support a situaltion when the user do not request the token before requesting the resource and perform authorization. | __none__ |
 | authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
 | authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
 | oauth2-token-requested | Fired when user requested to perform an authorization. The details object vary depends on the `grantType` property. However this event always fire two properties set on the `detail` object: `type` and `clientId`. | type **String** - The type of grant option selected by the user. `access_token` is the browser flow where token ir requested. `authorization_code` or server flow is where client asks for the authorization code and exchange it later for the auth token using client secret. Other options are `password` and `client_credentials`. |
