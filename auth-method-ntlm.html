@@ -17,6 +17,7 @@ the License.
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
 The `<auth-method-ntlm>` element displays a form to provide the NTLM auth credentials.
@@ -55,14 +56,16 @@ This is very basic element. Style inputs using input's or toggle's css variables
       max-width: 700px;
     }
     </style>
-    <paper-toggle-button checked="{{enabled}}">[[_computeEnabledLabel(enabled)]]</paper-toggle-button>
-    <paper-input label="User name" value="{{username}}" type="text">
-      <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear username"></paper-icon-button>
-    </paper-input>
-    <paper-masked-input label="Password" value="{{password}}"></paper-masked-input>
-    <paper-input label="NT domain" value="{{domain}}" type="text">
-      <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear domain"></paper-icon-button>
-    </paper-input>
+    <form is="iron-form" id="form" autocomplete="on">
+      <paper-toggle-button checked="{{enabled}}">[[_computeEnabledLabel(enabled)]]</paper-toggle-button>
+      <paper-input required auto-validate label="User name" value="{{username}}" type="text" autocomplete="on">
+        <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear username"></paper-icon-button>
+      </paper-input>
+      <paper-masked-input required auto-validate label="Password" value="{{password}}" autocomplete="on"></paper-masked-input>
+      <paper-input label="NT domain" value="{{domain}}" type="text">
+        <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear domain"></paper-icon-button>
+      </paper-input>
+    </form>
   </template>
   <script>
   Polymer({
@@ -74,22 +77,63 @@ This is very basic element. Style inputs using input's or toggle's css variables
      * @event error
      * @param {Error} error The error object.
      */
+    /**
+     * Fired when the any of the auth method settings has changed.
+     * This event will be fired quite frequently - each time anything in the text field changed.
+     * With one exception. This event will not be fired if the validation of the form didn't passed.
+     *
+     * The `domain` field is not required in the form so check for missing `domain` value if it's
+     * required in your application.
+     *
+     * @event auth-settings-changed
+     */
     properties: {
       // The domain parameter for the request.
       domain: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The password.
       password: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The username.
       username: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       }
+    },
+
+    /**
+     * Gets a map of current settings (user provided data).
+     */
+    get settings() {
+      return this._getSettings();
+    },
+
+    observers: [
+      '_settingsChanged(username, password, domain)'
+    ],
+
+    _settingsChanged: function() {
+      var validationResult = this.$.form.validate();
+      if (!validationResult) {
+        return;
+      }
+      var settings = this._getSettings();
+      this.fire('auth-settings-changed', settings);
+    },
+
+    _getSettings: function() {
+      return {
+        domain: this.domain,
+        password: this.password,
+        username: this.username
+      };
     },
 
     // Removes a value from the (paper-)input going up through path of the event.

@@ -37,10 +37,6 @@ The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a setti
 ```
 
 
-
-
-
-
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
 
@@ -242,6 +238,13 @@ Custom property | Description | Default
   Polymer({
     is: 'auth-method-oauth1',
     behaviors: [ArcBehaviors.AuthMethodsBehavior],
+    /**
+     * Fired when the any of the auth method settings has changed.
+     * This event will be fired quite frequently - each time anything in the text field changed.
+     * With one exception. This event will not be fired if the validation of the form didn't passed.
+     *
+     * @event auth-settings-changed
+     */
     properties: {
       // Client ID aka consumer key
       consumeKey: {
@@ -300,6 +303,11 @@ Custom property | Description | Default
       _authorizing: Boolean
     },
 
+    observers: [
+      '_settingsChanged(consumeKey, consumerSecret, token, tokenSecret, timestamp, ' +
+        'nonce, realm, signatureMethod)'
+    ],
+
     attached: function() {
       this.listen(window, 'oauth1-error', '_oauth1ErrorHandler');
     },
@@ -311,6 +319,35 @@ Custom property | Description | Default
     ready: function() {
       this._genTimestamp();
       this._genNonce();
+    },
+
+    /**
+     * Gets a map of current settings (user provided data).
+     */
+    get settings() {
+      return this._getSettings();
+    },
+
+    _settingsChanged: function() {
+      var validationResult = this.$.form.validate();
+      if (!validationResult) {
+        return;
+      }
+      var settings = this._getSettings();
+      this.fire('auth-settings-changed', settings);
+    },
+
+    _getSettings: function() {
+      return {
+        consumeKey: this.consumeKey,
+        consumerSecret: this.consumerSecret,
+        token: this.token,
+        tokenSecret: this.tokenSecret,
+        timestamp: this.timestamp,
+        nonce: this.nonce,
+        realm: this.realm,
+        signatureMethod: this.signatureMethod
+      };
     },
 
     // Removes a value from the (paper-)input going up through path of the event.

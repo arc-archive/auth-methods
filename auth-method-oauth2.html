@@ -292,6 +292,19 @@ Custom property | Description | Default
      * @param {String} username Used with `password` type.
      * @param {String} password Used with `password` type.
      */
+    /**
+     * Fired when the any of the auth method settings has changed.
+     * This event will be fired quite frequently - each time anything in the text field changed.
+     * With one exception. This event will not be fired if the validation of the form didn't passed.
+     *
+     * This event will set current settings as a detail object which are the same as for the
+     * `oauth2-token-requested` event. Additionally it will contain a `tokenValue` property. This
+     * valye can be `undefined` if token hasn't been requested yet by the user.
+     * Clients should support a situaltion when the user do not request the token before requesting
+     * the resource and perform authorization.
+     *
+     * @event auth-settings-changed
+     */
     properties: {
       // Seleted authorization grand type.
       grantType: {
@@ -302,32 +315,38 @@ Custom property | Description | Default
       // The client ID for the auth token.
       clientId: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The client secret. It to be used when selected server flow.
       clientSecret: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The authorization URL to initialize the OAuth flow.
       authUrl: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The access token URL to exchange code for token. It is used in server flow.
       accessTokenUrl: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The password. To be used with the password flow.
       password: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The password. To be used with the password flow.
       username: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       /**
        * A callback URL to be used with this element.
@@ -374,14 +393,37 @@ Custom property | Description | Default
       }
     },
 
-    observers: ['_tokenValueChanged(tokenValue)'],
+    observers: [
+      '_tokenValueChanged(tokenValue)',
+      '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, ' +
+        'password, username, scopes.*, tokenValue)'
+    ],
 
     attached: function() {
       this.listen(window, 'oauth2-error', '_oauth2ErrorHandler');
+      this.listen(window, 'oauth2-token-response', '_oauth2SccessHandler');
     },
 
     detached: function() {
       this.unlisten(window, 'oauth2-error', '_oauth2ErrorHandler');
+      this.unlisten(window, 'oauth2-token-response', '_oauth2SccessHandler');
+    },
+
+    /**
+     * Gets a map of current settings (user provided data).
+     */
+    get settings() {
+      return this._getSettings();
+    },
+
+    _settingsChanged: function() {
+      var validationResult = this.$.form.validate();
+      if (!validationResult) {
+        return;
+      }
+      var settings = this._getSettings();
+      settings.tokenValue = this.tokenValue || undefined;
+      this.fire('auth-settings-changed', settings);
     },
 
     // Removes a value from the (paper-)input going up through path of the event.
@@ -456,7 +498,7 @@ Custom property | Description | Default
       if (!validationResult) {
         return;
       }
-      var detail = this.getSettings();
+      var detail = this._getSettings();
       this._authorizing = true;
       this.fire('oauth2-token-requested', detail);
     },
@@ -466,7 +508,7 @@ Custom property | Description | Default
      *
      * @return {Object} Current OAuth2 configuration.
      */
-    getSettings: function() {
+    _getSettings: function() {
       var detail = {
         type: this.grantType,
         clientId: this.clientId
@@ -512,6 +554,12 @@ Custom property | Description | Default
       var toast = this.$$('paper-toast');
       toast.text = detail.message;
       toast.opened = true;
+    },
+
+    _oauth2SccessHandler: function(e, detail) {
+      if (detail.accessToken && detail.accessToken !== this.tokenValue) {
+        this.set('tokenValue', detail.accessToken);
+      }
     }
 
   });

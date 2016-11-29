@@ -17,6 +17,7 @@ the License.
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
 The `<auth-method-basic>` element displays a form to provide the Basic auth credentials.
@@ -59,11 +60,13 @@ This is very basic element. Style inputs using input's or toggle's css variables
       max-width: 700px;
     }
     </style>
-    <paper-toggle-button checked="{{enabled}}">[[_computeEnabledLabel(enabled)]]</paper-toggle-button>
-    <paper-input label="User name" value="{{username}}" type="text">
-      <paper-icon-button suffix on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-    </paper-input>
-    <paper-masked-input label="Password" value="{{password}}"></paper-masked-input>
+    <form is="iron-form" id="form" autocomplete="on">
+      <paper-toggle-button checked="{{enabled}}">[[_computeEnabledLabel(enabled)]]</paper-toggle-button>
+      <paper-input label="User name" value="{{username}}" type="text" required auto-validate autocomplete="on">
+        <paper-icon-button suffix on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+      </paper-input>
+      <paper-masked-input label="Password" value="{{password}}" required auto-validate autocomplete="on"></paper-masked-input>
+    </form>
   </template>
   <script>
   Polymer({
@@ -75,6 +78,13 @@ This is very basic element. Style inputs using input's or toggle's css variables
      * @event error
      * @param {Error} error The error object.
      */
+    /**
+     * Fired when the any of the auth method settings has changed.
+     * This event will be fired quite frequently - each time anything in the text field changed.
+     * With one exception. This event will not be fired if the validation of the form didn't passed.
+     *
+     * @event auth-settings-changed
+     */
     properties: {
       // base64 hash of the uid and passwd. When set it will override current username and password.
       hash: {
@@ -84,19 +94,46 @@ This is very basic element. Style inputs using input's or toggle's css variables
       // The password.
       password: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       },
       // The username.
       username: {
         type: String,
-        notify: true
+        notify: true,
+        value: ''
       }
+    },
+
+    /**
+     * Gets a map of current settings (user provided data).
+     */
+    get settings() {
+      return this._getSettings();
     },
 
     observers: [
       '_hashChanged(hash)',
-      '_userInputChanged(username, password)'
+      '_userInputChanged(username, password)',
+      '_settingsChanged(hash)'
     ],
+
+    _settingsChanged: function() {
+      var validationResult = this.$.form.validate();
+      if (!validationResult) {
+        return;
+      }
+      var settings = this._getSettings();
+      this.fire('auth-settings-changed', settings);
+    },
+
+    _getSettings: function() {
+      return {
+        hash: this.hash,
+        password: this.password,
+        username: this.username
+      };
+    },
 
     _hashChanged: function(hash) {
       if (this._internalHashChange || !hash) {
@@ -133,7 +170,7 @@ This is very basic element. Style inputs using input's or toggle's css variables
     },
 
     clearUsername: function() {
-      this.uid = '';
+      this.username = '';
     }
   });
   </script>

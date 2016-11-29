@@ -41,24 +41,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <auth-method-ntlm username="{{username}}" password="{{password}}" domain="{{domain}}"></auth-method-ntlm>
 
         <output id="log"></output>
-        <button>Get settings</button>
         <style>auth-method-ntlm {margin-bottom: 40px;}</style>
 
         <script>
           var ntlm = document.querySelector('auth-method-ntlm');
           var output = document.querySelector('output');
-          var button = document.querySelector('button');
           ntlm.addEventListener('authorization-enabled', function() {
             this.innerHTML += 'Authorization is now enabled\n';
           }.bind(output));
           ntlm.addEventListener('authorization-disabled', function() {
             this.innerHTML += 'Authorization is now disabled\n';
           }.bind(output));
-          button.addEventListener('click', function() {
+          ntlm.addEventListener('auth-settings-changed', function(e) {
             var text = 'Current settings:\n';
-            text += '\tUsername: ' + ntlm.username + '\n';
-            text += '\tPassword: ' + ntlm.password + '\n';
-            text += '\tDmain: ' + ntlm.domain + '\n';
+            text += '\tUsername: ' + e.detail.username + '\n';
+            text += '\tPassword: ' + e.detail.password + '\n';
+            text += '\tDmain: ' + e.detail.domain + '\n';
             this.innerHTML += text;
           }.bind(output));
         </script>

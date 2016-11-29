@@ -64,6 +64,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           provider.addEventListener('error', function(e) {
             this.innerHTML += e.detail.error.message + '\n';
           }.bind(output));
+          provider.addEventListener('auth-settings-changed', function(e) {
+            var text = 'Current settings:\n';
+            var data = JSON.stringify(e.detail, null, 2);
+            text += data + '\n';
+            this.innerHTML += text;
+          }.bind(output));
         </script>
       </template>
     </arc-demo-snippet>

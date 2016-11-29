@@ -40,26 +40,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template>
         <auth-method-basic hash="{{hash}}"></auth-method-basic>
 
-        <output id="log"></output>
-        <button>Get settings</button>
         <paper-input label="Generated hash" value="{{hash}}"></paper-input>
+        <output id="log"></output>
         <style>auth-method-basic {margin-bottom: 40px;}</style>
 
         <script>
           var basic = document.querySelector('auth-method-basic');
           var output = document.querySelector('output');
-          var button = document.querySelector('button');
           basic.addEventListener('authorization-enabled', function() {
             this.innerHTML += 'Authorization is now enabled\n';
           }.bind(output));
           basic.addEventListener('authorization-disabled', function() {
             this.innerHTML += 'Authorization is now disabled\n';
           }.bind(output));
-          button.addEventListener('click', function() {
+          basic.addEventListener('auth-settings-changed', function(e) {
             var text = 'Current settings:\n';
-            text += '\tUsername: ' + basic.username + '\n';
-            text += '\tPassword: ' + basic.password + '\n';
-            text += '\tHash: ' + basic.hash + '\n';
+            text += '\tUsername: ' + e.detail.username + '\n';
+            text += '\tPassword: ' + e.detail.password + '\n';
+            text += '\tHash: ' + e.detail.hash + '\n';
             this.innerHTML += text;
           }.bind(output));
           basic.addEventListener('error', function(e) {
