@@ -84,6 +84,9 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
      * With one exception. This event will not be fired if the validation of the form didn't passed.
      *
      * @event auth-settings-changed
+     * @param {Object} settings Current settings containing hash, password
+     * and username.
+     * @param {String} type The authorization type - basic
      */
     properties: {
       // base64 hash of the uid and passwd. When set it will override current username and password.
@@ -135,7 +138,11 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
         return;
       }
       var settings = this._getSettings();
-      this.fire('auth-settings-changed', settings);
+      var detail = {
+        settings: settings,
+        type: 'basic'
+      };
+      this.fire('auth-settings-changed', detail);
     },
 
     _getSettings: function() {

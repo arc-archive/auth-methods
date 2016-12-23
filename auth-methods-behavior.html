@@ -34,12 +34,14 @@ the License.
      * @event authorization-enabled
      * @param {Object} settings Current settings at the moment of enabling the auth method.
      * Don't rely on this values to construct auth data since it may change later during runetime.
+     * @param {Strng} type The authentication type selected by the user.
      */
     /**
      * Fired when the auth method has been disabled.
      *
      * @event authorization-disabled
      * @param {Object} settings Current settings at the moment of disabling the auth method.
+     * @param {Strng} type The authentication type selected by the user.
      */
     properties: {
       /**
@@ -63,15 +65,38 @@ the License.
 
     _enabledChanged: function(enabled) {
       var name = 'authorization-' + (enabled ? 'enabled' : 'disabled');
-      var detail;
-      if (typeof this.getSettings === 'function') {
-        detail = this.getSettings();
+      var detail = {
+        settings: this.settings,
+        type: this._getAuthType()
+      };
+      if (detail.type === 'oauth2') {
+        detail.settings.tokenValue = this.tokenValue || undefined;
       }
       this.fire(name, detail);
     },
 
     _computeEnabledLabel: function(enabled) {
       return enabled ? 'ON' : 'OFF';
+    },
+    /**
+     * Gets a oauth type by the elemnt name.
+     * Possible values: 'basic', 'ntlm', 'oauth1', 'oauth2', 'digest', 'custom'
+     * or undefined.
+     */
+    _getAuthType: function() {
+      var name = this.nodeName.toLowerCase();
+      switch (name) {
+        case 'auth-method-basic':
+          return 'basic';
+        case 'auth-method-ntlm':
+          return 'ntlm';
+        case 'auth-method-oauth1':
+          return 'oauth1';
+        case 'auth-method-oauth2':
+          return 'oauth2';
+        case 'auth-method-digest':
+          return 'digest';
+      }
     }
   };
 })();
