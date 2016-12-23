@@ -119,9 +119,9 @@ Custom property | Description | Default
         @apply(--icon-button-hover);
       }
 
-      --paper-input-container-focus-color: {
+      /*--paper-input-container-focus-color: {
         @apply(--input-line-color);
-      }
+      }*/
     }
 
     paper-input,
@@ -229,7 +229,7 @@ Custom property | Description | Default
         <form is="iron-form" id="form">
           <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
             <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
-              <paper-item data-type="access_token">Browser flow (access token)</paper-item>
+              <paper-item data-type="implicit">Browser flow (access token)</paper-item>
               <paper-item data-type="authorization_code">Server flow (authorization code)</paper-item>
               <paper-item data-type="client_credentials">Client credentials</paper-item>
               <paper-item data-type="password">Password</paper-item>
@@ -239,7 +239,7 @@ Custom property | Description | Default
           <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" data-field="clientId" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
           <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" label="Client secret" value="{{clientSecret}}" data-field="clientSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
 
-          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]" label="Authorization url" value="{{authUrl}}" type="text" data-field="authUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
+          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" label="Authorization url" value="{{authUrl}}" type="text" data-field="authUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
             <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
           </paper-input>
 
@@ -250,11 +250,11 @@ Custom property | Description | Default
           <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Username" value="{{username}}" data-field="username" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
           <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Password" value="{{password}}" data-field="password" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
 
-          <div hidden$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]">
-            <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]"></oauth2-scope-selector>
+          <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
+            <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
           </div>
 
-          <div hidden$="[[_isFieldHidden(grantType, 'access_token', 'authorization_code')]]">
+          <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
             <label>Redirect url</label>
             <p>Set this callback URL in your provider's OAuth settings</p>
             <p class="read-only-param-field">[[redirectUrl]]</p>
@@ -295,22 +295,22 @@ Custom property | Description | Default
      * `clientId`.
      *
      * @event oauth2-token-requested
-     * @param {String} type The type of grant option selected by the user. `access_token` is
+     * @param {String} type The type of grant option selected by the user. `implicit` is
      * the browser flow where token ir requested. `authorization_code` or server flow is where
      * client asks for the authorization code and exchange it later for the auth token using
      * client secret. Other options are `password` and `client_credentials`.
      * @param {String} clientId Every type requires `clientId`.
-     * @param {String} authorizationUrl Token authorization URL. Used in `access_token` and
+     * @param {String} authorizationUrl Token authorization URL. Used in `implicit` and
      * `authorization_code` types. In both cases means the initial endpoint to request for token
      * or the authorization code.
-     * @param {Array<String>} scopes A list of scopes seleted by the user. Used in `access_token`
+     * @param {Array<String>} scopes A list of scopes seleted by the user. Used in `implicit`
      * and `authorization_code` types.
      * @param {String} redirectUrl A redirect URL of the client after authorization (or error).
      * This must be set in the provider's OAuth settings. Callback URL must communicate with
      * the app to pass the information back to the application. User can't change the `redirectUrl`
      * but the app shouldn't rely on this value since in browser environment it is possible to
      * temper with variables. The `redirectUrl` must be set to this element by owner app (which
-     * must know this value). A `redirectUrl` is set for `access_token` and `authorization_code`
+     * must know this value). A `redirectUrl` is set for `implicit` and `authorization_code`
      * types.
      * @param {String} clientSecret The client secret that user can get from the OAuth provider
      * settings console. User in `authorization_code` and `client_credentials` types.
@@ -331,6 +331,9 @@ Custom property | Description | Default
      * the resource and perform authorization.
      *
      * @event auth-settings-changed
+     * @param {Object} settings See the `oauth2-token-requested` for detailed
+     * description
+     * @param {String} type The authentication type selected by the user.
      */
     properties: {
       // Seleted authorization grand type.
@@ -417,13 +420,19 @@ Custom property | Description | Default
       tokenValue: {
         type: String,
         value: ''
-      }
+      },
+      /**
+       * RAML `securedBy` obejct definition.
+       * If set, it will prefill the settings in the auth panel.
+       */
+      ramlSettings: Object
     },
 
     observers: [
       '_tokenValueChanged(tokenValue)',
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, ' +
-        'password, username, scopes.*, tokenValue)'
+        'password, username, scopes.*, tokenValue)',
+      '_settingsChnaged(ramlSettings.*)'
     ],
 
     attached: function() {
@@ -460,7 +469,11 @@ Custom property | Description | Default
       }
       var settings = this._getSettings();
       settings.tokenValue = this.tokenValue || undefined;
-      this.fire('auth-settings-changed', settings);
+      var detail = {
+        settings: settings,
+        type: 'oauth2'
+      };
+      this.fire('auth-settings-changed', detail);
     },
 
     // Removes a value from the (paper-)input going up through path of the event.
@@ -552,7 +565,7 @@ Custom property | Description | Default
       };
 
       switch (this.grantType) {
-        case 'access_token':
+        case 'implicit':
           // The browser flow.
           detail.authorizationUrl = this.authUrl;
           detail.redirectUrl = this.redirectUrl;
@@ -596,6 +609,42 @@ Custom property | Description | Default
     _oauth2SccessHandler: function(e, detail) {
       if (detail.accessToken && detail.accessToken !== this.tokenValue) {
         this.set('tokenValue', detail.accessToken);
+      }
+    },
+
+    _settingsChnaged: function(record) {
+      if (!record || !record.base) {
+        return;
+      }
+      var type = record.base;
+      if (!type || !type.settings) {
+        return;
+      }
+      this.preFill(type.settings);
+    },
+
+    preFill: function(settings) {
+      if (!settings) {
+        throw new Error('The `settings` argument is not set.');
+      }
+      if (settings.authorizationGrants &&
+        settings.authorizationGrants instanceof Array &&
+        settings.authorizationGrants.length) {
+        var grant = settings.authorizationGrants[0];
+        // authorization_code, password, client_credentials, or implicit
+        if (grant === 'code') {
+          grant = 'authorization_code';
+        }
+        this.grantType = grant;
+      }
+      if (settings.accessTokenUri) {
+        this.accessTokenUrl = settings.accessTokenUri;
+      }
+      if (settings.authorizationUri) {
+        this.authUrl = settings.authorizationUri;
+      }
+      if (settings.scopes) {
+        this.scopes = settings.scopes;
       }
     }
 

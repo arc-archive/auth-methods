@@ -266,6 +266,9 @@ Custom property | Description | Default
      * With one exception. This event will not be fired if the validation of the form didn't passed.
      *
      * @event auth-settings-changed
+     * @param {Object} settings Current settings. See the
+     * `oauth1-token-requested` for detailed description.
+     * @param {String} type The authorization type - oauth1
      */
     properties: {
       // Client ID aka consumer key
@@ -367,7 +370,11 @@ Custom property | Description | Default
         return;
       }
       var settings = this._getSettings();
-      this.fire('auth-settings-changed', settings);
+      var detail = {
+        settings: settings,
+        type: 'oauth1'
+      };
+      this.fire('auth-settings-changed', detail);
     },
 
     _getSettings: function() {

@@ -89,6 +89,9 @@ This is very basic element. Style inputs using input's or toggle's css variables
      * required in your application.
      *
      * @event auth-settings-changed
+     * @param {Object} settings Current settings containing domain, password
+     * and username.
+     * @param {String} type The authorization type - ntlm
      */
     properties: {
       // The domain parameter for the request.
@@ -139,7 +142,11 @@ This is very basic element. Style inputs using input's or toggle's css variables
         return;
       }
       var settings = this._getSettings();
-      this.fire('auth-settings-changed', settings);
+      var detail = {
+        settings: settings,
+        type: 'ntlm'
+      };
+      this.fire('auth-settings-changed', detail);
     },
 
     _getSettings: function() {
