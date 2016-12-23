@@ -1,3 +1,13 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/advanced-rest-client/auth-methods/compare/1.0.2...v1.0.3) (2016-12-23)
+
+
+### Breaking
+
+* Chnaged event parameters structure. Added raml-settings attribute ([333844a90e8633a00cf123a505d11066d2dee332](https://github.com/advanced-rest-client/auth-methods/commit/333844a90e8633a00cf123a505d11066d2dee332))
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/advanced-rest-client/auth-methods/compare/0.0.4...v0.0.5) (2016-11-29)
 
