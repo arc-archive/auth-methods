@@ -1,0 +1,266 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../auth-methods.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <auth-method-oauth2></auth-method-oauth2>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="implicit">
+      <template>
+        <auth-method-oauth2 grant-type="implicit"></auth-method-oauth2>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="code">
+      <template>
+        <auth-method-oauth2 grant-type="authorization_code"></auth-method-oauth2>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global suite, test, fixture, assert, setup, expect, MockInteractions, sinon, TestHelpers */
+
+    suite('Basic', function() {
+      var element;
+      setup(function() {
+        element = fixture('basic');
+      });
+
+      test('Fire enabled event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('authorization-enabled', spy);
+        var toggle = Polymer.dom(element.root).querySelector('paper-toggle-button');
+        MockInteractions.tap(toggle);
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('The `oauth2-token-response` event sets the tokenValue', function() {
+        var event = new CustomEvent('oauth2-token-response', {
+          bubbles: true,
+          cancelable: true,
+          detail: {
+            accessToken: 'test-token'
+          }
+        });
+        element.dispatchEvent(event);
+        expect(element.tokenValue).to.be.equal('test-token');
+      });
+
+      test('Element is enabled when the token is set', function() {
+        var event = new CustomEvent('oauth2-token-response', {
+          bubbles: true,
+          cancelable: true,
+          detail: {
+            accessToken: 'test-token'
+          }
+        });
+        element.dispatchEvent(event);
+        expect(element.enabled).to.be.equal(true);
+      });
+
+      test('Should set first auth type from RAML settings', function() {
+        var aUrl = 'http://domain.com/authorizationUri';
+        var type = ['implicit', 'code'];
+        var scopes = ['test-1', 'test2'];
+        var raml = {
+          settings: {
+            authorizationGrants: type,
+            authorizationUri: aUrl,
+            scopes: scopes
+          }
+        };
+        element.ramlSettings = raml;
+        TestHelpers.forceXIfStamp(element);
+        expect(element.grantType).to.be.equal(type[0]);
+      });
+
+    });
+
+    suite('Implicit grant type', function() {
+      var element;
+      var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
+      var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+      setup(function() {
+        element = fixture('implicit');
+        element.clientId = clientId;
+        element.authUrl = authUrl;
+      });
+
+      test('Should not be validated', function() {
+        assert.isFalse(element.validate(), 'Active validation.');
+        // assert.isFalse(element.validate(true), 'Passive validation.');
+        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
+      });
+
+      test('Should be validated', function() {
+        element.scopes = ['email', 'profile'];
+        TestHelpers.forceXIfStamp(element);
+        assert.isTrue(element.validate(), 'Active validation.');
+        assert.isTrue(element.validate(true), 'Passive validation.');
+      });
+
+      test('Should not fire oauth2-token-requested event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('oauth2-token-requested', spy);
+        var button = Polymer.dom(element.root).querySelector('.auth-button');
+        MockInteractions.tap(button);
+        assert.isFalse(spy.calledOnce);
+      });
+
+      test('Fire oauth2-token-requested event', function() {
+        element.scopes = ['email', 'profile'];
+        TestHelpers.forceXIfStamp(element);
+        var spy = sinon.stub();
+        element.addEventListener('oauth2-token-requested', spy);
+        var button = Polymer.dom(element.root).querySelector('.auth-button');
+        MockInteractions.tap(button);
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Settings are set', function() {
+        var scopes = ['email', 'profile'];
+        var redirectUrl = 'http://domain.com';
+        element.scopes = scopes;
+        element.redirectUrl = redirectUrl;
+        TestHelpers.forceXIfStamp(element);
+        var settings = element.settings;
+
+        expect(settings.type).to.be.equal('implicit');
+        expect(settings.clientId).to.be.equal(clientId);
+        expect(settings.authorizationUrl).to.be.equal(authUrl);
+        expect(settings.scopes).to.be.eql(scopes);
+        expect(settings.redirectUrl).to.be.equal(redirectUrl);
+      });
+
+      test('Should accept RAML settings', function() {
+        var aUrl = 'http://domain.com/authorizationUri';
+        var type = ['implicit', 'code'];
+        var scopes = ['test-1', 'test2'];
+        var raml = {
+          settings: {
+            authorizationGrants: type,
+            authorizationUri: aUrl,
+            scopes: scopes
+          }
+        };
+        element.ramlSettings = raml;
+        TestHelpers.forceXIfStamp(element);
+        expect(element.grantType).to.be.equal('implicit');
+        expect(element.authUrl).to.be.equal(aUrl);
+        expect(element.scopes).to.be.eql(scopes);
+      });
+    });
+
+    suite('Code grant type', function() {
+      var element;
+      var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
+      var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+      var accessTokenUrl = 'https://www.googleapis.com/oauth2/v4/token';
+      var clientSecret = 'test-secret';
+      setup(function() {
+        element = fixture('code');
+        element.clientId = clientId;
+        element.authUrl = authUrl;
+        element.clientSecret = clientSecret;
+        element.accessTokenUrl = accessTokenUrl;
+      });
+
+      test('Should not be validated', function() {
+        element.accessTokenUrl = undefined;
+        TestHelpers.forceXIfStamp(element);
+        assert.isFalse(element.validate(), 'Active validation.');
+        // assert.isFalse(element.validate(true), 'Passive validation.');
+        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
+      });
+
+      test('Should be validated', function() {
+        element.scopes = ['email', 'profile'];
+        TestHelpers.forceXIfStamp(element);
+        assert.isTrue(element.validate(), 'Active validation.');
+        assert.isTrue(element.validate(true), 'Passive validation.');
+      });
+
+      test('Should not fire oauth2-token-requested event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('oauth2-token-requested', spy);
+        var button = Polymer.dom(element.root).querySelector('.auth-button');
+        MockInteractions.tap(button);
+        assert.isFalse(spy.calledOnce);
+      });
+
+      test('Fire oauth2-token-requested event', function() {
+        element.scopes = ['email', 'profile'];
+        TestHelpers.forceXIfStamp(element);
+        var spy = sinon.stub();
+        element.addEventListener('oauth2-token-requested', spy);
+        var button = Polymer.dom(element.root).querySelector('.auth-button');
+        MockInteractions.tap(button);
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Settings are set', function() {
+        var scopes = ['email', 'profile'];
+        var redirectUrl = 'http://domain.com';
+        element.scopes = scopes;
+        element.redirectUrl = redirectUrl;
+        TestHelpers.forceXIfStamp(element);
+        var settings = element.settings;
+
+        expect(settings.type).to.be.equal('authorization_code');
+        expect(settings.clientId).to.be.equal(clientId);
+        expect(settings.authorizationUrl).to.be.equal(authUrl);
+        expect(settings.clientSecret).to.be.equal(clientSecret);
+        expect(settings.accessTokenUrl).to.be.equal(accessTokenUrl);
+        expect(settings.scopes).to.be.eql(scopes);
+        expect(settings.redirectUrl).to.be.equal(redirectUrl);
+      });
+
+      test('Should accept RAML settings', function() {
+        var aUrl = 'http://domain.com/authorizationUri';
+        var aUrl2 = 'http://domain.com/accessTokenUri';
+        var type = ['code', 'implicit'];
+        var scopes = ['test-1', 'test2'];
+        var raml = {
+          settings: {
+            authorizationGrants: type,
+            authorizationUri: aUrl,
+            accessTokenUri: aUrl2,
+            scopes: scopes
+          }
+        };
+        element.ramlSettings = raml;
+        TestHelpers.forceXIfStamp(element);
+        expect(element.grantType).to.be.equal('authorization_code');
+        expect(element.authUrl).to.be.equal(aUrl);
+        expect(element.scopes).to.be.eql(scopes);
+        expect(element.accessTokenUrl).to.be.equal(aUrl2);
+      });
+    });
+
+    </script>
+
+  </body>
+</html>

@@ -1,3 +1,23 @@
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/advanced-rest-client/auth-methods/compare/1.0.3...v1.0.4) (2017-01-09)
+
+
+### Fix
+
+* Added a polyfill for the Array.from method so the IE11 will be happy again ☺ ([08c2e4a9389d4a6c593e740c433fcf1247a3225c](https://github.com/advanced-rest-client/auth-methods/commit/08c2e4a9389d4a6c593e740c433fcf1247a3225c))
+* Fixes #1 - the OAuth will be enabled automatically when the auth token is ready ([5211090dc45cc4537e173ebd90f451f6b6425afc](https://github.com/advanced-rest-client/auth-methods/commit/5211090dc45cc4537e173ebd90f451f6b6425afc)), closes [#1](https://github.com/advanced-rest-client/auth-methods/issues/1)
+
+### New
+
+* Added test cases for the NTLM panel ([35eebd6e649bc0ce862417a21f2a8da135696ed3](https://github.com/advanced-rest-client/auth-methods/commit/35eebd6e649bc0ce862417a21f2a8da135696ed3))
+* Added test cases for the OAuth2 panel ([785819dd00e0fcfebccbe4616b38c10120bc88b1](https://github.com/advanced-rest-client/auth-methods/commit/785819dd00e0fcfebccbe4616b38c10120bc88b1))
+
+### Update
+
+* Updated travis configuration ([11141c1d4b9987805afa3565bb19bb8a20b7e494](https://github.com/advanced-rest-client/auth-methods/commit/11141c1d4b9987805afa3565bb19bb8a20b7e494))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/advanced-rest-client/auth-methods/compare/1.0.2...v1.0.3) (2016-12-23)
 

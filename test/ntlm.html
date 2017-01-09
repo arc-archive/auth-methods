@@ -1,0 +1,76 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../auth-methods.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <auth-method-ntlm></auth-method-ntlm>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global suite, test, fixture, assert, setup, expect, MockInteractions, sinon */
+    suite('basic', function() {
+      var element;
+      setup(function() {
+        element = fixture('basic');
+      });
+
+      test('Should not be validated', function() {
+        assert.isFalse(element.validate(), 'Active validation.');
+        // assert.isFalse(element.validate(true), 'Passive validation.');
+        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
+      });
+
+      test('Should be validated', function() {
+        element.username = 'test';
+        element.password = 'test';
+
+        assert.isTrue(element.validate(), 'Active validation.');
+        assert.isTrue(element.validate(true), 'Passive validation.');
+      });
+
+      test('Fire enabled event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('authorization-enabled', spy);
+        var toggle = Polymer.dom(element.root).querySelector('paper-toggle-button');
+        MockInteractions.tap(toggle);
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Settings are set', function() {
+        element.username = 'test-username';
+        element.password = 'test-password';
+        element.domain = 'test-domain';
+        var settings = element.settings;
+
+        expect(settings.username).to.be.equal('test-username');
+        expect(settings.password).to.be.equal('test-password');
+        expect(settings.domain).to.be.equal('test-domain');
+      });
+
+    });
+    </script>
+
+  </body>
+</html>

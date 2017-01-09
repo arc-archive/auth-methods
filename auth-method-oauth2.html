@@ -27,6 +27,7 @@ the License.
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../oauth2-scope-selector/oauth2-scope-selector.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="polyfills.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
 The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.
@@ -593,9 +594,12 @@ Custom property | Description | Default
       }
       return detail;
     },
-
+    // Handler for the OAuth token value change. Enables the method if not active.
     _tokenValueChanged: function() {
       this._authorizing = false;
+      if (this.tokenValue && !this.enabled) {
+        this.set('enabled', true);
+      }
     },
 
     _oauth2ErrorHandler: function(e, detail) {
