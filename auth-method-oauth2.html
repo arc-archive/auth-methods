@@ -593,9 +593,12 @@ Custom property | Description | Default
       }
       return detail;
     },
-
+    // Handler for the OAuth token value change. Enables the method if not active.
     _tokenValueChanged: function() {
       this._authorizing = false;
+      if (this.tokenValue && !this.enabled) {
+        this.set('enabled', true);
+      }
     },
 
     _oauth2ErrorHandler: function(e, detail) {
