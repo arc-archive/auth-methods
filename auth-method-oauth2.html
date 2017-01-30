@@ -258,7 +258,7 @@ Custom property | Description | Default
           <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
             <label>Redirect url</label>
             <p>Set this callback URL in your provider's OAuth settings</p>
-            <p class="read-only-param-field">[[redirectUrl]]</p>
+            <p class="read-only-param-field" tabindex="0">[[redirectUrl]]</p>
           </div>
 
           <div class="authorize-actions">
@@ -268,7 +268,7 @@ Custom property | Description | Default
 
           <div class="current-token" hidden$="[[!tokenValue]]">
             <label>Current token</label>
-            <p class="read-only-param-field">[[tokenValue]]</p>
+            <p class="read-only-param-field" tabindex="0">[[tokenValue]]</p>
           </div>
         </form>
       </div>
