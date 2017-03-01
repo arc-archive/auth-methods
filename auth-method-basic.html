@@ -19,6 +19,7 @@ the License.
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="auth-methods-behavior.html">
+<link rel="import" href="auth-methods-styles.html">
 <!--
 The `<auth-method-basic>` element displays a form to provide the Basic auth credentials.
 It calculates base64 has while typing into username or password field.
@@ -48,25 +49,30 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
 -->
 <dom-module id="auth-method-basic">
   <template>
-    <style>
-    :host {
+    <style include="auth-methods-styles">
+     :host {
       display: block;
       @apply(--auth-method-panel);
       @apply(--auth-method-basic);
     }
-
-    paper-input,
-    paper-masked-input {
-      max-width: 700px;
-    }
     </style>
-    <form is="iron-form" id="form" autocomplete="on">
-      <paper-toggle-button checked="{{enabled}}">[[_computeEnabledLabel(enabled)]]</paper-toggle-button>
-      <paper-input label="User name" value="{{username}}" type="text" required auto-validate autocomplete="on">
-        <paper-icon-button suffix on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-      </paper-input>
-      <paper-masked-input label="Password" value="{{password}}" required auto-validate autocomplete="on"></paper-masked-input>
-    </form>
+    <div class="row">
+      <div class="stepper">
+        <span class="step">2</span>
+        <span class="step-header">
+          <span class="step-title">Set authorization data</span>
+        </span>
+      </div>
+      <div class="step-content">
+        <div class="line"></div>
+        <form is="iron-form" id="form" autocomplete="on">
+          <paper-input label="User name" value="{{username}}" type="text" required auto-validate autocomplete="on">
+            <paper-icon-button suffix on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+          </paper-input>
+          <paper-masked-input label="Password" value="{{password}}" auto-validate autocomplete="on"></paper-masked-input>
+        </form>
+      </div>
+    </div>
   </template>
   <script>
   Polymer({
@@ -87,6 +93,7 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
      * @param {Object} settings Current settings containing hash, password
      * and username.
      * @param {String} type The authorization type - basic
+     * @param {Boolean} value True if the form has been validated.
      */
     properties: {
       // base64 hash of the uid and passwd. When set it will override current username and password.
@@ -134,13 +141,11 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
 
     _settingsChanged: function() {
       var validationResult = this.$.form.validate();
-      if (!validationResult) {
-        return;
-      }
       var settings = this._getSettings();
       var detail = {
         settings: settings,
-        type: 'basic'
+        type: 'basic',
+        valid: validationResult
       };
       this.fire('auth-settings-changed', detail);
     },
@@ -176,9 +181,11 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
     },
 
     _userInputChanged: function(uid, passwd) {
-      if (!uid || !passwd) {
-        this.set('hash', undefined);
-        return;
+      if (!uid) {
+        uid = '';
+      }
+      if (!passwd) {
+        passwd = '';
       }
       var enc = uid + ':' + passwd;
       var hash = btoa(enc);

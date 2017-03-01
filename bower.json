@@ -40,7 +40,9 @@
     "paper-button": "PolymerElements/paper-button#^1.0.14",
     "iron-form": "PolymerElements/iron-form#^1.1.4",
     "paper-toast": "PolymerElements/paper-toast#^1.3.0",
-    "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^1.0.0"
+    "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^1.0.0",
+    "paper-ripple": "PolymerElements/paper-ripple#^1.0.10",
+    "iron-collapse": "PolymerElements/iron-collapse#^1.3.0"
   },
   "devDependencies": {
     "oauth-authorization": "advanced-rest-client/oauth-authorization#^0.1.0",

@@ -27,6 +27,8 @@ the License.
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../oauth2-scope-selector/oauth2-scope-selector.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
 <link rel="import" href="polyfills.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
@@ -103,7 +105,7 @@ Custom property | Description | Default
 -->
 <dom-module id="auth-method-oauth2">
   <template>
-    <style>
+    <style include="auth-methods-styles">
     :host {
       display: block;
       @apply(--auth-method-panel);
@@ -119,15 +121,6 @@ Custom property | Description | Default
         color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.78));
         @apply(--icon-button-hover);
       }
-
-      /*--paper-input-container-focus-color: {
-        @apply(--input-line-color);
-      }*/
-    }
-
-    paper-input,
-    paper-masked-input {
-      max-width: 700px;
     }
 
     .hints .hint {
@@ -154,7 +147,7 @@ Custom property | Description | Default
       border-left: 1px rgba(0,0,0,0) solid;
       max-width: 300px;
       width: 0;
-      @apply(--paper-font-body1);
+      @apply(--arc-font-body1);
       transition: width 0.35s linear, margin 0.2s linear, padding 0.2s linear, border-color 0.15s linear;
       overflow: hidden;
     }
@@ -192,11 +185,16 @@ Custom property | Description | Default
     .read-only-param-field {
       padding: 12px;
       background-color: rgba(0, 0, 0, 0.12);
-      @apply(--paper-font-body1);
+      @apply(--arc-font-body1);
       display: block;
       white-space: pre-wrap;
       word-wrap: break-word;
       word-break: break-all;
+      @apply(--layout-horizontal);
+    }
+
+    .read-only-param-field.no-background {
+      background-color: transparent;
     }
 
     .current-token {
@@ -213,74 +211,133 @@ Custom property | Description | Default
     }
 
     label {
-
       @apply(--form-label);
     }
 
+    .token-info,
+    .redirect-info {
+      font-weight: 200;
+    }
+
+    .code {
+      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
+      -webkit-font-smoothing: antialiased;
+      @apply(--arc-font-code1);
+      @apply(--layout-flex);
+    }
+
+    .token-label {
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .current-token {
+      padding: 12px;
+      border: 2px #3D8099 solid;
+    }
     </style>
-    <div class="top-line">
-      <div class="enable-container">
-        <paper-toggle-button checked="{{enabled}}">OFF</paper-toggle-button>
+    <form is="iron-form" id="form">
+      <div class="row">
+        <div class$="[[_computeStepperClass(isSelectedType)]]" on-tap="_clearTypeSelection">
+          <span class="step">2</span>
+          <span class="step-header">
+            <span class="step-title">Select OAuth 2.0 grant type</span>
+            <span class="step-selection" hidden$="[[!isSelectedType]]">[[_computeSelectedTypeLabel(grantType)]]</span>
+          </span>
+          <paper-ripple></paper-ripple>
+        </div>
+        <div class="step-content">
+          <div class="line"></div>
+          <iron-collapse opened="[[!isSelectedType]]">
+            <div class="content">
+              <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
+                <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
+                  <paper-item data-type="implicit">Access token (browser flow)</paper-item>
+                  <paper-item data-type="authorization_code">Authorization code (server flow)</paper-item>
+                  <paper-item data-type="client_credentials">Client credentials</paper-item>
+                  <paper-item data-type="password">Password</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+          </iron-collapse>
+        </div>
       </div>
-      <paper-icon-button class="hint-trigger" on-tap="_toggleHints" icon="arc:info-outline" alt="Display hints icon" title="Display / hide hints"></paper-icon-button>
-    </div>
 
-    <div class="form-panel">
-      <div class="form">
-        <form is="iron-form" id="form">
-          <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
-            <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
-              <paper-item data-type="implicit">Browser flow (access token)</paper-item>
-              <paper-item data-type="authorization_code">Server flow (authorization code)</paper-item>
-              <paper-item data-type="client_credentials">Client credentials</paper-item>
-              <paper-item data-type="password">Password</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
+      <div class="row">
+        <div class="stepper">
+          <span class="step">3</span>
+          <span class="step-header">
+            <span class="step-title">Set authorization data</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="line"></div>
+          <div class="content">
+            <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" data-field="clientId" autocomplete="on"></paper-masked-input>
+            <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" label="Client secret" value="{{clientSecret}}" autocomplete="on"></paper-masked-input>
 
-          <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" data-field="clientId" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" label="Client secret" value="{{clientSecret}}" data-field="clientSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+            <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" label="Authorization url" value="{{authUrl}}" type="text" data-field="authUrl" autocomplete="on">
+              <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+            </paper-input>
 
-          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" label="Authorization url" value="{{authUrl}}" type="text" data-field="authUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
+            <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" label="Access token URL" value="{{accessTokenUrl}}" type="text" data-field="accessTokenUrl" autocomplete="on">
+              <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+            </paper-input>
 
-          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" label="Access token URL" value="{{accessTokenUrl}}" type="text" data-field="accessTokenUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
+            <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Username" value="{{username}}" data-field="username" autocomplete="on"></paper-masked-input>
+            <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Password" value="{{password}}" data-field="password" autocomplete="on"></paper-masked-input>
 
-          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Username" value="{{username}}" data-field="username" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Password" value="{{password}}" data-field="password" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-
-          <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
-            <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+            <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
+              <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+            </div>
           </div>
-
-          <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
-            <label>Redirect url</label>
-            <p>Set this callback URL in your provider's OAuth settings</p>
-            <p class="read-only-param-field" tabindex="0">[[redirectUrl]]</p>
-          </div>
-
-          <div class="authorize-actions">
-            <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
-            <paper-spinner active="[[_authorizing]]"></paper-spinner>
-          </div>
-
-          <div class="current-token" hidden$="[[!tokenValue]]">
-            <label>Current token</label>
-            <p class="read-only-param-field" tabindex="0">[[tokenValue]]</p>
-          </div>
-        </form>
+        </div>
       </div>
-      <div class$="[[_computeHintsClass(hintsEnabled)]]">
-        <p class="hint" field="authUrl">The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.</p>
-        <p class="hint" field="accessTokenUrl">The access token URL is used by server implementations to exchange access code for access token.</p>
-        <p class="hint" field="clientId">Your client ID registered in your OAuth provider. </p>
-        <p class="hint" field="clientSecret">The client secret is generated by your provider unique string for your app. Check provider's console to get the code.</p>
-        <p class="hint" field="scope">Enter authorization scopes for this API endpoint. Check your provider's documentation for more information about scopes.</p>
-        <p class="hint" field="username">The username required for this OAuth authentication.</p>
-        <p class="hint" field="password">The password required for this OAuth authentication.</p>
+
+      <div class="row">
+        <div class="stepper">
+          <span class="step">4</span>
+          <span class="step-header">
+            <span class="step-title">Set redirect URL in provider’s OAuth settings</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="line"></div>
+          <div class="content">
+            <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
+              <p class="redirect-info">Use the following URL to set up OAuth redirect in the provider’s settings. <b>This step is required.</b></p>
+              <p class="read-only-param-field">
+                <span class="code" tabindex="0" id="redirectLabel">[[redirectUrl]]</span>
+                <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="redirect" id="redirectCopyButton"></paper-icon-button>
+              </p>
+            </div>
+
+            <div class="authorize-actions" hidden$="[[tokenValue]]">
+              <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">get access token</paper-button>
+              <paper-spinner active="[[_authorizing]]"></paper-spinner>
+            </div>
+
+            <div class="current-token" hidden$="[[!tokenValue]]">
+              <label class="token-label">Current token</label>
+              <p class="token-info">The token will be set to the corresponding field (header or query parameter).</p>
+              <p class="read-only-param-field no-background">
+                <span class="code" tabindex="0" id="tokenLabel">[[tokenValue]]</span>
+                <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="token" id="tokenCopyButton"></paper-icon-button>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+    </form>
+
+    <div class$="[[_computeHintsClass(hintsEnabled)]]">
+      <p class="hint" field="authUrl">The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.</p>
+      <p class="hint" field="accessTokenUrl">The access token URL is used by server implementations to exchange access code for access token.</p>
+      <p class="hint" field="clientId">Your client ID registered in your OAuth provider. </p>
+      <p class="hint" field="clientSecret">The client secret is generated by your provider unique string for your app. Check provider's console to get the code.</p>
+      <p class="hint" field="scope">Enter authorization scopes for this API endpoint. Check your provider's documentation for more information about scopes.</p>
+      <p class="hint" field="username">The username required for this OAuth authentication.</p>
+      <p class="hint" field="password">The password required for this OAuth authentication.</p>
     </div>
     <paper-toast text="" duration="5000"></paper-toast>
   </template>
@@ -342,6 +399,12 @@ Custom property | Description | Default
         type: String,
         value: '',
         notify: true
+      },
+      // Computed value, true if the `grantType` is set.
+      isSelectedType: {
+        type: Boolean,
+        value: false,
+        computed: '_computeIsSelectedType(grantType)'
       },
       // The client ID for the auth token.
       clientId: {
@@ -650,6 +713,84 @@ Custom property | Description | Default
       if (settings.scopes) {
         this.scopes = settings.scopes;
       }
+    },
+
+    // Computes boolean value if the `grantType` is set.
+    _computeIsSelectedType: function(grantType) {
+      return !!grantType;
+    },
+
+    _computeStepperClass: function(isSelected) {
+      var cls = 'stepper';
+      if (isSelected) {
+        cls += ' active';
+      }
+      return cls;
+    },
+
+    _clearTypeSelection: function() {
+      this.grantType = undefined;
+    },
+
+    _computeSelectedTypeLabel: function(grantType) {
+      switch (grantType) {
+        case 'implicit': return 'Access token (browser flow)';
+        case 'authorization_code': return 'Authorization code (server flow)';
+        case 'client_credentials': return 'Client credentials';
+        case 'password': return 'Password';
+      }
+    },
+
+    _copyRedirectUrl: function(e) {
+      e = Polymer.dom(e);
+      var src = e.localTarget.dataset.src;
+      if (!src) {
+        throw new Error('Copy to clipboard require the data-src attribute.');
+      }
+      var params;
+      switch (src) {
+        case 'redirect':
+          params = {
+            container: this.$.redirectLabel,
+            button: this.$.redirectCopyButton
+          };
+          break;
+        case 'token':
+          params = {
+            container: this.$.tokenLabel,
+            button: this.$.tokenCopyButton
+          };
+          break;
+        default:
+          throw new Error('Unknown src value');
+      }
+      return this._copyToClipboard(params);
+    },
+
+    _copyToClipboard: function(params) {
+      // From https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
+      var snipRange = document.createRange();
+      snipRange.selectNodeContents(params.container);
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(snipRange);
+      var result = false;
+      try {
+        result = document.execCommand('copy');
+        params.button.icon = 'done';
+      } catch (err) {
+        // Copy command is not available
+        Polymer.Base._error(err);
+        params.button.icon = 'error';
+      }
+      // Return to the copy button after a second.
+      setTimeout(this._resetCopyButtonState.bind(this, params.button), 1000);
+      selection.removeAllRanges();
+      return result;
+    },
+
+    _resetCopyButtonState: function(button) {
+      button.icon = 'content-copy';
     }
 
   });

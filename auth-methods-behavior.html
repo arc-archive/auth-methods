@@ -28,55 +28,12 @@ the License.
    * @polymerBehavior ArcBehaviors.AuthMethodsBehavior
    */
   window.ArcBehaviors.AuthMethodsBehavior = {
-    /**
-     * Fired when the auth method has been enabled.
-     *
-     * @event authorization-enabled
-     * @param {Object} settings Current settings at the moment of enabling the auth method.
-     * Don't rely on this values to construct auth data since it may change later during runetime.
-     * @param {Strng} type The authentication type selected by the user.
-     */
-    /**
-     * Fired when the auth method has been disabled.
-     *
-     * @event authorization-disabled
-     * @param {Object} settings Current settings at the moment of disabling the auth method.
-     * @param {Strng} type The authentication type selected by the user.
-     */
     properties: {
-      /**
-       * True if this auth method is enabled.
-       */
-      enabled: {
-        type: Boolean,
-        value: false,
-        notify: true
-      },
       /**
        * If set, it displays a description of usage in the panel. It should inherited from
        * RAML spec.
        */
       description: String
-    },
-
-    observers: [
-      '_enabledChanged(enabled)'
-    ],
-
-    _enabledChanged: function(enabled) {
-      var name = 'authorization-' + (enabled ? 'enabled' : 'disabled');
-      var detail = {
-        settings: this.settings,
-        type: this._getAuthType()
-      };
-      if (detail.type === 'oauth2') {
-        detail.settings.tokenValue = this.tokenValue || undefined;
-      }
-      this.fire(name, detail);
-    },
-
-    _computeEnabledLabel: function(enabled) {
-      return enabled ? 'ON' : 'OFF';
     },
     /**
      * Gets a oauth type by the elemnt name.
