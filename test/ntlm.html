@@ -50,14 +50,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.isTrue(element.validate(true), 'Passive validation.');
       });
 
-      test('Fire enabled event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('authorization-enabled', spy);
-        var toggle = Polymer.dom(element.root).querySelector('paper-toggle-button');
-        MockInteractions.tap(toggle);
-        assert.isTrue(spy.calledOnce);
-      });
-
       test('Settings are set', function() {
         element.username = 'test-username';
         element.password = 'test-password';
@@ -67,6 +59,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         expect(settings.username).to.be.equal('test-username');
         expect(settings.password).to.be.equal('test-password');
         expect(settings.domain).to.be.equal('test-domain');
+      });
+
+      test('Fire `auth-settings-changed` event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('auth-settings-changed', spy);
+        element.username = 'test';
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Fire `auth-settings-changed` with validate eq. false', function(done) {
+        var clb = function(e) {
+          element.removeEventListener('auth-settings-changed', clb);
+          expect(e.detail.valid).to.be.false;
+          done();
+        };
+        element.addEventListener('auth-settings-changed', clb);
+        element.password = 'test';
+      });
+
+      test('Fire `auth-settings-changed` with validate eq. true', function() {
+        var clb = function(e) {
+          element.removeEventListener('auth-settings-changed', clb);
+          expect(e.detail.valid).to.be.true;
+        };
+        element.username = 'test';
+        element.addEventListener('auth-settings-changed', clb);
+        element.password = 'test';
       });
 
     });

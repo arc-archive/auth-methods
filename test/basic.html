@@ -16,7 +16,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../iron-test-helpers/test-helpers.js"></script>
-    <script src="../../iron-test-helpers/mock-interactions.js"></script>
     <!-- Step 1: import the element to test -->
     <link rel="import" href="../auth-methods.html">
   </head>
@@ -29,14 +28,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global suite, test, fixture, assert, setup, expect, MockInteractions, sinon */
+    /* global suite, test, fixture, assert, setup, expect, sinon */
     suite('basic', function() {
       var element;
       setup(function() {
         element = fixture('basic');
       });
-      test('Hash to be undefined', function() {
-        expect(element.hash).to.be.undefined;
+      test('Hash to be equal Og== (empty username and password)', function() {
+        expect(element.hash).to.be.equal('Og==');
       });
 
       test('Hash to be set', function() {
@@ -45,18 +44,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         expect(element.hash).to.be.equal('dGVzdDp0ZXN0');
       });
 
-      test('Fire enabled event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('authorization-enabled', spy);
-        var toggle = Polymer.dom(element.root).querySelector('paper-toggle-button');
-        MockInteractions.tap(toggle);
-        assert.isTrue(spy.calledOnce);
-      });
-
       test('Hash populates password and username', function() {
         element.hash = 'dGVzdDp0ZXN0';
         expect(element.username).to.be.equal('test');
         expect(element.password).to.be.equal('test');
+      });
+
+      test('Fire `auth-settings-changed` event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('auth-settings-changed', spy);
+        element.username = 'test';
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Fire `auth-settings-changed` with validate eq. false', function(done) {
+        var clb = function(e) {
+          element.removeEventListener('auth-settings-changed', clb);
+          expect(e.detail.valid).to.be.false;
+          done();
+        };
+        element.addEventListener('auth-settings-changed', clb);
+        element.password = 'test';
+      });
+
+      test('Fire `auth-settings-changed` with validate eq. true', function() {
+        var clb = function(e) {
+          element.removeEventListener('auth-settings-changed', clb);
+          expect(e.detail.valid).to.be.true;
+        };
+        element.addEventListener('auth-settings-changed', clb);
+        element.hash = 'dGVzdDp0ZXN0';
       });
 
     });
