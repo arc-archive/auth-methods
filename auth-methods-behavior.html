@@ -33,7 +33,21 @@ the License.
        * If set, it displays a description of usage in the panel. It should inherited from
        * RAML spec.
        */
-      description: String
+      description: String,
+      /**
+       * A start index for elements step counter.
+       * Basic assumption is that this elements are used inside the
+       * `authorization` panel which has the first step (auth type selector).
+       * If the element is to be used as a standalone element then this
+       * should be set to `0` (zero) so the number for the first step will be
+       * `1`.
+       * Basic and NTLM auth elements has only one step. Other elements, with
+       * more complex structure has more steps.
+       */
+      stepStartIndex: {
+        type: Number,
+        value: 1
+      }
     },
     /**
      * Gets a oauth type by the elemnt name.
@@ -54,6 +68,10 @@ the License.
         case 'auth-method-digest':
           return 'digest';
       }
+    },
+
+    _computeStep: function(stepStartIndex, currentStep) {
+      return stepStartIndex + currentStep;
     }
   };
 })();
