@@ -57,7 +57,7 @@ This is very basic element. Style inputs using input's or toggle's css variables
     </style>
     <div class="row">
       <div class="stepper">
-        <span class="step">2</span>
+        <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
         <span class="step-header">
           <span class="step-title">Set authorization data</span>
         </span>
@@ -98,7 +98,7 @@ This is very basic element. Style inputs using input's or toggle's css variables
      * @param {Object} settings Current settings containing domain, password
      * and username.
      * @param {String} type The authorization type - ntlm
-     * @param {Boolean} value True if the form has been validated.
+     * @param {Boolean} valid True if the form has been validated.
      */
     properties: {
       // The domain parameter for the request.
