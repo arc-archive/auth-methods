@@ -31,10 +31,7 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
 | --- | --- | --- |
 | auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | settings **Object** - Current settings containing hash, password and username. |
 type **String** - The authorization type - basic |
-| authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
-type **Strng** - The authentication type selected by the user. |
-| authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
-type **Strng** - The authentication type selected by the user. |
+valid **Boolean** - True if the form has been validated. |
 | error | Fired when error occured when decoding hash. | error **Error** - The error object. |
 # auth-method-ntlm
 
@@ -66,10 +63,7 @@ This is very basic element. Style inputs using input's or toggle's css variables
 | --- | --- | --- |
 | auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed.  The `domain` field is not required in the form so check for missing `domain` value if it's required in your application. | settings **Object** - Current settings containing domain, password and username. |
 type **String** - The authorization type - ntlm |
-| authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
-type **Strng** - The authentication type selected by the user. |
-| authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
-type **Strng** - The authentication type selected by the user. |
+valid **Boolean** - True if the form has been validated. |
 | error | Fired when error occured when decoding hash. | error **Error** - The error object. |
 # auth-method-oauth1
 
@@ -112,10 +106,6 @@ Custom property | Description | Default
 | --- | --- | --- |
 | auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | settings **Object** - Current settings. See the `oauth1-token-requested` for detailed description. |
 type **String** - The authorization type - oauth1 |
-| authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
-type **Strng** - The authentication type selected by the user. |
-| authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
-type **Strng** - The authentication type selected by the user. |
 | oauth1-token-requested | Fired when user requested to perform an authorization. The details object vary depends on the `grantType` property. However this event always fire two properties set on the `detail` object: `type` and `clientId`. | consumeKey **String** - The consumer key. May be undefined if not provided. |
 consumerSecret **String** - May be undefined if not provided. |
 token **String** - May be undefined if not provided. |
@@ -200,10 +190,8 @@ Custom property | Description | Default
 | --- | --- | --- |
 | auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed.  This event will set current settings as a detail object which are the same as for the `oauth2-token-requested` event. Additionally it will contain a `tokenValue` property. This valye can be `undefined` if token hasn't been requested yet by the user. Clients should support a situaltion when the user do not request the token before requesting the resource and perform authorization. | settings **Object** - See the `oauth2-token-requested` for detailed description |
 type **String** - The authentication type selected by the user. |
-| authorization-disabled | Fired when the auth method has been disabled. | settings **Object** - Current settings at the moment of disabling the auth method. |
-type **Strng** - The authentication type selected by the user. |
-| authorization-enabled | Fired when the auth method has been enabled. | settings **Object** - Current settings at the moment of enabling the auth method. Don't rely on this values to construct auth data since it may change later during runetime. |
-type **Strng** - The authentication type selected by the user. |
+valid **Boolean** - True if the form has been validated. |
+| oauth2-token-ready | Fired when the request token has been obtained and it's ready to serve. Because only one auth panel can be displayed ad a time it can be assumed that if new token has been obtained then it is current authorization method. | token **String** - The OAuth 2.0 token |
 | oauth2-token-requested | Fired when user requested to perform an authorization. The details object vary depends on the `grantType` property. However this event always fire two properties set on the `detail` object: `type` and `clientId`. | type **String** - The type of grant option selected by the user. `implicit` is the browser flow where token ir requested. `authorization_code` or server flow is where client asks for the authorization code and exchange it later for the auth token using client secret. Other options are `password` and `client_credentials`. |
 clientId **String** - Every type requires `clientId`. |
 authorizationUrl **String** - Token authorization URL. Used in `implicit` and `authorization_code` types. In both cases means the initial endpoint to request for token or the authorization code. |
