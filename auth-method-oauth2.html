@@ -27,6 +27,9 @@ the License.
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../oauth2-scope-selector/oauth2-scope-selector.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="polyfills.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
@@ -103,7 +106,7 @@ Custom property | Description | Default
 -->
 <dom-module id="auth-method-oauth2">
   <template>
-    <style>
+    <style include="auth-methods-styles">
     :host {
       display: block;
       @apply(--auth-method-panel);
@@ -119,24 +122,6 @@ Custom property | Description | Default
         color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.78));
         @apply(--icon-button-hover);
       }
-
-      /*--paper-input-container-focus-color: {
-        @apply(--input-line-color);
-      }*/
-    }
-
-    paper-input,
-    paper-masked-input {
-      max-width: 700px;
-    }
-
-    .hints .hint {
-      display: none;
-      color: rgba(0, 0, 0, 0.54);
-    }
-
-    .hints .hint[active] {
-      display: block;
     }
 
     .form-panel {
@@ -148,36 +133,20 @@ Custom property | Description | Default
       max-width: 700px;
     }
 
-    .hints {
-      margin-left: 0;
-      padding-left: 0;
-      border-left: 1px rgba(0,0,0,0) solid;
-      max-width: 300px;
-      width: 0;
-      @apply(--paper-font-body1);
-      transition: width 0.35s linear, margin 0.2s linear, padding 0.2s linear, border-color 0.15s linear;
-      overflow: hidden;
-    }
-
-    .hints.active {
-      width: 100%;
-      margin-left: 16px;
-      padding-left: 16px;
-      border-left-color: rgba(0,0,0,0.12);
-      overflow: auto;
-    }
-
     oauth2-scope-selector {
       margin: 24px 0;
+      outline: none;
+
     }
 
     .grant-dropdown {
       width: 320px;
     }
 
+    .next-button,
     .auth-button {
-      background-color: var(--primary-color);
-      color: rgba(255, 255, 255, 0.87);
+      color: var(--accent-color);
+      background-color: #fff;
     }
 
     .auth-button[disabled] {
@@ -190,13 +159,21 @@ Custom property | Description | Default
     }
 
     .read-only-param-field {
-      padding: 12px;
       background-color: rgba(0, 0, 0, 0.12);
-      @apply(--paper-font-body1);
+      @apply(--arc-font-body1);
       display: block;
       white-space: pre-wrap;
       word-wrap: break-word;
       word-break: break-all;
+      @apply(--layout-horizontal);
+    }
+
+    .read-only-param-field.padding {
+      padding: 12px;
+    }
+
+    .read-only-param-field.no-background {
+      background-color: transparent;
     }
 
     .current-token {
@@ -213,75 +190,152 @@ Custom property | Description | Default
     }
 
     label {
-
       @apply(--form-label);
     }
 
+    .token-info,
+    .redirect-info {
+      @apply(--arc-font-body1);
+      font-weight: 200;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .code {
+      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
+      -webkit-font-smoothing: antialiased;
+      @apply(--arc-font-code1);
+      @apply(--layout-flex);
+    }
+
+    .token-label {
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .current-token {
+      padding: 12px;
+      border: 2px #3D8099 solid;
+    }
+
+    .current-token,
+    .redirect-section,
+    oauth2-scope-selector {
+      max-width: 560px;
+      width: calc(100% - 16px);
+      box-sizing: border-box;
+    }
     </style>
-    <div class="top-line">
-      <div class="enable-container">
-        <paper-toggle-button checked="{{enabled}}">OFF</paper-toggle-button>
+    <form is="iron-form" id="form">
+      <div class="row">
+        <div class$="[[_computeStepperClass(isSelectedType)]]" on-tap="_clearTypeSelection">
+          <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
+          <span class="step-header">
+            <span class="step-title">Select OAuth 2.0 grant type</span>
+            <span class="step-selection" hidden$="[[!isSelectedType]]">[[_computeSelectedTypeLabel(grantType)]]</span>
+          </span>
+          <paper-ripple></paper-ripple>
+        </div>
+        <div class="step-content">
+          <div class="line"></div>
+          <iron-collapse opened="[[!isSelectedType]]" class="content">
+            <div class="content">
+              <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
+                <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
+                  <template is="dom-repeat" items="[[grantTypes]]">
+                    <paper-item data-type="[[item.type]]">[[item.label]]</paper-item>
+                  </template>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+          </iron-collapse>
+        </div>
       </div>
-      <paper-icon-button class="hint-trigger" on-tap="_toggleHints" icon="arc:info-outline" alt="Display hints icon" title="Display / hide hints"></paper-icon-button>
-    </div>
 
-    <div class="form-panel">
-      <div class="form">
-        <form is="iron-form" id="form">
-          <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
-            <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
-              <paper-item data-type="implicit">Browser flow (access token)</paper-item>
-              <paper-item data-type="authorization_code">Server flow (authorization code)</paper-item>
-              <paper-item data-type="client_credentials">Client credentials</paper-item>
-              <paper-item data-type="password">Password</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
+      <div class="row">
+        <div class$="[[_computeStepperClass(acceptedAuthData)]]" on-tap="_openAuthDataStep">
+          <span class="step">[[_computeStep(stepStartIndex, 2)]]</span>
+          <span class="step-header">
+            <span class="step-title">Set authorization data</span>
+            <span class="step-selection" hidden$="[[!acceptedAuthData]]">Client id: <span>[[clientId]]</span></span>
+          </span>
+          <paper-ripple></paper-ripple>
+        </div>
 
-          <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" data-field="clientId" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" label="Client secret" value="{{clientSecret}}" data-field="clientSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+        <div class="step-content">
+          <div class="line"></div>
+          <iron-collapse opened="[[!acceptedAuthData]]" class="content">
+            <div class="content">
+              <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" id="clientId" autocomplete="on"></paper-masked-input>
+              <paper-tooltip for="clientId" position="bottom">Your client ID registered in your OAuth provider.</paper-tooltip>
+              <paper-masked-input auto-validate required label="Client secret" value="{{clientSecret}}" id="clientSecret" hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" autocomplete="on"></paper-masked-input>
+              <paper-tooltip for="clientSecret" position="bottom">The client secret is generated by your provider unique string for your app. Check provider's console to get the code.</paper-tooltip>
 
-          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" label="Authorization url" value="{{authUrl}}" type="text" data-field="authUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
+              <paper-input auto-validate required label="Authorization url" value="{{authUrl}}" id="authUrl" hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" type="text" autocomplete="on">
+                <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+              </paper-input>
+              <paper-tooltip for="authUrl" position="bottom">The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.</paper-tooltip>
 
-          <paper-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" label="Access token URL" value="{{accessTokenUrl}}" type="text" data-field="accessTokenUrl" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
+              <paper-input auto-validate required label="Access token URL" value="{{accessTokenUrl}}" id="accessTokenUrl" hidden$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" type="text" autocomplete="on">
+                <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+              </paper-input>
+              <paper-tooltip for="accessTokenUrl" position="bottom">The access token URL is used by server implementations to exchange access code for access token.</paper-tooltip>
 
-          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Username" value="{{username}}" data-field="username" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate required hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" label="Password" value="{{password}}" data-field="password" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+              <paper-masked-input auto-validate required label="Username" value="{{username}}" id="username" hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" autocomplete="on"></paper-masked-input>
+              <paper-tooltip for="username" position="bottom">The username required for this OAuth authentication.</paper-tooltip>
+              <paper-masked-input auto-validate required label="Password" value="{{password}}" id="password" hidden$="[[_isFieldHidden(grantType, 'password')]]" disabled$="[[_isFieldHidden(grantType, 'password')]]" autocomplete="on"></paper-masked-input>
+              <paper-tooltip for="password" position="bottom">The password required for this OAuth authentication.</paper-tooltip>
 
-          <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
-            <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
-          </div>
+              <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
+                <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"  disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+              </div>
 
-          <div hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
-            <label>Redirect url</label>
-            <p>Set this callback URL in your provider's OAuth settings</p>
-            <p class="read-only-param-field" tabindex="0">[[redirectUrl]]</p>
-          </div>
-
-          <div class="authorize-actions">
-            <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
-            <paper-spinner active="[[_authorizing]]"></paper-spinner>
-          </div>
-
-          <div class="current-token" hidden$="[[!tokenValue]]">
-            <label>Current token</label>
-            <p class="read-only-param-field" tabindex="0">[[tokenValue]]</p>
-          </div>
-        </form>
+              <div class="accept-action">
+                <paper-button class="next-button" raised on-tap="_acceptData">Next</paper-button>
+              </div>
+            </div>
+          </iron-collapse>
+        </div>
       </div>
-      <div class$="[[_computeHintsClass(hintsEnabled)]]">
-        <p class="hint" field="authUrl">The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.</p>
-        <p class="hint" field="accessTokenUrl">The access token URL is used by server implementations to exchange access code for access token.</p>
-        <p class="hint" field="clientId">Your client ID registered in your OAuth provider. </p>
-        <p class="hint" field="clientSecret">The client secret is generated by your provider unique string for your app. Check provider's console to get the code.</p>
-        <p class="hint" field="scope">Enter authorization scopes for this API endpoint. Check your provider's documentation for more information about scopes.</p>
-        <p class="hint" field="username">The username required for this OAuth authentication.</p>
-        <p class="hint" field="password">The password required for this OAuth authentication.</p>
+
+      <div class="row" hidden$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]">
+        <div class="stepper">
+          <span class="step">[[_computeStep(stepStartIndex, 3)]]</span>
+          <span class="step-header">
+            <span class="step-title">Set redirect URL in provider’s OAuth settings</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="line"></div>
+          <div class="content">
+            <div class="redirect-section">
+              <p class="redirect-info">Use the following URL to set up OAuth redirect in the provider’s settings. <b>This step is required.</b></p>
+              <p class="read-only-param-field padding">
+                <span class="code" tabindex="0" id="redirectLabel">[[redirectUrl]]</span>
+                <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="redirect" id="redirectCopyButton"></paper-icon-button>
+              </p>
+            </div>
+
+            <div class="authorize-actions" hidden$="[[hasTokenValue]]">
+              <paper-button disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">get access token</paper-button>
+              <paper-spinner active="[[_authorizing]]"></paper-spinner>
+            </div>
+
+            <div class="current-token" hidden$="[[!hasTokenValue]]">
+              <label class="token-label">Current token</label>
+              <p class="token-info">The token will be set to the corresponding field (header or query parameter).</p>
+              <p class="read-only-param-field no-background">
+                <span class="code" tabindex="0" id="tokenLabel">[[tokenValue]]</span>
+                <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="token" id="tokenCopyButton"></paper-icon-button>
+              </p>
+              <div class="authorize-actions">
+                <paper-button disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">refresh access token</paper-button>
+                <paper-spinner active="[[_authorizing]]"></paper-spinner>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </form>
     <paper-toast text="" duration="5000"></paper-toast>
   </template>
   <script>
@@ -335,6 +389,16 @@ Custom property | Description | Default
      * @param {Object} settings See the `oauth2-token-requested` for detailed
      * description
      * @param {String} type The authentication type selected by the user.
+     * @param {Boolean} valid True if the form has been validated.
+     */
+    /**
+     * Fired when the request token has been obtained and it's ready to serve.
+     * Because only one auth panel can be displayed ad a time it can be assumed
+     * that if new token has been obtained then it is current authorization
+     * method.
+     *
+     * @event oauth2-token-ready
+     * @param {String} token The OAuth 2.0 token
      */
     properties: {
       // Seleted authorization grand type.
@@ -342,6 +406,12 @@ Custom property | Description | Default
         type: String,
         value: '',
         notify: true
+      },
+      // Computed value, true if the `grantType` is set.
+      isSelectedType: {
+        type: Boolean,
+        value: false,
+        computed: '_computeIsSelectedType(grantType)'
       },
       // The client ID for the auth token.
       clientId: {
@@ -385,15 +455,8 @@ Custom property | Description | Default
        * this value.
        *
        * This is relevant when selected flow is the browser flow.
-       *
-       * TODO: Implementation of getting access token from the callback URL.
        */
       redirectUrl: String,
-      // If true then half of the space will be available for hints.
-      hintsEnabled: {
-        type: Boolean,
-        value: false
-      },
       /**
        * List of user selected scopes.
        * It can be pre-populated with list of scopes (array of strings).
@@ -420,17 +483,51 @@ Custom property | Description | Default
        */
       tokenValue: {
         type: String,
-        value: ''
+        observer: '_tokenValueChanged'
+      },
+      // Computed value, true if access token is set.
+      hasTokenValue: {
+        type: Boolean,
+        value: false,
+        readOnly: true
       },
       /**
        * RAML `securedBy` obejct definition.
        * If set, it will prefill the settings in the auth panel.
        */
-      ramlSettings: Object
+      ramlSettings: Object,
+      // True when auth data from has been accepted.
+      acceptedAuthData: {
+        type: Boolean,
+        value: false,
+        readOnly: true
+      },
+      // List of all possible grant types;
+      _supportedGrantTypes: {
+        type: Array,
+        value: function() {
+          return [{
+            type: 'implicit',
+            label: 'Access token (browser flow)'
+          }, {
+            type: 'authorization_code',
+            label: 'Authorization code (server flow)'
+          }, {
+            type: 'client_credentials',
+            label: 'Client credentials'
+          }, {
+            type: 'password',
+            label: 'Password'
+          }];
+        }
+      },
+      // Currently available grant types.
+      grantTypes: {
+        type: Array
+      }
     },
 
     observers: [
-      '_tokenValueChanged(tokenValue)',
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, ' +
         'password, username, scopes.*, tokenValue)',
       '_settingsChnaged(ramlSettings.*)'
@@ -439,6 +536,7 @@ Custom property | Description | Default
     attached: function() {
       this.listen(window, 'oauth2-error', '_oauth2ErrorHandler');
       this.listen(window, 'oauth2-token-response', '_oauth2SccessHandler');
+      this._updateGrantTypes();
     },
 
     detached: function() {
@@ -465,14 +563,12 @@ Custom property | Description | Default
 
     _settingsChanged: function() {
       var validationResult = this.$.form.validate();
-      if (!validationResult) {
-        return;
-      }
       var settings = this._getSettings();
       settings.tokenValue = this.tokenValue || undefined;
       var detail = {
         settings: settings,
-        type: 'oauth2'
+        type: 'oauth2',
+        valid: validationResult
       };
       this.fire('auth-settings-changed', detail);
     },
@@ -497,50 +593,6 @@ Custom property | Description | Default
       var args = Array.from(arguments);
       var grantType = args.splice(0, 1)[0];
       return args.indexOf(grantType) === -1;
-    },
-    // Handler for UI events to activate a hint.
-    _activateHint: function(e) {
-      if (!this.hintsEnabled) {
-        return;
-      }
-      var field = this.__getHintField(e);
-      if (!field) {
-        return;
-      }
-      field.setAttribute('active', true);
-    },
-    // Handler for UI events to deactivate a hint.
-    _deactivateHint: function(e) {
-      if (!this.hintsEnabled) {
-        return;
-      }
-      var field = this.__getHintField(e);
-      if (!field) {
-        return;
-      }
-      field.removeAttribute('active');
-    },
-    // Searches the DOM for related to evet's target hint.
-    __getHintField: function(e) {
-      e = Polymer.dom(e);
-      var set = e.localTarget.dataset;
-      if (!('field' in set)) {
-        return;
-      }
-      var field = set.field;
-      return Polymer.dom(this.root).querySelector('.hint[field="' + field + '"]');
-    },
-    // Computes class for hints pane depending on `hintsEnabled` state.
-    _computeHintsClass: function(hintsEnabled) {
-      var clazz = 'hints';
-      if (hintsEnabled) {
-        clazz += ' active';
-      }
-      return clazz;
-    },
-    // Toggles hits panel
-    _toggleHints: function() {
-      this.hintsEnabled = !this.hintsEnabled;
     },
 
     // Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
@@ -595,10 +647,12 @@ Custom property | Description | Default
       return detail;
     },
     // Handler for the OAuth token value change. Enables the method if not active.
-    _tokenValueChanged: function() {
+    _tokenValueChanged: function(newValue) {
       this._authorizing = false;
-      if (this.tokenValue && !this.enabled) {
-        this.set('enabled', true);
+      if (newValue) {
+        this._setHasTokenValue(true);
+      } else {
+        this._setHasTokenValue(false);
       }
     },
 
@@ -613,6 +667,9 @@ Custom property | Description | Default
     _oauth2SccessHandler: function(e, detail) {
       if (detail.accessToken && detail.accessToken !== this.tokenValue) {
         this.set('tokenValue', detail.accessToken);
+        this.fire('oauth2-token-ready', {
+          token: detail.accessToken
+        });
       }
     },
 
@@ -634,12 +691,13 @@ Custom property | Description | Default
       if (settings.authorizationGrants &&
         settings.authorizationGrants instanceof Array &&
         settings.authorizationGrants.length) {
-        var grant = settings.authorizationGrants[0];
-        // authorization_code, password, client_credentials, or implicit
-        if (grant === 'code') {
-          grant = 'authorization_code';
+        var index = settings.authorizationGrants.indexOf('code');
+        if (index !== -1) {
+          settings.authorizationGrants[index] = 'authorization_code';
         }
-        this.grantType = grant;
+        this._updateGrantTypes(settings.authorizationGrants);
+      } else {
+        this._updateGrantTypes();
       }
       if (settings.accessTokenUri) {
         this.accessTokenUrl = settings.accessTokenUri;
@@ -650,6 +708,134 @@ Custom property | Description | Default
       if (settings.scopes) {
         this.scopes = settings.scopes;
       }
+    },
+    /**
+     * Updates list of OAuth grant types supported by current endpoint.
+     * The information should be available in RAML file.
+     *
+     * @param {Array<String>?} supportedTypes List of supported types. If empty
+     * or not set then all available types will be displayed.
+     */
+    _updateGrantTypes: function(supportedTypes) {
+      var available = this._supportedGrantTypes.map(function(item) {
+        return item;
+      });
+      if (!supportedTypes || !supportedTypes.length) {
+        this.set('grantTypes', available);
+        return;
+      }
+      var i;
+      for (i = available.length - 1; i >= 0; i--) {
+        if (supportedTypes.indexOf(available[i].type) === -1) {
+          available.splice(i, 1);
+        }
+      }
+      this.set('grantTypes', available);
+      // check if current selection is still available
+      var current = this.grantType;
+      var hasCurrent = false;
+      for (i = available.length - 1; i >= 0; i--) {
+        if (available[i].type === current) {
+          hasCurrent = true;
+          break;
+        }
+      }
+      if (!hasCurrent) {
+        if (available && available[0]) {
+          this.set('grantType', available[0].type);
+        } else {
+          this.set('grantType', '');
+        }
+      }
+    },
+
+    // Computes boolean value if the `grantType` is set.
+    _computeIsSelectedType: function(grantType) {
+      return !!grantType;
+    },
+
+    _computeStepperClass: function(isSelected) {
+      var cls = 'stepper';
+      if (isSelected) {
+        cls += ' active';
+      }
+      return cls;
+    },
+
+    _clearTypeSelection: function() {
+      this.grantType = '';
+    },
+
+    _computeSelectedTypeLabel: function(grantType) {
+      switch (grantType) {
+        case 'implicit': return 'Access token (browser flow)';
+        case 'authorization_code': return 'Authorization code (server flow)';
+        case 'client_credentials': return 'Client credentials';
+        case 'password': return 'Password';
+      }
+    },
+
+    _copyRedirectUrl: function(e) {
+      e = Polymer.dom(e);
+      var src = e.localTarget.dataset.src;
+      if (!src) {
+        throw new Error('Copy to clipboard require the data-src attribute.');
+      }
+      var params;
+      switch (src) {
+        case 'redirect':
+          params = {
+            container: this.$.redirectLabel,
+            button: this.$.redirectCopyButton
+          };
+          break;
+        case 'token':
+          params = {
+            container: this.$.tokenLabel,
+            button: this.$.tokenCopyButton
+          };
+          break;
+        default:
+          throw new Error('Unknown src value');
+      }
+      return this._copyToClipboard(params);
+    },
+
+    _copyToClipboard: function(params) {
+      // From https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
+      var snipRange = document.createRange();
+      snipRange.selectNodeContents(params.container);
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(snipRange);
+      var result = false;
+      try {
+        result = document.execCommand('copy');
+        params.button.icon = 'done';
+      } catch (err) {
+        // Copy command is not available
+        Polymer.Base._error(err);
+        params.button.icon = 'error';
+      }
+      // Return to the copy button after a second.
+      setTimeout(this._resetCopyButtonState.bind(this, params.button), 1000);
+      selection.removeAllRanges();
+      return result;
+    },
+
+    _resetCopyButtonState: function(button) {
+      button.icon = 'content-copy';
+    },
+
+    _acceptData: function() {
+      if (!this.$.form.validate()) {
+        return;
+      }
+      this._setAcceptedAuthData(true);
+    },
+
+    _openAuthDataStep: function() {
+      this._setAcceptedAuthData(false);
     }
 
   });

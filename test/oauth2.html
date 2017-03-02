@@ -49,14 +49,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element = fixture('basic');
       });
 
-      test('Fire enabled event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('authorization-enabled', spy);
-        var toggle = Polymer.dom(element.root).querySelector('paper-toggle-button');
-        MockInteractions.tap(toggle);
-        assert.isTrue(spy.calledOnce);
-      });
-
       test('The `oauth2-token-response` event sets the tokenValue', function() {
         var event = new CustomEvent('oauth2-token-response', {
           bubbles: true,
@@ -67,18 +59,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
         element.dispatchEvent(event);
         expect(element.tokenValue).to.be.equal('test-token');
-      });
-
-      test('Element is enabled when the token is set', function() {
-        var event = new CustomEvent('oauth2-token-response', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            accessToken: 'test-token'
-          }
-        });
-        element.dispatchEvent(event);
-        expect(element.enabled).to.be.equal(true);
       });
 
       test('Should set first auth type from RAML settings', function() {

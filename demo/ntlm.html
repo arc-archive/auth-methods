@@ -53,10 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.innerHTML += 'Authorization is now disabled\n';
           }.bind(output));
           ntlm.addEventListener('auth-settings-changed', function(e) {
+            var settings = e.detail.settings;
             var text = 'Current settings:\n';
-            text += '\tUsername: ' + e.detail.username + '\n';
-            text += '\tPassword: ' + e.detail.password + '\n';
-            text += '\tDmain: ' + e.detail.domain + '\n';
+            text += '\tUsername: ' + settings.username + '\n';
+            text += '\tPassword: ' + settings.password + '\n';
+            text += '\tDmain: ' + settings.domain + '\n';
             this.innerHTML += text;
           }.bind(output));
         </script>
