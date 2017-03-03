@@ -483,7 +483,8 @@ Custom property | Description | Default
        */
       tokenValue: {
         type: String,
-        observer: '_tokenValueChanged'
+        observer: '_tokenValueChanged',
+        value: ''
       },
       // Computed value, true if access token is set.
       hasTokenValue: {
@@ -524,14 +525,20 @@ Custom property | Description | Default
       // Currently available grant types.
       grantTypes: {
         type: Array
-      }
+      },
+      // Tru whem the element has been initialized.
+      _initialized: Boolean
     },
 
     observers: [
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, ' +
-        'password, username, scopes.*, tokenValue)',
+        'password, username, scopes.*, tokenValue, _initialized)',
       '_settingsChnaged(ramlSettings.*)'
     ],
+
+    ready: function() {
+      this._initialized = true;
+    },
 
     attached: function() {
       this.listen(window, 'oauth2-error', '_oauth2ErrorHandler');
@@ -564,7 +571,7 @@ Custom property | Description | Default
     _settingsChanged: function() {
       var validationResult = this.$.form.validate();
       var settings = this._getSettings();
-      settings.tokenValue = this.tokenValue || undefined;
+      settings.tokenValue = this.tokenValue || '';
       var detail = {
         settings: settings,
         type: 'oauth2',
