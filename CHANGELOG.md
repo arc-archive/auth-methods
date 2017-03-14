@@ -1,3 +1,14 @@
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/advanced-rest-client/auth-methods/compare/2.0.1...v2.0.4) (2017-03-14)
+
+
+### Update
+
+* Updated code and removed ES6 reference ([5cb672f8867d578d7030540495a588af5646c286](https://github.com/advanced-rest-client/auth-methods/commit/5cb672f8867d578d7030540495a588af5646c286))
+* Updated test browsers list for Sauce ([414782d4459190523e9bed972b69ae602870ce5c](https://github.com/advanced-rest-client/auth-methods/commit/414782d4459190523e9bed972b69ae602870ce5c))
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/advanced-rest-client/auth-methods/compare/2.0.1...v2.0.3) (2017-03-03)
 
