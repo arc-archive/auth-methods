@@ -165,7 +165,7 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       var encoded;
       try {
         encoded = atob(hash);
-        let parts = encoded.split(':');
+        var parts = encoded.split(':');
         if (parts.length) {
           this.username = parts[0];
           if (parts[1]) {
