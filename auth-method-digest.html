@@ -39,6 +39,36 @@ by it's own. Otherwise authorization header should be set with calculated value.
 <auth-method-digest username="john" password="doe"></auth-method-digest>
 ```
 
+The `settings` property (of the element or even detail property) for full form
+has the following structure:
+
+```
+{
+  "username": String,
+  "realm": String,
+  "nonce": String,
+  "uri": String,
+  "response": String,
+  "opaque": String,
+  "qop": String - can be empty,
+  "nc": String,
+  "cnonce": String
+}
+```
+
+## Response calculation
+Depending on the algorithm and quality of protection (qop) properties the hasing
+algorithm may need following data:
+- request URL
+- request payload (body)
+- request HTTP method
+
+The element should be provided with this information by setting it's properties.
+However, the element will listen for `url-value-changed`, `http-method-changed`
+and `body-value-changed` events on the window object. Once the event is handled
+it will set up corresponding properties.
+All this events must have a `value` property set on event's detail object.
+
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
 
