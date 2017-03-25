@@ -1,3 +1,19 @@
+<a name="2.0.7"></a>
+## [2.0.7](https://github.com/advanced-rest-client/auth-methods/compare/2.0.5...v2.0.7) (2017-03-25)
+
+
+### Update
+
+* removed reference to paper-toggle-button ([8479bf4f54066da3e495521101460dba9ce544f2](https://github.com/advanced-rest-client/auth-methods/commit/8479bf4f54066da3e495521101460dba9ce544f2))
+
+
+
+<a name="2.0.6"></a>
+## [2.0.6](https://github.com/advanced-rest-client/auth-methods/compare/2.0.5...v2.0.6) (2017-03-25)
+
+
+
+
 <a name="2.0.5"></a>
 ## [2.0.5](https://github.com/advanced-rest-client/auth-methods/compare/2.0.1...v2.0.5) (2017-03-25)
 
