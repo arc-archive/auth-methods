@@ -555,7 +555,9 @@ Custom property | Description | Default
      * Gets a map of current settings (user provided data).
      */
     get settings() {
-      return this._getSettings();
+      var settings = this._getSettings();
+      settings.tokenValue = this.tokenValue || '';
+      return settings;
     },
     /**
      * Validate the form.
@@ -571,7 +573,6 @@ Custom property | Description | Default
     _settingsChanged: function() {
       var validationResult = this.$.form.validate();
       var settings = this._getSettings();
-      settings.tokenValue = this.tokenValue || '';
       var detail = {
         settings: settings,
         type: 'oauth2',
