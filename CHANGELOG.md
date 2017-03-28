@@ -1,3 +1,9 @@
+<a name="2.0.14"></a>
+## [2.0.14](https://github.com/advanced-rest-client/auth-methods/compare/2.0.13...v2.0.14) (2017-03-28)
+
+
+
+
 <a name="2.0.13"></a>
 ## [2.0.13](https://github.com/advanced-rest-client/auth-methods/compare/2.0.11...v2.0.13) (2017-03-28)
 
