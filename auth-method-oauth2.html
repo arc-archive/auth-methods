@@ -557,9 +557,7 @@ Custom property | Description | Default
      * Gets a map of current settings (user provided data).
      */
     get settings() {
-      var settings = this._getSettings();
-      settings.tokenValue = this.tokenValue || '';
-      return settings;
+      return this._getSettings();
     },
     /**
      * Validate the form.
@@ -624,9 +622,9 @@ Custom property | Description | Default
     _getSettings: function() {
       var detail = {
         type: this.grantType,
-        clientId: this.clientId
+        clientId: this.clientId,
+        tokenValue: this.tokenValue || ''
       };
-
       switch (this.grantType) {
         case 'implicit':
           // The browser flow.
