@@ -1,3 +1,19 @@
+<a name="2.0.10"></a>
+## [2.0.10](https://github.com/advanced-rest-client/auth-methods/compare/2.0.8...v2.0.10) (2017-03-28)
+
+
+### Update
+
+* Added event listeners for the auth-settings-changed event so changes in one component will be reflected in any other component of the same type ([277ae396dfb8a882e776bd67579a5dd973eed42c](https://github.com/advanced-rest-client/auth-methods/commit/277ae396dfb8a882e776bd67579a5dd973eed42c))
+
+
+
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/advanced-rest-client/auth-methods/compare/2.0.8...v2.0.9) (2017-03-28)
+
+
+
+
 <a name="2.0.8"></a>
 ## [2.0.8](https://github.com/advanced-rest-client/auth-methods/compare/2.0.7...v2.0.8) (2017-03-25)
 
