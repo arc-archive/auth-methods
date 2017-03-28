@@ -241,12 +241,14 @@ Custom property | Description | Default
       this.listen(window, 'url-value-changed', '_onUrlChanged');
       this.listen(window, 'http-method-changed', '_onHttpMethodChanged');
       this.listen(window, 'body-value-changed', '_onBodyChanged');
+      this.listen(window, 'auth-settings-changed', '_onAuthSettings');
     },
 
     detached: function() {
       this.unlisten(window, 'url-value-changed', '_onUrlChanged');
       this.unlisten(window, 'http-method-changed', '_onHttpMethodChanged');
       this.unlisten(window, 'body-value-changed', '_onBodyChanged');
+      this.unlisten(window, 'auth-settings-changed', '_onAuthSettings');
     },
 
     /**
@@ -261,8 +263,9 @@ Custom property | Description | Default
     },
 
     observers: [
-      '_userInputChanged(username, password, realm, nonce, qop, nc, ' +
-        'algorithm, opaque, cnonce, httpMethod, requestUrl, fullForm)'
+      // jscs:disable maximumLineLength
+      '_userInputChanged(username, password, realm, nonce, qop, nc, algorithm, opaque, cnonce, httpMethod, requestUrl, fullForm)'
+      // jscs:enable maximumLineLength
     ],
 
     /**
@@ -416,6 +419,43 @@ Custom property | Description | Default
      */
     _onBodyChanged: function(e) {
       this.requestBody = e.detail.value;
+    },
+
+    /**
+     * Handler to the `auth-settings-changed` event (fired by all auth panels).
+     * If the event was fired by other element with the same method ttype
+     * then the form will be updated to incomming values.
+     * This helps to sync changes between elements in the same app.
+     */
+    _onAuthSettings: function(e) {
+      if (!this._initialized) {
+        return;
+      }
+      var event = Polymer.dom(e);
+      if (event.rootTarget === this) {
+        return;
+      }
+      if (e.detail.type !== 'basic') {
+        return;
+      }
+      var otherSettings = e.detail.settings;
+      for (var _key in otherSettings) {
+        var _localKey;
+        var _newValue;
+        if (_key === 'uri') {
+          _localKey = 'requestUrl';
+          _newValue = otherSettings[_key];
+        } else if (_key === 'nc') {
+          _newValue = Number(otherSettings[_key].replace(/0+/, ''));
+          _localKey = _key;
+        } else {
+          _localKey = _key;
+          _newValue = otherSettings[_key];
+        }
+        if (this[_localKey] !== _newValue) {
+          this[_localKey] = _newValue;
+        }
+      }
     }
   });
   </script>

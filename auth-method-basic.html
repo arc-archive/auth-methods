@@ -114,6 +114,14 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       }
     },
 
+    attached: function() {
+      this.listen(window, 'auth-settings-changed', '_onAuthSettings');
+    },
+
+    detached: function() {
+      this.unlisten(window, 'auth-settings-changed', '_onAuthSettings');
+    },
+
     /**
      * Gets a map of current settings (user provided data).
      */
@@ -195,6 +203,31 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
 
     clearUsername: function() {
       this.username = '';
+    },
+
+    /**
+     * Handler to the `auth-settings-changed` event (fired by all auth panels).
+     * If the event was fired by other element with the same method ttype
+     * then the form will be updated to incomming values.
+     * This helps to sync changes between elements in the same app.
+     */
+    _onAuthSettings: function(e) {
+      if (!this._initialized) {
+        return;
+      }
+      var event = Polymer.dom(e);
+      if (event.rootTarget === this) {
+        return;
+      }
+      if (e.detail.type !== 'basic') {
+        return;
+      }
+      var otherSettings = e.detail.settings;
+      for (var _key in otherSettings) {
+        if (this[_key] !== otherSettings[_key]) {
+          this[_key] = otherSettings[_key];
+        }
+      }
     }
   });
   </script>
