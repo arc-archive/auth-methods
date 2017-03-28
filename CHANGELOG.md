@@ -1,3 +1,13 @@
+<a name="2.0.13"></a>
+## [2.0.13](https://github.com/advanced-rest-client/auth-methods/compare/2.0.11...v2.0.13) (2017-03-28)
+
+
+### Fix
+
+* tokenValue in settings object is now available when settings change event fires ([d187627748f18c4184fed2cbd149f63c32c922c7](https://github.com/advanced-rest-client/auth-methods/commit/d187627748f18c4184fed2cbd149f63c32c922c7))
+
+
+
 <a name="2.0.12"></a>
 ## [2.0.12](https://github.com/advanced-rest-client/auth-methods/compare/2.0.11...v2.0.12) (2017-03-28)
 
