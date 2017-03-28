@@ -1,6 +1,6 @@
 {
   "name": "auth-methods",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "license": "Apache-2.0 OR CC-BY-4.0",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
   "devDependencies": {
