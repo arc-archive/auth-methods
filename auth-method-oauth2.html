@@ -530,8 +530,9 @@ Custom property | Description | Default
     },
 
     observers: [
-      '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, ' +
-        'password, username, scopes.*, tokenValue, _initialized)',
+      // jscs:disable maximumLineLength
+      '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, password, username, scopes.*, tokenValue, _initialized)',
+      // jscs:enable maximumLineLength
       '_settingsChnaged(ramlSettings.*)'
     ],
 
@@ -542,12 +543,14 @@ Custom property | Description | Default
     attached: function() {
       this.listen(window, 'oauth2-error', '_oauth2ErrorHandler');
       this.listen(window, 'oauth2-token-response', '_oauth2SccessHandler');
+      this.listen(window, 'auth-settings-changed', '_onAuthSettings');
       this._updateGrantTypes();
     },
 
     detached: function() {
       this.unlisten(window, 'oauth2-error', '_oauth2ErrorHandler');
       this.unlisten(window, 'oauth2-token-response', '_oauth2SccessHandler');
+      this.unlisten(window, 'auth-settings-changed', '_onAuthSettings');
     },
 
     /**
@@ -843,8 +846,41 @@ Custom property | Description | Default
 
     _openAuthDataStep: function() {
       this._setAcceptedAuthData(false);
-    }
+    },
 
+    /**
+     * Handler to the `auth-settings-changed` event (fired by all auth panels).
+     * If the event was fired by other element with the same method ttype
+     * then the form will be updated to incomming values.
+     * This helps to sync changes between elements in the same app.
+     */
+    _onAuthSettings: function(e) {
+      if (!this._initialized) {
+        return;
+      }
+      var event = Polymer.dom(e);
+      if (event.rootTarget === this) {
+        return;
+      }
+      if (e.detail.type !== 'oauth2') {
+        return;
+      }
+
+      var otherSettings = e.detail.settings;
+      for (var _key in otherSettings) {
+        var _localKey;
+        if (_key === 'type') {
+          _localKey = 'grantType';
+        } else if (_key === 'authorizationUrl') {
+          _localKey = 'authUrl';
+        } else {
+          _localKey = _key;
+        }
+        if (this[_localKey] !== otherSettings[_key]) {
+          this[_localKey] = otherSettings[_key];
+        }
+      }
+    }
   });
   </script>
 </dom-module>
