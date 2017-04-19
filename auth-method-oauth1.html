@@ -12,10 +12,10 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-masked-input/paper-masked-input.html">
+<link rel="import" href="../anypoint-password-input/anypoint-password-input.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../anypoint-text-field/anypoint-text-field.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
@@ -27,6 +27,7 @@ the License.
 <link rel="import" href="../oauth2-scope-selector/oauth2-scope-selector.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
 <link rel="import" href="auth-methods-behavior.html">
+
 <!--
 The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a settings.
 
@@ -83,13 +84,14 @@ Custom property | Description | Default
         @apply(--icon-button-hover);
       }
 
-      --paper-input-container-focus-color: {
+      --anypoint-text-field-container-focus-color: {
         @apply(--input-line-color);
       }
     }
 
-    paper-input,
-    paper-masked-input {
+    anypoint-text-field,
+    anypoint-password-input,
+    anypoint-password-input {
       max-width: 700px;
     }
 
@@ -179,30 +181,54 @@ Custom property | Description | Default
       @apply(--form-label);
     }
 
+    .themable-dropdown-menu {
+      --paper-dropdown-menu-ripple: {
+        color: transparent;
+      };
+      --paper-input-container-underline: {
+        border-bottom-color: transparent;
+      };
+      --paper-input-container-underline-focus: {
+        border-bottom-color: transparent;
+      };
+      --paper-input-container-underline-disabled: {
+        border-color: transparent;
+      };
+      --paper-menu-button-dropdown: {
+        width: 100%;
+        position: absolute !important;
+        box-shadow: none;
+      };
+    }
+
+    .themable-dropdown-menu paper-listbox {
+      border: 2px solid #cacbcc;
+    }
+
     </style>
 
     <div class="form-panel">
       <div class="form">
         <form is="iron-form" id="form">
 
-          <paper-masked-input auto-validate required label="Consumer key" value="{{consumeKey}}" data-field="consumeKey" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input label="Consumer secret" value="{{consumerSecret}}" data-field="consumerSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate required label="Token" value="{{token}}" data-field="token" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input label="Token secret" value="{{tokenSecret}}" data-field="tokenSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
+          <anypoint-password-input auto-validate required label="Consumer key" value="{{consumeKey}}" data-field="consumeKey" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></anypoint-password-input>
+          <anypoint-password-input label="Consumer secret" value="{{consumerSecret}}" data-field="consumerSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></anypoint-password-input>
+          <anypoint-password-input auto-validate required label="Token" value="{{token}}" data-field="token" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></anypoint-password-input>
+          <anypoint-password-input label="Token secret" value="{{tokenSecret}}" data-field="tokenSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></anypoint-password-input>
 
-          <paper-input auto-validate required label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
+          <anypoint-text-field auto-validate required label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
+            <paper-icon-button noink suffix on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
+            <paper-icon-button noink suffix on-tap="_clearField" icon="anypoint:close" alt="Clear input icon" title="Clear input"></paper-icon-button>
+          </anypoint-text-field>
 
-          <paper-input auto-validate required label="Nonce" value="{{nonce}}" type="text" data-field="nonce" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
+          <anypoint-text-field auto-validate required label="Nonce" value="{{nonce}}" type="text" data-field="nonce" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
+            <paper-icon-button noink suffix on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
+            <paper-icon-button noink suffix on-tap="_clearField" icon="anypoint:close" alt="Clear input icon" title="Clear input"></paper-icon-button>
+          </anypoint-text-field>
 
-          <paper-input label="Realm" value="{{realm}}" type="text" data-field="realm" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-input>
+          <anypoint-text-field label="Realm" value="{{realm}}" type="text" data-field="realm" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></anypoint-text-field>
 
-          <paper-dropdown-menu label="Signature method" class="grant-dropdown" required auto-validate>
+          <paper-dropdown-menu label="Signature method" class="grant-dropdown themable-dropdown-menu" required auto-validate>
             <paper-listbox class="dropdown-content" selected="{{signatureMethod}}" attr-for-selected="data-type">
               <paper-item data-type="HMAC-SHA256">HMAC-SHA256</paper-item>
               <paper-item data-type="HMAC-SHA1">HMAC-SHA1</paper-item>
@@ -211,7 +237,7 @@ Custom property | Description | Default
           </paper-dropdown-menu>
 
           <div class="authorize-actions">
-            <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
+            <paper-button noink disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
             <paper-spinner active="[[_authorizing]]"></paper-spinner>
           </div>
 
@@ -322,8 +348,9 @@ Custom property | Description | Default
     },
 
     observers: [
-      '_settingsChanged(consumeKey, consumerSecret, token, tokenSecret, timestamp, ' +
-        'nonce, realm, signatureMethod)'
+      //jscs:disable
+      '_settingsChanged(consumeKey, consumerSecret, token, tokenSecret, timestamp, nonce, realm, signatureMethod)'
+      //jscs:enable
     ],
 
     attached: function() {
@@ -389,7 +416,7 @@ Custom property | Description | Default
       var path = e.path;
       var inputTarget;
       while ((inputTarget = path.shift())) {
-        if (inputTarget.nodeName === 'INPUT' || inputTarget.nodeName === 'PAPER-INPUT') {
+        if (inputTarget.nodeName === 'INPUT' || inputTarget.nodeName === 'anypoint-text-field') {
           break;
         }
       }
