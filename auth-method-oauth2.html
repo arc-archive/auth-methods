@@ -292,7 +292,7 @@ Custom property | Description | Default
               </div>
 
               <div class="accept-action">
-                <paper-button class="next-button" raised on-tap="_acceptData">Next</paper-button>
+                <paper-button noink class="next-button" raised on-tap="_acceptData">Next</paper-button>
               </div>
             </div>
           </iron-collapse>
@@ -318,7 +318,7 @@ Custom property | Description | Default
             </div>
 
             <div class="authorize-actions" hidden$="[[hasTokenValue]]">
-              <paper-button disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">get access token</paper-button>
+              <paper-button noink disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">Get access token</paper-button>
               <paper-spinner active="[[_authorizing]]"></paper-spinner>
             </div>
 
@@ -330,7 +330,7 @@ Custom property | Description | Default
                 <paper-icon-button noink icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="token" id="tokenCopyButton"></paper-icon-button>
               </p>
               <div class="authorize-actions">
-                <paper-button disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">refresh access token</paper-button>
+                <paper-button noink disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">Refresh access token</paper-button>
                 <paper-spinner active="[[_authorizing]]"></paper-spinner>
               </div>
             </div>
