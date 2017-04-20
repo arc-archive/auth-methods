@@ -241,7 +241,7 @@ Custom property | Description | Default
           <div class="line"></div>
           <iron-collapse opened="[[!isSelectedType]]" class="content">
             <div class="content">
-              <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
+              <paper-dropdown-menu label="Grant type" class="grant-dropdown anypoint-dropdown-menu" required auto-validate>
                 <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
                   <template is="dom-repeat" items="[[grantTypes]]">
                     <paper-item data-type="[[item.type]]">[[item.label]]</paper-item>
