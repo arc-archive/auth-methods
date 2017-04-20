@@ -16,6 +16,8 @@ the License.
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../anypoint-text-field/anypoint-text-field.html">
+<link rel="import" href="../anypoint-styles/dropdown-menu.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
@@ -67,6 +69,7 @@ Custom property | Description | Default
 -->
 <dom-module id="auth-method-oauth1">
   <template>
+    <style include="anypoint-dropdown-menu-styles"></style>
     <style>
     :host {
       display: block;
@@ -180,31 +183,6 @@ Custom property | Description | Default
     label {
       @apply(--form-label);
     }
-
-    .themable-dropdown-menu {
-      --paper-dropdown-menu-ripple: {
-        color: transparent;
-      };
-      --paper-input-container-underline: {
-        border-bottom-color: transparent;
-      };
-      --paper-input-container-underline-focus: {
-        border-bottom-color: transparent;
-      };
-      --paper-input-container-underline-disabled: {
-        border-color: transparent;
-      };
-      --paper-menu-button-dropdown: {
-        width: 100%;
-        position: absolute !important;
-        box-shadow: none;
-      };
-    }
-
-    .themable-dropdown-menu paper-listbox {
-      border: 2px solid #cacbcc;
-    }
-
     </style>
 
     <div class="form-panel">
@@ -228,7 +206,7 @@ Custom property | Description | Default
 
           <anypoint-text-field label="Realm" value="{{realm}}" type="text" data-field="realm" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></anypoint-text-field>
 
-          <paper-dropdown-menu label="Signature method" class="grant-dropdown themable-dropdown-menu" required auto-validate>
+          <paper-dropdown-menu label="Signature method" class="grant-dropdown anypoint-dropdown-menu" required auto-validate>
             <paper-listbox class="dropdown-content" selected="{{signatureMethod}}" attr-for-selected="data-type">
               <paper-item data-type="HMAC-SHA256">HMAC-SHA256</paper-item>
               <paper-item data-type="HMAC-SHA1">HMAC-SHA1</paper-item>
@@ -257,7 +235,7 @@ Custom property | Description | Default
         <p class="hint" field="realm"></p>
       </div>
     </div>
-    <paper-toast text="" duration="5000"></paper-toast>
+    <paper-toast text="" duration="5000" horizontal-align="right" horizontal-offset="20"></paper-toast>
   </template>
   <script>
   Polymer({

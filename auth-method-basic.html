@@ -12,10 +12,10 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-masked-input/paper-masked-input.html">
+<link rel="import" href="../anypoint-password-input/anypoint-password-input.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../anypoint-text-field/anypoint-text-field.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
 <link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="auth-methods-behavior.html">
 <link rel="import" href="auth-methods-styles.html">
@@ -65,10 +65,10 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       <div class="step-content">
         <div class="line"></div>
         <form is="iron-form" id="form" autocomplete="on">
-          <paper-input label="User name" value="{{username}}" type="text" required auto-validate autocomplete="on">
-            <paper-icon-button suffix on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-          <paper-masked-input label="Password" value="{{password}}" auto-validate autocomplete="on"></paper-masked-input>
+          <anypoint-text-field label="User name" value="{{username}}" type="text" required auto-validate autocomplete="on">
+            <paper-icon-button noink suffix on-tap="clearUsername" icon="anypoint:close" alt="Clear input icon" title="Clear input"></paper-icon-button>
+          </anypoint-text-field>
+          <anypoint-password-input label="Password" value="{{password}}" auto-validate autocomplete="on"></anypoint-password-input>
         </form>
       </div>
     </div>
