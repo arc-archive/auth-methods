@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
-
+  <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
   <link rel="import" href="../auth-methods.html">
 
   <style is="custom-style" include="demo-pages-shared-styles">
@@ -39,8 +39,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>The `auth-method-digest`</h3>
     <arc-demo-snippet url="https://api.domain.com/path/to/resource?parm=value" method="GET">
       <template>
-        <auth-method-digest request-url="[[url]]" http-method="[[method]]"></auth-method-digest>
+        <auth-method-digest request-url="[[url]]" http-method="[[method]]" no-stepper="[[noStepper]]"></auth-method-digest>
 
+        <paper-toggle-button checked="{{noStepper}}">Hide stepper</paper-toggle-button>
         <output id="log"></output>
         <style>auth-method-digest {margin-bottom: 40px;}</style>
 

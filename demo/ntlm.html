@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
-
+  <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
   <link rel="import" href="../auth-methods.html">
 
   <style is="custom-style" include="demo-pages-shared-styles">
@@ -38,8 +38,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>The `auth-method-ntlm`</h3>
     <arc-demo-snippet username="John" password="Doe" domain="Mulesoft">
       <template>
-        <auth-method-ntlm username="{{username}}" password="{{password}}" domain="{{domain}}"></auth-method-ntlm>
+        <auth-method-ntlm username="{{username}}" password="{{password}}" domain="{{domain}}" no-stepper="[[noStepper]]"></auth-method-ntlm>
 
+        <paper-toggle-button checked="{{noStepper}}">Hide stepper</paper-toggle-button>
         <output id="log"></output>
         <style>auth-method-ntlm {margin-bottom: 40px;}</style>
 
