@@ -19,7 +19,8 @@
     "auth-method-basic.html",
     "auth-method-ntlm.html",
     "auth-method-oauth1.html",
-    "auth-method-oauth2.html"
+    "auth-method-oauth2.html",
+    "auth-method-digest.html"
   ],
   "repository": {
     "type": "git",
