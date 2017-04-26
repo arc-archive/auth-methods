@@ -1,3 +1,13 @@
+<a name="2.0.23"></a>
+## [2.0.23](https://github.com/advanced-rest-client/auth-methods/compare/2.0.22...v2.0.23) (2017-04-26)
+
+
+### Update
+
+* Added support for the noStepper property which remove the stepper from the UI ([a9640b97c0d8042c3b4136ea0d672df89a006b96](https://github.com/advanced-rest-client/auth-methods/commit/a9640b97c0d8042c3b4136ea0d672df89a006b96))
+
+
+
 <a name="2.0.22"></a>
 ## [2.0.22](https://github.com/advanced-rest-client/auth-methods/compare/2.0.21...v2.0.22) (2017-04-20)
 
