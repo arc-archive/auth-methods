@@ -100,6 +100,9 @@ Custom property | Description | Default
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
 `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
+`--auth-button` | Mixin applied to authorization and next buttons` | `{}`
+`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
+`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
 
 @group UI Elements
 @element auth-method-oauth2
@@ -149,11 +152,19 @@ Custom property | Description | Default
     .auth-button {
       color: var(--accent-color);
       background-color: #fff;
+      @apply(--auth-button);
     }
 
+    .next-button:hover,
+    .auth-button:hover {
+      @apply(--auth-button-hover);
+    }
+
+    .next-button[disabled],
     .auth-button[disabled] {
       background-color: rgba(0, 0, 0, 0.24);
       color: rgba(0, 0, 0, 0.54);
+      @apply(--auth-button-disabled);
     }
 
     .authorize-actions {
@@ -239,7 +250,7 @@ Custom property | Description | Default
         </div>
         <div class="step-content">
           <div class="line"></div>
-          <iron-collapse opened="[[!isSelectedType]]" class="content">
+          <iron-collapse opened="[[typeSelectorOpened]]" class="content">
             <div class="content">
               <paper-dropdown-menu label="Grant type" class="grant-dropdown anypoint-dropdown-menu" required auto-validate>
                 <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
@@ -292,7 +303,7 @@ Custom property | Description | Default
               </div>
 
               <div class="accept-action">
-                <paper-button noink class="next-button" raised on-tap="_acceptData">Next</paper-button>
+                <paper-button noink class="next-button" hidden$="[[noStepper]]" on-tap="_acceptData">Next</paper-button>
               </div>
             </div>
           </iron-collapse>
@@ -318,7 +329,7 @@ Custom property | Description | Default
             </div>
 
             <div class="authorize-actions" hidden$="[[hasTokenValue]]">
-              <paper-button noink disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">Get access token</paper-button>
+              <paper-button noink disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Get access token</paper-button>
               <paper-spinner active="[[_authorizing]]"></paper-spinner>
             </div>
 
@@ -330,7 +341,7 @@ Custom property | Description | Default
                 <paper-icon-button noink icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="token" id="tokenCopyButton"></paper-icon-button>
               </p>
               <div class="authorize-actions">
-                <paper-button noink disabled$="[[_authorizing]]" class="auth-button" raised on-tap="authorize">Refresh access token</paper-button>
+                <paper-button noink disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Refresh access token</paper-button>
                 <paper-spinner active="[[_authorizing]]"></paper-spinner>
               </div>
             </div>
@@ -414,6 +425,19 @@ Custom property | Description | Default
         type: Boolean,
         value: false,
         computed: '_computeIsSelectedType(grantType)'
+      },
+      // If true, OAuth flow selector will be hidden.
+      forceHideTypeSelector: {
+        type: Boolean,
+        value: false
+      },
+      // Computed value, true if the type selector is allowd to be hidden
+      typeSelectorOpened: {
+        type: Boolean,
+        value: false,
+        // jscs:disable maximumLineLength
+        computed: '_computeTypeSelectorOpened(isSelectedType, forceHideTypeSelector, _typeSelectorForceOpened)'
+        // jscs:enable maximumLineLength
       },
       // The client ID for the auth token.
       clientId: {
@@ -529,14 +553,20 @@ Custom property | Description | Default
         type: Array
       },
       // Tru whem the element has been initialized.
-      _initialized: Boolean
+      _initialized: Boolean,
+      // If true, the flow type selector will be forced to be opened
+      _typeSelectorForceOpened: {
+        type: Boolean,
+        value: false
+      }
     },
 
     observers: [
       // jscs:disable maximumLineLength
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, password, username, scopes.*, tokenValue, _initialized)',
       // jscs:enable maximumLineLength
-      '_settingsChnaged(ramlSettings.*)'
+      '_settingsChnaged(ramlSettings.*)',
+      '_updateStepperState(noStepper)'
     ],
 
     ready: function() {
@@ -881,6 +911,21 @@ Custom property | Description | Default
           this[_localKey] = otherSettings[_key];
         }
       }
+    },
+
+    _updateStepperState: function(noStepper) {
+      this._typeSelectorForceOpened = noStepper ? true : false; // can be undefined
+    },
+
+    _computeTypeSelectorOpened: function(isSelectedType, forceHideTypeSelector,
+        _typeSelectorForceOpened) {
+      if (forceHideTypeSelector) {
+        return false;
+      }
+      if (_typeSelectorForceOpened || !isSelectedType) {
+        return true;
+      }
+      return false;
     }
   });
   </script>

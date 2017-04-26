@@ -98,6 +98,9 @@ Custom property | Description | Default
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
 `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
+`--auth-button` | Mixin applied to authorization and next buttons` | `{}`
+`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
+`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
 
 
 
@@ -182,6 +185,9 @@ Custom property | Description | Default
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
 `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
+`--auth-button` | Mixin applied to authorization and next buttons` | `{}`
+`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
+`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
 
 
 

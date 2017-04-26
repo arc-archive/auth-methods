@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
   <link rel="import" href="../../oauth-authorization/oauth2-authorization.html">
-
+  <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
   <link rel="import" href="../auth-methods.html">
 
   <style is="custom-style" include="demo-pages-shared-styles">
@@ -51,9 +51,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           allowed-scopes="[[scopes]]"
           client-id="821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com"
           auth-url="https://accounts.google.com/o/oauth2/v2/auth"
-          grant-type="implicit"></auth-method-oauth2>
+          grant-type="implicit"
+           no-stepper="[[noStepper]]"></auth-method-oauth2>
         <oauth2-authorization></oauth2-authorization>
 
+        <paper-toggle-button checked="{{noStepper}}">Hide stepper</paper-toggle-button>
         <output id="log"></output>
         <style>auth-method-oauth2 {margin-bottom: 40px;}</style>
 
