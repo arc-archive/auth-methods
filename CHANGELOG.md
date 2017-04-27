@@ -1,3 +1,22 @@
+<a name="2.0.27"></a>
+## [2.0.27](https://github.com/advanced-rest-client/auth-methods/compare/2.0.26...v2.0.27) (2017-04-27)
+
+
+### Fix
+
+* Fixed liner error caused bvy invalid attribute binding ([06867d5a13ac9db01c615f0921ea76e1b1e9025a](https://github.com/advanced-rest-client/auth-methods/commit/06867d5a13ac9db01c615f0921ea76e1b1e9025a))
+
+### New
+
+* Added support for RAML's custom methods ([524374bb22363dbafba4075f759f18c8f309723e](https://github.com/advanced-rest-client/auth-methods/commit/524374bb22363dbafba4075f759f18c8f309723e))
+
+### Update
+
+* UPdated lint command ([8bfe44899354773698d41ff1806d4e8665407ca2](https://github.com/advanced-rest-client/auth-methods/commit/8bfe44899354773698d41ff1806d4e8665407ca2))
+* updated name of the function ([1c4a364b1b8998f30c5ceed0f1dd94fec07015ff](https://github.com/advanced-rest-client/auth-methods/commit/1c4a364b1b8998f30c5ceed0f1dd94fec07015ff))
+
+
+
 <a name="2.0.26"></a>
 ## [2.0.26](https://github.com/advanced-rest-client/auth-methods/compare/2.0.25...v2.0.26) (2017-04-27)
 
