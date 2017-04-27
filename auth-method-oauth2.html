@@ -17,6 +17,8 @@ the License.
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-form/iron-form.html">
@@ -29,6 +31,7 @@ the License.
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="polyfills.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
@@ -240,7 +243,10 @@ Custom property | Description | Default
         <div class$="[[_computeStepperClass(isSelectedType)]]" on-tap="_clearTypeSelection">
           <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
           <span class="step-header">
-            <span class="step-title">Select OAuth 2.0 grant type</span>
+            <span class="step-title">
+              Select OAuth 2.0 grant type
+              <iron-icon icon="anypoint:edit" class="edit-icon" title="Click to make changes"></iron-icon>
+            </span>
             <span class="step-selection" hidden$="[[!isSelectedType]]">[[_computeSelectedTypeLabel(grantType)]]</span>
           </span>
           <paper-ripple></paper-ripple>
@@ -249,7 +255,7 @@ Custom property | Description | Default
           <div class="line"></div>
           <iron-collapse opened="[[typeSelectorOpened]]" class="content">
             <div class="content">
-              <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
+              <paper-dropdown-menu label="Grant type" class$="grant-dropdown [[_computeDropdownClass(_theme)]]" required auto-validate>
                 <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
                   <template is="dom-repeat" items="[[grantTypes]]">
                     <paper-item data-type="[[item.type]]">[[item.label]]</paper-item>
@@ -265,7 +271,10 @@ Custom property | Description | Default
         <div class$="[[_computeStepperClass(acceptedAuthData)]]" on-tap="_openAuthDataStep">
           <span class="step">[[_computeStep(stepStartIndex, 2)]]</span>
           <span class="step-header">
-            <span class="step-title">Set authorization data</span>
+            <span class="step-title">
+              Set authorization data
+              <iron-icon icon="anypoint:edit" class="edit-icon" title="Click to make changes"></iron-icon>
+            </span>
             <span class="step-selection" hidden$="[[!acceptedAuthData]]">Client id: <span>[[clientId]]</span></span>
           </span>
           <paper-ripple></paper-ripple>
@@ -318,7 +327,7 @@ Custom property | Description | Default
           <div class="line"></div>
           <div class="content">
             <div class="redirect-section">
-              <p class="redirect-info">Use the following URL to set up OAuth redirect in the provider’s settings. <b>This step is required.</b></p>
+              <p class="redirect-info">Use the following URL to set up OAuth redirect in the provider’s settings.</p>
               <p class="read-only-param-field padding">
                 <span class="code" tabindex="0" id="redirectLabel">[[redirectUrl]]</span>
                 <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="redirect" id="redirectCopyButton"></paper-icon-button>
@@ -555,7 +564,12 @@ Custom property | Description | Default
       _typeSelectorForceOpened: {
         type: Boolean,
         value: false
-      }
+      },
+      /**
+       * Please, style this element using CSS variables and mixins.
+       * This is reserved for anypoint styling.
+       */
+      _theme: String
     },
 
     observers: [
@@ -563,10 +577,15 @@ Custom property | Description | Default
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, password, username, scopes.*, tokenValue, _initialized)',
       // jscs:enable maximumLineLength
       '_settingsChnaged(ramlSettings.*)',
-      '_updateStepperState(noStepper)'
+      '_updateStepperState(noStepper)',
+      // '_themeChanged(_theme)'
     ],
 
     ready: function() {
+      // var theme = document.createElement('iron-meta').byKey('api-console-theme');
+      // if (theme === 'anypoint') {
+      //   this._theme = theme;
+      // }
       this._initialized = true;
     },
 
@@ -923,6 +942,37 @@ Custom property | Description | Default
         return true;
       }
       return false;
+    },
+
+    // _themeChanged: function(_theme) {
+    //   var resolvedThemeUrl = this.resolveUrl(_theme + '-imports.html');
+    //   this.importHref(resolvedThemeUrl, this._themeLoaded, undefined, true);
+    // },
+    //
+    // _themeLoaded: function() {
+    //   var dom = Polymer.dom(this.root);
+    //   var old = dom.querySelector('[data-theme]');
+    //   if (old) {
+    //     dom.removeChild(old);
+    //   }
+    //
+    //   var newTheme = this._theme + '-dropdown-menu-styles';
+    //   var s = document.createElement('style', 'custom-style');
+    //   s.include = newTheme;
+    //   s.dataset.theme = newTheme;
+    //   dom.appendChild(s);
+    //
+    //   Polymer.RenderStatus.afterNextRender(this, function() {
+    //     s.textContent = s.textContent
+    //       .replace(/:not\(\[style-scope\]\):not\(\.style-scope\)/gm, '');
+    //   });
+    // },
+    //
+    _computeDropdownClass: function(_theme) {
+      if (!_theme) {
+        return;
+      }
+      return _theme + '-dropdown-menu';
     }
   });
   </script>
