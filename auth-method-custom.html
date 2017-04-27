@@ -186,7 +186,7 @@ Input styles are consistent with `raml-headers-form` element.
                         <paper-dropdown-menu label="[[item.inputLabel]]" name="[[item.name]]" required="[[item.required]]" on-iron-select="_parameterValueChanged">
                           <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{item.value}}">
                             <template is="dom-repeat" items="[[item.enum]]">
-                              <paper-item data-value="[[item]]">[[item]]</paper-item>
+                              <paper-item data-value$="[[item]]">[[item]]</paper-item>
                             </template>
                           </paper-listbox>
                         </paper-dropdown-menu>
