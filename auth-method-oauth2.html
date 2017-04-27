@@ -525,12 +525,6 @@ Custom property | Description | Default
        * If set, it will prefill the settings in the auth panel.
        */
       ramlSettings: Object,
-      // True when auth data from has been accepted.
-      acceptedAuthData: {
-        type: Boolean,
-        value: false,
-        readOnly: true
-      },
       // List of all possible grant types;
       _supportedGrantTypes: {
         type: Array,
@@ -932,17 +926,6 @@ Custom property | Description | Default
 
     _resetCopyButtonState: function(button) {
       button.icon = 'content-copy';
-    },
-
-    _acceptData: function() {
-      if (!this.$.form.validate()) {
-        return;
-      }
-      this._setAcceptedAuthData(true);
-    },
-
-    _openAuthDataStep: function() {
-      this._setAcceptedAuthData(false);
     },
 
     /**
