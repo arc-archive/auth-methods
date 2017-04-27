@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
+    <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
+    <link rel="import" href="../auth-methods.html">
+  </head>
+  <body>
+
+    <test-fixture id="parser">
+      <template>
+        <raml-js-parser json></raml-js-parser>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="enhancer">
+      <template>
+        <raml-json-enhance></raml-json-enhance>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="custom">
+      <template>
+        <auth-method-custom></auth-method-custom>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global fixture, assert, TestHelpers, sinon */
+    suite('custom auth', function() {
+      var parsedRaml;
+      var element;
+      suiteSetup(function(done) {
+        this.timeout(30000);
+        var baseUrl = location.href.substr(0, location.href.lastIndexOf('/') + 1);
+        var parser = fixture('parser');
+        var enhancer = fixture('enhancer');
+        enhancer.addEventListener('raml-json-enhance-ready', function(e) {
+          parsedRaml = e.detail.json;
+          done();
+        });
+        parser.loadApi(baseUrl + 'test.raml')
+        .then(function(data) {
+          enhancer.json = data.json.specification;
+        })
+        .catch(function(e) {
+          done(new Error('Parser error: ' + (e.message || 'Some error happened...')));
+        });
+      });
+
+      setup(function() {
+        element = fixture('custom');
+      });
+
+      test('Computes headers property', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        assert.isArray(element.headers, 'headers is array');
+        assert.lengthOf(element.headers, 1, 'headers has one item');
+      });
+
+      test('Computes queryParameters property', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        assert.isArray(element.queryParameters, 'queryParameters is array');
+        assert.lengthOf(element.queryParameters, 2, 'queryParameters has one item');
+      });
+
+      test('Computes hasHeaders property', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        assert.isTrue(element.hasHeaders);
+      });
+
+      test('Computes hasQueryParameters property', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        assert.isTrue(element.hasQueryParameters);
+      });
+
+      test('Don\'t passes the validation', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        TestHelpers.forceXIfStamp(element);
+        assert.isFalse(element.validate());
+      });
+
+      test('Updates header value from event cases insensitive', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        TestHelpers.forceXIfStamp(element);
+        var ev = new CustomEvent('request-header-changed', {
+          'detail': {
+            'name': 'specialtoken',
+            'value': 'test'
+          },
+          bubbles: true
+        });
+        document.dispatchEvent(ev);
+        assert.equal(element.headers[0].value, 'test');
+      });
+
+      test('Updates query parameter value from event cases sensitive', function() {
+        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
+        TestHelpers.forceXIfStamp(element);
+        var ev = new CustomEvent('query-parameter-changed', {
+          'detail': {
+            'name': 'debugToken',
+            'value': 'Critical'
+          },
+          bubbles: true
+        });
+        document.dispatchEvent(ev);
+        assert.equal(element.queryParameters[0].value, 'Critical');
+      });
+
+    });
+    </script>
+
+  </body>
+</html>

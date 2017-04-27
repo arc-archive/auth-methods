@@ -1,6 +1,6 @@
 {
   "name": "auth-methods",
-  "version": "2.0.24",
+  "version": "2.0.28",
   "license": "Apache-2.0 OR CC-BY-4.0",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
   "devDependencies": {
@@ -16,7 +16,7 @@
   "author": "The Advanced REST client authors <arc@mulesoft.com>",
   "scripts": {
     "serve": "node_modules/.bin/polymer serve",
-    "lint": "node_modules/.bin/polymer lint auth-methods.html",
+    "lint": "node_modules/.bin/polymer lint auth-method-basic.html auth-method-custom.html auth-method-digest.html auth-method-ntlm.html auth-method-oauth2.html auth-methods-behavior.html",
     "test-sauce": "node_modules/.bin/polymer test --plugin sauce --job-name \"auth-methods:local-test\"",
     "test": "node_modules/.bin/polymer test",
     "deps": "npm install --quiet && bower install --quiet",
