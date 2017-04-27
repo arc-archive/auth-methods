@@ -16,6 +16,7 @@
   "newcap": false,
   "globals": {
     "Polymer": true,
-    "ArcBehaviors": true
+    "ArcBehaviors": true,
+    "CryptoJS": true
   }
 }
