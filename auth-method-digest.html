@@ -81,7 +81,7 @@ Custom property | Description | Default
 
 @group UI Elements
 @element auth-method-digest
-@demo demo/basic.html
+@demo demo/digest.html
 -->
 <dom-module id="auth-method-digest">
   <template>
@@ -134,7 +134,6 @@ Custom property | Description | Default
     </div>
   </template>
   <script>
-  /* global CryptoJS */
   Polymer({
     is: 'auth-method-digest',
     behaviors: [ArcBehaviors.AuthMethodsBehavior],
