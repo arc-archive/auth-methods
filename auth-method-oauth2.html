@@ -597,7 +597,7 @@ Custom property | Description | Default
       // jscs:disable maximumLineLength
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, password, username, scopes.*, tokenValue, _initialized)',
       // jscs:enable maximumLineLength
-      '_settingsChnaged(ramlSettings.*)',
+      '_ramlSettingsChanged(ramlSettings.*)',
       '_updateStepperState(noStepper)'
       // '_themeChanged(_theme)'
     ],
@@ -771,7 +771,7 @@ Custom property | Description | Default
       }
     },
 
-    _settingsChnaged: function(record) {
+    _ramlSettingsChanged: function(record) {
       if (!record || !record.base) {
         return;
       }
