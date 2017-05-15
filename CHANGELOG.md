@@ -1,3 +1,18 @@
+<a name="2.0.29"></a>
+## [2.0.29](https://github.com/advanced-rest-client/auth-methods/compare/2.0.28...v2.0.29) (2017-05-15)
+
+
+### Fix
+
+* Fixed documentation toggle after a change in Polymer dom-repeat ([f0c38c4af5913ad258ba1a06f29bc10ae493a382](https://github.com/advanced-rest-client/auth-methods/commit/f0c38c4af5913ad258ba1a06f29bc10ae493a382))
+* replaced polyfills with arc polyfils ([6050088b80541d591f1bbedfba449a22f167f378](https://github.com/advanced-rest-client/auth-methods/commit/6050088b80541d591f1bbedfba449a22f167f378))
+
+### Update
+
+* Started styling for the anypoint platform ([51eb16188301e325fa234dc4190b523642602f62](https://github.com/advanced-rest-client/auth-methods/commit/51eb16188301e325fa234dc4190b523642602f62))
+
+
+
 <a name="2.0.28"></a>
 ## [2.0.28](https://github.com/advanced-rest-client/auth-methods/compare/2.0.27...v2.0.28) (2017-04-27)
 
