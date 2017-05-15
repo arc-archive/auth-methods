@@ -144,7 +144,7 @@ Input styles are consistent with `raml-headers-form` element.
           <div class="content">
             <template is="dom-if" if="[[hasHeaders]]">
               <section id="headersList">
-                <template is="dom-repeat" items="[[headers]]">
+                <template is="dom-repeat" items="[[headers]]" headers-repeater>
                   <div class="input-row">
                     <div class="value-input">
                       <paper-input
@@ -178,8 +178,8 @@ Input styles are consistent with `raml-headers-form` element.
               </section>
             </template>
             <template is="dom-if" if="[[hasQueryParameters]]">
-              <section id="parametersList">
-                <template is="dom-repeat" items="[[queryParameters]]">
+              <section id="paramsList">
+                <template is="dom-repeat" items="[[queryParameters]]" params-repeater>
                   <div class="input-row">
                     <div class="value-input">
                       <template is="dom-if" if="[[item.isEnum]]">
@@ -429,19 +429,26 @@ Input styles are consistent with `raml-headers-form` element.
 
     // Opens the documentation for headers item.
     _openHeaderDoc: function(e) {
-      var model = e.model;
-      var collapse = this.$.headersList.querySelector('.input-row:nth-child(' + (model.index + 1) +
-        ') iron-collapse');
-      if (!collapse) {
-        return;
-      }
-      collapse.opened = !collapse.opened;
+      var model = this._getItemModel('headers', e);
+      this._toggleDoc('headers', model);
     },
     // Opens the documentation for query parameters item.
     _openParamDoc:  function(e) {
-      var model = e.model;
-      var collapse = this.$.parametersList.querySelector('.input-row:nth-child(' + (model.index + 1) +
-        ') iron-collapse');
+      var model = this._getItemModel('params', e);
+      this._toggleDoc('params', model);
+    },
+    /**
+     * Returns model for event fired by a repeater defined as the `source`
+     */
+    _getItemModel: function(source, e) {
+      var template = this.$.form.querySelector('[' + source + '-repeater]');
+      return template.modelForElement(e.target);
+    },
+
+    _toggleDoc: function(type, model) {
+      var i = model.index + 1;
+      var collapse = this.$$('#' + type + 'List')
+        .querySelector('.input-row:nth-child(' + i + ') iron-collapse');
       if (!collapse) {
         return;
       }
