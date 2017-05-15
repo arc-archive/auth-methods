@@ -21,9 +21,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
   <link rel="import" href="../../oauth-authorization/oauth2-authorization.html">
-
+  <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
+  <link rel="import" href="../../iron-meta/iron-meta.html">
   <link rel="import" href="../auth-methods.html">
-
+  <iron-meta key="api-console-theme" value="anypoint"></iron-meta>
   <style is="custom-style" include="demo-pages-shared-styles">
     :root {
       --form-label: {
@@ -35,6 +36,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     output {
       white-space: pre-wrap;
+      margin-top: 20px;
+    }
+    auth-method-oauth2 {
+      margin-bottom: 40px;
     }
   </style>
 </head>
@@ -50,34 +55,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           allowed-scopes="[[scopes]]"
           client-id="821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com"
           auth-url="https://accounts.google.com/o/oauth2/v2/auth"
-          grant-type="implicit"></auth-method-oauth2>
+          grant-type="implicit"
+          no-stepper="[[noStepper]]"
+          no-grant-type="[[noGrantType]]"
+          step-start-index="0"></auth-method-oauth2>
         <oauth2-authorization></oauth2-authorization>
 
+        <paper-toggle-button checked="{{noStepper}}">Hide stepper</paper-toggle-button>
+        <paper-toggle-button checked="{{noGrantType}}">Hide grant type selector</paper-toggle-button>
         <output id="log"></output>
-        <style>auth-method-oauth2 {margin-bottom: 40px;}</style>
 
-        <b>Disclaimer: This demo authorizes with provided parameters in the API but it will not make any other request to this API now and in the future using generated access tokens / access codes.</b>
-        <p>If you have concerns about how this works, please, conact me: arc@mulesoft.com</p>
         <script>
           var provider = document.querySelector('auth-method-oauth2');
           var redirectUrl = location.href.replace('/auth-methods/demo/oauth2.html',
             '/oauth-authorization/oauth-popup.html');
           provider.redirectUrl = redirectUrl;
           var output = document.querySelector('output');
-          provider.addEventListener('authorization-enabled', function() {
-            this.innerHTML += 'Authorization is now enabled\n';
-          }.bind(output));
-          provider.addEventListener('authorization-disabled', function() {
-            this.innerHTML += 'Authorization is now disabled\n';
-          }.bind(output));
           provider.addEventListener('error', function(e) {
-            this.innerHTML += e.detail.error.message + '\n';
+            this.innerHTML = e.detail.error.message + '\n';
           }.bind(output));
           provider.addEventListener('auth-settings-changed', function(e) {
             var text = 'Current settings:\n';
             var data = JSON.stringify(e.detail, null, 2);
             text += data + '\n';
-            this.innerHTML += text;
+            this.innerHTML = text;
           }.bind(output));
         </script>
       </template>

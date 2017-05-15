@@ -101,6 +101,19 @@ the License.
     #form {
       width: 100%;
     }
+
+    :host([no-stepper]) .step-content .line,
+    :host([no-stepper]) .stepper {
+      display: none;
+    }
+
+    .edit-icon {
+      visibility: hidden;
+    }
+
+    .active .step-header:hover .edit-icon {
+      visibility: visible;
+    }
     </style>
   </template>
 </dom-module>

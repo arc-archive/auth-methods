@@ -35,32 +35,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body unresolved>
   <div class="vertical-section-container centered">
-    <h3>The `auth-method-basic`</h3>
-    <arc-demo-snippet hash="dGVzdDp0ZXN0">
+    <h3>The `auth-method-custom`</h3>
+    <arc-demo-snippet raml='{"name":"x-custom","type":"x-custom","description":"A custom security scheme for authenticating requests.\n","describedBy":{"queryParameters":[{"name":"debugToken","displayName":"debugToken","type":"string","required":false,"description":"Select one of available values to run the request in the debug mode with selected level.","enum":["Info","Log","Warning","Error","Critical"],"key":"debugToken"},{"name":"booleanToken","displayName":"booleanToken","type":"boolean","default":true,"required":true,"description":"Just to test boolean values.","key":"booleanToken"}],"headers":[{"name":"SpecialToken","displayName":"SpecialToken","type":"string","required":true,"description":"Used to send a custom token.\n","key":"SpecialToken"}],"responses":[{"code":"401","description":"Bad token.\n"},{"code":"403"}]}}'>
       <template>
-        <auth-method-basic hash="{{hash}}" no-stepper="[[noStepper]]"></auth-method-basic>
+        <auth-method-custom raml-settings="[[raml]]" no-stepper="[[noStepper]]"></auth-method-custom>
 
-        <paper-input label="Generated hash" value="{{hash}}"></paper-input>
         <paper-toggle-button checked="{{noStepper}}">Hide stepper</paper-toggle-button>
         <output id="log"></output>
-        <style>auth-method-basic {margin-bottom: 40px;}</style>
+        <style>auth-method-custom {margin-bottom: 40px;}</style>
 
         <script>
-          var basic = document.querySelector('auth-method-basic');
+          var basic = document.querySelector('auth-method-custom');
           var output = document.querySelector('output');
-          basic.addEventListener('authorization-enabled', function() {
-            this.innerHTML += 'Authorization is now enabled\n';
-          }.bind(output));
-          basic.addEventListener('authorization-disabled', function() {
-            this.innerHTML += 'Authorization is now disabled\n';
-          }.bind(output));
           basic.addEventListener('auth-settings-changed', function(e) {
-            var settings = e.detail.settings;
+            var settings = JSON.stringify(e.detail.settings, null, 1);
             var text = 'Current settings:\n';
-            text += '\tUsername: ' + settings.username + '\n';
-            text += '\tPassword: ' + settings.password + '\n';
-            text += '\tHash: ' + settings.hash + '\n';
-            this.innerHTML += text;
+            text += '\t ' + settings;
+            this.innerHTML = text;
           }.bind(output));
           basic.addEventListener('error', function(e) {
             this.innerHTML += e.detail.error.message + '\n';

@@ -14,8 +14,10 @@
   "undef": true,
   "unused": true,
   "newcap": false,
+  "mocha": true,
   "globals": {
     "Polymer": true,
-    "ArcBehaviors": true
+    "ArcBehaviors": true,
+    "CryptoJS": true
   }
 }

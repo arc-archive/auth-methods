@@ -1,3 +1,92 @@
+<a name="2.0.28"></a>
+## [2.0.28](https://github.com/advanced-rest-client/auth-methods/compare/2.0.27...v2.0.28) (2017-04-27)
+
+
+
+
+<a name="2.0.27"></a>
+## [2.0.27](https://github.com/advanced-rest-client/auth-methods/compare/2.0.26...v2.0.27) (2017-04-27)
+
+
+### Fix
+
+* Fixed liner error caused bvy invalid attribute binding ([06867d5a13ac9db01c615f0921ea76e1b1e9025a](https://github.com/advanced-rest-client/auth-methods/commit/06867d5a13ac9db01c615f0921ea76e1b1e9025a))
+
+### New
+
+* Added support for RAML's custom methods ([524374bb22363dbafba4075f759f18c8f309723e](https://github.com/advanced-rest-client/auth-methods/commit/524374bb22363dbafba4075f759f18c8f309723e))
+
+### Update
+
+* UPdated lint command ([8bfe44899354773698d41ff1806d4e8665407ca2](https://github.com/advanced-rest-client/auth-methods/commit/8bfe44899354773698d41ff1806d4e8665407ca2))
+* updated name of the function ([1c4a364b1b8998f30c5ceed0f1dd94fec07015ff](https://github.com/advanced-rest-client/auth-methods/commit/1c4a364b1b8998f30c5ceed0f1dd94fec07015ff))
+
+
+
+<a name="2.0.26"></a>
+## [2.0.26](https://github.com/advanced-rest-client/auth-methods/compare/2.0.25...v2.0.26) (2017-04-27)
+
+
+
+
+<a name="2.0.25"></a>
+## [2.0.25](https://github.com/advanced-rest-client/auth-methods/compare/2.0.24...v2.0.25) (2017-04-27)
+
+
+### Docs
+
+* Updated property description ([c60417333e0ca391c970b295532b78c77b8dd4b9](https://github.com/advanced-rest-client/auth-methods/commit/c60417333e0ca391c970b295532b78c77b8dd4b9))
+
+### Fix
+
+* Fixed documentation for digest method ([f35c964f020961e91a7747b25f78bd7aa80b8c98](https://github.com/advanced-rest-client/auth-methods/commit/f35c964f020961e91a7747b25f78bd7aa80b8c98))
+
+### New
+
+* Added ability to hide grant type selector. Removed collapsable element for authorization data section. ([e79dccb658fa8f84760062d31f0b3f7a49c3ee27](https://github.com/advanced-rest-client/auth-methods/commit/e79dccb658fa8f84760062d31f0b3f7a49c3ee27))
+* Added edit icon when hovering collapsed title to point out that there is an action on click ([c230831c1e2d494edf62e9138a364127ed924731](https://github.com/advanced-rest-client/auth-methods/commit/c230831c1e2d494edf62e9138a364127ed924731))
+
+### Update
+
+* Added auto hide for advanced options when the element is initialized with predefined data ([6028fabca03c7e5c3e79aea463148b9fdc8ae50d](https://github.com/advanced-rest-client/auth-methods/commit/6028fabca03c7e5c3e79aea463148b9fdc8ae50d))
+* Added auto hide option when RAML settings change ([cc4ef100f5ddefc7e85f996bd8fe43bd7df7c6e0](https://github.com/advanced-rest-client/auth-methods/commit/cc4ef100f5ddefc7e85f996bd8fe43bd7df7c6e0))
+* Added the digest method to bower to be recognizable by the catalogue. Added digest method to demo page ([747f44040f3c302389c171f09406b80470e2e665](https://github.com/advanced-rest-client/auth-methods/commit/747f44040f3c302389c171f09406b80470e2e665))
+* An attempt to made theming for anypoint ([f24cbaaaec08057cc66422e28e81ad24e7fa10ed](https://github.com/advanced-rest-client/auth-methods/commit/f24cbaaaec08057cc66422e28e81ad24e7fa10ed))
+* moved hide/show form fields logic to CSS instead of computing values ([646144f7dd8dcfb04c8d6bbbcccc9e6ce6bf157e](https://github.com/advanced-rest-client/auth-methods/commit/646144f7dd8dcfb04c8d6bbbcccc9e6ce6bf157e))
+* Removed iron-meta as unused ([427d26efb5d466a3f19159ee8295024c62955007](https://github.com/advanced-rest-client/auth-methods/commit/427d26efb5d466a3f19159ee8295024c62955007))
+* Removed unused "description" property ([e96c62894fc6cf87df6e643e0ebfc5496ad92c9f](https://github.com/advanced-rest-client/auth-methods/commit/e96c62894fc6cf87df6e643e0ebfc5496ad92c9f))
+* removed unused code after removing collapsable from OAuth 2 auth data form ([cb19bf30570d863ba71e1a83a183bf9c1afe2c3c](https://github.com/advanced-rest-client/auth-methods/commit/cb19bf30570d863ba71e1a83a183bf9c1afe2c3c))
+
+
+
+<a name="2.0.24"></a>
+## [2.0.24](https://github.com/advanced-rest-client/auth-methods/compare/2.0.23...v2.0.24) (2017-04-26)
+
+
+
+
+<a name="2.0.23"></a>
+## [2.0.23](https://github.com/advanced-rest-client/auth-methods/compare/2.0.22...v2.0.23) (2017-04-26)
+
+
+### Update
+
+* Added support for the noStepper property which remove the stepper from the UI ([a9640b97c0d8042c3b4136ea0d672df89a006b96](https://github.com/advanced-rest-client/auth-methods/commit/a9640b97c0d8042c3b4136ea0d672df89a006b96))
+
+
+
+<a name="2.0.22"></a>
+## [2.0.22](https://github.com/advanced-rest-client/auth-methods/compare/2.0.21...v2.0.22) (2017-04-20)
+
+
+
+
+<a name="2.0.21"></a>
+## [2.0.21](https://github.com/advanced-rest-client/auth-methods/compare/2.0.20...v2.0.21) (2017-04-20)
+
+
+
+
 <a name="2.0.20"></a>
 ## [2.0.20](https://github.com/advanced-rest-client/auth-methods/compare/2.0.19...v2.0.20) (2017-04-19)
 

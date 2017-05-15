@@ -98,6 +98,9 @@ Custom property | Description | Default
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
 `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
+`--auth-button` | Mixin applied to authorization and next buttons` | `{}`
+`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
+`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
 
 
 
@@ -182,6 +185,9 @@ Custom property | Description | Default
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
 `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
+`--auth-button` | Mixin applied to authorization and next buttons` | `{}`
+`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
+`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
 
 
 
@@ -201,3 +207,64 @@ clientSecret **String** - The client secret that user can get from the OAuth pro
 accessTokenUrl **String** - An URL to exchange code for the access token. Used by `authorization_code`, `client_credentials` and `password` types. |
 username **String** - Used with `password` type. |
 password **String** - Used with `password` type. |
+# auth-method-digest
+
+The `<auth-method-digest>` element displays a form for digest authentication.
+The user have to choose is he want to provide username and password only or
+all digest parameters to calculate final authorization header.
+
+In first case, the listeners and the transport method must perform handshake
+by it's own. Otherwise authorization header should be set with calculated value.
+
+### Example
+```
+<auth-method-digest username="john" password="doe"></auth-method-digest>
+```
+
+The `settings` property (of the element or even detail property) for full form
+has the following structure:
+
+```
+{
+  "username": String,
+  "realm": String,
+  "nonce": String,
+  "uri": String,
+  "response": String,
+  "opaque": String,
+  "qop": String - can be empty,
+  "nc": String,
+  "cnonce": String
+}
+```
+
+## Response calculation
+Depending on the algorithm and quality of protection (qop) properties the hasing
+algorithm may need following data:
+- request URL
+- request payload (body)
+- request HTTP method
+
+The element should be provided with this information by setting it's properties.
+However, the element will listen for `url-value-changed`, `http-method-changed`
+and `body-value-changed` events on the window object. Once the event is handled
+it will set up corresponding properties.
+All this events must have a `value` property set on event's detail object.
+
+### Styling
+`<auth-methods>` provides the following custom properties and mixins for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--auth-method-digest` | Mixin applied to the element. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
+
+
+
+### Events
+| Name | Description | Params |
+| --- | --- | --- |
+| auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | settings **Object** - Current settings containing hash, password and username. |
+type **String** - The authorization type - basic |
+valid **Boolean** - True if the form has been validated. |
+| error | Fired when error occured when decoding hash. | error **Error** - The error object. |
