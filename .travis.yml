@@ -12,7 +12,6 @@ script:
 - ./node_modules/.bin/polymer test --plugin sauce --job-name "auth-methods:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
 cache:
   directories:
-  - bower_components
   - node_modules
 branches:
   only:
