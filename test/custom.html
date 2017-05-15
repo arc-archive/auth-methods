@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
     <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
     <link rel="import" href="../auth-methods.html">
+    <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
   </head>
   <body>
 
@@ -54,6 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         enhancer.addEventListener('raml-json-enhance-ready', function(e) {
           parsedRaml = e.detail.json;
           done();
+        });
+        enhancer.addEventListener('error', function(e) {
+          done(new Erorr(e.detail.message));
         });
         parser.loadApi(baseUrl + 'test.raml')
         .then(function(data) {
