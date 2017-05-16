@@ -1,3 +1,13 @@
+<a name="2.0.30"></a>
+## [2.0.30](https://github.com/advanced-rest-client/auth-methods/compare/2.0.29...v2.0.30) (2017-05-16)
+
+
+### Fix
+
+* Reverted changes to the oauth1 panel for before changes to anypoint styling ([6f2f932df5ec8274592db1cc5a48953ac4c22bc6](https://github.com/advanced-rest-client/auth-methods/commit/6f2f932df5ec8274592db1cc5a48953ac4c22bc6))
+
+
+
 <a name="2.0.29"></a>
 ## [2.0.29](https://github.com/advanced-rest-client/auth-methods/compare/2.0.28...v2.0.29) (2017-05-15)
 
