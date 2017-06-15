@@ -1,3 +1,13 @@
+<a name="2.0.31"></a>
+## [2.0.31](https://github.com/advanced-rest-client/auth-methods/compare/2.0.30...v2.0.31) (2017-06-15)
+
+
+### Fix
+
+* Removed any reference to Anyponit styles ([d4e9d00d3b95e5b2a0d1beaa1b31bfc4a99811be](https://github.com/advanced-rest-client/auth-methods/commit/d4e9d00d3b95e5b2a0d1beaa1b31bfc4a99811be))
+
+
+
 <a name="2.0.30"></a>
 ## [2.0.30](https://github.com/advanced-rest-client/auth-methods/compare/2.0.29...v2.0.30) (2017-05-16)
 
