@@ -1,3 +1,13 @@
+<a name="2.0.35"></a>
+## [2.0.35](https://github.com/advanced-rest-client/auth-methods/compare/2.0.34...v2.0.35) (2017-07-13)
+
+
+### Update
+
+* Making `scope` not required element of the OAuth 2.0 form.  ([0bc2795854c6b53383439b55c47de2f245af0f45](https://github.com/advanced-rest-client/auth-methods/commit/0bc2795854c6b53383439b55c47de2f245af0f45))
+
+
+
 <a name="2.0.34"></a>
 ## [2.0.34](https://github.com/advanced-rest-client/auth-methods/compare/2.0.33...v2.0.34) (2017-07-13)
 
