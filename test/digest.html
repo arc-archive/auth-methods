@@ -28,14 +28,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <test-fixture id="full">
-      <template>
-        <auth-method-digest request-url="https://api.domain.com/path/to/resource?parm=value" http-method="GET" full-form realm="realm@domain.com" nonce="1234abcd" cnonce="19ed03580cf7125"></auth-method-digest>
-      </template>
-    </test-fixture>
-
     <script>
-    /* global suite, test, fixture, assert, setup, expect, sinon */
+    /* global fixture, assert, sinon */
     suite('simple form', function() {
       var element;
       setup(function() {
@@ -61,8 +55,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.password = 'test-password';
         var settings = element.settings;
 
-        expect(settings.username).to.be.equal('test-username');
-        expect(settings.password).to.be.equal('test-password');
+        assert.equal(settings.username, 'test-username');
+        assert.equal(settings.password, 'test-password');
       });
 
       test('Fire `auth-settings-changed` event', function() {
@@ -75,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Fire `auth-settings-changed` with validate eq. false', function(done) {
         var clb = function(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.false;
+          assert.isFalse(e.detail.valid);
           done();
         };
         element.addEventListener('auth-settings-changed', clb);
@@ -85,147 +79,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Fire `auth-settings-changed` with validate eq. true', function() {
         var clb = function(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.true;
+          assert.isTrue(e.detail.valid);
         };
         element.username = 'test';
         element.addEventListener('auth-settings-changed', clb);
         element.password = 'test';
-      });
-    });
-
-    suite('full form', function() {
-      var element;
-      setup(function() {
-        element = fixture('full');
-      });
-      test('Should not be validated', function() {
-        assert.isFalse(element.validate(), 'Active validation.');
-        // assert.isFalse(element.validate(true), 'Passive validation.');
-        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
-      });
-
-      test('Should be validated', function() {
-        element.username = 'test';
-        element.password = 'test';
-
-        assert.isTrue(element.validate(), 'Active validation.');
-        assert.isTrue(element.validate(true), 'Passive validation.');
-      });
-
-      test('Fire `auth-settings-changed` event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('auth-settings-changed', spy);
-        element.username = 'test';
-        assert.isTrue(spy.calledOnce);
-      });
-
-      test('Generates client nounce', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.cnonce).to.be.a('string');
-          done();
-        };
-        element.password = 'test';
-        element.cnonce = '';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Fire `auth-settings-changed` with validate eq. false', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.false;
-          done();
-        };
-        element.addEventListener('auth-settings-changed', clb);
-        element.password = 'test';
-      });
-
-      test('Generates response for default values', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('9a8b5b6771ec8409817578f91cccad45');
-          done();
-        };
-        element.password = 'test';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('06bc4313a446a4c08b93a10430c148a8');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth-int', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('8b989ea0dae03d12ef40842afeffe6b6');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth-int';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth and algorithm MD5-sess', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('aa22fed51486f14f00febc7ff0680cce');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth';
-        element.algorithm = 'MD5-sess';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth-int and algorithm MD5-sess', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('51b4522ce2066bc202d4de288cbb614e');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth-int';
-        element.algorithm = 'MD5-sess';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth and algorithm MD5', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('06bc4313a446a4c08b93a10430c148a8');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth';
-        element.algorithm = 'MD5';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth-int and algorithm MD5', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.settings.response).to.be.equal('8b989ea0dae03d12ef40842afeffe6b6');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth-int';
-        element.algorithm = 'MD5';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
       });
     });
     </script>
