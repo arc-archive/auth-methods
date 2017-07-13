@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global suite, test, fixture, assert, setup, expect, MockInteractions, sinon, TestHelpers */
+    /* global fixture, assert, MockInteractions, sinon, TestHelpers */
 
     suite('Basic', function() {
       var element;
@@ -58,7 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         });
         element.dispatchEvent(event);
-        expect(element.tokenValue).to.be.equal('test-token');
+        assert.equal(element.tokenValue, 'test-token');
       });
 
       test('Should set first auth type from RAML settings', function() {
@@ -74,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         element.ramlSettings = raml;
         TestHelpers.forceXIfStamp(element);
-        expect(element.grantType).to.be.equal(type[0]);
+        assert.equal(element.grantType, type[0]);
       });
 
     });
@@ -128,11 +128,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         TestHelpers.forceXIfStamp(element);
         var settings = element.settings;
 
-        expect(settings.type).to.be.equal('implicit');
-        expect(settings.clientId).to.be.equal(clientId);
-        expect(settings.authorizationUrl).to.be.equal(authUrl);
-        expect(settings.scopes).to.be.eql(scopes);
-        expect(settings.redirectUrl).to.be.equal(redirectUrl);
+        assert.equal(settings.type, 'implicit');
+        assert.equal(settings.clientId, clientId);
+        assert.equal(settings.authorizationUrl, authUrl);
+        assert.deepEqual(settings.scopes, scopes);
+        assert.equal(settings.redirectUrl, redirectUrl);
       });
 
       test('Should accept RAML settings', function() {
@@ -148,9 +148,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         element.ramlSettings = raml;
         TestHelpers.forceXIfStamp(element);
-        expect(element.grantType).to.be.equal('implicit');
-        expect(element.authUrl).to.be.equal(aUrl);
-        expect(element.scopes).to.be.eql(scopes);
+        assert.equal(element.grantType, 'implicit');
+        assert.equal(element.authUrl, aUrl);
+        assert.deepEqual(element.scopes, scopes);
       });
     });
 
@@ -209,13 +209,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         TestHelpers.forceXIfStamp(element);
         var settings = element.settings;
 
-        expect(settings.type).to.be.equal('authorization_code');
-        expect(settings.clientId).to.be.equal(clientId);
-        expect(settings.authorizationUrl).to.be.equal(authUrl);
-        expect(settings.clientSecret).to.be.equal(clientSecret);
-        expect(settings.accessTokenUrl).to.be.equal(accessTokenUrl);
-        expect(settings.scopes).to.be.eql(scopes);
-        expect(settings.redirectUrl).to.be.equal(redirectUrl);
+        assert.equal(settings.type, 'authorization_code');
+        assert.equal(settings.clientId, clientId);
+        assert.equal(settings.authorizationUrl, authUrl);
+        assert.equal(settings.clientSecret, clientSecret);
+        assert.equal(settings.accessTokenUrl, accessTokenUrl);
+        assert.deepEqual(settings.scopes, scopes);
+        assert.equal(settings.redirectUrl, redirectUrl);
       });
 
       test('Should accept RAML settings', function() {
@@ -233,14 +233,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         element.ramlSettings = raml;
         TestHelpers.forceXIfStamp(element);
-        expect(element.grantType).to.be.equal('authorization_code');
-        expect(element.authUrl).to.be.equal(aUrl);
-        expect(element.scopes).to.be.eql(scopes);
-        expect(element.accessTokenUrl).to.be.equal(aUrl2);
+        assert.equal(element.grantType, 'authorization_code');
+        assert.equal(element.authUrl, aUrl);
+        assert.deepEqual(element.scopes, scopes);
+        assert.equal(element.accessTokenUrl, aUrl2);
       });
     });
-
     </script>
-
   </body>
 </html>
