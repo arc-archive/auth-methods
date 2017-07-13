@@ -267,7 +267,7 @@ Custom property | Description | Default
               <paper-dropdown-menu label="Grant type" class="grant-dropdown" required auto-validate>
                 <paper-listbox class="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
                   <template is="dom-repeat" items="[[grantTypes]]">
-                    <paper-item data-type="[[item.type]]">[[item.label]]</paper-item>
+                    <paper-item data-type$="[[item.type]]">[[item.label]]</paper-item>
                   </template>
                 </paper-listbox>
               </paper-dropdown-menu>
@@ -776,14 +776,16 @@ Custom property | Description | Default
       if (!settings) {
         throw new Error('The `settings` argument is not set.');
       }
-      if (settings.authorizationGrants &&
-        settings.authorizationGrants instanceof Array &&
-        settings.authorizationGrants.length) {
-        var index = settings.authorizationGrants.indexOf('code');
+      var grants = settings.authorizationGrants;
+      if (typeof grants === 'string') {
+        grants = [grants];
+      }
+      if (grants && grants instanceof Array && grants.length) {
+        var index = grants.indexOf('code');
         if (index !== -1) {
-          settings.authorizationGrants[index] = 'authorization_code';
+          grants[index] = 'authorization_code';
         }
-        this._updateGrantTypes(settings.authorizationGrants);
+        this._updateGrantTypes(grants);
       } else {
         this._updateGrantTypes();
       }
@@ -822,10 +824,12 @@ Custom property | Description | Default
       // check if current selection is still available
       var current = this.grantType;
       var hasCurrent = false;
-      for (i = available.length - 1; i >= 0; i--) {
-        if (available[i].type === current) {
-          hasCurrent = true;
-          break;
+      if (current) {
+        for (i = available.length - 1; i >= 0; i--) {
+          if (available[i].type === current) {
+            hasCurrent = true;
+            break;
+          }
         }
       }
       if (!hasCurrent) {
