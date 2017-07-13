@@ -306,7 +306,7 @@ Custom property | Description | Default
               <paper-masked-input auto-validate required label="Password" value="{{password}}" id="password" hiddable data-visible="password" disabled$="[[_isFieldHidden(grantType, 'password')]]" autocomplete="on"></paper-masked-input>
               <paper-tooltip for="password" position="bottom">The password required for this OAuth authentication.</paper-tooltip>
               <div hiddable data-visible="implicit authorization_code">
-                <oauth2-scope-selector required auto-validate allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
               </div>
             </iron-collapse>
           </div>
