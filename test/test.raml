@@ -4,6 +4,18 @@ version: v1
 baseUri: http://api.domain.com/
 
 securitySchemes:
+  oauth2:
+    type: OAuth 2.0
+    description: Test OAuth2
+    describedBy:
+      headers:
+        Authorization:
+          example: Barer 1234
+    settings:
+      accessTokenUri: https://domain.com/access-token
+      authorizationUri: https://domain.com/auth
+      authorizationGrants:  [authorization_code, client_credentials, implicit]
+      scopes: [profile]
   x-test1:
     description: |
       A custom security scheme for authenticating requests.

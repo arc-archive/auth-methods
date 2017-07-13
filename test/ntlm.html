@@ -29,7 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global suite, test, fixture, assert, setup, expect, MockInteractions, sinon */
+    /* global fixture, assert, sinon */
     suite('basic', function() {
       var element;
       setup(function() {
@@ -56,9 +56,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.domain = 'test-domain';
         var settings = element.settings;
 
-        expect(settings.username).to.be.equal('test-username');
-        expect(settings.password).to.be.equal('test-password');
-        expect(settings.domain).to.be.equal('test-domain');
+        assert.equal(settings.username, 'test-username');
+        assert.equal(settings.password, 'test-password');
+        assert.equal(settings.domain, 'test-domain');
       });
 
       test('Fire `auth-settings-changed` event', function() {
@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Fire `auth-settings-changed` with validate eq. false', function(done) {
         var clb = function(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.false;
+          assert.isFalse(e.detail.valid);
           done();
         };
         element.addEventListener('auth-settings-changed', clb);
@@ -81,7 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Fire `auth-settings-changed` with validate eq. true', function() {
         var clb = function(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.true;
+          assert.isTrue(e.detail.valid);
         };
         element.username = 'test';
         element.addEventListener('auth-settings-changed', clb);
