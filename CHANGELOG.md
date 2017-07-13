@@ -1,3 +1,19 @@
+<a name="2.0.34"></a>
+## [2.0.34](https://github.com/advanced-rest-client/auth-methods/compare/2.0.33...v2.0.34) (2017-07-13)
+
+
+
+
+<a name="2.0.33"></a>
+## [2.0.33](https://github.com/advanced-rest-client/auth-methods/compare/2.0.32...v2.0.33) (2017-07-13)
+
+
+### Update
+
+* Updated tests and test configuration  ([538fb8a13944ddd97e7e08dfc1041427b1b11f4b](https://github.com/advanced-rest-client/auth-methods/commit/538fb8a13944ddd97e7e08dfc1041427b1b11f4b))
+
+
+
 <a name="2.0.32"></a>
 ## [2.0.32](https://github.com/advanced-rest-client/auth-methods/compare/2.0.31...v2.0.32) (2017-07-13)
 
