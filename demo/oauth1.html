@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
-  <link rel="import" href="../../oauth-authorization/oauth2-authorization.html">
+  <link rel="import" href="../../oauth-authorization/oauth1-authorization.html">
 
   <link rel="import" href="../auth-methods.html">
 
@@ -39,20 +39,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     --paper-dropdown-menu-input: {
-      
+
     }
   </style>
 </head>
 <body unresolved>
   <div class="vertical-section-container centered">
     <h3>The `auth-method-oauth1`</h3>
-    <arc-demo-snippet userscopes='["email","profile"]' scopes='["user", "user:email", "user:follow", "public_repo", "repo", "repo_deployment", "repo:status", "delete_repo", "notifications", "gist", "read:repo_hook", "write:repo_hook", "admin:repo_hook", "admin:org_hook", "read:org", "write:org", "admin:org", "read:public_key", "write:public_key", "admin:public_key", "read:gpg_key", "write:gpg_key", "admin:gpg_key"]'>
+    <h4>Twitter</h4>
+    <arc-demo-snippet>
       <template>
-        <auth-method-oauth1></auth-method-oauth1>
-
+        <auth-method-oauth1 consumer-key="ArgLwGXbBnk8K5ViAmqELOjmc" consumer-secret="W4yfjeCMLVgKmHhJAw3brNDqSeuJdddAoh0I7dkfMoy8nhEOV7" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="https://api.twitter.com/oauth/request_token" access-token-url="https://api.twitter.com/oauth/access_token"></auth-method-oauth1>
+        <oauth1-authorization></oauth1-authorization>
 
         <output id="log"></output>
-        <style>auth-method-oauth2 {margin-bottom: 40px;}</style>
+        <style>auth-method-oauth1 {margin-bottom: 40px;}</style>
 
         <script>
           var provider = document.querySelector('auth-method-oauth1');
@@ -73,6 +74,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.innerHTML += text;
           }.bind(output));
         </script>
+      </template>
+    </arc-demo-snippet>
+
+    <h4>http://term.ie/oauth/example/</h4>
+    <arc-demo-snippet>
+      <template>
+        <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="http://term.ie/oauth/example/request_token.php" access-token-url="http://term.ie/oauth/example/access_token.php"></auth-method-oauth1>
+        <oauth1-authorization></oauth1-authorization>
       </template>
     </arc-demo-snippet>
   </div>
