@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../oauth-authorization/oauth1-authorization.html">
 
   <link rel="import" href="../auth-methods.html">
-
+  <iron-meta key="auth-proxy" value="http://localhost:5050/"></iron-meta>
   <style is="custom-style" include="demo-pages-shared-styles">
     :root {
       font-size: 65%;
@@ -80,7 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h4>http://term.ie/oauth/example/</h4>
     <arc-demo-snippet>
       <template>
-        <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="http://term.ie/oauth/example/request_token.php" access-token-url="http://term.ie/oauth/example/access_token.php"></auth-method-oauth1>
+        <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="http://term.ie/oauth/example/request_token.php" access-token-url="http://term.ie/oauth/example/access_token.php" auth-token-method="GET" auth-params-location="querystring"></auth-method-oauth1>
         <oauth1-authorization></oauth1-authorization>
       </template>
     </arc-demo-snippet>

@@ -189,6 +189,20 @@ Custom property | Description | Default
       <div class="form">
         <form is="iron-form" id="form">
 
+          <paper-dropdown-menu label="Authorization token method" class="auth-token-method" required auto-validate>
+            <paper-listbox class="dropdown-content" selected="{{authTokenMethod}}" attr-for-selected="data-type">
+              <paper-item data-type="GET">GET</paper-item>
+              <paper-item data-type="POST">POST</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+          <paper-dropdown-menu label="Oauth parameters location" class="auth-params-location" required auto-validate>
+            <paper-listbox class="dropdown-content" selected="{{authParamsLocation}}" attr-for-selected="data-type">
+              <paper-item data-type="querystring">Query string</paper-item>
+              <paper-item data-type="authorization">Authorization header</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
           <paper-masked-input auto-validate required label="Consumer key" value="{{consumerKey}}" data-field="consumerKey" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
           <paper-masked-input label="Consumer secret" value="{{consumerSecret}}" data-field="consumerSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
           <paper-masked-input auto-validate label="Token" value="{{token}}" data-field="token" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
@@ -338,7 +352,24 @@ Custom property | Description | Default
       /**
        * Endpoint to authorize the token.
        */
-      accessTokenUrl: String
+      accessTokenUrl: String,
+      /**
+       * HTTP method to obtain authorization header.
+       * Spec recommends POST
+       */
+      authTokenMethod: {
+        type: String,
+        value: 'POST'
+      },
+      /**
+       * A location of the OAuth 1 authorization parameters.
+       * It can be either in the URL as a query string (`querystring` value)
+       * or in the authorization header (`authorization`) value.
+       */
+      authParamsLocation: {
+        type: String,
+        value: 'authorization'
+      }
     },
 
     observers: [
@@ -403,7 +434,9 @@ Custom property | Description | Default
         signatureMethod: this.signatureMethod,
         requestTokenUrl: this.requestTokenUrl,
         accessTokenUrl: this.accessTokenUrl,
-        redirectUrl: this.redirectUrl
+        redirectUrl: this.redirectUrl,
+        authTokenMethod: this.authTokenMethod,
+        authParamsLocation: this.authParamsLocation
       };
     },
 
@@ -502,6 +535,12 @@ Custom property | Description | Default
       }
       if (this.redirectUrl) {
         detail.redirectUrl = this.redirectUrl;
+      }
+      if (this.authParamsLocation) {
+        detail.authParamsLocation = this.authParamsLocation;
+      }
+      if (this.authTokenMethod) {
+        detail.authTokenMethod = this.authTokenMethod;
       }
       this.fire('oauth1-token-requested', detail);
     },
