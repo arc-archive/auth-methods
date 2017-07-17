@@ -210,7 +210,8 @@ Custom property | Description | Default
 
           <paper-input label="Request token URL" value="{{requestTokenUrl}}"></paper-input>
           <paper-input label="Token Authorization URL" value="{{accessTokenUrl}}"></paper-input>
-          <paper-input label="Callback URL" value="{{redirectUrl}}"></paper-input>
+          <paper-input label="User authorization dialog URL" value="{{authorizationUrl}}"></paper-input>
+          <paper-input label="Redirect URL" value="{{redirectUrl}}"></paper-input>
 
           <paper-input auto-validate required label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
             <paper-icon-button suffix on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
@@ -369,12 +370,17 @@ Custom property | Description | Default
       authParamsLocation: {
         type: String,
         value: 'authorization'
-      }
+      },
+      /**
+       * An URL to authentication endpoint where the user should be redirected
+       * to auththorize the app.
+       */
+      authorizationUrl: String
     },
 
     observers: [
       //jscs:disable
-      '_settingsChanged(consumerKey, consumerSecret, token, tokenSecret, timestamp, nonce, realm, signatureMethod, redirectUrl, requestTokenUrl, accessTokenUrl)'
+      '_settingsChanged(consumerKey, consumerSecret, token, tokenSecret, timestamp, nonce, realm, signatureMethod, redirectUrl, requestTokenUrl, accessTokenUrl, authTokenMethod, authParamsLocation, authorizationUrl)'
       //jscs:enable
     ],
 
@@ -436,7 +442,8 @@ Custom property | Description | Default
         accessTokenUrl: this.accessTokenUrl,
         redirectUrl: this.redirectUrl,
         authTokenMethod: this.authTokenMethod,
-        authParamsLocation: this.authParamsLocation
+        authParamsLocation: this.authParamsLocation,
+        authorizationUrl: this.authorizationUrl
       };
     },
 
@@ -541,6 +548,9 @@ Custom property | Description | Default
       }
       if (this.authTokenMethod) {
         detail.authTokenMethod = this.authTokenMethod;
+      }
+      if (this.authorizationUrl) {
+        detail.authorizationUrl = this.authorizationUrl;
       }
       this.fire('oauth1-token-requested', detail);
     },
