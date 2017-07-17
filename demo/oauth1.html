@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../oauth-authorization/oauth1-authorization.html">
 
   <link rel="import" href="../auth-methods.html">
-  <iron-meta key="auth-proxy" value="http://localhost:5050/"></iron-meta>
+  <!-- <iron-meta key="auth-proxy" value="http://localhost:5050/"></iron-meta> -->
   <style is="custom-style" include="demo-pages-shared-styles">
     :root {
       font-size: 65%;
@@ -44,13 +44,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 </head>
 <body unresolved>
+  <oauth1-authorization></oauth1-authorization>
   <div class="vertical-section-container centered">
     <h3>The `auth-method-oauth1`</h3>
+    <h4>ARC test endpoint</h4>
+    <arc-demo-snippet>
+      <template>
+        <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://127.0.0.1:8081/components/oauth-authorization/oauth-popup.html" request-token-url="http://localhost:8080/auth/oauth1/request_token" access-token-url="http://localhost:8080/auth/oauth1/access_token" authorization-url="http://localhost:8080/auth/oauth1/dialog/authorize"></auth-method-oauth1>
+      </template>
+    </arc-demo-snippet>
+
     <h4>Twitter</h4>
     <arc-demo-snippet>
       <template>
         <auth-method-oauth1 consumer-key="ArgLwGXbBnk8K5ViAmqELOjmc" consumer-secret="W4yfjeCMLVgKmHhJAw3brNDqSeuJdddAoh0I7dkfMoy8nhEOV7" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="https://api.twitter.com/oauth/request_token" access-token-url="https://api.twitter.com/oauth/access_token"></auth-method-oauth1>
-        <oauth1-authorization></oauth1-authorization>
 
         <output id="log"></output>
         <style>auth-method-oauth1 {margin-bottom: 40px;}</style>
@@ -81,9 +88,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <arc-demo-snippet>
       <template>
         <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="http://term.ie/oauth/example/request_token.php" access-token-url="http://term.ie/oauth/example/access_token.php" auth-token-method="GET" auth-params-location="querystring"></auth-method-oauth1>
-        <oauth1-authorization></oauth1-authorization>
       </template>
     </arc-demo-snippet>
+
   </div>
 </body>
 </html>
