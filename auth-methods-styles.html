@@ -87,15 +87,13 @@ the License.
 
     .step-content .content {
       @apply(--layout-flex);
+      max-width: calc(100% - 16px);
+      @apply(--auth-methods-step-content);
     }
 
     paper-input,
     paper-masked-input {
       max-width: 560px;
-    }
-
-    .step-content .content {
-      max-width: calc(100% - 16px);
     }
 
     #form {
