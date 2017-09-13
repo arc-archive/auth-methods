@@ -683,7 +683,8 @@ Custom property | Description | Default
       var path = e.path;
       var inputTarget;
       while ((inputTarget = path.shift())) {
-        if (inputTarget.nodeName === 'INPUT' || inputTarget.nodeName === 'anypoint-text-field') {
+        if (inputTarget.nodeName === 'INPUT' ||
+          inputTarget.nodeName === 'ANYPOINT-TEXT-FIELD') {
           break;
         }
       }
