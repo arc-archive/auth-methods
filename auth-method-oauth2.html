@@ -252,6 +252,14 @@ Custom property | Description | Default
     *[data-grant="password"] *[data-visible~="password"] {
       display: block;
     }
+
+    paper-spinner {
+      @apply --auth-methods-paper-spinner;
+    }
+
+    #authDataForm {
+      @apply --auth-methods-auth-data-form;
+    }
     </style>
     <form is="iron-form" id="form" data-grant$="[[grantType]]">
       <div class="row" hidden$="[[noGrantType]]">
