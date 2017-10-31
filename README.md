@@ -70,16 +70,42 @@ valid **Boolean** - True if the form has been validated. |
 The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a settings.
 
 ### Example
+
 ```
-<auth-method-oauth1 consumer-key="xyz" toke="abc"></auth-method-oauth1>
+<auth-method-oauth1 consumer-key="xyz"></auth-method-oauth1>
 ```
 
 ### Required form fields
 - Consumer key
-- Token
 - Timestamp
 - Nonce
 - Signature method
+
+## Authorizing the user
+
+This element displays form for user input only. To perform authorization and
+later to sign the request, add `oauth-authorization/oauth1-authorization.html`
+to the DOM. This element sends `oauth1-token-requested` that is handled by
+autorization element.
+
+Note that the OAuth1 authorization wasn't designed for browser. Most existing
+OAuth1 implementation disallow browsers to perform the authorization by
+not allowing POST requests to authorization server. Therefore receiving token
+may not be possible without using browser extensions to alter HTTP request to
+enable CORS.
+If the server disallow obtaining authorization token and secret from clients
+then the application should listen for `oauth1-token-requested` custom event
+and perform authorization on the server side.
+
+When application is performing authorization instead of `oauth1-authorization`
+element then the application should dispatch `oauth1-token-response` custom event
+with `oauth_token` and `oauth_token_secret` properties set on detail object.
+This element handles the response to reset UI state and to updates other elements
+status that works with authorization.
+
+## Signing the request
+
+See description for `oauth-authorization/oauth1-authorization.html` element.
 
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
@@ -97,7 +123,6 @@ Custom property | Description | Default
 `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
-`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
 `--auth-button` | Mixin applied to authorization and next buttons` | `{}`
 `--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
 `--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
@@ -109,7 +134,7 @@ Custom property | Description | Default
 | --- | --- | --- |
 | auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | settings **Object** - Current settings. See the `oauth1-token-requested` for detailed description. |
 type **String** - The authorization type - oauth1 |
-| oauth1-token-requested | Fired when user requested to perform an authorization. The details object vary depends on the `grantType` property. However this event always fire two properties set on the `detail` object: `type` and `clientId`. | consumeKey **String** - The consumer key. May be undefined if not provided. |
+| oauth1-token-requested | Fired when user requested to perform an authorization. The details object vary depends on the `grantType` property. However this event always fire two properties set on the `detail` object: `type` and `clientId`. | consumerKey **String** - The consumer key. May be undefined if not provided. |
 consumerSecret **String** - May be undefined if not provided. |
 token **String** - May be undefined if not provided. |
 tokenSecret **String** - May be undefined if not provided. |
@@ -117,6 +142,7 @@ timestamp **String** - May be undefined if not provided. |
 nonce **String** - May be undefined if not provided. |
 realm **String** - May be undefined if not provided. |
 signatureMethod **String** - May be undefined if not provided. |
+type **String** - Always `oauth1` |
 # auth-method-oauth2
 
 The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.
@@ -268,3 +294,53 @@ Custom property | Description | Default
 type **String** - The authorization type - basic |
 valid **Boolean** - True if the form has been validated. |
 | error | Fired when error occured when decoding hash. | error **Error** - The error object. |
+# auth-method-custom
+
+The `<auth-method-custom>` element displays a form to provide the authorization details for RAML's
+custom security scheme.
+
+This element works differently than other authorization panels because it sends
+`request-header-changed` and `query-parameter-changed` custom events directly and it doesn't
+care if it's wrapped with the `authorization-panel` element that will handle this.
+This element will also listen for this events and if the application uses other ARC elements
+that use this events to communicate (like `raml-request-panel`) then the value for headers or query
+parameters will be updated when event occur.
+
+Besides events listed above it will also fire the `auth-settings-changed` custom event as other
+authorization methods.
+
+This element will rended empty if `ramlSettings` property is not set or is empty.
+Parent element should check if `securedBy` property of RAML method contains values.
+
+### Example
+```
+<auth-method-custom raml-settings="{...}"></auth-method-custom>
+```
+
+### Styling
+`<auth-methods>` provides the following custom properties and mixins for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--auth-method-custom` | Mixin applied to the element. | `{}`
+`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
+`--inline-help-icon-color` | Color of the icon button to display help | `rgba(0, 0, 0, 0.24)`
+`--inline-help-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.74)`
+`--raml-headers-form-input-label-color` | Color of the lable of the `paper-input` element. | `rgba(0, 0, 0, 0.48)`
+`raml-headers-form-input-label-color-required` | Color of the lable of the `paper-input` element when it's required. | `rgba(0, 0, 0, 0.72)`
+
+Input styles are consistent with `raml-headers-form` element.
+
+
+
+### Events
+| Name | Description | Params |
+| --- | --- | --- |
+| auth-settings-changed | Fired when the any of the auth method settings has changed. This event will be fired quite frequently - each time anything in the text field changed. With one exception. This event will not be fired if the validation of the form didn't passed. | settings **Object** - Current settings containing hash, password and username. |
+type **String** - The authorization type - basic |
+valid **Boolean** - True if the form has been validated. |
+name **String** - Name of the custom method to differeciante them if many. |
+| query-parameter-changed | Fired when the header value has changed. | name **String** - Name of the parameter |
+value **String** - Value of the parameter |
+| request-header-changed | Fired when the header value has changed. | name **String** - Name of the header |
+value **String** - Value of the header |

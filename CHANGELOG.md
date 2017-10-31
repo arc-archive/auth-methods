@@ -1,3 +1,33 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/advanced-rest-client/auth-methods/compare/2.0.35...2.1.1) (2017-10-31)
+
+
+### Docs
+
+* Updated documentation for the element. ([93b96afbaac646ef2f95464957017330ea058baa](https://github.com/advanced-rest-client/auth-methods/commit/93b96afbaac646ef2f95464957017330ea058baa))
+
+### Fix
+
+* Fixed recognition of event type. ([729e7ba588848174b5a6d2a13dfc9f3c2fe98b51](https://github.com/advanced-rest-client/auth-methods/commit/729e7ba588848174b5a6d2a13dfc9f3c2fe98b51))
+* Fixing linter errors for styles. ([bca22111405260fb721346b9cefabef359667f21](https://github.com/advanced-rest-client/auth-methods/commit/bca22111405260fb721346b9cefabef359667f21))
+
+### New
+
+* Added OAuth1 panel. ([c20470555616af90b5b93835493507caf706536d](https://github.com/advanced-rest-client/auth-methods/commit/c20470555616af90b5b93835493507caf706536d))
+
+### Update
+
+* Added more required fields. ([806b2fd36d4fa56666e3341303bc6d1884f40328](https://github.com/advanced-rest-client/auth-methods/commit/806b2fd36d4fa56666e3341303bc6d1884f40328))
+* Adding css to support `hidden` attribute properly. ([6d75808828eac58cb726e24357c0b66bf4a6ef05](https://github.com/advanced-rest-client/auth-methods/commit/6d75808828eac58cb726e24357c0b66bf4a6ef05))
+* Adding OAuth1 to linter tests. ([bcdb27e47fd1b1aef0973f6a1b1fe8a6f88e9d8d](https://github.com/advanced-rest-client/auth-methods/commit/bcdb27e47fd1b1aef0973f6a1b1fe8a6f88e9d8d))
+* Removed unused styling. ([77ef9ba789cfe87085d5e9db219f270683b0ec38](https://github.com/advanced-rest-client/auth-methods/commit/77ef9ba789cfe87085d5e9db219f270683b0ec38))
+* Restoring safari 9 for tests. ([eba6b8d686a13671550535758d0b5523d79a60de](https://github.com/advanced-rest-client/auth-methods/commit/eba6b8d686a13671550535758d0b5523d79a60de))
+* Updated demo page for ARC echo service. ([dd3ffb3408d3fbbea0d12e0f60e272b7a4aeed1b](https://github.com/advanced-rest-client/auth-methods/commit/dd3ffb3408d3fbbea0d12e0f60e272b7a4aeed1b))
+* Updating demo dependencies. ([2bed241d27c26605a98e874cfad1e42d0e9832e1](https://github.com/advanced-rest-client/auth-methods/commit/2bed241d27c26605a98e874cfad1e42d0e9832e1))
+* Updating test configuration. ([394ba7dc43daf8224666772b17c1dd342aa5df5f](https://github.com/advanced-rest-client/auth-methods/commit/394ba7dc43daf8224666772b17c1dd342aa5df5f))
+
+
+
 <a name="2.0.36"></a>
 ## [2.0.36](https://github.com/advanced-rest-client/auth-methods/compare/2.0.35...v2.0.36) (2017-07-13)
 

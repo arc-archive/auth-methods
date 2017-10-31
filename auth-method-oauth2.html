@@ -128,10 +128,6 @@ Custom property | Description | Default
       }
     }
 
-    .form-panel {
-      @apply(--layout-horizontal);
-    }
-
     .form {
       @apply(--layout-flex);
       max-width: 700px;
@@ -144,21 +140,19 @@ Custom property | Description | Default
 
     .grant-dropdown {
       width: 320px;
+      @apply(--auth-grant-dropdown);
     }
 
-    .next-button,
     .auth-button {
       color: var(--accent-color);
       background-color: #fff;
       @apply(--auth-button);
     }
 
-    .next-button:hover,
     .auth-button:hover {
       @apply(--auth-button-hover);
     }
 
-    .next-button[disabled],
     .auth-button[disabled] {
       background-color: rgba(0, 0, 0, 0.24);
       color: rgba(0, 0, 0, 0.54);
@@ -187,19 +181,6 @@ Custom property | Description | Default
       background-color: transparent;
     }
 
-    .current-token {
-      margin-top: 24px;
-    }
-
-    .top-line {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-    }
-
-    .enable-container {
-      @apply(--layout-flex);
-    }
-
     label {
       @apply(--form-label);
     }
@@ -224,6 +205,7 @@ Custom property | Description | Default
     }
 
     .current-token {
+      margin-top: 24px;
       padding: 12px;
       border: 2px #3D8099 solid;
     }
@@ -234,6 +216,10 @@ Custom property | Description | Default
       max-width: 560px;
       width: calc(100% - 16px);
       box-sizing: border-box;
+    }
+
+    .redirect-section {
+      @apply(--auth-redirect-section);
     }
 
     *[hiddable] {

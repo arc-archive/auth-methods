@@ -1,6 +1,7 @@
 {
   "name": "auth-methods",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
+  "version": "2.1.1",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
   ],
@@ -20,7 +21,8 @@
     "auth-method-ntlm.html",
     "auth-method-oauth1.html",
     "auth-method-oauth2.html",
-    "auth-method-digest.html"
+    "auth-method-digest.html",
+    "auth-method-custom.html"
   ],
   "repository": {
     "type": "git",
@@ -63,7 +65,7 @@
     "arc-demo-helpers": "advanced-rest-client/arc-demo-helpers#^1.0.3",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.3.0",
     "raml-js-parser": "advanced-rest-client/raml-js-parser#^2.0.0",
-    "raml-json-enhance": "advanced-rest-client/raml-json-enhance#^0.1.7"
+    "raml-json-enhance": "advanced-rest-client/raml-json-enhance#^0.2.0"
   },
   "ignore": [
     "**/.*",
@@ -72,6 +74,5 @@
     "bower_components",
     "test",
     "tasks"
-  ],
-  "version": "2.0.36"
+  ]
 }
