@@ -365,16 +365,27 @@ Custom property | Description | Default
     validate: function(passive) {
       return passive ? this.$.oauth1form.checkValidity() : this.$.oauth1form.validate();
     },
-
+    /**
+     * Called each time when any of the settings change. It informs application
+     * that the user updated the form.
+     * It fires `auth-settings-changed` custom event even if the form is invalid
+     * (missing some info).
+     *
+     * The `valid` property is always if `settings.token` amd
+     * `settings.tokenSecret` is not set.
+     */
     _settingsChanged: function() {
       var validationResult = this.$.oauth1form.validate();
-      if (!validationResult) {
-        return;
-      }
       var settings = this._getSettings();
+      if (validationResult) {
+        if (!settings || !settings.token || !settings.tokenSecret) {
+          validationResult = false;
+        }
+      }
       var detail = {
         settings: settings,
-        type: 'oauth1'
+        type: 'oauth1',
+        valid: validationResult
       };
       this.fire('auth-settings-changed', detail);
     },
