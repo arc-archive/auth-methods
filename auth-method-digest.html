@@ -434,7 +434,7 @@ Custom property | Description | Default
       if (event.rootTarget === this) {
         return;
       }
-      if (e.detail.type !== 'basic') {
+      if (e.detail.type !== 'digest') {
         return;
       }
       var otherSettings = e.detail.settings;
