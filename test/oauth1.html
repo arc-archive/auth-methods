@@ -97,12 +97,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('auth-settings-changed custom event contains settings', function() {
         TestHelpers.forceXIfStamp(element);
-        var eventData;
-        element.addEventListener('auth-settings-changed', function clb(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          eventData = e.detail;
-        });
-
         element.consumerSecret = 'test-secret';
         element.requestTokenUrl = 'test-request-token-url';
         element.accessTokenUrl = 'test-access-token-url';
@@ -110,10 +104,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.redirectUrl = 'test-redirect-url';
         element.nonce = 'test-nonce';
         element.timestamp = 12345;
+
+        var eventData;
+        element.addEventListener('auth-settings-changed', function clb(e) {
+          element.removeEventListener('auth-settings-changed', clb);
+          eventData = e.detail;
+        });
+
         element.consumerKey = 'test-key';
+        assert.isFalse(eventData.valid, 'valid is false');
         var s = eventData.settings;
         assert.typeOf(s, 'object');
-
         assert.equal(s.consumerKey, element.consumerKey);
         assert.equal(s.consumerSecret, element.consumerSecret);
         assert.equal(s.requestTokenUrl, element.requestTokenUrl);
@@ -123,6 +124,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(s.nonce, element.nonce);
         assert.equal(s.timestamp, element.timestamp);
         assert.equal(s.type, 'oauth1');
+      });
+
+      test('auth-settings-changed valid is true with token data', function() {
+        TestHelpers.forceXIfStamp(element);
+        element.consumerSecret = 'test-secret';
+        element.token = 'test-token';
+        element.tokenSecret = 'test-token-secret';
+
+        var eventData;
+        element.addEventListener('auth-settings-changed', function clb(e) {
+          element.removeEventListener('auth-settings-changed', clb);
+          eventData = e.detail;
+        });
+        element.consumerKey = 'test-key';
+        var s = eventData.settings;
+        assert.isTrue(eventData.valid, 'valid is true');
+        assert.equal(s.token, element.token);
+        assert.equal(s.tokenSecret, element.tokenSecret);
       });
 
       test('Fires oauth1-token-requested custom event', function() {
