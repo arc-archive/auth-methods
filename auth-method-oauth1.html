@@ -30,16 +30,42 @@ the License.
 The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a settings.
 
 ### Example
+
 ```
-<auth-method-oauth1 consumer-key="xyz" toke="abc"></auth-method-oauth1>
+<auth-method-oauth1 consumer-key="xyz"></auth-method-oauth1>
 ```
 
 ### Required form fields
 - Consumer key
-- Token
 - Timestamp
 - Nonce
 - Signature method
+
+## Authorizing the user
+
+This element displays form for user input only. To perform authorization and
+later to sign the request, add `oauth-authorization/oauth1-authorization.html`
+to the DOM. This element sends `oauth1-token-requested` that is handled by
+autorization element.
+
+Note that the OAuth1 authorization wasn't designed for browser. Most existing
+OAuth1 implementation disallow browsers to perform the authorization by
+not allowing POST requests to authorization server. Therefore receiving token
+may not be possible without using browser extensions to alter HTTP request to
+enable CORS.
+If the server disallow obtaining authorization token and secret from clients
+then the application should listen for `oauth1-token-requested` custom event
+and perform authorization on the server side.
+
+When application is performing authorization instead of `oauth1-authorization`
+element then the application should dispatch `oauth1-token-response` custom event
+with `oauth_token` and `oauth_token_secret` properties set on detail object.
+This element handles the response to reset UI state and to updates other elements
+status that works with authorization.
+
+## Signing the request
+
+See description for `oauth-authorization/oauth1-authorization.html` element.
 
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
@@ -57,7 +83,6 @@ Custom property | Description | Default
 `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
 `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
 `--input-line-color` | Mixin applied to the input underline | `{}`
-`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
 `--auth-button` | Mixin applied to authorization and next buttons` | `{}`
 `--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
 `--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
