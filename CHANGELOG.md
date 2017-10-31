@@ -1,3 +1,13 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/advanced-rest-client/auth-methods/compare/2.1.1...2.1.2) (2017-10-31)
+
+
+### Update
+
+* Added valid property to the change event. ([a9eeb7f24486a07f50795028a0c255c373e47df4](https://github.com/advanced-rest-client/auth-methods/commit/a9eeb7f24486a07f50795028a0c255c373e47df4))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/advanced-rest-client/auth-methods/compare/2.0.35...2.1.1) (2017-10-31)
 
