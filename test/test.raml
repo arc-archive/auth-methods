@@ -69,7 +69,17 @@ securitySchemes:
                 message:
                   type: string
                   description: Human readable message describing the error.
-
+  oauth1:
+    type: OAuth 1.0
+    settings:
+      authorizationUri: http://authorization-uri.com
+      requestTokenUri: http://request-token-uri.com
+      tokenCredentialsUri: http://token-credentials.com
+      signatures: [HMAC-SHA1, PLAINTEXT]
+    describedBy:
+      headers:
+        Authorization:
+          type: string
 /endpointA:
   get:
     securedBy: [x-test1]
@@ -79,3 +89,6 @@ securitySchemes:
 /endpointC:
   get:
     securedBy: [x-other, x-test1]
+/endpointD:
+  get:
+    securedBy: [oauth1]

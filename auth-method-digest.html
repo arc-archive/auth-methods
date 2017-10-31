@@ -86,8 +86,8 @@ Custom property | Description | Default
     <style include="auth-methods-styles">
      :host {
       display: block;
-      @apply(--auth-method-panel);
-      @apply(--auth-method-digest);
+      @apply --auth-method-panel;
+      @apply --auth-method-digest;
     }
     </style>
     <div class="row">
@@ -434,7 +434,7 @@ Custom property | Description | Default
       if (event.rootTarget === this) {
         return;
       }
-      if (e.detail.type !== 'basic') {
+      if (e.detail.type !== 'digest') {
         return;
       }
       var otherSettings = e.detail.settings;

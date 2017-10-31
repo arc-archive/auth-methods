@@ -18,8 +18,8 @@ the License.
   <template>
     <style>
     .stepper {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
+      @apply --layout-horizontal;
+      @apply --layout-center;
       padding: 12px 0;
       position: relative;
       pointer-events: none;
@@ -35,8 +35,8 @@ the License.
       background-color: var(--stepper-step-number-background-color, #3D8099);
       color: var(--stepper-step-number-color, #fff);
       font-size: 14px;
-      @apply(--layout-center-center);
-      @apply(--layout-horizontal);
+      @apply --layout-center-center;
+      @apply --layout-horizontal;
       width: 24px;
       height: 24px;
       border-radius: 50%;
@@ -45,11 +45,11 @@ the License.
 
     .stepper .step-header {
       position: relative;
-      @apply(--layout-flex);
+      @apply --layout-flex;
     }
 
     .stepper .step-title {
-      @apply(--arc-font-body1);
+      @apply --arc-font-body1;
       display: block;
       color: var(--stepper-step-title-color, #3D8099);
       font-size: 16px;
@@ -57,7 +57,7 @@ the License.
     }
 
     .stepper .step-selection {
-      @apply(--arc-font-body1);
+      @apply --arc-font-body1;
       color: var(--stepper-step-selection-label-color, rgba(0, 0, 0, 0.54));
       position: absolute;
       bottom: -16px;
@@ -73,7 +73,7 @@ the License.
     }
 
     .step-content {
-      @apply(--layout-horizontal);
+      @apply --layout-horizontal;
       margin-bottom: 12px;
       min-height: 32px;
     }
@@ -86,7 +86,7 @@ the License.
     }
 
     .step-content .content {
-      @apply(--layout-flex);
+      @apply --layout-flex;
       max-width: calc(100% - 16px);
       @apply(--auth-methods-step-content);
     }
@@ -111,6 +111,10 @@ the License.
 
     .active .step-header:hover .edit-icon {
       visibility: visible;
+    }
+
+    [hidden] {
+      display: none !important;
     }
     </style>
   </template>

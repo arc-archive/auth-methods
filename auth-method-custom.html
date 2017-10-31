@@ -71,8 +71,8 @@ Input styles are consistent with `raml-headers-form` element.
     <style include="auth-methods-styles">
     :host {
       display: block;
-      @apply(--auth-method-panel);
-      @apply(--auth-method-custom);
+      @apply --auth-method-panel;
+      @apply --auth-method-custom;
 
       --paper-input-container-label: {
         color: var(--raml-headers-form-input-label-color, rgba(0, 0, 0, 0.48));
@@ -90,7 +90,7 @@ Input styles are consistent with `raml-headers-form` element.
     }
 
     .docs {
-      @apply(--arc-font-common-base);
+      @apply --arc-font-common-base;
       font-size: 13px !important;
       font-weight: 200;
       line-height: 24px;
@@ -121,14 +121,14 @@ Input styles are consistent with `raml-headers-form` element.
     }
 
     .value-input {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      @apply(--layout-flex);
+      @apply --layout-horizontal;
+      @apply --layout-center;
+      @apply --layout-flex;
     }
 
     .value-input paper-input,
     .value-input paper-dropdown-menu {
-      @apply(--layout-flex);
+      @apply --layout-flex;
     }
     </style>
     <form is="iron-form" id="form">
