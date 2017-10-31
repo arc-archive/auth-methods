@@ -4,6 +4,7 @@
   "license": "Apache-2.0 OR CC-BY-4.0",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
   "devDependencies": {
+    "bower": "^1.8.0",
     "polymer-cli": "^1.2.0"
   },
   "private": false,
