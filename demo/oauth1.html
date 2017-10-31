@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
   <link rel="import" href="../../oauth-authorization/oauth1-authorization.html">
+  <link rel="import" href="../../paper-toast/paper-toast.html">
 
   <link rel="import" href="../auth-methods.html">
   <!-- <iron-meta key="auth-proxy" value="http://localhost:5050/"></iron-meta> -->
@@ -38,8 +39,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       white-space: pre-wrap;
     }
 
-    --paper-dropdown-menu-input: {
-
+    auth-method-oauth1 {
+      margin-bottom: 40px;
     }
   </style>
 </head>
@@ -47,30 +48,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <oauth1-authorization></oauth1-authorization>
   <div class="vertical-section-container centered">
     <h3>The `auth-method-oauth1`</h3>
-    <h4>ARC test endpoint</h4>
+    <h4>ARC echo endpoint</h4>
     <arc-demo-snippet>
       <template>
-        <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://127.0.0.1:8081/components/oauth-authorization/oauth-popup.html" request-token-url="http://localhost:8080/auth/oauth1/request_token" access-token-url="http://localhost:8080/auth/oauth1/access_token" authorization-url="http://localhost:8080/auth/oauth1/dialog/authorize"></auth-method-oauth1>
-      </template>
-    </arc-demo-snippet>
-
-    <h4>Twitter</h4>
-    <arc-demo-snippet>
-      <template>
-        <auth-method-oauth1 consumer-key="ArgLwGXbBnk8K5ViAmqELOjmc" consumer-secret="W4yfjeCMLVgKmHhJAw3brNDqSeuJdddAoh0I7dkfMoy8nhEOV7" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="https://api.twitter.com/oauth/request_token" access-token-url="https://api.twitter.com/oauth/access_token"></auth-method-oauth1>
-
-        <output id="log"></output>
-        <style>auth-method-oauth1 {margin-bottom: 40px;}</style>
-
+        <auth-method-oauth1 id="method1"
+          consumer-key="key"
+          consumer-secret="secret"
+          redirect-url="http://127.0.0.1:8081/components/oauth-authorization/oauth-popup.html"
+          request-token-url="https://echo.advancedrestclient.com/auth/oauth1/request_token"
+          access-token-url="https://echo.advancedrestclient.com/auth/oauth1/access_token"
+          authorization-url="https://echo.advancedrestclient.com/auth/oauth1/dialog/authorize"></auth-method-oauth1>
+        <output id="log1"></output>
         <script>
-          var provider = document.querySelector('auth-method-oauth1');
-          var output = document.querySelector('output');
-          provider.addEventListener('authorization-enabled', function() {
-            this.innerHTML += 'Authorization is now enabled\n';
-          }.bind(output));
-          provider.addEventListener('authorization-disabled', function() {
-            this.innerHTML += 'Authorization is now disabled\n';
-          }.bind(output));
+          var provider = document.getElementById('method1');
+          var output = document.getElementById('log1');
           provider.addEventListener('error', function(e) {
             this.innerHTML += e.detail.error.message + '\n';
           }.bind(output));
@@ -78,7 +69,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             var text = 'Current settings:\n';
             var data = JSON.stringify(e.detail, null, 2);
             text += data + '\n';
-            this.innerHTML += text;
+            this.innerHTML = text;
+          }.bind(output));
+        </script>
+      </template>
+    </arc-demo-snippet>
+
+    <h4>Twitter</h4>
+    <arc-demo-snippet>
+      <template>
+        <auth-method-oauth1 id="method2" consumer-key="ArgLwGXbBnk8K5ViAmqELOjmc" consumer-secret="W4yfjeCMLVgKmHhJAw3brNDqSeuJdddAoh0I7dkfMoy8nhEOV7" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="https://api.twitter.com/oauth/request_token" access-token-url="https://api.twitter.com/oauth/access_token"></auth-method-oauth1>
+        <output id="log2"></output>
+        <script>
+          var provider = document.getElementById('method2');
+          var output = document.getElementById('log2');
+          provider.addEventListener('error', function(e) {
+            this.innerHTML += e.detail.error.message + '\n';
+          }.bind(output));
+          provider.addEventListener('auth-settings-changed', function(e) {
+            var text = 'Current settings:\n';
+            var data = JSON.stringify(e.detail, null, 2);
+            text += data + '\n';
+            this.innerHTML = text;
           }.bind(output));
         </script>
       </template>
@@ -90,7 +102,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <auth-method-oauth1 consumer-key="key" consumer-secret="secret" redirect-url="http://192.168.1.16:8081/components/auth-methods/demo/oauth1.html" request-token-url="http://term.ie/oauth/example/request_token.php" access-token-url="http://term.ie/oauth/example/access_token.php" auth-token-method="GET" auth-params-location="querystring"></auth-method-oauth1>
       </template>
     </arc-demo-snippet>
+    <paper-toast text="" id="tokenToast"></paper-toast>
 
+    <script>
+    window.addEventListener('oauth1-token-response', function(e) {
+      var toast = document.getElementById('tokenToast');
+      toast.text = 'OAuth1 access token: ' + e.detail.oauth_token +
+        '. Token secret: ' + e.detail.oauth_token_secret;
+      toast.opened = true;
+    });
+    </script>
   </div>
 </body>
 </html>

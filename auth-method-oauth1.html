@@ -71,65 +71,27 @@ Custom property | Description | Default
     <style>
     :host {
       display: block;
-      @apply(--auth-method-panel);
-      @apply(--auth-method-oauth1);
+      @apply --auth-method-panel;
+      @apply --auth-method-oauth1;
 
       --paper-icon-button: {
         color: var(--hint-trigger-color, rgba(0, 0, 0, 0.54));
         transition: color 0.25s linear;
-        @apply(--icon-button);
+        @apply --icon-button;
       }
 
       --paper-icon-button-hover: {
         color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.78));
-        @apply(--icon-button-hover);
+        @apply --icon-button-hover;
       }
 
       --paper-input-container-focus-color: {
-        @apply(--input-line-color);
+        @apply --input-line-color;
       }
     }
 
-    paper-input,
-    paper-masked-input {
-      max-width: 700px;
-    }
-
-    .hints .hint {
-      display: none;
-      color: rgba(0, 0, 0, 0.54);
-    }
-
-    .hints .hint[active] {
-      display: block;
-    }
-
-    .form-panel {
-      @apply(--layout-horizontal);
-    }
-
     .form {
-      @apply(--layout-flex);
       max-width: 700px;
-    }
-
-    .hints {
-      margin-left: 0;
-      padding-left: 0;
-      border-left: 1px rgba(0,0,0,0) solid;
-      max-width: 300px;
-      width: 0;
-      @apply(--paper-font-body1);
-      transition: width 0.35s linear, margin 0.2s linear, padding 0.2s linear, border-color 0.15s linear;
-      overflow: hidden;
-    }
-
-    .hints.active {
-      width: 100%;
-      margin-left: 16px;
-      padding-left: 16px;
-      border-left-color: rgba(0,0,0,0.12);
-      overflow: auto;
     }
 
     .grant-dropdown {
@@ -139,120 +101,68 @@ Custom property | Description | Default
     .auth-button {
       background-color: var(--primary-color);
       color: rgba(255, 255, 255, 0.87);
-      @apply(--auth-button);
+      @apply --auth-button;
     }
 
     .auth-button:hover {
-      @apply(--auth-button-hover);
+      @apply --auth-button-hover;
     }
 
     .auth-button[disabled] {
       background-color: rgba(0, 0, 0, 0.24);
       color: rgba(0, 0, 0, 0.54);
-      @apply(--auth-button-disabled);
+      @apply --auth-button-disabled;
     }
 
     .authorize-actions {
       margin-top: 12px;
+      @apply --layout-horizontal;
+      @apply --layout-center;
     }
-
-    .read-only-param-field {
-      padding: 12px;
-      background-color: rgba(0, 0, 0, 0.12);
-      @apply(--paper-font-body1);
-      display: block;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      word-break: break-all;
-    }
-
-    .current-token {
-      margin-top: 24px;
-    }
-
-    .top-line {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-    }
-
-    .enable-container {
-      @apply(--layout-flex);
-    }
-
-    label {
-      @apply(--form-label);
-    }
-
     </style>
-
-    <div class="form-panel">
-      <div class="form">
-        <form is="iron-form" id="form">
-
-          <paper-dropdown-menu label="Authorization token method" class="auth-token-method" required auto-validate>
-            <paper-listbox class="dropdown-content" selected="{{authTokenMethod}}" attr-for-selected="data-type">
-              <paper-item data-type="GET">GET</paper-item>
-              <paper-item data-type="POST">POST</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-
-          <paper-dropdown-menu label="Oauth parameters location" class="auth-params-location" required auto-validate>
-            <paper-listbox class="dropdown-content" selected="{{authParamsLocation}}" attr-for-selected="data-type">
-              <paper-item data-type="querystring">Query string</paper-item>
-              <paper-item data-type="authorization">Authorization header</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-
-          <paper-masked-input auto-validate required label="Consumer key" value="{{consumerKey}}" data-field="consumerKey" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input label="Consumer secret" value="{{consumerSecret}}" data-field="consumerSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate label="Token" value="{{token}}" data-field="token" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-          <paper-masked-input label="Token secret" value="{{tokenSecret}}" data-field="tokenSecret" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-masked-input>
-
-          <paper-input label="Request token URL" value="{{requestTokenUrl}}"></paper-input>
-          <paper-input label="Token Authorization URL" value="{{accessTokenUrl}}"></paper-input>
-          <paper-input label="User authorization dialog URL" value="{{authorizationUrl}}"></paper-input>
-          <paper-input label="Redirect URL" value="{{redirectUrl}}"></paper-input>
-
-          <paper-input auto-validate required label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-
-          <paper-input auto-validate required label="Nonce" value="{{nonce}}" type="text" data-field="nonce" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on">
-            <paper-icon-button suffix on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
-            <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-
-          <paper-input label="Realm" value="{{realm}}" type="text" data-field="realm" on-focus="_activateHint" on-blur="_deactivateHint" on-mouseover="_activateHint" on-mouseout="_deactivateHint" autocomplete="on"></paper-input>
-
-          <paper-dropdown-menu label="Signature method" class="grant-dropdown" required auto-validate>
-            <paper-listbox class="dropdown-content" selected="{{signatureMethod}}" attr-for-selected="data-type">
-              <paper-item data-type="HMAC-SHA256">HMAC-SHA256</paper-item>
-              <paper-item data-type="HMAC-SHA1">HMAC-SHA1</paper-item>
-              <paper-item data-type="PLAINTEXT">PLAINTEXT</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-
-          <div class="authorize-actions">
-            <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
-            <paper-spinner active="[[_authorizing]]"></paper-spinner>
-          </div>
-
-          <div class="current-token" hidden$="[[!signatureValue]]">
-            <label>Current signature</label>
-            <p class="read-only-param-field">[[signatureValue]]</p>
-          </div>
-        </form>
-      </div>
-      <div class$="[[_computeHintsClass(hintsEnabled)]]">
-        <p class="hint" field="consumerKey">The consumer key identifies which application is making the request. It can be found in your provider's API console.</p>
-        <p class="hint" field="consumerSecret">The consumer secret is generated by your provider unique string for your app. Check provider's console to get the code.</p>
-        <p class="hint" field="token">The token typically represents a user’s permission to share access to their account with your application. You can typically generate the token in your provider's API console.</p>
-        <p class="hint" field="tokenSecret">A secret used by the application to establish ownership of a given Token. As stored by the Service Provider.</p>
-        <p class="hint" field="timestamp">The timestamp parameter indicates when the request was created. This value should be the number of seconds since the Unix epoch at the point the request is generated, and should be easily generated in most programming languages.</p>
-        <p class="hint" field="nonce">The nonce is a unique token your application should generate for each unique request. It was autogenerated when you've opened this form.</p>
-        <p class="hint" field="realm"></p>
-      </div>
+    <div class="form">
+      <form is="iron-form" id="oauth1form">
+        <paper-dropdown-menu label="Authorization token method" class="auth-token-method" required auto-validate>
+          <paper-listbox class="dropdown-content" selected="{{authTokenMethod}}" attr-for-selected="data-type">
+            <paper-item data-type="GET">GET</paper-item>
+            <paper-item data-type="POST">POST</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="Oauth parameters location" class="auth-params-location" required auto-validate>
+          <paper-listbox class="dropdown-content" selected="{{authParamsLocation}}" attr-for-selected="data-type">
+            <paper-item data-type="querystring">Query string</paper-item>
+            <paper-item data-type="authorization">Authorization header</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-masked-input auto-validate required label="Consumer key" value="{{consumerKey}}" data-field="consumerKey" autocomplete="on"></paper-masked-input>
+        <paper-masked-input label="Consumer secret" value="{{consumerSecret}}" data-field="consumerSecret" autocomplete="on"></paper-masked-input>
+        <paper-masked-input auto-validate label="Token" value="{{token}}" data-field="token" autocomplete="on"></paper-masked-input>
+        <paper-masked-input label="Token secret" value="{{tokenSecret}}" data-field="tokenSecret" autocomplete="on"></paper-masked-input>
+        <paper-input label="Request token URL" value="{{requestTokenUrl}}"></paper-input>
+        <paper-input label="Token Authorization URL" value="{{accessTokenUrl}}"></paper-input>
+        <paper-input label="User authorization dialog URL" value="{{authorizationUrl}}"></paper-input>
+        <paper-input label="Redirect URL" value="{{redirectUrl}}"></paper-input>
+        <paper-input auto-validate required label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" autocomplete="on">
+          <paper-icon-button suffix on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
+          <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+        </paper-input>
+        <paper-input auto-validate required label="Nonce" value="{{nonce}}" type="text" data-field="nonce" autocomplete="on">
+          <paper-icon-button suffix on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
+          <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+        </paper-input>
+        <paper-input label="Realm" value="{{realm}}" type="text" data-field="realm" autocomplete="on"></paper-input>
+        <paper-dropdown-menu label="Signature method" class="grant-dropdown" required auto-validate>
+          <paper-listbox class="dropdown-content" selected="{{signatureMethod}}" attr-for-selected="data-type">
+            <template is="dom-repeat" items="[[signatureMethods]]">
+              <paper-item data-type$="[[item]]">[[item]]</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <div class="authorize-actions">
+          <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
+          <paper-spinner active="[[_authorizing]]"></paper-spinner>
+        </div>
+      </form>
     </div>
     <paper-toast text="" duration="5000"></paper-toast>
   </template>
@@ -275,6 +185,7 @@ Custom property | Description | Default
      * @param {String} nonce May be undefined if not provided.
      * @param {String} realm May be undefined if not provided.
      * @param {String} signatureMethod May be undefined if not provided.
+     * @param {String} type Always `oauth1`
      */
     /**
      * Fired when the any of the auth method settings has changed.
@@ -330,16 +241,6 @@ Custom property | Description | Default
         value: 'HMAC-SHA1',
         notify: true
       },
-      // Signature generated for this set of parameters.
-      signatureValue: {
-        type: String,
-        value: ''
-      },
-      // If true then half of the space will be available for hints.
-      hintsEnabled: {
-        type: Boolean,
-        value: false
-      },
       // True when currently authorizing the user.
       _authorizing: Boolean,
       /**
@@ -375,7 +276,27 @@ Custom property | Description | Default
        * An URL to authentication endpoint where the user should be redirected
        * to auththorize the app.
        */
-      authorizationUrl: String
+      authorizationUrl: String,
+      /**
+       * RAML `securedBy` obejct definition.
+       * If set, it will prefill the settings in the auth panel.
+       */
+      ramlSettings: {
+        type: Object,
+        observer: '_ramlSettingsChanged'
+      },
+      /**
+       * List of currently support signature methods.
+       * This can be updated when `ramlSettings` property is set.
+       */
+      signatureMethods: Array
+    },
+
+    /**
+     * Returns default list of signature methods for OAuth1
+     */
+    get defaultSignatureMethods() {
+      return ['HMAC-SHA1', 'RSA-SHA1', 'PLAINTEXT'];
     },
 
     observers: [
@@ -386,15 +307,20 @@ Custom property | Description | Default
 
     attached: function() {
       this.listen(window, 'oauth1-error', '_oauth1ErrorHandler');
+      this.listen(window, 'oauth1-token-response', '_tokenResponseHandler');
     },
 
     detached: function() {
       this.unlisten(window, 'oauth1-error', '_oauth1ErrorHandler');
+      this.unlisten(window, 'oauth1-token-response', '_tokenResponseHandler');
     },
 
     ready: function() {
       this._genTimestamp();
       this._genNonce();
+      if (!this.signatureMethods) {
+        this.signatureMethods = this.defaultSignatureMethods;
+      }
     },
 
     /**
@@ -412,11 +338,11 @@ Custom property | Description | Default
      * @return {Boolean} `true` if valid, `false` otherwise.
      */
     validate: function(passive) {
-      return passive ? this.$.form.checkValidity() : this.$.form.validate();
+      return passive ? this.$.oauth1form.checkValidity() : this.$.oauth1form.validate();
     },
 
     _settingsChanged: function() {
-      var validationResult = this.$.form.validate();
+      var validationResult = this.$.oauth1form.validate();
       if (!validationResult) {
         return;
       }
@@ -443,7 +369,8 @@ Custom property | Description | Default
         redirectUrl: this.redirectUrl,
         authTokenMethod: this.authTokenMethod,
         authParamsLocation: this.authParamsLocation,
-        authorizationUrl: this.authorizationUrl
+        authorizationUrl: this.authorizationUrl,
+        type: 'oauth1'
       };
     },
 
@@ -462,53 +389,9 @@ Custom property | Description | Default
       }
       inputTarget.value = '';
     },
-    // Handler for UI events to activate a hint.
-    _activateHint: function(e) {
-      if (!this.hintsEnabled) {
-        return;
-      }
-      var field = this.__getHintField(e);
-      if (!field) {
-        return;
-      }
-      field.setAttribute('active', true);
-    },
-    // Handler for UI events to deactivate a hint.
-    _deactivateHint: function(e) {
-      if (!this.hintsEnabled) {
-        return;
-      }
-      var field = this.__getHintField(e);
-      if (!field) {
-        return;
-      }
-      field.removeAttribute('active');
-    },
-    // Searches the DOM for related to evet's target hint.
-    __getHintField: function(e) {
-      e = Polymer.dom(e);
-      var set = e.localTarget.dataset;
-      if (!('field' in set)) {
-        return;
-      }
-      var field = set.field;
-      return Polymer.dom(this.root).querySelector('.hint[field="' + field + '"]');
-    },
-    // Computes class for hints pane depending on `hintsEnabled` state.
-    _computeHintsClass: function(hintsEnabled) {
-      var clazz = 'hints';
-      if (hintsEnabled) {
-        clazz += ' active';
-      }
-      return clazz;
-    },
-    // Toggles hits panel
-    _toggleHints: function() {
-      this.hintsEnabled = !this.hintsEnabled;
-    },
-
     // Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
     authorize: function() {
+      this._authorizing = true;
       var detail = {};
       if (this.consumerKey) {
         detail.consumerKey = this.consumerKey;
@@ -552,22 +435,41 @@ Custom property | Description | Default
       if (this.authorizationUrl) {
         detail.authorizationUrl = this.authorizationUrl;
       }
+      detail.type = 'oauth1';
       this.fire('oauth1-token-requested', detail);
     },
-
+    /**
+     * Handles OAuth1 authorization errors.
+     */
     _oauth1ErrorHandler: function(e, detail) {
       this._authorizing = false;
-
       var toast = this.$$('paper-toast');
       toast.text = detail.message;
       toast.opened = true;
     },
 
+    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+    // jscs:disable requireDotNotation
+
+    /**
+     * Handler for the `oauth1-token-response` custom event.
+     * Sets `token` and `tokenSecret` properties from the event.
+     */
+    _tokenResponseHandler: function(e) {
+      this._authorizing = false;
+      this.token = e.detail.oauth_token;
+      this.tokenSecret = e.detail.oauth_token_secret;
+    },
+    // Returns current timestamp in seconds
     _genTimestamp: function() {
       var t = Math.floor(Date.now() / 1000);
       this.timestamp = t;
     },
-
+    /**
+     * Returns autogenerated nocne
+     * @param {?Number} length Optional, size of generated string. Default to 32.
+     * @return {String} Generated nonce string.
+     */
     _genNonce: function(length) {
       var result = [];
       var chrs = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -580,6 +482,39 @@ Custom property | Description | Default
         result[result.length] = (chrs[Math.floor(Math.random() * chrsLength)]);
       }
       this.nonce = result.join('');
+    },
+    /**
+     * Called when the RAML object change
+     */
+    _ramlSettingsChanged: function(type) {
+      if (!type) {
+        type = {};
+      }
+      if (!type.settings) {
+        type.settings = {};
+      }
+      this.preFill(type.settings);
+    },
+    /**
+     * Pre fills the form with RAML defined settings.
+     *
+     * @param {Object} settings The settings object of the OAuth1 security schema.
+     */
+    preFill: function(settings) {
+      if (settings.requestTokenUri) {
+        this.requestTokenUrl = settings.requestTokenUri;
+      }
+      if (settings.authorizationUri) {
+        this.authorizationUrl = settings.authorizationUri;
+      }
+      if (settings.tokenCredentialsUri) {
+        this.accessTokenUrl = settings.tokenCredentialsUri;
+      }
+      if (settings.signatures) {
+        this.signatureMethods = settings.signatures;
+      } else {
+        this.signatureMethods = this.defaultSignatureMethods;
+      }
     }
 
   });
