@@ -127,6 +127,10 @@ This is very basic element. Style inputs using input's or toggle's css variables
       return this._getSettings();
     },
 
+    // Overrides ArcBehaviors.EventsTargetBehavior
+    _attachListeners: function() {},
+    _detachListeners: function() {},
+
     /**
      * Validate the form.
      *
