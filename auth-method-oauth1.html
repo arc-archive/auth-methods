@@ -330,14 +330,14 @@ Custom property | Description | Default
       //jscs:enable
     ],
 
-    attached: function() {
-      this.listen(window, 'oauth1-error', '_oauth1ErrorHandler');
-      this.listen(window, 'oauth1-token-response', '_tokenResponseHandler');
+    _attachListeners: function(node) {
+      this.listen(node, 'oauth1-error', '_oauth1ErrorHandler');
+      this.listen(node, 'oauth1-token-response', '_tokenResponseHandler');
     },
 
-    detached: function() {
-      this.unlisten(window, 'oauth1-error', '_oauth1ErrorHandler');
-      this.unlisten(window, 'oauth1-token-response', '_tokenResponseHandler');
+    _detachListeners: function(node) {
+      this.unlisten(node, 'oauth1-error', '_oauth1ErrorHandler');
+      this.unlisten(node, 'oauth1-token-response', '_tokenResponseHandler');
     },
 
     ready: function() {

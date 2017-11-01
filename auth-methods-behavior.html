@@ -12,6 +12,8 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../openable-panel-behavior/openable-panel-behavior.html">
+<link rel="import" href="../events-target-behavior/events-target-behavior.html">
 
 <script>
 (function() {
@@ -27,7 +29,7 @@ the License.
    *
    * @polymerBehavior ArcBehaviors.AuthMethodsBehavior
    */
-  window.ArcBehaviors.AuthMethodsBehavior = {
+  ArcBehaviors.AuthMethodsBehaviorImpl = {
     properties: {
       /**
        * A start index for elements step counter.
@@ -76,6 +78,12 @@ the License.
       return stepStartIndex + currentStep;
     }
   };
+  /** @polymerBehavior */
+  ArcBehaviors.AuthMethodsBehavior = [
+    ArcBehaviors.AuthMethodsBehaviorImpl,
+    ArcBehaviors.OpenablePanelBehavior,
+    ArcBehaviors.EventsTargetBehavior
+  ];
 })();
 
 </script>
