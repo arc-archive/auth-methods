@@ -1,3 +1,13 @@
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/advanced-rest-client/auth-methods/compare/2.2.1...2.2.2) (2017-11-01)
+
+
+### Update
+
+* removed debug output. ([80f99daae12ed9648e782ac60e50f2a9b1239b90](https://github.com/advanced-rest-client/auth-methods/commit/80f99daae12ed9648e782ac60e50f2a9b1239b90))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/advanced-rest-client/auth-methods/compare/2.1.3...2.2.1) (2017-11-01)
 
