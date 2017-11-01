@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/advanced-rest-client/auth-methods/compare/2.1.3...2.2.1) (2017-11-01)
+
+
+### Fix
+
+* Fixes #6 - event target to sync state with panels ([4c3ea0404e0b798ffb2186055b24b5e359f62bbd](https://github.com/advanced-rest-client/auth-methods/commit/4c3ea0404e0b798ffb2186055b24b5e359f62bbd)), closes [#6](https://github.com/advanced-rest-client/auth-methods/issues/6)
+
+
+
 <a name="2.1.3"></a>
 ## [2.1.3](https://github.com/advanced-rest-client/auth-methods/compare/2.1.2...2.1.3) (2017-10-31)
 
