@@ -236,18 +236,18 @@ Custom property | Description | Default
       return this._getSettings();
     },
 
-    attached: function() {
-      this.listen(window, 'url-value-changed', '_onUrlChanged');
-      this.listen(window, 'http-method-changed', '_onHttpMethodChanged');
-      this.listen(window, 'body-value-changed', '_onBodyChanged');
-      this.listen(window, 'auth-settings-changed', '_onAuthSettings');
+    _attachListeners: function(node) {
+      this.listen(node, 'url-value-changed', '_onUrlChanged');
+      this.listen(node, 'http-method-changed', '_onHttpMethodChanged');
+      this.listen(node, 'body-value-changed', '_onBodyChanged');
+      this.listen(node, 'auth-settings-changed', '_onAuthSettings');
     },
 
-    detached: function() {
-      this.unlisten(window, 'url-value-changed', '_onUrlChanged');
-      this.unlisten(window, 'http-method-changed', '_onHttpMethodChanged');
-      this.unlisten(window, 'body-value-changed', '_onBodyChanged');
-      this.unlisten(window, 'auth-settings-changed', '_onAuthSettings');
+    _detachListeners: function(node) {
+      this.unlisten(node, 'url-value-changed', '_onUrlChanged');
+      this.unlisten(node, 'http-method-changed', '_onHttpMethodChanged');
+      this.unlisten(node, 'body-value-changed', '_onBodyChanged');
+      this.unlisten(node, 'auth-settings-changed', '_onAuthSettings');
     },
 
     /**

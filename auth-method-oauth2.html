@@ -586,17 +586,19 @@ Custom property | Description | Default
       this._autoHide();
     },
 
-    attached: function() {
-      this.listen(window, 'oauth2-error', '_oauth2ErrorHandler');
-      this.listen(window, 'oauth2-token-response', '_oauth2SccessHandler');
-      this.listen(window, 'auth-settings-changed', '_onAuthSettings');
+    _attachListeners: function(node) {
+      this.listen(node, 'oauth2-error', '_oauth2ErrorHandler');
+      this.listen(node, 'oauth2-token-response', '_oauth2SccessHandler');
+      this.listen(node, 'auth-settings-changed', '_onAuthSettings');
+      this.listen(node, 'request-header-changed', '_headerChangedHandler');
       this._updateGrantTypes();
     },
 
-    detached: function() {
-      this.unlisten(window, 'oauth2-error', '_oauth2ErrorHandler');
-      this.unlisten(window, 'oauth2-token-response', '_oauth2SccessHandler');
-      this.unlisten(window, 'auth-settings-changed', '_onAuthSettings');
+    _detachListeners: function(node) {
+      this.unlisten(node, 'oauth2-error', '_oauth2ErrorHandler');
+      this.unlisten(node, 'oauth2-token-response', '_oauth2SccessHandler');
+      this.unlisten(node, 'auth-settings-changed', '_onAuthSettings');
+      this.unlisten(node, 'request-header-changed', '_headerChangedHandler');
     },
     /**
      * This function hides all non-crucial fields that has been pre-filled when element has been
@@ -964,6 +966,41 @@ Custom property | Description | Default
       } else if (oldValue !== undefined) {
         this.stepStartIndex++;
       }
+    },
+
+    /**
+     * Handler for the `request-header-changed` custom event.
+     * If the panel is opened the it checks if current header updates
+     * authorization.
+     */
+    _headerChangedHandler: function(e) {
+      if (!this._isOpened || e.defaultPrevented) {
+        return;
+      }
+      var name = e.detail.name;
+      if (!name) {
+        return;
+      }
+      name = name.toLowerCase();
+      if (name !== 'authorization') {
+        return;
+      }
+      var value = e.detail.value;
+      if (!value) {
+        if (this.tokenValue) {
+          this.set('tokenValue', '');
+        }
+        return;
+      }
+      var lowerValue = value.toLowerCase();
+      if (lowerValue.indexOf('bearer') !== 0) {
+        if (this.tokenValue) {
+          this.set('tokenValue', '');
+        }
+        return;
+      }
+      value = value.substr(7);
+      this.set('tokenValue', value);
     }
   });
   </script>

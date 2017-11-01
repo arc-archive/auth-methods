@@ -40,6 +40,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
+    <test-fixture id="notOpened">
+      <template>
+        <auth-method-oauth2 grant-type="implicit" attr-for-opened="any"></auth-method-oauth2>
+      </template>
+    </test-fixture>
+
     <script>
     /* global fixture, assert, MockInteractions, sinon, TestHelpers */
 
@@ -237,6 +243,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(element.authUrl, aUrl);
         assert.deepEqual(element.scopes, scopes);
         assert.equal(element.accessTokenUrl, aUrl2);
+      });
+    });
+
+    suite('Events handling', function() {
+      function fire(name, value) {
+        var event = new CustomEvent('request-header-changed', {
+          detail: {
+            name: name,
+            value: value
+          },
+          bubbles: true
+        });
+        document.body.dispatchEvent(event);
+      }
+      var authName = 'authorization';
+      suite('Opened element', function() {
+        var element;
+        var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
+        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+        setup(function() {
+          element = fixture('implicit');
+          element.tokenValue = '';
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          element.scopes = ['email', 'profile'];
+        });
+
+        test('Updates tokenValue from the event', function() {
+          fire(authName, 'bearer testToken');
+          assert.equal(element.tokenValue, 'testToken');
+        });
+
+        test('Updates "Bearer" uppercase', function() {
+          fire(authName, 'Bearer testToken');
+          assert.equal(element.tokenValue, 'testToken');
+        });
+
+        test('Does not change values for other headers', function() {
+          element.tokenValue = 'test';
+          fire('x-test', 'something');
+          assert.equal(element.tokenValue, 'test');
+        });
+
+        test('Clears the value for empty header', function() {
+          element.tokenValue = 'test-1';
+          fire(authName, '');
+          assert.equal(element.tokenValue, '');
+        });
+      });
+
+      suite('Not opened element', function() {
+        var element;
+        setup(function() {
+          element = fixture('notOpened');
+          element.tokenValue = '';
+        });
+
+        test('Does not updates properties from the event', function() {
+          fire(authName, 'bearer testToken');
+          assert.equal(element.tokenValue, '');
+        });
       });
     });
     </script>

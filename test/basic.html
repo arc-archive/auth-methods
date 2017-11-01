@@ -16,7 +16,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../iron-test-helpers/test-helpers.js"></script>
-    <!-- Step 1: import the element to test -->
     <link rel="import" href="../auth-methods.html">
   </head>
   <body>
@@ -27,27 +26,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
+    <test-fixture id="notOpened">
+      <template>
+        <auth-method-basic attr-for-opened="any"></auth-method-basic>
+      </template>
+    </test-fixture>
+
     <script>
-    /* global suite, test, fixture, assert, setup, expect, sinon */
+    /* global suite, test, fixture, assert, setup, sinon */
     suite('basic', function() {
       var element;
       setup(function() {
         element = fixture('basic');
+        element.hash = '';
       });
       test('Hash to be equal Og== (empty username and password)', function() {
-        expect(element.hash).to.be.equal('Og==');
+        assert.equal(element.hash, '');
       });
 
       test('Hash to be set', function() {
         element.username = 'test';
         element.password = 'test';
-        expect(element.hash).to.be.equal('dGVzdDp0ZXN0');
+        assert.equal(element.hash, 'dGVzdDp0ZXN0');
       });
 
       test('Hash populates password and username', function() {
+        element.hash = '';
+        assert.equal(element.username, '');
+        assert.equal(element.password, '');
         element.hash = 'dGVzdDp0ZXN0';
-        expect(element.username).to.be.equal('test');
-        expect(element.password).to.be.equal('test');
+        assert.equal(element.username, 'test');
+        assert.equal(element.password, 'test');
       });
 
       test('Fire `auth-settings-changed` event', function() {
@@ -58,24 +67,88 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('Fire `auth-settings-changed` with validate eq. false', function(done) {
-        var clb = function(e) {
+        element.addEventListener('auth-settings-changed', function clb(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.false;
+          assert.isFalse(e.detail.valid);
           done();
-        };
-        element.addEventListener('auth-settings-changed', clb);
+        });
         element.password = 'test';
       });
 
       test('Fire `auth-settings-changed` with validate eq. true', function() {
-        var clb = function(e) {
+        element.addEventListener('auth-settings-changed', function clb(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          expect(e.detail.valid).to.be.true;
-        };
-        element.addEventListener('auth-settings-changed', clb);
-        element.hash = 'dGVzdDp0ZXN0';
+          assert.isTrue(e.detail.valid);
+        });
+        element.hash = 'dGVzdDE6dGVzdDE=';
+      });
+    });
+
+    suite('Events handling', function() {
+      function fire(name, value) {
+        var event = new CustomEvent('request-header-changed', {
+          detail: {
+            name: name,
+            value: value
+          },
+          bubbles: true
+        });
+        document.body.dispatchEvent(event);
+      }
+      var authName = 'authorization';
+      suite('Opened element', function() {
+        var element;
+        setup(function() {
+          element = fixture('basic');
+          element.hash = '';
+        });
+
+        test('Updates properties from the event', function() {
+          fire(authName, 'Basic dGVzdDE6cGFzczE=');
+          assert.equal(element.username, 'test1');
+          assert.equal(element.password, 'pass1');
+        });
+
+        test('Updates "basic" lowercase', function() {
+          fire(authName, 'basic dGVzdDE6cGFzczE=');
+          assert.equal(element.username, 'test1');
+          assert.equal(element.password, 'pass1');
+        });
+
+        test('Does not change values for other headers', function() {
+          element.username = 'test';
+          element.password = 'test';
+          assert.equal(element.hash, 'dGVzdDp0ZXN0');
+          fire('x-test', 'something');
+          assert.equal(element.hash, 'dGVzdDp0ZXN0');
+          assert.equal(element.username, 'test');
+          assert.equal(element.password, 'test');
+        });
+
+        test('Clears the value for empty header', function() {
+          element.username = 'test';
+          element.password = 'test';
+          assert.equal(element.hash, 'dGVzdDp0ZXN0');
+          fire(authName, '');
+          assert.equal(element.hash, '');
+          assert.equal(element.username, '');
+          assert.equal(element.password, '');
+        });
       });
 
+      suite('Not opened element', function() {
+        var element;
+        setup(function() {
+          element = fixture('notOpened');
+          element.hash = '';
+        });
+
+        test('Does not updates properties from the event', function() {
+          fire(authName, 'Basic dGVzdDE6cGFzczE=');
+          assert.equal(element.username, '');
+          assert.equal(element.password, '');
+        });
+      });
     });
     </script>
 
