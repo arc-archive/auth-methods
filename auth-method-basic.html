@@ -114,12 +114,14 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       }
     },
 
-    attached: function() {
-      this.listen(window, 'auth-settings-changed', '_onAuthSettings');
+    _attachListeners: function(node) {
+      this.listen(node, 'auth-settings-changed', '_onAuthSettings');
+      this.listen(node, 'request-header-changed', '_headerChangedHandler');
     },
 
-    detached: function() {
-      this.unlisten(window, 'auth-settings-changed', '_onAuthSettings');
+    _detachListeners: function(node) {
+      this.unlisten(node, 'auth-settings-changed', '_onAuthSettings');
+      this.unlisten(node, 'request-header-changed', '_headerChangedHandler');
     },
 
     /**
@@ -146,6 +148,12 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       '_settingsChanged(hash)'
     ],
 
+    reset: function() {
+      this.set('hash', '');
+      this.set('username', '');
+      this.set('password', '');
+    },
+
     _settingsChanged: function() {
       var validationResult = this.$.form.validate();
       var settings = this._getSettings();
@@ -167,6 +175,7 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
 
     _hashChanged: function(hash) {
       if (this._internalHashChange || !hash) {
+        console.log('SHOULD NOT HAPPEN', hash);
         return;
       }
       var encoded;
@@ -178,6 +187,7 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
           if (parts[1]) {
             this.password = parts[1];
           }
+          console.log('Aaaaaaaa', this.username, this.password);
         }
       } catch (e) {
         console.warn(e);
@@ -186,18 +196,40 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
         });
       }
     },
-
-    _userInputChanged: function(uid, passwd) {
+    /**
+     * Computes hash value for given username or password.
+     * It computes value if at least one value for username and password is
+     * provided. Otherwise it sets hash to empty string.
+     *
+     * @param {String} uid Username
+     * @param {String} passwd Password
+     * @return {String} Computed hash.
+     */
+    hashData: function(uid, passwd) {
       if (!uid) {
         uid = '';
       }
       if (!passwd) {
         passwd = '';
       }
-      var enc = uid + ':' + passwd;
-      var hash = btoa(enc);
+      var hash;
+      if (uid || passwd) {
+        var enc = uid + ':' + passwd;
+        hash = btoa(enc);
+      } else {
+        hash = '';
+      }
+      return hash;
+    },
+    /**
+     * Sets the hash value for current username and password.
+     *
+     * @param {String} uid Username
+     * @param {String} passwd Password
+     */
+    _userInputChanged: function(uid, passwd) {
       this._internalHashChange = true;
-      this.set('hash', hash);
+      this.set('hash', this.hashData(uid, passwd));
       this._internalHashChange = false;
     },
 
@@ -228,6 +260,40 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
           this[_key] = otherSettings[_key];
         }
       }
+    },
+    /**
+     * Handler for the `request-header-changed` custom event.
+     * If the panel is opened the it checks if current header updates
+     * authorization.
+     */
+    _headerChangedHandler: function(e) {
+      if (!this._isOpened || e.defaultPrevented) {
+        return;
+      }
+      var name = e.detail.name;
+      if (!name) {
+        return;
+      }
+      name = name.toLowerCase();
+      if (name !== 'authorization') {
+        return;
+      }
+      var value = e.detail.value;
+      if (!value) {
+        if (this.hash) {
+          this.reset();
+        }
+        return;
+      }
+      var lowerValue = value.toLowerCase();
+      if (lowerValue.indexOf('basic') !== 0) {
+        if (this.hash) {
+          this.reset();
+        }
+        return;
+      }
+      value = value.substr(6);
+      this.set('hash', value);
     }
   });
   </script>

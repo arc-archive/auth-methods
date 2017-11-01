@@ -292,14 +292,14 @@ Input styles are consistent with `raml-headers-form` element.
       }
     },
 
-    attached: function() {
-      this.listen(window, 'request-header-changed', '_headerChangedHandler');
-      this.listen(window, 'query-parameter-changed', '_parameterChangedHandler');
+    _attachListeners: function(node) {
+      this.listen(node, 'request-header-changed', '_headerChangedHandler');
+      this.listen(node, 'query-parameter-changed', '_parameterChangedHandler');
     },
 
-    detached: function() {
-      this.unlisten(window, 'request-header-changed', '_headerChangedHandler');
-      this.unlisten(window, 'query-parameter-changed', '_parameterChangedHandler');
+    _detachListeners: function(node) {
+      this.unlisten(node, 'request-header-changed', '_headerChangedHandler');
+      this.unlisten(node, 'query-parameter-changed', '_parameterChangedHandler');
     },
 
     /**
@@ -488,10 +488,7 @@ Input styles are consistent with `raml-headers-form` element.
      * Update array value for given type (`headers` or `queryParameters`) for given event.
      */
     _updateEventValue: function(target, e) {
-      if (e.target === this) {
-        return;
-      }
-      if (e.defaultPrevented) {
+      if (e.target === this || !this._isOpened || e.defaultPrevented) {
         return;
       }
       var name = e.detail.name;
