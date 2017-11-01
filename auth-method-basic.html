@@ -175,7 +175,6 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
 
     _hashChanged: function(hash) {
       if (this._internalHashChange || !hash) {
-        console.log('SHOULD NOT HAPPEN', hash);
         return;
       }
       var encoded;
@@ -187,7 +186,6 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
           if (parts[1]) {
             this.password = parts[1];
           }
-          console.log('Aaaaaaaa', this.username, this.password);
         }
       } catch (e) {
         console.warn(e);
