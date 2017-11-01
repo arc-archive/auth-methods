@@ -1,3 +1,13 @@
+<a name="2.2.5"></a>
+## [2.2.5](https://github.com/advanced-rest-client/auth-methods/compare/2.2.4...2.2.5) (2017-11-01)
+
+
+### Fix
+
+* Fixed warning message of not implementing behavior methods. ([cd9700ccb755bb3e7065b1adf2ab7effa1345089](https://github.com/advanced-rest-client/auth-methods/commit/cd9700ccb755bb3e7065b1adf2ab7effa1345089))
+
+
+
 <a name="2.2.4"></a>
 ## [2.2.4](https://github.com/advanced-rest-client/auth-methods/compare/2.2.3...2.2.4) (2017-11-01)
 
