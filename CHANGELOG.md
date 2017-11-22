@@ -1,3 +1,13 @@
+<a name="2.2.7"></a>
+## [2.2.7](https://github.com/advanced-rest-client/auth-methods/compare/2.2.6...2.2.7) (2017-11-22)
+
+
+### Fix
+
+* Fixes getting a token for password and client credentials types. ([a244f89eb1dbba105f81b6f7d0c88f24167756c4](https://github.com/advanced-rest-client/auth-methods/commit/a244f89eb1dbba105f81b6f7d0c88f24167756c4))
+
+
+
 <a name="2.2.6"></a>
 ## [2.2.6](https://github.com/advanced-rest-client/auth-methods/compare/2.2.5...2.2.6) (2017-11-01)
 
