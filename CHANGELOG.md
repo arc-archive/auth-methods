@@ -1,3 +1,14 @@
+<a name="2.2.9"></a>
+## [2.2.9](https://github.com/advanced-rest-client/auth-methods/compare/2.2.8...2.2.9) (2017-12-14)
+
+
+### Update
+
+* Added empty panel to demo page ([ba92a98af8a012f414a9749c3386653f9ae31833](https://github.com/advanced-rest-client/auth-methods/commit/ba92a98af8a012f414a9749c3386653f9ae31833))
+* Updated dependency version. ([19027b0ac67c2c5a601cdd423d37881978826933](https://github.com/advanced-rest-client/auth-methods/commit/19027b0ac67c2c5a601cdd423d37881978826933))
+
+
+
 <a name="2.2.8"></a>
 ## [2.2.8](https://github.com/advanced-rest-client/auth-methods/compare/2.2.7...2.2.8) (2017-11-22)
 
