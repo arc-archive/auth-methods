@@ -1,7 +1,7 @@
 {
   "name": "auth-methods",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
-  "version": "2.2.9",
+  "version": "2.2.10",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
   ],
