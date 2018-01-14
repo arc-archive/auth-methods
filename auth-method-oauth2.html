@@ -31,6 +31,7 @@ the License.
 <link rel="import" href="../paper-ripple/paper-ripple.html">
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../clipboard-copy/clipboard-copy.html">
 <link rel="import" href="../arc-polyfills/arc-polyfills.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
@@ -312,7 +313,7 @@ Custom property | Description | Default
               <p class="redirect-info">Set this redirect URL in OAuth 2.0 provider settings.</p>
               <p class="read-only-param-field padding">
                 <span class="code" tabindex="0" id="redirectLabel">[[redirectUrl]]</span>
-                <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="redirect" id="redirectCopyButton"></paper-icon-button>
+                <paper-icon-button icon="arc:content-copy" on-tap="_copyContent" data-src="redirect" id="redirectCopyButton"></paper-icon-button>
               </p>
             </div>
             <div class="authorize-actions" hidden$="[[hasTokenValue]]">
@@ -324,7 +325,7 @@ Custom property | Description | Default
               <p class="token-info">The token will be set to the corresponding field (header or query parameter).</p>
               <p class="read-only-param-field no-background">
                 <span class="code" tabindex="0" id="tokenLabel">[[tokenValue]]</span>
-                <paper-icon-button icon="arc:content-copy" on-tap="_copyRedirectUrl" data-src="token" id="tokenCopyButton"></paper-icon-button>
+                <paper-icon-button icon="arc:content-copy" on-tap="_copyContent" data-src="token" id="tokenCopyButton"></paper-icon-button>
               </p>
               <div class="authorize-actions">
                 <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Refresh access token</paper-button>
@@ -336,6 +337,7 @@ Custom property | Description | Default
       </div>
     </form>
     <paper-toast text="" duration="5000"></paper-toast>
+    <clipboard-copy></clipboard-copy>
   </template>
   <script>
   Polymer({
@@ -859,7 +861,7 @@ Custom property | Description | Default
       }
     },
 
-    _copyRedirectUrl: function(e) {
+    _copyContent: function(e) {
       e = Polymer.dom(e);
       var src = e.localTarget.dataset.src;
       if (!src) {
@@ -869,42 +871,27 @@ Custom property | Description | Default
       switch (src) {
         case 'redirect':
           params = {
-            container: this.$.redirectLabel,
+            text: this.$.redirectLabel.innerText,
             button: this.$.redirectCopyButton
           };
           break;
         case 'token':
           params = {
-            container: this.$.tokenLabel,
+            text: this.$.tokenLabel.innerText,
             button: this.$.tokenCopyButton
           };
           break;
         default:
           throw new Error('Unknown src value');
       }
-      return this._copyToClipboard(params);
-    },
-
-    _copyToClipboard: function(params) {
-      // From https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
-      var snipRange = document.createRange();
-      snipRange.selectNodeContents(params.container);
-      var selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(snipRange);
-      var result = false;
-      try {
-        result = document.execCommand('copy');
+      var elm = this.$$('clipboard-copy');
+      elm.content = params.text;
+      if (elm.copy()) {
         params.button.icon = 'done';
-      } catch (err) {
-        // Copy command is not available
-        Polymer.Base._error(err);
+      } else {
         params.button.icon = 'error';
       }
-      // Return to the copy button after a second.
       setTimeout(this._resetCopyButtonState.bind(this, params.button), 1000);
-      selection.removeAllRanges();
-      return result;
     },
 
     _resetCopyButtonState: function(button) {
