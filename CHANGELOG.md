@@ -1,3 +1,13 @@
+<a name="2.2.11"></a>
+## [2.2.11](https://github.com/advanced-rest-client/auth-methods/compare/2.2.10...2.2.11) (2018-01-14)
+
+
+### Fix
+
+* Fixes #2 - copy to cliboard in electron app. ([e40776577ccb87ab767073a3478d5b1b82c7e611](https://github.com/advanced-rest-client/auth-methods/commit/e40776577ccb87ab767073a3478d5b1b82c7e611)), closes [#2](https://github.com/advanced-rest-client/auth-methods/issues/2)
+
+
+
 <a name="2.2.10"></a>
 ## [2.2.10](https://github.com/advanced-rest-client/auth-methods/compare/2.2.9...2.2.10) (2017-12-14)
 
