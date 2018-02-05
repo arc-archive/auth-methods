@@ -747,11 +747,18 @@ Custom property | Description | Default
       }
     },
 
-    _oauth2ErrorHandler: function(e, detail) {
+    _oauth2ErrorHandler: function(e) {
+      var info = e.detail;
+      // API console may not support state check (mey not return it back)
+      if (typeof info.state !== 'undefined') {
+        if (info.state !== this._lastState) {
+          return;
+        }
+      }
       this._authorizing = false;
-
+      this._lastState = undefined;
       var toast = this.$$('paper-toast');
-      toast.text = detail.message;
+      toast.text = info.message;
       toast.opened = true;
     },
 
