@@ -677,8 +677,24 @@ Custom property | Description | Default
         return;
       }
       var detail = this._getSettings();
+      this._lastState = this.generateState();
+      detail.state = this._lastState;
       this._authorizing = true;
       this.fire('oauth2-token-requested', detail);
+    },
+
+    /**
+     * Generates `state` parameter for the OAuth2 call.
+     *
+     * @return {String} Generated state string.
+     */
+    generateState: function() {
+      var text = '';
+      var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      for (var i = 0; i < 6; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
     },
 
     /**
@@ -739,11 +755,19 @@ Custom property | Description | Default
       toast.opened = true;
     },
 
-    _oauth2SccessHandler: function(e, detail) {
-      if (detail.accessToken && detail.accessToken !== this.tokenValue) {
-        this.set('tokenValue', detail.accessToken);
+    _oauth2SccessHandler: function(e) {
+      var info = e.detail;
+      // API console may not support state check (mey not return it back)
+      if (typeof info.state !== 'undefined') {
+        if (info.state !== this._lastState) {
+          return;
+        }
+      }
+      this._lastState = undefined;
+      if (info.accessToken && info.accessToken !== this.tokenValue) {
+        this.set('tokenValue', info.accessToken);
         this.fire('oauth2-token-ready', {
-          token: detail.accessToken
+          token: info.accessToken
         });
       }
     },
