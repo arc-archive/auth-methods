@@ -66,20 +66,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <output id="log"></output>
 
         <script>
-          var provider = document.querySelector('auth-method-oauth2');
+          var providers = document.querySelectorAll('auth-method-oauth2');
           var redirectUrl = location.href.replace('/auth-methods/demo/oauth2.html',
             '/oauth-authorization/oauth-popup.html');
-          provider.redirectUrl = redirectUrl;
           var output = document.querySelector('output');
-          provider.addEventListener('error', function(e) {
-            this.innerHTML = e.detail.error.message + '\n';
-          }.bind(output));
-          provider.addEventListener('auth-settings-changed', function(e) {
-            var text = 'Current settings:\n';
-            var data = JSON.stringify(e.detail, null, 2);
-            text += data + '\n';
-            this.innerHTML = text;
-          }.bind(output));
+          providers.forEach(function(provider) {
+            provider.redirectUrl = redirectUrl;
+            provider.addEventListener('error', function(e) {
+              this.innerHTML = e.detail.error.message + '\n';
+            }.bind(output));
+            provider.addEventListener('auth-settings-changed', function(e) {
+              var text = 'Current settings:\n';
+              var data = JSON.stringify(e.detail, null, 2);
+              text += data + '\n';
+              this.innerHTML = text;
+            }.bind(output));
+          });
         </script>
       </template>
     </arc-demo-snippet>

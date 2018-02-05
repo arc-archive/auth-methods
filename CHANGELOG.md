@@ -1,3 +1,19 @@
+<a name="2.2.13"></a>
+## [2.2.13](https://github.com/advanced-rest-client/auth-methods/compare/2.2.12...2.2.13) (2018-02-05)
+
+
+### Breaking
+
+* Removed `auth-settings-changed` custom event handler. ([a5f2a0f3d461d07dcbaef7d8dc014f76dea06899](https://github.com/advanced-rest-client/auth-methods/commit/a5f2a0f3d461d07dcbaef7d8dc014f76dea06899))
+
+### Update
+
+* Added state OAuth2 parameter check. ([e372c8323d9906f9da037baa212095d785a5025a](https://github.com/advanced-rest-client/auth-methods/commit/e372c8323d9906f9da037baa212095d785a5025a))
+* Updated demo page. ([ea8bba0e31cd070a7e96a4f350154de62be8dadc](https://github.com/advanced-rest-client/auth-methods/commit/ea8bba0e31cd070a7e96a4f350154de62be8dadc))
+* Updated tests for OAuth2 ([f4af156f61f0d8d3f27505fe3b451fa8f8806170](https://github.com/advanced-rest-client/auth-methods/commit/f4af156f61f0d8d3f27505fe3b451fa8f8806170))
+
+
+
 <a name="2.2.12"></a>
 ## [2.2.12](https://github.com/advanced-rest-client/auth-methods/compare/2.2.11...2.2.12) (2018-01-14)
 
