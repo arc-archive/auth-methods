@@ -410,6 +410,28 @@ Custom property | Description | Default
       };
     },
 
+    /**
+     * Restores settings from stored value.
+     *
+     * @param {Object} settings Object returned by `_getSettings()`
+     */
+    restore: function(settings) {
+      this.consumerKey = settings.consumerKey;
+      this.consumerSecret = settings.consumerSecret;
+      this.token = settings.token;
+      this.tokenSecret = settings.tokenSecret;
+      this.timestamp = settings.timestamp;
+      this.nonce = settings.nonce;
+      this.realm = settings.realm;
+      this.signatureMethod = settings.signatureMethod;
+      this.requestTokenUrl = settings.requestTokenUrl;
+      this.accessTokenUrl = settings.accessTokenUrl;
+      this.redirectUrl = settings.redirectUrl;
+      this.authTokenMethod = settings.authTokenMethod;
+      this.authParamsLocation = settings.authParamsLocation;
+      this.authorizationUrl = settings.authorizationUrl;
+    },
+
     // Removes a value from the (paper-)input going up through path of the event.
     _clearField: function(e) {
       e = Polymer.dom(e);

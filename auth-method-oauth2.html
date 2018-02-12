@@ -114,23 +114,23 @@ Custom property | Description | Default
     <style include="auth-methods-styles">
      :host {
       display: block;
-      @apply(--auth-method-panel);
-      @apply(--auth-method-oauth2);
+      @apply --auth-method-panel;
+      @apply --auth-method-oauth2;
 
       --paper-icon-button: {
         color: var(--hint-trigger-color, rgba(0, 0, 0, 0.54));
         transition: color 0.25s linear;
-        @apply(--icon-button);
+        @apply --icon-button;
       }
 
       --paper-icon-button-hover: {
         color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.78));
-        @apply(--icon-button-hover);
+        @apply --icon-button-hover;
       }
     }
 
     .form {
-      @apply(--layout-flex);
+      @apply --layout-flex;
       max-width: 700px;
     }
 
@@ -141,23 +141,23 @@ Custom property | Description | Default
 
     .grant-dropdown {
       width: 320px;
-      @apply(--auth-grant-dropdown);
+      @apply --auth-grant-dropdown;
     }
 
     .auth-button {
       color: var(--accent-color);
       background-color: #fff;
-      @apply(--auth-button);
+      @apply --auth-button;
     }
 
     .auth-button:hover {
-      @apply(--auth-button-hover);
+      @apply --auth-button-hover;
     }
 
     .auth-button[disabled] {
       background-color: rgba(0, 0, 0, 0.24);
       color: rgba(0, 0, 0, 0.54);
-      @apply(--auth-button-disabled);
+      @apply --auth-button-disabled;
     }
 
     .authorize-actions {
@@ -166,12 +166,12 @@ Custom property | Description | Default
 
     .read-only-param-field {
       background-color: rgba(0, 0, 0, 0.12);
-      @apply(--arc-font-body1);
+      @apply --arc-font-body1;
       display: block;
       white-space: pre-wrap;
       word-wrap: break-word;
       word-break: break-all;
-      @apply(--layout-horizontal);
+      @apply --layout-horizontal;
     }
 
     .read-only-param-field.padding {
@@ -183,12 +183,12 @@ Custom property | Description | Default
     }
 
     label {
-      @apply(--form-label);
+      @apply --form-label;
     }
 
     .token-info,
     .redirect-info {
-      @apply(--arc-font-body1);
+      @apply --arc-font-body1;
       font-weight: 200;
       color: rgba(0, 0, 0, 0.54);
     }
@@ -196,8 +196,8 @@ Custom property | Description | Default
     .code {
       font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
       -webkit-font-smoothing: antialiased;
-      @apply(--arc-font-code1);
-      @apply(--layout-flex);
+      @apply --arc-font-code1;
+      @apply --layout-flex;
     }
 
     .token-label {
@@ -220,7 +220,7 @@ Custom property | Description | Default
     }
 
     .redirect-section {
-      @apply(--auth-redirect-section);
+      @apply --auth-redirect-section;
     }
 
     *[hiddable] {
@@ -737,6 +737,40 @@ Custom property | Description | Default
       }
       return detail;
     },
+    /**
+     * Restores settings from stored value.
+     *
+     * @param {Object} settings Object returned by `_getSettings()`
+     */
+    restore: function(settings) {
+      this.grantType = settings.type;
+      this.clientId = settings.clientId;
+      this.tokenValue = settings.tokenValue;
+      switch (this.grantType) {
+        case 'implicit':
+          this.authUrl = settings.authorizationUrl;
+          this.scopes = settings.scopes;
+          break;
+        case 'authorization_code':
+          this.authUrl = settings.authorizationUrl;
+          this.clientSecret = settings.clientSecret;
+          this.accessTokenUrl = settings.accessTokenUrl;
+          this.scopes = settings.scopes;
+          break;
+        case 'client_credentials':
+          // The server flow.
+          this.clientSecret = settings.clientSecret;
+          this.accessTokenUrl = settings.accessTokenUrl;
+          break;
+        case 'password':
+          // The server flow.
+          this.username = settings.username;
+          this.password = settings.password;
+          this.accessTokenUrl = settings.accessTokenUrl;
+          break;
+      }
+    },
+
     // Handler for the OAuth token value change. Enables the method if not active.
     _tokenValueChanged: function(newValue) {
       this._authorizing = false;
