@@ -294,6 +294,22 @@ Custom property | Description | Default
       return settings;
     },
 
+    /**
+     * Restores settings from stored value.
+     *
+     * @param {Object} settings Object returned by `_getSettings()`
+     */
+    restore: function(settings) {
+      this.username = settings.username;
+      this.password = settings.password;
+      this.realm = settings.realm;
+      this.nonce = settings.nonce;
+      this.opaque = settings.opaque;
+      this.qop = settings.qop;
+      this.nc = settings.nc;
+      this.cnonce = settings.cnonce;
+    },
+
     _userInputChanged: function(username, password, realm, nonce, qop, nc,
       algorithm, opaque, cnonce, httpMethod, requestUrl, fullForm) {
       var detail;

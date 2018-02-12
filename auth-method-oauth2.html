@@ -737,6 +737,40 @@ Custom property | Description | Default
       }
       return detail;
     },
+    /**
+     * Restores settings from stored value.
+     *
+     * @param {Object} settings Object returned by `_getSettings()`
+     */
+    restore: function(settings) {
+      this.grantType = settings.type;
+      this.clientId = settings.clientId;
+      this.tokenValue = settings.tokenValue;
+      switch (this.grantType) {
+        case 'implicit':
+          this.authUrl = settings.authorizationUrl;
+          this.scopes = settings.scopes;
+          break;
+        case 'authorization_code':
+          this.authUrl = settings.authorizationUrl;
+          this.clientSecret = settings.clientSecret;
+          this.accessTokenUrl = settings.accessTokenUrl;
+          this.scopes = settings.scopes;
+          break;
+        case 'client_credentials':
+          // The server flow.
+          this.clientSecret = settings.clientSecret;
+          this.accessTokenUrl = settings.accessTokenUrl;
+          break;
+        case 'password':
+          // The server flow.
+          this.username = settings.username;
+          this.password = settings.password;
+          this.accessTokenUrl = settings.accessTokenUrl;
+          break;
+      }
+    },
+
     // Handler for the OAuth token value change. Enables the method if not active.
     _tokenValueChanged: function(newValue) {
       this._authorizing = false;

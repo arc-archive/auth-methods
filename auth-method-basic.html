@@ -173,6 +173,17 @@ This is very basic element. Style inputs using `paper-input`'s or `paper-toggle`
       };
     },
 
+    /**
+     * Restores settings from stored value.
+     *
+     * @param {Object} settings Object returned by `_getSettings()`
+     */
+    restore: function(settings) {
+      this.hash = settings.hash;
+      this.password = settings.password;
+      this.username = settings.username;
+    },
+
     _hashChanged: function(hash) {
       if (this._internalHashChange || !hash) {
         return;

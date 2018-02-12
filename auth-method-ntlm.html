@@ -165,6 +165,17 @@ This is very basic element. Style inputs using input's or toggle's css variables
       };
     },
 
+    /**
+     * Restores settings from stored value.
+     *
+     * @param {Object} settings Object returned by `_getSettings()`
+     */
+    restore: function(settings) {
+      this.domain = settings.domain;
+      this.password = settings.password;
+      this.username = settings.username;
+    },
+
     // Removes a value from the (paper-)input going up through path of the event.
     _clearField: function(e) {
       e = Polymer.dom(e);
