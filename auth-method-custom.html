@@ -400,6 +400,12 @@ Input styles are consistent with `raml-headers-form` element.
       return this.$.form.serialize();
     },
 
+    /**
+     * Restores settings from stored value.
+     * For custom methods this is dummy function.
+     */
+    restore: function() {},
+
     notifySettingsChanged: function() {
       var validationResult = this.$.form.validate();
       var settings = this._getSettings();

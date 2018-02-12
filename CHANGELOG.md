@@ -1,3 +1,13 @@
+<a name="2.2.15"></a>
+## [2.2.15](https://github.com/advanced-rest-client/auth-methods/compare/2.2.14...2.2.15) (2018-02-12)
+
+
+### Update
+
+* Added restore function to all methods. ([343b1e45c7c111c10ff0ec70f33baf60ae1c82a9](https://github.com/advanced-rest-client/auth-methods/commit/343b1e45c7c111c10ff0ec70f33baf60ae1c82a9))
+
+
+
 <a name="2.2.14"></a>
 ## [2.2.14](https://github.com/advanced-rest-client/auth-methods/compare/2.2.13...2.2.14) (2018-02-05)
 
