@@ -33,24 +33,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <test-fixture id="code">
-      <template>
-        <auth-method-oauth2 grant-type="authorization_code"></auth-method-oauth2>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="credentials">
-      <template>
-        <auth-method-oauth2 grant-type="client_credentials"></auth-method-oauth2>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="password">
-      <template>
-        <auth-method-oauth2 grant-type="password"></auth-method-oauth2>
-      </template>
-    </test-fixture>
-
     <test-fixture id="notOpened">
       <template>
         <auth-method-oauth2 grant-type="implicit" attr-for-opened="any"></auth-method-oauth2>
@@ -58,8 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global fixture, assert, MockInteractions, sinon, TestHelpers */
-
+    /* global fixture, assert, TestHelpers */
     suite('Basic', function() {
       var element;
       setup(function() {
@@ -128,180 +109,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.tokenValue = 'test';
         assert.isTrue(element.hasTokenValue, 'True when token value is set');
       });
-
     });
 
-    suite('Implicit grant type', function() {
+    suite('_authorizing state', function() {
       var element;
-      var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-      var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
       setup(function() {
         element = fixture('implicit');
-        element.clientId = clientId;
-        element.authUrl = authUrl;
-      });
-
-      test('Should not be validated', function() {
-        assert.isFalse(element.validate(), 'Active validation.');
-        // assert.isFalse(element.validate(true), 'Passive validation.');
-        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
-      });
-
-      test('Should be validated', function() {
-        element.scopes = ['email', 'profile'];
+        element._authorizing = true;
         TestHelpers.forceXIfStamp(element);
-        assert.isTrue(element.validate(), 'Active validation.');
-        assert.isTrue(element.validate(true), 'Passive validation.');
       });
 
-      test('Should not fire oauth2-token-requested event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('oauth2-token-requested', spy);
-        var button = Polymer.dom(element.root).querySelector('.auth-button');
-        MockInteractions.tap(button);
-        assert.isFalse(spy.calledOnce);
+      test('Get token button is disabled ', function() {
+        var button = Polymer.dom(element.root).querySelector('.auth-button[data-type="get-token"]');
+        assert.isTrue(button.disabled);
       });
 
-      test('Fire oauth2-token-requested event', function() {
-        element.scopes = ['email', 'profile'];
-        TestHelpers.forceXIfStamp(element);
-        var spy = sinon.stub();
-        element.addEventListener('oauth2-token-requested', spy);
-        var button = Polymer.dom(element.root).querySelector('.auth-button');
-        MockInteractions.tap(button);
-        assert.isTrue(spy.calledOnce);
+      test('Refresh token button is disabled ', function() {
+        var button = Polymer.dom(element.root).querySelector('.auth-button[data-type="refresh-token"]');
+        assert.isTrue(button.disabled);
       });
 
-      test('oauth2-token-requested event contains state parameter', function() {
-        element.scopes = ['email', 'profile'];
-        TestHelpers.forceXIfStamp(element);
-        var eventData;
-        element.addEventListener('oauth2-token-requested', function clb(e) {
-          element.removeEventListener('oauth2-token-requested', clb);
-          eventData = e.detail;
+      test('`oauth2-token-response` event restores _authorizing', function() {
+        var event = new CustomEvent('oauth2-token-response', {
+          bubbles: true,
+          cancelable: true,
+          detail: {
+            accessToken: 'test-token'
+          }
         });
-        var button = Polymer.dom(element.root).querySelector('.auth-button');
-        MockInteractions.tap(button);
-        assert.typeOf(eventData.state, 'string');
+        element.dispatchEvent(event);
+        assert.isFalse(element._authorizing);
       });
 
-      test('Settings are set', function() {
-        var scopes = ['email', 'profile'];
-        var redirectUrl = 'http://domain.com';
-        element.scopes = scopes;
-        element.redirectUrl = redirectUrl;
-        TestHelpers.forceXIfStamp(element);
-        var settings = element.settings;
-
-        assert.equal(settings.type, 'implicit');
-        assert.equal(settings.clientId, clientId);
-        assert.equal(settings.authorizationUrl, authUrl);
-        assert.deepEqual(settings.scopes, scopes);
-        assert.equal(settings.redirectUrl, redirectUrl);
-      });
-
-      test('Should accept RAML settings', function() {
-        var aUrl = 'http://domain.com/authorizationUri';
-        var type = ['implicit', 'code'];
-        var scopes = ['test-1', 'test2'];
-        var raml = {
-          settings: {
-            authorizationGrants: type,
-            authorizationUri: aUrl,
-            scopes: scopes
+      test('oauth2-error event restores _authorizing', function() {
+        var event = new CustomEvent('oauth2-error', {
+          bubbles: true,
+          cancelable: true,
+          detail: {
+            message: 'test-error'
           }
-        };
-        element.ramlSettings = raml;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.grantType, 'implicit');
-        assert.equal(element.authUrl, aUrl);
-        assert.deepEqual(element.scopes, scopes);
-      });
-    });
-
-    suite('Code grant type', function() {
-      var element;
-      var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-      var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-      var accessTokenUrl = 'https://www.googleapis.com/oauth2/v4/token';
-      var clientSecret = 'test-secret';
-      setup(function() {
-        element = fixture('code');
-        element.clientId = clientId;
-        element.authUrl = authUrl;
-        element.clientSecret = clientSecret;
-        element.accessTokenUrl = accessTokenUrl;
-      });
-
-      test('Should not be validated', function() {
-        element.accessTokenUrl = undefined;
-        TestHelpers.forceXIfStamp(element);
-        assert.isFalse(element.validate(), 'Active validation.');
-        // assert.isFalse(element.validate(true), 'Passive validation.');
-        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
-      });
-
-      test('Should be validated', function() {
-        element.scopes = ['email', 'profile'];
-        TestHelpers.forceXIfStamp(element);
-        assert.isTrue(element.validate(), 'Active validation.');
-        assert.isTrue(element.validate(true), 'Passive validation.');
-      });
-
-      test('Should not fire oauth2-token-requested event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('oauth2-token-requested', spy);
-        var button = Polymer.dom(element.root).querySelector('.auth-button');
-        MockInteractions.tap(button);
-        assert.isFalse(spy.calledOnce);
-      });
-
-      test('Fire oauth2-token-requested event', function() {
-        element.scopes = ['email', 'profile'];
-        TestHelpers.forceXIfStamp(element);
-        var spy = sinon.stub();
-        element.addEventListener('oauth2-token-requested', spy);
-        var button = Polymer.dom(element.root).querySelector('.auth-button');
-        MockInteractions.tap(button);
-        assert.isTrue(spy.calledOnce);
-      });
-
-      test('Settings are set', function() {
-        var scopes = ['email', 'profile'];
-        var redirectUrl = 'http://domain.com';
-        element.scopes = scopes;
-        element.redirectUrl = redirectUrl;
-        TestHelpers.forceXIfStamp(element);
-        var settings = element.settings;
-
-        assert.equal(settings.type, 'authorization_code');
-        assert.equal(settings.clientId, clientId);
-        assert.equal(settings.authorizationUrl, authUrl);
-        assert.equal(settings.clientSecret, clientSecret);
-        assert.equal(settings.accessTokenUrl, accessTokenUrl);
-        assert.deepEqual(settings.scopes, scopes);
-        assert.equal(settings.redirectUrl, redirectUrl);
-      });
-
-      test('Should accept RAML settings', function() {
-        var aUrl = 'http://domain.com/authorizationUri';
-        var aUrl2 = 'http://domain.com/accessTokenUri';
-        var type = ['code', 'implicit'];
-        var scopes = ['test-1', 'test2'];
-        var raml = {
-          settings: {
-            authorizationGrants: type,
-            authorizationUri: aUrl,
-            accessTokenUri: aUrl2,
-            scopes: scopes
-          }
-        };
-        element.ramlSettings = raml;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.grantType, 'authorization_code');
-        assert.equal(element.authUrl, aUrl);
-        assert.deepEqual(element.scopes, scopes);
-        assert.equal(element.accessTokenUrl, aUrl2);
+        });
+        element.dispatchEvent(event);
+        assert.isFalse(element._authorizing);
       });
     });
 
@@ -364,231 +213,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal(element.tokenValue, '');
         });
       });
-
-      suite('_getSettings() - implicit', function() {
-        var element;
-        var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-        var redirectUrl = 'http://domain.com';
-        var scopes = ['test-1', 'test2'];
-
-        setup(function() {
-          element = fixture('implicit');
-          element.clientId = clientId;
-          element.authUrl = authUrl;
-          element.redirectUrl = redirectUrl;
-          element.scopes = scopes;
-        });
-
-        test('Returns an object', function() {
-          var result = element._getSettings();
-          assert.typeOf(result, 'object');
-        });
-
-        test('type is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.type, element.grantType);
-        });
-
-        test('clientId is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.clientId, clientId);
-        });
-
-        test('tokenValue is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.tokenValue, '', 'Token value is empty');
-
-          element.tokenValue = 'test-token';
-          result = element._getSettings();
-          assert.equal(result.tokenValue, element.tokenValue, 'Token value is set');
-        });
-
-        test('authorizationUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.authorizationUrl, authUrl);
-        });
-
-        test('redirectUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.redirectUrl, redirectUrl);
-        });
-
-        test('scopes is set', function() {
-          var result = element._getSettings();
-          assert.isTrue(result.scopes === scopes);
-        });
-      });
-
-      suite('_getSettings() - authorization_code', function() {
-        var element;
-        var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-        var redirectUrl = 'http://domain.com';
-        var scopes = ['test-1', 'test2'];
-        var accessTokenUrl = 'https://www.googleapis.com/oauth2/v4/token';
-        var clientSecret = 'test-secret';
-        setup(function() {
-          element = fixture('code');
-          element.clientId = clientId;
-          element.authUrl = authUrl;
-          element.redirectUrl = redirectUrl;
-          element.scopes = scopes;
-          element.clientSecret = clientSecret;
-          element.accessTokenUrl = accessTokenUrl;
-        });
-
-        test('Returns an object', function() {
-          var result = element._getSettings();
-          assert.typeOf(result, 'object');
-        });
-
-        test('type is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.type, element.grantType);
-        });
-
-        test('clientId is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.clientId, clientId);
-        });
-
-        test('tokenValue is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.tokenValue, '', 'Token value is empty');
-
-          element.tokenValue = 'test-token';
-          result = element._getSettings();
-          assert.equal(result.tokenValue, element.tokenValue, 'Token value is set');
-        });
-
-        test('authorizationUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.authorizationUrl, authUrl);
-        });
-
-        test('redirectUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.redirectUrl, redirectUrl);
-        });
-
-        test('scopes is set', function() {
-          var result = element._getSettings();
-          assert.isTrue(result.scopes === scopes);
-        });
-
-        test('clientSecret is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.clientSecret, clientSecret);
-        });
-
-        test('accessTokenUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.accessTokenUrl, accessTokenUrl);
-        });
-      });
-
-      suite('_getSettings() - client_credentials', function() {
-        var element;
-        var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-        var clientSecret = 'test-secret';
-        setup(function() {
-          element = fixture('credentials');
-          element.clientId = clientId;
-          element.accessTokenUrl = authUrl;
-          element.clientSecret = clientSecret;
-        });
-
-        test('Returns an object', function() {
-          var result = element._getSettings();
-          assert.typeOf(result, 'object');
-        });
-
-        test('type is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.type, element.grantType);
-        });
-
-        test('clientId is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.clientId, clientId);
-        });
-
-        test('tokenValue is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.tokenValue, '', 'Token value is empty');
-
-          element.tokenValue = 'test-token';
-          result = element._getSettings();
-          assert.equal(result.tokenValue, element.tokenValue, 'Token value is set');
-        });
-
-        test('accessTokenUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.accessTokenUrl, authUrl);
-        });
-
-        test('clientSecret is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.clientSecret, clientSecret);
-        });
-      });
-
-      suite('_getSettings() - password', function() {
-        var element;
-        var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-        var username = 'test-username';
-        var password = 'test-password';
-        setup(function() {
-          element = fixture('password');
-          element.clientId = clientId;
-          element.accessTokenUrl = authUrl;
-          element.username = username;
-          element.password = password;
-        });
-
-        test('Returns an object', function() {
-          var result = element._getSettings();
-          assert.typeOf(result, 'object');
-        });
-
-        test('type is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.type, element.grantType);
-        });
-
-        test('clientId is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.clientId, clientId);
-        });
-
-        test('tokenValue is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.tokenValue, '', 'Token value is empty');
-
-          element.tokenValue = 'test-token';
-          result = element._getSettings();
-          assert.equal(result.tokenValue, element.tokenValue, 'Token value is set');
-        });
-
-        test('accessTokenUrl is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.accessTokenUrl, authUrl);
-        });
-
-        test('username is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.username, username);
-        });
-
-        test('password is set', function() {
-          var result = element._getSettings();
-          assert.equal(result.password, password);
-        });
-      });
-
     });
     </script>
   </body>

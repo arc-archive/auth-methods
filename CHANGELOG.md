@@ -1,3 +1,18 @@
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/advanced-rest-client/auth-methods/compare/2.2.15...2.3.1) (2018-03-16)
+
+
+### New
+
+* Adding support for RAML OAuth2 settings annotation. ([21c8a0684347e7131bef1b34a2c913a2827dba06](https://github.com/advanced-rest-client/auth-methods/commit/21c8a0684347e7131bef1b34a2c913a2827dba06))
+
+### Update
+
+* Removed `authHeaders` as they cannot be applied to the request anyway. ([5fe5a4670043f40f3a106f5b73b88f1aa32d8dc6](https://github.com/advanced-rest-client/auth-methods/commit/5fe5a4670043f40f3a106f5b73b88f1aa32d8dc6))
+* Updated tests for oauth 2.0 ([d6db8cd09db40ba005c9d2b72cf90742ae0ca35b](https://github.com/advanced-rest-client/auth-methods/commit/d6db8cd09db40ba005c9d2b72cf90742ae0ca35b))
+
+
+
 <a name="2.2.16"></a>
 ## [2.2.16](https://github.com/advanced-rest-client/auth-methods/compare/2.2.15...2.2.16) (2018-02-12)
 

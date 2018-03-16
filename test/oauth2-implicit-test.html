@@ -1,0 +1,208 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../auth-methods.html">
+  </head>
+  <body>
+    <test-fixture id="implicit">
+      <template>
+        <auth-method-oauth2 grant-type="implicit"></auth-method-oauth2>
+      </template>
+    </test-fixture>
+    <script>
+    /* global fixture, assert, MockInteractions, sinon, TestHelpers */
+    suite('Implicit grant type', function() {
+      var element;
+      var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
+      var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+      var redirectUrl = 'https://redirect';
+      var scopes = ['email', 'profile'];
+
+      suite('Basics', function() {
+        setup(function(done) {
+          element = fixture('implicit');
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          element.scopes = scopes;
+          element.redirectUrl = redirectUrl;
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            TestHelpers.forceXIfStamp(element);
+            done();
+          });
+        });
+
+        test('Settings are set', function() {
+          var settings = element.settings;
+          assert.equal(settings.type, 'implicit');
+          assert.equal(settings.clientId, clientId);
+          assert.equal(settings.authorizationUrl, authUrl);
+          assert.deepEqual(settings.scopes, scopes);
+          assert.equal(settings.redirectUrl, redirectUrl);
+        });
+
+        test('Should accept RAML settings', function() {
+          var type = ['implicit', 'code'];
+          var raml = {
+            settings: {
+              authorizationGrants: type,
+              authorizationUri: authUrl,
+              scopes: scopes
+            }
+          };
+          element.ramlSettings = raml;
+          TestHelpers.forceXIfStamp(element);
+          assert.equal(element.grantType, 'implicit');
+          assert.equal(element.authUrl, authUrl);
+          assert.deepEqual(element.scopes, scopes);
+        });
+      });
+
+      suite('Validation', function() {
+        setup(function(done) {
+          element = fixture('implicit');
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            done();
+          });
+        });
+
+        test('Should not be validated', function() {
+          assert.isFalse(element.validate(), 'Active validation.');
+          // assert.isFalse(element.validate(true), 'Passive validation.');
+          // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
+        });
+
+        test('Should be validated', function() {
+          element.scopes = ['email', 'profile'];
+          TestHelpers.forceXIfStamp(element);
+          assert.isTrue(element.validate(), 'Active validation.');
+        });
+
+        test('Should not fire oauth2-token-requested event', function() {
+          var spy = sinon.stub();
+          element.addEventListener('oauth2-token-requested', spy);
+          var button = Polymer.dom(element.root).querySelector('.auth-button');
+          MockInteractions.tap(button);
+          assert.isFalse(spy.calledOnce);
+        });
+
+        test('Fire oauth2-token-requested event when validated', function() {
+          element.scopes = ['email', 'profile'];
+          TestHelpers.forceXIfStamp(element);
+          var spy = sinon.stub();
+          element.addEventListener('oauth2-token-requested', spy);
+          var button = Polymer.dom(element.root).querySelector('.auth-button');
+          MockInteractions.tap(button);
+          assert.isTrue(spy.calledOnce);
+        });
+      });
+
+      suite('Events', function() {
+        setup(function(done) {
+          element = fixture('implicit');
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          element.redirectUrl = redirectUrl;
+          element.scopes = ['email', 'profile'];
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            TestHelpers.forceXIfStamp(element);
+            done();
+          });
+        });
+
+        test('oauth2-token-requested event contains state parameter', function() {
+          var eventData;
+          element.addEventListener('oauth2-token-requested', function clb(e) {
+            element.removeEventListener('oauth2-token-requested', clb);
+            eventData = e.detail;
+          });
+          var button = Polymer.dom(element.root).querySelector('.auth-button');
+          MockInteractions.tap(button);
+          assert.typeOf(eventData.state, 'string');
+        });
+
+        test('oauth2-token-requested event contains all required data', function(done) {
+          element.addEventListener('oauth2-token-requested', function clb(e) {
+            element.removeEventListener('oauth2-token-requested', clb);
+            assert.equal(e.detail.type, 'implicit', 'type is set');
+            assert.equal(e.detail.clientId, clientId, 'clientId is set');
+            assert.equal(e.detail.tokenValue, '', 'tokenValue is empty');
+            assert.typeOf(e.detail.customData, 'object', 'customData is set');
+            assert.equal(e.detail.authorizationUrl, authUrl, 'authorizationUrl is set');
+            assert.equal(e.detail.redirectUrl, redirectUrl, 'redirectUrl is set');
+            assert.typeOf(e.detail.scopes, 'array', 'scopes is set');
+            done();
+          });
+          element.authorize();
+        });
+      });
+
+      suite('_getSettings()', function() {
+        var element;
+        setup(function() {
+          element = fixture('implicit');
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          element.redirectUrl = redirectUrl;
+          element.scopes = scopes;
+        });
+
+        test('Returns an object', function() {
+          var result = element._getSettings();
+          assert.typeOf(result, 'object');
+        });
+
+        test('type is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.type, element.grantType);
+        });
+
+        test('clientId is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.clientId, clientId);
+        });
+
+        test('tokenValue is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.tokenValue, '', 'Token value is empty');
+          element.tokenValue = 'test-token';
+          result = element._getSettings();
+          assert.equal(result.tokenValue, element.tokenValue, 'Token value is set');
+        });
+
+        test('authorizationUrl is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.authorizationUrl, authUrl);
+        });
+
+        test('redirectUrl is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.redirectUrl, redirectUrl);
+        });
+
+        test('scopes is set', function() {
+          var result = element._getSettings();
+          assert.isTrue(result.scopes === scopes);
+        });
+      });
+    });
+    </script>
+  </body>
+</html>
