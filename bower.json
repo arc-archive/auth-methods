@@ -1,7 +1,7 @@
 {
   "name": "auth-methods",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
-  "version": "2.2.16",
+  "version": "2.3.0",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
   ],
@@ -54,7 +54,9 @@
     "arc-polyfills": "advanced-rest-client/arc-polyfills#^0.1.5",
     "openable-panel-behavior": "advanced-rest-client/openable-panel-behavior#^0.1.2",
     "events-target-behavior": "advanced-rest-client/events-target-behavior#^0.1.3",
-    "clipboard-copy": "advanced-rest-client/clipboard-copy#^0.1.4"
+    "clipboard-copy": "advanced-rest-client/clipboard-copy#^0.1.4",
+    "raml-type-form-behavior": "advanced-rest-client/raml-type-form-behavior#^0.1.3",
+    "raml-type-form-input": "advanced-rest-client/raml-type-form-input#^0.1.9"
   },
   "devDependencies": {
     "oauth-authorization": "advanced-rest-client/oauth-authorization#^0.2.0",

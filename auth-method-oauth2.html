@@ -33,11 +33,16 @@ the License.
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../clipboard-copy/clipboard-copy.html">
 <link rel="import" href="../arc-polyfills/arc-polyfills.html">
+<link rel="import" href="../raml-type-form-behavior/raml-type-form-behavior.html">
+<link rel="import" href="../raml-type-form-input/raml-type-form-input.html">
+<link rel="import" href="../marked-element/marked-element.html">
+<link rel="import" href="../markdown-styles/markdown-styles.html">
 <link rel="import" href="auth-methods-behavior.html">
 <!--
 The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.
 
 ### Example
+
 ```
 <auth-method-oauth2></auth-method-oauth2>
 ```
@@ -47,10 +52,12 @@ This element uses `oauth2-scope-selector` so the `allowedScopes`, `preventCustom
 for more description.
 
 ### Forcing the user to select scope from the list
-```
+
+```html
 <auth-method-oauth2 prevent-custom-scopes></auth-method-oauth2>
 ```
-```
+
+```javascript
 var form = document.querySelector('auth-method-oauth2');
 form.allowedScopes = ['profile', 'email'];
 ```
@@ -65,10 +72,12 @@ can reflected in the UI.
 ARC provides the `oauth2-authorization` element that can handle this events.
 
 ### Example
+
 ```
 <auth-method-oauth2></auth-method-oauth2>
 <oauth2-authorization></oauth2-authorization>
 ```
+
 The `oauth2-authorization` can be set anywhere in the DOM up from this element siblings to the
 body. See demo for example usage.
 
@@ -84,6 +93,79 @@ If you going to use `oauth2-authorization` popup then the redirect URL value mus
 `/bower_components/oauth-authorization/oauth-popup.html`. Mind missing `2` in `oauth-authorization`.
 This popup is a common popup for auth methods.
 
+### OAuth 2.0 extensibility
+
+As per [RFC6749, section 8](https://tools.ietf.org/html/rfc6749#section-8) OAuth 2.0
+protocol can be extended by custom `grant_type`, custom query parameters and custom headers.
+
+This is not yet supported in RAML. However, working together with RAML spec creators,
+an official RAML annotation to extend OAuth 2.0 settings has been created.
+The annotation source can be found in the [RAML organization repository](https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).
+
+When the annotation is applied to the `ramlSettings` property, this element renders
+additional form inputs to support custom schemes.
+
+This produces additional property in the token authorization request: `customData`.
+The object contains user input from custom properties.
+
+#### `customData` model
+
+```json
+customData: {
+  parameters: {
+    auth: Array|undefined,
+    token: Array|undefined
+  },
+  headers: {
+    auth: Array|undefined,
+    token: Array|undefined
+  },
+  body: Array|undefined
+}
+```
+Each array item is an object with `name` and `value` property.
+`value` can be empty if the property is required. Otherwise it will be ignored.
+
+The `parameters` property contains all query parameters for both authorization and token request.
+The `headers` property contains all headers for both authorization and token request.
+`body` can be only applied to the token request.
+
+Note: body content type is always `application/x-www-form-urlencoded`.
+
+#### Annotation example
+
+```yaml
+annotationTypes:
+  customSettings: !include oauth-2-custom-settings.raml
+securitySchemes:
+  oauth2:
+    type: OAuth 2.0
+    describedBy:
+      headers:
+        Authorization:
+          example: "Bearer token"
+    settings:
+      (customSettings):
+        authorizationSettings:
+          queryParameters:
+            resource:
+              type: string
+              required: true
+              description: |
+                A resource ID that defines a domain of authorization.
+        accessTokenSettings:
+          body:
+            resource:
+              type: string
+              required: true
+              description: |
+                A resource ID that defines a domain of authorization.
+      accessTokenUri: https://auth.domain.com/authorize
+      authorizationUri: https://auth.domain.com/token
+      authorizationGrants: [code]
+      scopes: profile
+```
+
 ### Styling
 `<auth-methods>` provides the following custom properties and mixins for styling:
 
@@ -91,6 +173,7 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--auth-method-oauth2` | Mixin applied to the element. | `{}`
 `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
+`--auth-grant-dropdown` | Mixin applied to the authorization grants dropdown list | `{}`
 
 ### Theming
 Use this mixins as a theming option across all ARC elements.
@@ -104,6 +187,7 @@ Custom property | Description | Default
 `--auth-button` | Mixin applied to authorization and next buttons` | `{}`
 `--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
 `--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
+`--auth-redirect-section` | Mixin applied to the redirect uri section | `{}`
 
 @group UI Elements
 @element auth-method-oauth2
@@ -111,6 +195,7 @@ Custom property | Description | Default
 -->
 <dom-module id="auth-method-oauth2">
   <template strip-whitespace>
+    <style include="markdown-styles"></style>
     <style include="auth-methods-styles">
      :host {
       display: block;
@@ -194,8 +279,6 @@ Custom property | Description | Default
     }
 
     .code {
-      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
-      -webkit-font-smoothing: antialiased;
       @apply --arc-font-code1;
       @apply --layout-flex;
     }
@@ -233,8 +316,47 @@ Custom property | Description | Default
     *[data-grant="password"] *[data-visible~="password"] {
       display: block;
     }
+
+    form[is-custom-grant] *[data-visible] {
+      display: block !important;
+    }
+
+    .custom-data-field-value {
+      @apply --layout-horizontal;
+      @apply --layout-flex;
+    }
+
+    raml-type-form-input {
+      @apply --layout-flex;
+    }
+
+    h4 {
+      @apply --arc-font-subhead;
+    }
+
+    .help-icon {
+      margin-top: 16px;
+    }
+
+    .markdown-html p:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .markdown-html p:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .custom-data-field-docs {
+      @apply --arc-font-common-base;
+      font-size: 13px !important;
+      font-weight: 200;
+      line-height: 24px;
+      color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
+    }
     </style>
-    <form is="iron-form" id="form" data-grant$="[[grantType]]">
+    <form is="iron-form" id="form" data-grant$="[[grantType]]" is-custom-grant$="[[isCustomGrant]]">
       <div class="row" hidden$="[[noGrantType]]">
         <div class$="[[_computeStepperClass(isSelectedType)]]" on-tap="_clearTypeSelection">
           <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
@@ -243,7 +365,7 @@ Custom property | Description | Default
               Select OAuth 2.0 grant type
               <iron-icon icon="arc:edit" class="edit-icon" title="Click to make changes"></iron-icon>
             </span>
-          <span class="step-selection" hidden$="[[!isSelectedType]]">[[_computeSelectedTypeLabel(grantType)]]</span>
+            <span class="step-selection" hidden$="[[!isSelectedType]]">[[_computeSelectedTypeLabel(grantType)]]</span>
           </span>
           <paper-ripple></paper-ripple>
         </div>
@@ -272,28 +394,113 @@ Custom property | Description | Default
         <div class="step-content" id="authDataForm">
           <div class="line"></div>
           <div class="content">
-            <paper-masked-input auto-validate required label="Client id" value="{{clientId}}" id="clientId" autocomplete="on"></paper-masked-input>
+            <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Client id" value="{{clientId}}" id="clientId" autocomplete="on"></paper-masked-input>
             <paper-tooltip for="clientId" position="bottom">Your client ID registered in your OAuth provider.</paper-tooltip>
-            <paper-masked-input auto-validate required label="Client secret" value="{{clientSecret}}" id="clientSecret" hiddable data-visible="client_credentials authorization_code" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code')]]" autocomplete="on"></paper-masked-input>
+            <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Client secret" value="{{clientSecret}}" id="clientSecret" hiddable data-visible="client_credentials authorization_code" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code')]]" autocomplete="on"></paper-masked-input>
             <paper-tooltip for="clientSecret" position="bottom">The client secret is generated by your provider unique string for your app. Check provider's console to get the code.</paper-tooltip>
+            <template is="dom-if" if="[[authQueryParameters]]">
+              <h4>Authorization request query parameters</h4>
+              <template is="dom-repeat" items="[[authQueryParameters]]" data-repeater="auth-query">
+                <div class="custom-data-field">
+                  <div class="custom-data-field-value">
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-query"></raml-type-form-input>
+                    <template is="dom-if" if="[[item.hasDescription]]">
+                      <span>
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-query"></paper-icon-button>
+                        <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
+                      </span>
+                    </template>
+                  </div>
+                  <div class="custom-data-field-docs" data-source="auth-query" data-key$="[[item.key]]"></div>
+                </div>
+              </template>
+            </template>
+            <template is="dom-if" if="[[authHeaders]]">
+              <h4>Authorization request headers</h4>
+              <template is="dom-repeat" items="[[authHeaders]]" data-repeater="auth-headers">
+                <div class="custom-data-field">
+                  <div class="custom-data-field-value">
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-headers"></raml-type-form-input>
+                    <template is="dom-if" if="[[item.hasDescription]]">
+                      <span>
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-headers"></paper-icon-button>
+                        <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
+                      </span>
+                    </template>
+                  </div>
+                  <div class="custom-data-field-docs" data-source="auth-headers" data-key$="[[item.key]]"></div>
+                </div>
+              </template>
+            </template>
+            <template is="dom-if" if="[[tokenQueryParameters]]">
+              <h4>Token request query parameters</h4>
+              <template is="dom-repeat" items="[[tokenQueryParameters]]" data-repeater="token-query">
+                <div class="custom-data-field">
+                  <div class="custom-data-field-value">
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-query"></raml-type-form-input>
+                    <template is="dom-if" if="[[item.hasDescription]]">
+                      <span>
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-query"></paper-icon-button>
+                        <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
+                      </span>
+                    </template>
+                  </div>
+                  <div class="custom-data-field-docs" data-source="token-query" data-key$="[[item.key]]"></div>
+                </div>
+              </template>
+            </template>
+            <template is="dom-if" if="[[tokenHeaders]]">
+              <h4>Token request headers</h4>
+              <template is="dom-repeat" items="[[tokenHeaders]]" data-repeater="token-headers">
+                <div class="custom-data-field">
+                  <div class="custom-data-field-value">
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-headers"></raml-type-form-input>
+                    <template is="dom-if" if="[[item.hasDescription]]">
+                      <span>
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-headers"></paper-icon-button>
+                        <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
+                      </span>
+                    </template>
+                  </div>
+                  <div class="custom-data-field-docs" data-source="token-headers" data-key$="[[item.key]]"></div>
+                </div>
+              </template>
+            </template>
+            <template is="dom-if" if="[[tokenBody]]">
+              <h4>Token request body</h4>
+              <template is="dom-repeat" items="[[tokenBody]]" data-repeater="token-body">
+                <div class="custom-data-field">
+                  <div class="custom-data-field-value">
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-body"></raml-type-form-input>
+                    <template is="dom-if" if="[[item.hasDescription]]">
+                      <span>
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-body"></paper-icon-button>
+                        <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
+                      </span>
+                    </template>
+                  </div>
+                  <div class="custom-data-field-docs" data-source="token-body" data-key$="[[item.key]]"></div>
+                </div>
+              </template>
+            </template>
             <template is="dom-if" if="[[isAdvanced]]">
               <paper-checkbox class="adv-settings-input" checked="{{advancedOpened}}">Advanced settings</paper-checkbox>
             </template>
             <iron-collapse opened="[[advancedOpened]]">
-              <paper-input auto-validate required label="Authorization url" value="{{authUrl}}" id="authUrl" hiddable data-visible="implicit authorization_code" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]" type="text" autocomplete="on">
+              <paper-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Authorization url" value="{{authUrl}}" id="authUrl" hiddable data-visible="implicit authorization_code" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code')]]" type="text" autocomplete="on">
                 <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
               </paper-input>
               <paper-tooltip for="authUrl" position="bottom">The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.</paper-tooltip>
-              <paper-input auto-validate required label="Access token URL" value="{{accessTokenUrl}}" id="accessTokenUrl" hiddable data-visible="client_credentials authorization_code password" disabled$="[[_isFieldHidden(grantType, 'client_credentials', 'authorization_code', 'password')]]" type="text" autocomplete="on">
+              <paper-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Access token URL" value="{{accessTokenUrl}}" id="accessTokenUrl" hiddable data-visible="client_credentials authorization_code password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code', 'password')]]" type="text" autocomplete="on">
                 <paper-icon-button suffix on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
               </paper-input>
               <paper-tooltip for="accessTokenUrl" position="bottom">The access token URL is used by server implementations to exchange access code for access token.</paper-tooltip>
-              <paper-masked-input auto-validate required label="Username" value="{{username}}" id="username" hiddable data-visible="password" disabled$="[[_isFieldHidden(grantType, 'password')]]" autocomplete="on"></paper-masked-input>
+              <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Username" value="{{username}}" id="username" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on"></paper-masked-input>
               <paper-tooltip for="username" position="bottom">The username required for this OAuth authentication.</paper-tooltip>
-              <paper-masked-input auto-validate required label="Password" value="{{password}}" id="password" hiddable data-visible="password" disabled$="[[_isFieldHidden(grantType, 'password')]]" autocomplete="on"></paper-masked-input>
+              <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Password" value="{{password}}" id="password" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on"></paper-masked-input>
               <paper-tooltip for="password" position="bottom">The password required for this OAuth authentication.</paper-tooltip>
               <div hiddable data-visible="implicit authorization_code">
-                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}" disabled$="[[_isFieldHidden(grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
               </div>
             </iron-collapse>
           </div>
@@ -317,7 +524,7 @@ Custom property | Description | Default
               </p>
             </div>
             <div class="authorize-actions" hidden$="[[hasTokenValue]]">
-              <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Get access token</paper-button>
+              <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="get-token" on-tap="authorize">Get access token</paper-button>
               <paper-spinner active="[[_authorizing]]"></paper-spinner>
             </div>
             <div class="current-token" hidden$="[[!hasTokenValue]]">
@@ -328,7 +535,7 @@ Custom property | Description | Default
                 <paper-icon-button icon="arc:content-copy" on-tap="_copyContent" data-src="token" id="tokenCopyButton"></paper-icon-button>
               </p>
               <div class="authorize-actions">
-                <paper-button disabled$="[[_authorizing]]" class="auth-button" on-tap="authorize">Refresh access token</paper-button>
+                <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="refresh-token" on-tap="authorize">Refresh access token</paper-button>
                 <paper-spinner active="[[_authorizing]]"></paper-spinner>
               </div>
             </div>
@@ -342,7 +549,10 @@ Custom property | Description | Default
   <script>
   Polymer({
     is: 'auth-method-oauth2',
-    behaviors: [ArcBehaviors.AuthMethodsBehavior],
+    behaviors: [
+      ArcBehaviors.AuthMethodsBehavior,
+      ArcBehaviors.RamlTypeFormBehavior
+    ],
 
     /**
      * Fired when user requested to perform an authorization.
@@ -374,6 +584,8 @@ Custom property | Description | Default
      * `authorization_code`, `client_credentials` and `password` types.
      * @param {String} username Used with `password` type.
      * @param {String} password Used with `password` type.
+     * @param {Object} customData Custom query parameters, headers and body applied
+     * to the authorization or token request. See this element description for details.
      */
     /**
      * Fired when the any of the auth method settings has changed.
@@ -407,6 +619,14 @@ Custom property | Description | Default
         type: String,
         value: '',
         notify: true
+      },
+      /**
+       * Computed value, true if the grant type is a cutom definition.
+       */
+      isCustomGrant: {
+        type: Boolean,
+        computed: '_computeIsCustomGrant(grantType)',
+        value: false
       },
       // Computed value, true if the `grantType` is set.
       isSelectedType: {
@@ -572,27 +792,104 @@ Custom property | Description | Default
       noGrantType: {
         type: Boolean,
         observer: '_noGrantTypeChanged'
+      },
+      /**
+       * List of query parameters to apply to authorization request.
+       * This is allowed by the OAuth 2.0 spec as an extension of the
+       * protocol.
+       * This value is computed if the `ramlSettings` contains annotations
+       * and one of it is `customSettings`.
+       * See https://github.com/raml-org/raml-annotations for definition.
+       */
+      authQueryParameters: {
+        type: Array,
+        readOnly: true
+      },
+      /**
+       * List of query parameters to apply to token request.
+       * This is allowed by the OAuth 2.0 spec as an extension of the
+       * protocol.
+       * This value is computed if the `ramlSettings` contains annotations
+       * and one of it is `customSettings`.
+       * See https://github.com/raml-org/raml-annotations for definition.
+       */
+      tokenQueryParameters: {
+        type: Array,
+        readOnly: true
+      },
+      /**
+       * List of headers to apply to authorization request.
+       * This is allowed by the OAuth 2.0 spec as an extension of the
+       * protocol.
+       * This value is computed if the `ramlSettings` contains annotations
+       * and one of it is `customSettings`.
+       * See https://github.com/raml-org/raml-annotations for definition.
+       */
+      authHeaders: {
+        type: Array,
+        readOnly: true
+      },
+      /**
+       * List of headers to apply to token request.
+       * This is allowed by the OAuth 2.0 spec as an extension of the
+       * protocol.
+       * This value is computed if the `ramlSettings` contains annotations
+       * and one of it is `customSettings`.
+       * See https://github.com/raml-org/raml-annotations for definition.
+       */
+      tokenHeaders: {
+        type: Array,
+        readOnly: true
+      },
+      /**
+       * List of body parameters to apply to token request.
+       * This is allowed by the OAuth 2.0 spec as an extension of the
+       * protocol.
+       * This value is computed if the `ramlSettings` contains annotations
+       * and one of it is `customSettings`.
+       * See https://github.com/raml-org/raml-annotations for definition.
+       */
+      tokenBody: {
+        type: Array,
+        readOnly: true
       }
+    },
+
+    get _queryModelOpts() {
+      return {
+        valueDelimiter: '=',
+        decodeValues: true
+      };
+    },
+
+    get _headersModelOpts() {
+      return {
+        valueDelimiter: ':'
+      };
     },
 
     observers: [
       // jscs:disable maximumLineLength
       '_settingsChanged(grantType, clientId, clientSecret, authUrl, accessTokenUrl, password, username, scopes.*, tokenValue, _initialized)',
       // jscs:enable maximumLineLength
-      '_ramlSettingsChanged(ramlSettings.*)',
+      '_ramlSettingsChanged(ramlSettings)',
       '_updateStepperState(noStepper)'
     ],
 
     ready: function() {
       this._initialized = true;
-      this._autoHide();
+      Polymer.RenderStatus.afterNextRender(this, function() {
+        if (!this.grantTypes) {
+          this._updateGrantTypes();
+        }
+        this._autoHide();
+      });
     },
 
     _attachListeners: function(node) {
       this.listen(node, 'oauth2-error', '_oauth2ErrorHandler');
       this.listen(node, 'oauth2-token-response', '_oauth2SccessHandler');
       this.listen(node, 'request-header-changed', '_headerChangedHandler');
-      this._updateGrantTypes();
     },
 
     _detachListeners: function(node) {
@@ -664,10 +961,24 @@ Custom property | Description | Default
       inputTarget.value = '';
     },
     // Checks if the HTML element should be visible in the UI for given properties.
-    _isFieldHidden: function() {
+    _isFieldDisabled: function() {
       var args = Array.from(arguments);
+      var isCustom = args.splice(0, 1)[0];
+      if (isCustom) {
+        return false;
+      }
       var grantType = args.splice(0, 1)[0];
       return args.indexOf(grantType) === -1;
+    },
+    /**
+     * Computes the `required` attribute on input fileld.
+     * When using custom grant type all fields are not required.
+     *
+     * @param {Boolean} isCustomGrant
+     * @return {Boolean}
+     */
+    _isFieldRequired: function(isCustomGrant) {
+      return !isCustomGrant;
     },
 
     // Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
@@ -706,7 +1017,12 @@ Custom property | Description | Default
       var detail = {
         type: this.grantType,
         clientId: this.clientId,
-        tokenValue: this.tokenValue || ''
+        tokenValue: this.tokenValue || '',
+        customData: {
+          parameters: {},
+          headers: {},
+          body: undefined
+        }
       };
       switch (this.grantType) {
         case 'implicit':
@@ -714,6 +1030,7 @@ Custom property | Description | Default
           detail.authorizationUrl = this.authUrl;
           detail.redirectUrl = this.redirectUrl;
           detail.scopes = this.scopes;
+          this._computeAuthCustomData(detail);
           break;
         case 'authorization_code':
           // The server flow.
@@ -722,20 +1039,103 @@ Custom property | Description | Default
           detail.accessTokenUrl = this.accessTokenUrl;
           detail.redirectUrl = this.redirectUrl;
           detail.scopes = this.scopes;
+          this._computeAuthCustomData(detail);
+          this._computeTokenCustomData(detail);
           break;
         case 'client_credentials':
           // The server flow.
           detail.clientSecret = this.clientSecret;
           detail.accessTokenUrl = this.accessTokenUrl;
+          this._computeTokenCustomData(detail);
           break;
         case 'password':
           // The server flow.
           detail.username = this.username;
           detail.password = this.password;
           detail.accessTokenUrl = this.accessTokenUrl;
+          this._computeTokenCustomData(detail);
+          break;
+        default:
+          // Custom grant type.
+          detail.authorizationUrl = this.authUrl;
+          detail.clientSecret = this.clientSecret;
+          detail.accessTokenUrl = this.accessTokenUrl;
+          detail.redirectUrl = this.redirectUrl;
+          detail.scopes = this.scopes;
+          detail.username = this.username;
+          detail.password = this.password;
+          this._computeAuthCustomData(detail);
+          this._computeTokenCustomData(detail);
           break;
       }
       return detail;
+    },
+    /**
+     * Adds `customData` property values that can be applied to the
+     * authorization request.
+     *
+     * @param {Object} detail Token request detail object. The object is passed
+     * by reference so no need for return value
+     */
+    _computeAuthCustomData: function(detail) {
+      if (this.authQueryParameters) {
+        detail.customData.parameters.auth =
+          this._computeCustomParameters(this.authQueryParameters);
+      }
+      if (this.authHeaders) {
+        detail.customData.headers.auth =
+          this._computeCustomParameters(this.authHeaders);
+      }
+    },
+    /**
+     * Adds `customData` property values that can be applied to the
+     * token request.
+     *
+     * @param {Object} detail Token request detail object. The object is passed
+     * by reference so no need for return value
+     */
+    _computeTokenCustomData: function(detail) {
+      if (this.tokenQueryParameters) {
+        detail.customData.parameters.token =
+          this._computeCustomParameters(this.tokenQueryParameters);
+      }
+      if (this.tokenHeaders) {
+        detail.customData.headers.token =
+          this._computeCustomParameters(this.tokenHeaders);
+      }
+      if (this.tokenBody) {
+        detail.customData.body =
+          this._computeCustomParameters(this.tokenBody);
+      }
+    },
+    /**
+     * Computes list of parameter values from current model.
+     *
+     * This function ignores empty values if they are not required.
+     * Required property are always included, even if the value is not set.
+     *
+     * @param {Array} params Model for form inputs.
+     * @return {Array|undefined} Array of objects with `name` and `value`
+     * properties or undefined if `params` is empty or no values are available.
+     */
+    _computeCustomParameters: function(params) {
+      if (!params || !params.length) {
+        return;
+      }
+      var result = [];
+      params.forEach(function(item) {
+        if (!item.value && !item.required) {
+          return;
+        }
+        result.push({
+          name: item.key,
+          value: item.value || ''
+        });
+      });
+      if (result.length === 0) {
+        return;
+      }
+      return result;
     },
     /**
      * Restores settings from stored value.
@@ -813,14 +1213,11 @@ Custom property | Description | Default
       }
     },
 
-    _ramlSettingsChanged: function(record) {
-      if (!record || !record.base) {
-        return;
-      }
-      var type = record.base;
+    _ramlSettingsChanged: function(type) {
       if (!type || !type.settings) {
         return;
       }
+      this._clearDocs();
       this.preFill(type.settings);
       this._autoHide();
     },
@@ -829,10 +1226,12 @@ Custom property | Description | Default
       if (!settings) {
         throw new Error('The `settings` argument is not set.');
       }
+      var oauthAnnotation = this._extractOauthAnnotation(settings);
       var grants = settings.authorizationGrants;
       if (typeof grants === 'string') {
         grants = [grants];
       }
+      grants = this._applyAnnotationGranst(grants, oauthAnnotation);
       if (grants && grants instanceof Array && grants.length) {
         var index = grants.indexOf('code');
         if (index !== -1) {
@@ -851,6 +1250,204 @@ Custom property | Description | Default
       if (settings.scopes) {
         this.scopes = settings.scopes;
       }
+      this._setupAnotationParameters(oauthAnnotation);
+    },
+    /**
+     * Extracts `customSettings` annotation and validates it.
+     *
+     * @param {Object} settind Settings object from the security scheme.
+     * @return {Object|undefined} OAuth settings annotation published in
+     * `raml-org/oauth-annotations` repository.
+     */
+    _extractOauthAnnotation: function(settings) {
+      var result;
+      if (!settings.annotations || !settings.annotations.length) {
+        return result;
+      }
+      var annotation;
+      for (var i = 0, len = settings.annotations.length; i < len; i++) {
+        if (settings.annotations[i].name === 'customSettings') {
+          annotation = settings.annotations[i];
+          break;
+        }
+      }
+      if (!annotation || !annotation.structuredValue) {
+        return result;
+      }
+      result = annotation.structuredValue;
+      return result;
+    },
+    /**
+     * Applies `authorizationGrants` from OAuth2 settings annotation.
+     *
+     * @param {Array} gransts OAuth spec grants available for the endpoint
+     * @param {?Object} annotation Read annotation.
+     * @return {Array} List of granst to apply.
+     */
+    _applyAnnotationGranst: function(gransts, annotation) {
+      if (!annotation) {
+        return gransts;
+      }
+      if (!gransts) {
+        gransts = [];
+      }
+      var otherGransts = annotation.authorizationGrants;
+      if (!otherGransts || !otherGransts.length) {
+        return gransts;
+      }
+      if (typeof annotation.ignoreDefaultGrants !== 'undefined') {
+        gransts = [];
+      }
+      gransts = gransts.concat(otherGransts);
+      return gransts;
+    },
+    /**
+     * Sets up annotation supported variables to apply form view for:
+     * - authorization query parameters
+     * - authorization headers
+     * - token query parameters
+     * - token headers
+     * - token body
+     *
+     * @param {Object} annotation Annotation applied to the OAuth settings
+     */
+    _setupAnotationParameters: function(annotation) {
+      if (this.authQueryParameters) {
+        this._setAuthQueryParameters(undefined);
+      }
+      if (this.tokenQueryParameters) {
+        this._setTokenQueryParameters(undefined);
+      }
+      if (this.authHeaders) {
+        this._setAuthHeaders(undefined);
+      }
+      if (this.tokenHeaders) {
+        this._setTokenHeaders(undefined);
+      }
+      if (this.tokenBody) {
+        this._setTokenBody(undefined);
+      }
+      if (!annotation) {
+        return;
+      }
+      if (annotation.authorizationSettings) {
+        if (annotation.authorizationSettings.queryParameters) {
+          this._setupAuthRequestQueryParameters(annotation.authorizationSettings.queryParameters);
+        }
+        if (annotation.authorizationSettings.headers) {
+          this._setupAuthRequestHeaders(annotation.authorizationSettings.headers);
+        }
+      }
+      if (annotation.accessTokenSettings) {
+        if (annotation.accessTokenSettings.queryParameters) {
+          this._setupTokenRequestQueryParameters(annotation.accessTokenSettings.queryParameters);
+        }
+        if (annotation.accessTokenSettings.headers) {
+          this._setupTokenRequestHeaders(annotation.accessTokenSettings.headers);
+        }
+        if (annotation.accessTokenSettings.body) {
+          this._setupTokenRequestBody(annotation.accessTokenSettings.body);
+        }
+      }
+    },
+    /**
+     * Sets up query parameters to be used with authorization request.
+     *
+     * @param {Array} params List of parameters from the annotation.
+     */
+    _setupAuthRequestQueryParameters: function(params) {
+      var result = this._createViewModel(params, 'query');
+      if (!result) {
+        return;
+      }
+      this._setAuthQueryParameters(result);
+    },
+    /**
+     * Sets up query parameters to be used with token request.
+     *
+     * @param {Array} params List of parameters from the annotation.
+     */
+    _setupTokenRequestQueryParameters: function(params) {
+      var result = this._createViewModel(params, 'query');
+      if (!result) {
+        return;
+      }
+      this._setTokenQueryParameters(result);
+    },
+    /**
+     * Sets up headers to be used with authorization request.
+     *
+     * @param {Array} params List of parameters from the annotation.
+     */
+    _setupAuthRequestHeaders: function(params) {
+      var result = this._createViewModel(params, 'header');
+      if (!result) {
+        return;
+      }
+      this._setAuthHeaders(result);
+    },
+    /**
+     * Sets up headers to be used with token request.
+     *
+     * @param {Array} params List of parameters from the annotation.
+     */
+    _setupTokenRequestHeaders: function(params) {
+      var result = this._createViewModel(params, 'header');
+      if (!result) {
+        return;
+      }
+      this._setTokenHeaders(result);
+    },
+    /**
+     * Sets up body parameters to be used with token request.
+     *
+     * @param {Array} params List of parameters from the annotation.
+     */
+    _setupTokenRequestBody: function(params) {
+      var result = this._createViewModel(params, 'query');
+      if (!result) {
+        return;
+      }
+      this._setTokenBody(result);
+    },
+    /**
+     * Creats a form view model for type items.
+     *
+     * @param {Array} params List of properties to process.
+     * @param {String} type Model type. Either `query` or `header`.
+     * @return {Array|undefined} Form view model or undefined if not set.
+     */
+    _createViewModel: function(params, type) {
+      if (!params || !params.length || !(params instanceof Array)) {
+        return;
+      }
+      var result = [];
+      var opts = type === 'query' ? this._queryModelOpts : this._headersModelOpts;
+      params.forEach(function(item) {
+        if (typeof item !== 'object') {
+          return;
+        }
+        item = Object.assign({}, item);
+        if (!item.name) {
+          item.name = item.key;
+        }
+        result.push(this._createModelObject(item, opts));
+      }, this);
+      if (!result.length) {
+        return;
+      }
+      return result;
+    },
+    /**
+     * Computes value of `isCustomGrant` property when `grantType` changes.
+     *
+     * @param {String} grantType Selected grant type.
+     * @return {Boolean} `true` if the `grantType` is none of the ones defined
+     * by the OAuth 2.0 spec.
+     */
+    _computeIsCustomGrant: function(grantType) {
+      return ['implicit', 'authorization_code', 'client_credentials', 'password']
+      .indexOf(grantType) === -1;
     },
     /**
      * Updates list of OAuth grant types supported by current endpoint.
@@ -867,11 +1464,26 @@ Custom property | Description | Default
         this.set('grantTypes', available);
         return;
       }
+      supportedTypes = supportedTypes.map(function(item) {
+        return String(item);
+      });
       var i;
       for (i = available.length - 1; i >= 0; i--) {
-        if (supportedTypes.indexOf(available[i].type) === -1) {
+        var index = supportedTypes.indexOf(available[i].type);
+        if (index === -1) {
           available.splice(i, 1);
+        } else {
+          supportedTypes.splice(index, 1);
         }
+      }
+      if (supportedTypes.length) {
+        supportedTypes = supportedTypes.map(function(item) {
+          return {
+            label: item,
+            type: item
+          };
+        });
+        available = available.concat(supportedTypes);
       }
       this.set('grantTypes', available);
       // check if current selection is still available
@@ -921,6 +1533,14 @@ Custom property | Description | Default
           return 'Client credentials';
         case 'password':
           return 'Password';
+        default:
+          if (!this.grantTypes) {
+            return '';
+          }
+          var item = this.grantTypes.find(function(item) {
+            return item.type === grantType;
+          });
+          return item ? item.label : 'Custom grant';
       }
     },
 
@@ -1017,6 +1637,69 @@ Custom property | Description | Default
       }
       value = value.substr(7);
       this.set('tokenValue', value);
+    },
+    /**
+     * Toggles documentartion for custom property.
+     *
+     * @param {CustomEvent} e
+     */
+    _toggleDocumentation: function(e) {
+      var target = Polymer.dom(e).localTarget;
+      var source = target.dataset.source;
+      if (!source) {
+        throw new Error('Could not find source of the event.');
+      }
+      var dom = Polymer.dom(this.root);
+      var repeater = dom.querySelector('[data-repeater="' + source + '"]');
+      if (!repeater) {
+        throw new Error('Could not find repeater for the item.');
+      }
+      var model = repeater.modelForElement(target).get('item');
+      var selector = '.custom-data-field-docs[data-source="' + source + '"]';
+      selector += '[data-key="' + model.key + '"]';
+      var docsContainer = dom.querySelector(selector);
+      if (!docsContainer) {
+        throw new Error('Could not find documentation container.');
+      }
+      if (!docsContainer.children[0]) {
+        this._createDocsElements(model, docsContainer);
+      } else {
+        docsContainer.children[0].opened = !docsContainer.children[0].opened;
+      }
+    },
+    /**
+     * Creates a documentation element.
+     *
+     * @param {Object} model
+     * @param {Object} appendTo
+     */
+    _createDocsElements: function(model, appendTo) {
+      var collapse = document.createElement('iron-collapse');
+      var marked = document.createElement('marked-element');
+      var wrapper = document.createElement('div');
+
+      collapse.dataset.docsCollapse = true;
+      wrapper.className = 'markdown-html markdown-body';
+      marked.appendChild(wrapper);
+      collapse.appendChild(marked);
+      appendTo.appendChild(collapse);
+
+      marked.markdown = model.description;
+      Polymer.RenderStatus.afterNextRender(this, function() {
+        collapse.opened = true;
+      });
+    },
+    /**
+     * Clears all custom data documention nodes.
+     */
+    _clearDocs: function() {
+      var nodes = Polymer.dom(this.root).querySelectorAll('[data-docs-collapse="true"]');
+      if (!nodes || !nodes.length) {
+        return;
+      }
+      nodes.forEach(function(node) {
+        node.parentNode.removeChild(node);
+      });
     }
   });
   </script>

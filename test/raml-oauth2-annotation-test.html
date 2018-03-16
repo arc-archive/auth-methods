@@ -1,0 +1,304 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
+    <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
+    <link rel="import" href="../auth-methods.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <auth-method-oauth2 grant-type="annotated_custom_grant"></auth-method-oauth2>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="parser">
+      <template>
+        <raml-js-parser json></raml-js-parser>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="enhancer">
+      <template>
+        <raml-json-enhance></raml-json-enhance>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global fixture, assert, TestHelpers */
+    suite('OAuth2 with raml annotation', function() {
+      var element;
+      var oauth2;
+
+      var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
+      var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+      var accessTokenUrl = 'https://www.googleapis.com/oauth2/v4/token';
+      var clientSecret = 'test-secret';
+      var redirectUrl = 'https://redirect';
+      var scopes = ['email', 'profile'];
+      var username = 'test-username';
+      var password = 'test-password';
+
+      suiteSetup(function(done) {
+        this.timeout(30000);
+        var baseUrl = location.href.substr(0, location.href.lastIndexOf('/') + 1);
+        var parser = fixture('parser');
+        var enhancer = fixture('enhancer');
+        enhancer.addEventListener('raml-json-enhance-ready', function(e) {
+          oauth2 = e.detail.json.securitySchemes.oauth2;
+          done();
+        });
+        enhancer.addEventListener('error', function(e) {
+          done(new Error(e.detail.message));
+        });
+        parser.loadApi(baseUrl + 'oauth2-annotation.raml')
+        .then(function(data) {
+          enhancer.json = data.json.specification;
+        })
+        .catch(function(e) {
+          done(new Error('Parser error: ' + (e.message || 'Some error happened...')));
+        });
+      });
+
+      suite('Basic computations', function() {
+        suiteSetup(function() {
+          element = fixture('basic');
+          element.ramlSettings = oauth2;
+        });
+
+        test('authQueryParameters is computed', function() {
+          assert.typeOf(element.authQueryParameters, 'array');
+          assert.lengthOf(element.authQueryParameters, 1);
+        });
+
+        test('tokenQueryParameters is computed', function() {
+          assert.typeOf(element.tokenQueryParameters, 'array');
+          assert.lengthOf(element.tokenQueryParameters, 1);
+        });
+
+        test('authHeaders is computed', function() {
+          assert.typeOf(element.authHeaders, 'array');
+          assert.lengthOf(element.authHeaders, 1);
+        });
+
+        test('tokenHeaders is computed', function() {
+          assert.typeOf(element.tokenHeaders, 'array');
+          assert.lengthOf(element.tokenHeaders, 1);
+        });
+
+        test('tokenBody is computed', function() {
+          assert.typeOf(element.tokenBody, 'array');
+          assert.lengthOf(element.tokenBody, 1);
+        });
+
+        test('grantTypes is computed', function() {
+          assert.lengthOf(element.grantTypes, 1);
+          assert.equal(element.grantTypes[0].type, 'annotated_custom_grant');
+        });
+      });
+
+      suite('Forms rendering', function() {
+        suiteSetup(function(done) {
+          element = fixture('basic');
+          element.ramlSettings = oauth2;
+
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          element.clientSecret = clientSecret;
+          element.accessTokenUrl = accessTokenUrl;
+          element.redirectUrl = redirectUrl;
+          element.scopes = scopes;
+          element.username = username;
+          element.password = password;
+
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            TestHelpers.forceXIfStamp(element);
+            done();
+          });
+        });
+
+        test('Validation is disabled for OAuth regular inputs', function() {
+          var inputs = Polymer.dom(element.root).querySelectorAll('paper-input');
+          inputs.forEach(function(input) {
+            assert.isFalse(input.required);
+          });
+        });
+
+        test('Renders authorization query parameters', function() {
+          var input = Polymer.dom(element.root).querySelectorAll('[data-type="auth-query"]');
+          assert.ok(input);
+        });
+
+        test('Renders authorization headers', function() {
+          var input = Polymer.dom(element.root).querySelectorAll('[data-type="auth-headers"]');
+          assert.ok(input);
+        });
+
+        test('Renders token query parameters', function() {
+          var input = Polymer.dom(element.root).querySelectorAll('[data-type="token-query"]');
+          assert.ok(input);
+        });
+
+        test('Renders token headers', function() {
+          var input = Polymer.dom(element.root).querySelectorAll('[data-type="token-headers"]');
+          assert.ok(input);
+        });
+
+        test('Renders token body', function() {
+          var input = Polymer.dom(element.root).querySelectorAll('[data-type="token-body"]');
+          assert.ok(input);
+        });
+      });
+
+      suite('_getSettings()', function() {
+        suiteSetup(function(done) {
+          element = fixture('basic');
+          element.ramlSettings = oauth2;
+
+          element.clientId = clientId;
+          element.authUrl = authUrl;
+          element.clientSecret = clientSecret;
+          element.accessTokenUrl = accessTokenUrl;
+          element.redirectUrl = redirectUrl;
+          element.scopes = scopes;
+          element.username = username;
+          element.password = password;
+
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            TestHelpers.forceXIfStamp(element);
+            done();
+          });
+        });
+
+        test('Returns an object', function() {
+          var result = element._getSettings();
+          assert.typeOf(result, 'object');
+        });
+
+        test('type is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.type, element.grantType);
+        });
+
+        test('clientId is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.clientId, clientId);
+        });
+
+        test('tokenValue is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.tokenValue, '', 'Token value is empty');
+          element.tokenValue = 'test-token';
+          result = element._getSettings();
+          assert.equal(result.tokenValue, element.tokenValue, 'Token value is set');
+        });
+
+        test('authorizationUrl is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.authorizationUrl, authUrl);
+        });
+
+        test('redirectUrl is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.redirectUrl, redirectUrl);
+        });
+
+        test('scopes is set', function() {
+          var result = element._getSettings();
+          assert.isTrue(result.scopes === scopes);
+        });
+
+        test('clientSecret is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.clientSecret, clientSecret);
+        });
+
+        test('accessTokenUrl is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.accessTokenUrl, accessTokenUrl);
+        });
+
+        test('username is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.username, username);
+        });
+
+        test('password is set', function() {
+          var result = element._getSettings();
+          assert.equal(result.password, password);
+        });
+
+        test('Custom values are set when required', function() {
+          var result = element._getSettings();
+          assert.equal(result.customData.parameters.auth[0].value, '');
+        });
+
+        test('Authorization query param is set', function() {
+          var value = 'test-aq';
+          element.authQueryParameters[0].value = value;
+          var result = element._getSettings();
+          assert.equal(result.customData.parameters.auth[0].value, value);
+        });
+
+        test('Custom value has name and value', function() {
+          var value = 'test-aq';
+          element.authQueryParameters[0].value = value;
+          var result = element._getSettings();
+          assert.equal(result.customData.parameters.auth[0].name, 'resource');
+          assert.equal(result.customData.parameters.auth[0].value, value);
+        });
+
+        test('Custom values are not set when not required', function() {
+          var result = element._getSettings();
+          assert.isUndefined(result.customData.headers.auth);
+        });
+
+        test('Authorization header is set', function() {
+          var value = 'test-ah';
+          element.authHeaders[0].value = value;
+          var result = element._getSettings();
+          assert.equal(result.customData.headers.auth[0].value, value);
+        });
+
+        test('Token query param is set', function() {
+          var value = 'test-tq';
+          element.tokenQueryParameters[0].value = value;
+          var result = element._getSettings();
+          assert.equal(result.customData.parameters.token[0].value, value);
+        });
+
+        test('Token header is set', function() {
+          var value = 'test-th';
+          element.tokenHeaders[0].value = value;
+          var result = element._getSettings();
+          assert.equal(result.customData.headers.token[0].value, value);
+        });
+
+        test('Token body is set', function() {
+          var value = 'test-tb';
+          element.tokenBody[0].value = value;
+          var result = element._getSettings();
+          assert.equal(result.customData.body[0].value, value);
+        });
+      });
+    });
+    </script>
+  </body>
+</html>
