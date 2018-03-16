@@ -29,7 +29,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :root {
       --form-label: {
         font-weight: 500;
-      }
+      };
+      --arc-font-subhead: {
+        @apply --paper-font-subhead;
+      };
+    }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
     }
     .vertical-section-container {
       max-width: 600px;
@@ -45,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body unresolved>
   <template is="dom-bind" id="demo">
-    <raml-demo-page selected-object="{{selected}}" on-selected-object-changed="_selectedChanged" is-method="{{isMethod}}" on-is-method-changed="_methodSelectionHandler" path="{{path}}">
+    <raml-demo-page selected-object="{{selectedObject}}" is-method="{{isMethod}}" path="{{path}}">
       <div main>
         <h1>OAuth 2.0 settings with RAML definition</h1>
         <template is="dom-if" if="[[hasSecurityScheme]]">
@@ -62,40 +70,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
   <script>
   (function(scope) {
+    scope.observers = [
+      '_selectedChanged(selectedObject, isMethod)'
+    ];
     scope.redirectUrl = location.href.replace('/auth-methods/demo/oauth2-raml.html',
       '/oauth-authorization/oauth-popup.html');
     scope.hasSecurityScheme = false;
-    scope.demoUrl = location.href.replace('/oauth2-raml.html', '/');
-    scope._methodSelectionHandler = function(e) {
-      if (e.detail.value) {
-        scope._computeScheme();
-      } else {
-        scope.hasSecurityScheme = false;
+    scope.demoUrl = location.href.replace(/\/oauth2-raml\.html.*/, '/');
+    scope._selectedChanged = function(selected, isMethod) {
+      if (!isMethod) {
+        return;
       }
-    };
-    scope._selectedChanged = function() {
-      if (scope.isMethod) {
-        scope._computeScheme();
-      }
-    };
-    scope._computeScheme = function() {
-      var secList = scope.selected.securedBy;
+      var secList = scope.selectedObject.securedBy;
       if (!secList || !secList.length) {
         scope.hasSecurityScheme = false;
         return;
       }
-      for (var i = 0, len = secList.length; i < len; i++) {
-        if (secList[i].type === 'OAuth 2.0') {
-          scope.securityScheme = secList[i];
-          scope.hasSecurityScheme = true;
-          return;
-        }
-      }
-      scope.hasSecurityScheme = false;
+      scope.securityScheme = secList[0];
+      scope.hasSecurityScheme = true;
     };
-    // 821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com
-    // hmhUZi8NaHmuFkmrPUwHzt7W
-    //
   })(document.getElementById('demo'));
   </script>
 </body>

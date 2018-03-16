@@ -102,10 +102,23 @@ annotationTypes:
           This can be used only if this annotation `authorizationGrants` is set.
 
 securitySchemes:
+  oauth2Normal:
+    type: OAuth 2.0
+    settings:
+      accessTokenUri: https://token.com
+      authorizationUri: https://auth.com
+      authorizationGrants: implicit
+      scopes: [profile, email]
+    describedBy:
+      queryParameters:
+        access_token:
+          type: string
+          description: Apply access token here.
   oauth2:
     type: OAuth 2.0
     settings:
       (customSettings):
+        # ignoreDefaultGrants:
         authorizationGrants: [annotated_custom_grant]
         authorizationSettings:
           queryParameters:
@@ -118,6 +131,19 @@ securitySchemes:
             x-auth-resource:
               type: string
               required: false
+        accessTokenSettings:
+          queryParameters:
+            queryTokenResource: string
+            detailedTokenResource:
+              type: number
+              description: some description
+              required: false
+          body:
+            bodyTokenResource: string
+            bodyDetailed:
+              type: boolean
+              required: true
+              displayName: Body detailed property
       accessTokenUri: https://token.com
       authorizationUri: https://auth.com
       authorizationGrants: implicit
@@ -128,5 +154,7 @@ securitySchemes:
           type: string
           description: Apply access token here.
 /endpoint:
-  securedBy: oauth2
   get:
+    securedBy: oauth2
+  post:
+    securedBy: oauth2Normal
