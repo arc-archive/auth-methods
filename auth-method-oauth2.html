@@ -112,23 +112,23 @@ The object contains user input from custom properties.
 
 ```json
 customData: {
-  parameters: {
-    auth: Array|undefined,
-    token: Array|undefined
+  auth: {
+    parameters: Array|undefined
   },
-  headers: {
-    auth: Array|undefined,
-    token: Array|undefined
-  },
-  body: Array|undefined
+  token: {
+    parameters: Array|undefined,
+    headers: Array|undefined,
+    body: Array|undefined
+  }
 }
 ```
 Each array item is an object with `name` and `value` property.
 `value` can be empty if the property is required. Otherwise it will be ignored.
 
-The `parameters` property contains all query parameters for both authorization and token request.
-The `headers` property contains all headers for both authorization and token request.
-`body` can be only applied to the token request.
+The `parameters` property contains all query parameters to be applied to the request.
+Query parameters can be applied to bothe token and authorization requests.
+The `headers` property contains all headers that can be applied to token
+request. `body` can be only applied to the token request.
 
 Note: body content type is always `application/x-www-form-urlencoded`.
 
@@ -412,23 +412,6 @@ Custom property | Description | Default
                     </template>
                   </div>
                   <div class="custom-data-field-docs" data-source="auth-query" data-key$="[[item.key]]"></div>
-                </div>
-              </template>
-            </template>
-            <template is="dom-if" if="[[authHeaders]]">
-              <h4>Authorization request headers</h4>
-              <template is="dom-repeat" items="[[authHeaders]]" data-repeater="auth-headers">
-                <div class="custom-data-field">
-                  <div class="custom-data-field-value">
-                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-headers"></raml-type-form-input>
-                    <template is="dom-if" if="[[item.hasDescription]]">
-                      <span>
-                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-headers"></paper-icon-button>
-                        <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
-                      </span>
-                    </template>
-                  </div>
-                  <div class="custom-data-field-docs" data-source="auth-headers" data-key$="[[item.key]]"></div>
                 </div>
               </template>
             </template>
@@ -818,18 +801,6 @@ Custom property | Description | Default
         readOnly: true
       },
       /**
-       * List of headers to apply to authorization request.
-       * This is allowed by the OAuth 2.0 spec as an extension of the
-       * protocol.
-       * This value is computed if the `ramlSettings` contains annotations
-       * and one of it is `customSettings`.
-       * See https://github.com/raml-org/raml-annotations for definition.
-       */
-      authHeaders: {
-        type: Array,
-        readOnly: true
-      },
-      /**
        * List of headers to apply to token request.
        * This is allowed by the OAuth 2.0 spec as an extension of the
        * protocol.
@@ -1019,9 +990,14 @@ Custom property | Description | Default
         clientId: this.clientId,
         tokenValue: this.tokenValue || '',
         customData: {
-          parameters: {},
-          headers: {},
-          body: undefined
+          auth: {
+            parameters: undefined
+          },
+          token: {
+            parameters: undefined,
+            headers: undefined,
+            body: undefined
+          }
         }
       };
       switch (this.grantType) {
@@ -1079,12 +1055,8 @@ Custom property | Description | Default
      */
     _computeAuthCustomData: function(detail) {
       if (this.authQueryParameters) {
-        detail.customData.parameters.auth =
+        detail.customData.auth.parameters =
           this._computeCustomParameters(this.authQueryParameters);
-      }
-      if (this.authHeaders) {
-        detail.customData.headers.auth =
-          this._computeCustomParameters(this.authHeaders);
       }
     },
     /**
@@ -1096,15 +1068,15 @@ Custom property | Description | Default
      */
     _computeTokenCustomData: function(detail) {
       if (this.tokenQueryParameters) {
-        detail.customData.parameters.token =
+        detail.customData.token.parameters =
           this._computeCustomParameters(this.tokenQueryParameters);
       }
       if (this.tokenHeaders) {
-        detail.customData.headers.token =
+        detail.customData.token.headers =
           this._computeCustomParameters(this.tokenHeaders);
       }
       if (this.tokenBody) {
-        detail.customData.body =
+        detail.customData.token.body =
           this._computeCustomParameters(this.tokenBody);
       }
     },
@@ -1318,9 +1290,6 @@ Custom property | Description | Default
       if (this.tokenQueryParameters) {
         this._setTokenQueryParameters(undefined);
       }
-      if (this.authHeaders) {
-        this._setAuthHeaders(undefined);
-      }
       if (this.tokenHeaders) {
         this._setTokenHeaders(undefined);
       }
@@ -1333,9 +1302,6 @@ Custom property | Description | Default
       if (annotation.authorizationSettings) {
         if (annotation.authorizationSettings.queryParameters) {
           this._setupAuthRequestQueryParameters(annotation.authorizationSettings.queryParameters);
-        }
-        if (annotation.authorizationSettings.headers) {
-          this._setupAuthRequestHeaders(annotation.authorizationSettings.headers);
         }
       }
       if (annotation.accessTokenSettings) {
@@ -1373,18 +1339,6 @@ Custom property | Description | Default
         return;
       }
       this._setTokenQueryParameters(result);
-    },
-    /**
-     * Sets up headers to be used with authorization request.
-     *
-     * @param {Array} params List of parameters from the annotation.
-     */
-    _setupAuthRequestHeaders: function(params) {
-      var result = this._createViewModel(params, 'header');
-      if (!result) {
-        return;
-      }
-      this._setAuthHeaders(result);
     },
     /**
      * Sets up headers to be used with token request.
