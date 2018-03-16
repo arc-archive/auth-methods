@@ -403,7 +403,7 @@ Custom property | Description | Default
               <template is="dom-repeat" items="[[authQueryParameters]]" data-repeater="auth-query">
                 <div class="custom-data-field">
                   <div class="custom-data-field-value">
-                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}"></raml-type-form-input>
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-query"></raml-type-form-input>
                     <template is="dom-if" if="[[item.hasDescription]]">
                       <span>
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-query"></paper-icon-button>
@@ -420,7 +420,7 @@ Custom property | Description | Default
               <template is="dom-repeat" items="[[authHeaders]]" data-repeater="auth-headers">
                 <div class="custom-data-field">
                   <div class="custom-data-field-value">
-                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}"></raml-type-form-input>
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-headers"></raml-type-form-input>
                     <template is="dom-if" if="[[item.hasDescription]]">
                       <span>
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-headers"></paper-icon-button>
@@ -437,7 +437,7 @@ Custom property | Description | Default
               <template is="dom-repeat" items="[[tokenQueryParameters]]" data-repeater="token-query">
                 <div class="custom-data-field">
                   <div class="custom-data-field-value">
-                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}"></raml-type-form-input>
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-query"></raml-type-form-input>
                     <template is="dom-if" if="[[item.hasDescription]]">
                       <span>
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-query"></paper-icon-button>
@@ -454,7 +454,7 @@ Custom property | Description | Default
               <template is="dom-repeat" items="[[tokenHeaders]]" data-repeater="token-headers">
                 <div class="custom-data-field">
                   <div class="custom-data-field-value">
-                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}"></raml-type-form-input>
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-headers"></raml-type-form-input>
                     <template is="dom-if" if="[[item.hasDescription]]">
                       <span>
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-headers"></paper-icon-button>
@@ -471,7 +471,7 @@ Custom property | Description | Default
               <template is="dom-repeat" items="[[tokenBody]]" data-repeater="token-body">
                 <div class="custom-data-field">
                   <div class="custom-data-field-value">
-                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}"></raml-type-form-input>
+                    <raml-type-form-input model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-body"></raml-type-form-input>
                     <template is="dom-if" if="[[item.hasDescription]]">
                       <span>
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-body"></paper-icon-button>
