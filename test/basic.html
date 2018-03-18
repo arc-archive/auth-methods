@@ -40,7 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Computes settings', () => {
         element.username = 'test';
         element.password = 'test';
-        const settings = element.settings;
+        const settings = element.getSettings();
         assert.equal(settings.username, element.username, 'username is set');
         assert.equal(settings.password, element.password, 'password is set');
         assert.equal(settings.hash, 'dGVzdDp0ZXN0', 'hash is  set');
