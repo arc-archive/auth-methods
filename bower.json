@@ -17,14 +17,7 @@
     "ntlm"
   ],
   "private": true,
-  "main": [
-    "auth-method-basic.html",
-    "auth-method-ntlm.html",
-    "auth-method-oauth1.html",
-    "auth-method-oauth2.html",
-    "auth-method-digest.html",
-    "auth-method-custom.html"
-  ],
+  "main": "auth-methods.html",
   "repository": {
     "type": "git",
     "url": "git@github.com:advanced-rest-client/auth-methods.git"
@@ -52,10 +45,8 @@
     "iron-icon": "PolymerElements/iron-icon#^2.1.0",
     "events-target-behavior": "advanced-rest-client/events-target-behavior#^2.0.0",
     "clipboard-copy": "advanced-rest-client/clipboard-copy#^2.0.0",
-
-    "paper-masked-input": "advanced-rest-client/paper-masked-input#^1.0.6",
-    "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^1.0.0",
-    "openable-panel-behavior": "advanced-rest-client/openable-panel-behavior#^0.1.2"
+    "paper-masked-input": "advanced-rest-client/paper-masked-input#^2.0.0",
+    "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^2.0.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
@@ -66,7 +57,6 @@
   },
   "ignore": [
     "**/.*",
-    "dependencyci.yml",
     "node_modules",
     "bower_components",
     "test",
