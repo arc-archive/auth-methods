@@ -83,6 +83,24 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
           return 'digest';
       }
     }
+    /**
+     * Gathers data by calling `validate()` and `getSettings()` function and
+     * dispatches `auth-settings-changed` custom event
+     *
+     * @param {String} type Auth form type.
+     */
+    _notifySettingsChange(type) {
+      const detail = {
+        settings: this.getSettings(),
+        type: type,
+        valid: this.validate()
+      };
+      this.dispatchEvent(new CustomEvent('auth-settings-changed', {
+        detail: detail,
+        bubbles: true,
+        composed: true
+      }));
+    }
   }
   return AMmixin;
 });
