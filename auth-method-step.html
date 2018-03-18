@@ -1,0 +1,141 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<dom-module id="auth-method-step">
+  <template>
+    <style>
+    .stepper {
+      @apply --layout-horizontal;
+      @apply --layout-center;
+      padding: 12px 0;
+      position: relative;
+      pointer-events: none;
+    }
+
+    .stepper.active {
+      pointer-events: all;
+      cursor: pointer;
+    }
+
+    .stepper .step {
+      display: inline-block;
+      background-color: var(--stepper-step-number-background-color, #3D8099);
+      color: var(--stepper-step-number-color, #fff);
+      font-size: 14px;
+      @apply --layout-center-center;
+      @apply --layout-horizontal;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .stepper .step-header {
+      position: relative;
+      @apply --layout-flex;
+    }
+
+    .stepper .step-title {
+      @apply --arc-font-body1;
+      display: block;
+      color: var(--stepper-step-title-color, #3D8099);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .stepper .step-selection {
+      @apply --arc-font-body1;
+      color: var(--stepper-step-selection-label-color, rgba(0, 0, 0, 0.54));
+      position: absolute;
+      bottom: -16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      max-width: 100%;
+    }
+
+    .step-content {
+      @apply --layout-horizontal;
+      margin-bottom: 12px;
+      min-height: 32px;
+    }
+
+    .step-content .line {
+      min-width: 11px;
+      max-width: 11px;
+      border-right: 1px var(--stepper-line-color, rgba(0, 0, 0, 0.12)) solid;
+      margin-right: 24px;
+    }
+
+    .step-content .content {
+      @apply --layout-flex;
+      max-width: calc(100% - 16px);
+      @apply --auth-methods-step-content;
+    }
+
+    .active .step-header:hover .edit-icon {
+      visibility: visible;
+    }
+
+    .container {
+      width: 100%;
+    }
+    </style>
+    <template is="dom-if" if="[[noSteps]]" restamp="true">
+      <slot></slot>
+    </template>
+    <template is="dom-if" if="[[!noSteps]]" restamp="true">
+      <div class="row">
+        <div class="stepper">
+          <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
+          <span class="step-header">
+            <span class="step-title">
+              <slot name="title"></slot>
+            </span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="line"></div>
+          <div class="container">
+            <slot></slot>
+          </div>
+        </div>
+      </div>
+    </template>
+  </template>
+  <script>
+  /**
+   * An element that renders authorization steps with title and content.
+   *
+   * @customElement
+   * @polymer
+   * @memberof UiElements
+   */
+  class AuthMethodStep extends Polymer.Element {
+    static get is() { return 'auth-method-step'; }
+    static get properties() {
+      return {
+        // base64 hash of the uid and passwd. When set it will override current username and password.
+        stepStartIndex: {
+          type: Number,
+          value: 1
+        },
+        step: Number,
+        /**
+         * If true then the auth method will not render progress bar (stepper).
+         */
+        noSteps: {
+          type: Boolean,
+          value: false
+        },
+        // Title of the step
+        title: String
+      };
+    }
+
+    _computeStep(stepStartIndex, currentStep) {
+      return stepStartIndex + currentStep;
+    }
+  }
+  window.customElements.define(AuthMethodStep.is, AuthMethodStep);
+  </script>
+</dom-module>

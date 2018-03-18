@@ -32,7 +32,6 @@ the License.
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../clipboard-copy/clipboard-copy.html">
-<link rel="import" href="../arc-polyfills/arc-polyfills.html">
 <link rel="import" href="../raml-type-form-behavior/raml-type-form-behavior.html">
 <link rel="import" href="../raml-type-form-input/raml-type-form-input.html">
 <link rel="import" href="../marked-element/marked-element.html">
@@ -354,6 +353,10 @@ Custom property | Description | Default
       font-weight: 200;
       line-height: 24px;
       color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
+    }
+
+    paper-ripple {
+      color: var(--stepper-step-title-color, #3D8099);
     }
     </style>
     <form is="iron-form" id="form" data-grant$="[[grantType]]" is-custom-grant$="[[isCustomGrant]]">

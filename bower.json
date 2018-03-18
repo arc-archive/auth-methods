@@ -14,7 +14,8 @@
     "oauth1",
     "oauth2",
     "basic",
-    "ntlm"
+    "ntlm",
+    "element-collection"
   ],
   "private": true,
   "main": "auth-methods.html",

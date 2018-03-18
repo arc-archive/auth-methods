@@ -1,6 +1,6 @@
 <!--
 @license
-Copyright 2016 The Advanced REST client authors
+Copyright 2018 The Advanced REST client authors
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -12,54 +12,64 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../openable-panel-behavior/openable-panel-behavior.html">
-<link rel="import" href="../events-target-behavior/events-target-behavior.html">
-
 <script>
-(function() {
-
-  window.ArcBehaviors = window.ArcBehaviors || {};
+'use strict';
+if (!window.ArcBehaviors) {
   /**
-   * Contains a common properties and methods used in the Auth methods element set.
-   *
-   * Elements that implements this behavior may use `getSettings()` function to return an object
-   * that will be passed to the `authorization-enabled` and `authorization-disabled` event.
-   * Before sending this event it will try to collect settings data from this function. Whole object
-   * will be passed to the event detail.
-   *
-   * @polymerBehavior ArcBehaviors.AuthMethodsBehavior
+   * @namespace ArcBehaviors
    */
-  ArcBehaviors.AuthMethodsBehaviorImpl = {
-    properties: {
-      /**
-       * A start index for elements step counter.
-       * Basic assumption is that this elements are used inside the
-       * `authorization` panel which has the first step (auth type selector).
-       * If the element is to be used as a standalone element then this
-       * should be set to `0` (zero) so the number for the first step will be
-       * `1`.
-       * Basic and NTLM auth elements has only one step. Other elements, with
-       * more complex structure has more steps.
-       */
-      stepStartIndex: {
-        type: Number,
-        value: 1
-      },
-      /**
-       * If true then the auth method will not render progress bar (stepper).
-       */
-      noStepper: {
-        type: Boolean,
-        reflectToAttribute: true
-      }
-    },
+  window.ArcBehaviors = {};
+}
+/**
+ * Contains a common properties and methods used in the Auth methods element set.
+ *
+ * Elements that implements this behavior may use `getSettings()` function to return an object
+ * that will be passed to the `authorization-enabled` and `authorization-disabled` event.
+ * Before sending this event it will try to collect settings data from this function. Whole object
+ * will be passed to the event detail.
+ *
+ * @polymer
+ * @mixinFunction
+ * @memberof ArcBehaviors
+ */
+ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
+  /**
+   * @polymer
+   * @mixinClass
+   */
+  class AMmixin extends base {
+    static get properties() {
+      return {
+        /**
+         * A start index for elements step counter.
+         * Basic assumption is that this elements are used inside the
+         * `authorization` panel which has the first step (auth type selector).
+         * If the element is to be used as a standalone element then this
+         * should be set to `0` (zero) so the number for the first step will be
+         * `1`.
+         * Basic and NTLM auth elements has only one step. Other elements, with
+         * more complex structure has more steps.
+         */
+        stepStartIndex: {
+          type: Number,
+          value: 1
+        },
+        /**
+         * If true then the auth method will not render progress bar (stepper).
+         */
+        noSteps: {
+          type: Boolean,
+          reflectToAttribute: true
+        }
+      };
+    }
     /**
      * Gets a oauth type by the elemnt name.
      * Possible values: 'basic', 'ntlm', 'oauth1', 'oauth2', 'digest', 'custom'
      * or undefined.
      */
-    _getAuthType: function() {
-      var name = this.nodeName.toLowerCase();
+    _getAuthType() {
+      const name = this.nodeName.toLowerCase();
       switch (name) {
         case 'auth-method-basic':
           return 'basic';
@@ -72,18 +82,8 @@ the License.
         case 'auth-method-digest':
           return 'digest';
       }
-    },
-
-    _computeStep: function(stepStartIndex, currentStep) {
-      return stepStartIndex + currentStep;
     }
-  };
-  /** @polymerBehavior */
-  ArcBehaviors.AuthMethodsBehavior = [
-    ArcBehaviors.AuthMethodsBehaviorImpl,
-    ArcBehaviors.OpenablePanelBehavior,
-    ArcBehaviors.EventsTargetBehavior
-  ];
-})();
-
+  }
+  return AMmixin;
+});
 </script>

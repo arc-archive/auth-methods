@@ -12,7 +12,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../iron-test-helpers/test-helpers.js"></script>
@@ -26,67 +25,144 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <test-fixture id="notOpened">
-      <template>
-        <auth-method-basic attr-for-opened="any"></auth-method-basic>
-      </template>
-    </test-fixture>
-
     <script>
     /* global suite, test, fixture, assert, setup, sinon */
-    suite('basic', function() {
-      var element;
-      setup(function() {
+    suite('basic', () => {
+      let element;
+      setup(() => {
         element = fixture('basic');
-        element.hash = '';
       });
-      test('Hash to be equal Og== (empty username and password)', function() {
+
+      test('Hash is not computed by default', () => {
+        assert.isUndefined(element.hash);
+      });
+
+      test('Computes settings', () => {
+        element.username = 'test';
+        element.password = 'test';
+        const settings = element.settings;
+        assert.equal(settings.username, element.username, 'username is set');
+        assert.equal(settings.password, element.password, 'password is set');
+        assert.equal(settings.hash, 'dGVzdDp0ZXN0', 'hash is  set');
+      });
+    });
+
+    suite('Hasing', () => {
+      let element;
+      setup(() => {
+        element = fixture('basic');
+      });
+
+      test('Hash to be equal Og== (empty username and password)', () => {
+        element.username = '';
+        element.password = '';
         assert.equal(element.hash, '');
       });
 
-      test('Hash to be set', function() {
+      test('Computes hash', () => {
         element.username = 'test';
         element.password = 'test';
         assert.equal(element.hash, 'dGVzdDp0ZXN0');
       });
 
-      test('Hash populates password and username', function() {
-        element.hash = '';
-        assert.equal(element.username, '');
-        assert.equal(element.password, '');
+      test('Hash populates password and username', () => {
         element.hash = 'dGVzdDp0ZXN0';
         assert.equal(element.username, 'test');
         assert.equal(element.password, 'test');
       });
+    });
 
-      test('Fire `auth-settings-changed` event', function() {
-        var spy = sinon.stub();
+    suite('Validation', () => {
+      let element;
+      setup(() => {
+        element = fixture('basic');
+        element.hash = '';
+      });
+
+      test('Not valid without username', (done) => {
+        flush(() => {
+          const result = element.validate();
+          assert.isFalse(result);
+          done();
+        });
+      });
+
+      test('Not valid with password only', (done) => {
+        element.password = 'test';
+        flush(() => {
+          const result = element.validate();
+          assert.isFalse(result);
+          done();
+        });
+      });
+
+      test('Valid with username', (done) => {
+        element.username = 'test';
+        flush(() => {
+          const result = element.validate();
+          assert.isTrue(result);
+          done();
+        });
+      });
+
+      test('Valid with username and password', (done) => {
+        element.username = 'test';
+        element.username = 'password';
+        flush(() => {
+          const result = element.validate();
+          assert.isTrue(result);
+          done();
+        });
+      });
+    });
+
+    suite('Settings notification', () => {
+      let element;
+      setup(() => {
+        element = fixture('basic');
+      });
+
+      test('Dispatches `auth-settings-changed` event once', () => {
+        let spy = sinon.stub();
         element.addEventListener('auth-settings-changed', spy);
         element.username = 'test';
         assert.isTrue(spy.calledOnce);
       });
 
-      test('Fire `auth-settings-changed` with validate eq. false', function(done) {
+      test('Invalid settings dispatched', function(done) {
         element.addEventListener('auth-settings-changed', function clb(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          assert.isFalse(e.detail.valid);
+          assert.equal(e.detail.settings.username, '', 'username is empty');
+          assert.equal(e.detail.settings.password, 'test', 'password is set');
+          assert.equal(e.detail.settings.hash, 'OnRlc3Q=', 'hash is set');
+          assert.equal(e.detail.type, 'basic', 'type is set');
+          assert.isFalse(e.detail.valid, 'valid is false');
           done();
         });
-        element.password = 'test';
+        flush(() => {
+          element.password = 'test';
+        });
       });
 
-      test('Fire `auth-settings-changed` with validate eq. true', function() {
+      test('Valid settings dispatched', (done) => {
         element.addEventListener('auth-settings-changed', function clb(e) {
           element.removeEventListener('auth-settings-changed', clb);
-          assert.isTrue(e.detail.valid);
+          assert.equal(e.detail.settings.username, 'test', 'Username is set');
+          assert.equal(e.detail.settings.password, '', 'Password is empty');
+          assert.equal(e.detail.settings.hash, 'dGVzdDo=', 'Hash is set');
+          assert.equal(e.detail.type, 'basic', 'type is set');
+          assert.isTrue(e.detail.valid, 'valid is true');
+          done();
         });
-        element.hash = 'dGVzdDE6dGVzdDE=';
+        flush(() => {
+          element.username = 'test';
+        });
       });
     });
 
-    suite('Events handling', function() {
+    suite('Header change event', () => {
       function fire(name, value) {
-        var event = new CustomEvent('request-header-changed', {
+        let event = new CustomEvent('request-header-changed', {
           detail: {
             name: name,
             value: value
@@ -95,62 +171,99 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
         document.body.dispatchEvent(event);
       }
-      var authName = 'authorization';
-      suite('Opened element', function() {
-        var element;
-        setup(function() {
-          element = fixture('basic');
-          element.hash = '';
-        });
-
-        test('Updates properties from the event', function() {
-          fire(authName, 'Basic dGVzdDE6cGFzczE=');
-          assert.equal(element.username, 'test1');
-          assert.equal(element.password, 'pass1');
-        });
-
-        test('Updates "basic" lowercase', function() {
-          fire(authName, 'basic dGVzdDE6cGFzczE=');
-          assert.equal(element.username, 'test1');
-          assert.equal(element.password, 'pass1');
-        });
-
-        test('Does not change values for other headers', function() {
-          element.username = 'test';
-          element.password = 'test';
-          assert.equal(element.hash, 'dGVzdDp0ZXN0');
-          fire('x-test', 'something');
-          assert.equal(element.hash, 'dGVzdDp0ZXN0');
-          assert.equal(element.username, 'test');
-          assert.equal(element.password, 'test');
-        });
-
-        test('Clears the value for empty header', function() {
-          element.username = 'test';
-          element.password = 'test';
-          assert.equal(element.hash, 'dGVzdDp0ZXN0');
-          fire(authName, '');
-          assert.equal(element.hash, '');
-          assert.equal(element.username, '');
-          assert.equal(element.password, '');
-        });
+      const authName = 'authorization';
+      let element;
+      setup(() => {
+        element = fixture('basic');
       });
 
-      suite('Not opened element', function() {
-        var element;
-        setup(function() {
-          element = fixture('notOpened');
-          element.hash = '';
-        });
+      test('Updates properties from the event', () => {
+        fire(authName, 'Basic dGVzdDE6cGFzczE=');
+        assert.equal(element.username, 'test1');
+        assert.equal(element.password, 'pass1');
+      });
 
-        test('Does not updates properties from the event', function() {
-          fire(authName, 'Basic dGVzdDE6cGFzczE=');
-          assert.equal(element.username, '');
-          assert.equal(element.password, '');
+      test('Updates "basic" lowercase', () => {
+        fire(authName, 'basic dGVzdDE6cGFzczE=');
+        assert.equal(element.username, 'test1');
+        assert.equal(element.password, 'pass1');
+      });
+
+      test('Does not change values for other headers', () => {
+        element.username = 'test';
+        element.password = 'test';
+        assert.equal(element.hash, 'dGVzdDp0ZXN0');
+        fire('x-test', 'something');
+        assert.equal(element.hash, 'dGVzdDp0ZXN0');
+        assert.equal(element.username, 'test');
+        assert.equal(element.password, 'test');
+      });
+
+      test('Clears the value for empty header', () => {
+        element.username = 'test';
+        element.password = 'test';
+        assert.equal(element.hash, 'dGVzdDp0ZXN0');
+        fire(authName, '');
+        assert.equal(element.hash, '');
+        assert.equal(element.username, '');
+        assert.equal(element.password, '');
+      });
+    });
+
+    suite('Settings change event handling', () => {
+      function fire(opts) {
+        opts = opts || {};
+        let event = new CustomEvent('auth-settings-changed', {
+          detail: {
+            type: opts.type || 'basic',
+            valid: true,
+            settings: {
+              username: 'test2',
+              password: 'test2',
+              hash: 'dGVzdDI6dGVzdDI='
+            }
+          },
+          bubbles: true
         });
+        (opts.node || document.body).dispatchEvent(event);
+      }
+      let element;
+      setup(() => {
+        element = fixture('basic');
+      });
+
+      test('Updates properties from the event', () => {
+        fire();
+        assert.equal(element.username, 'test2');
+        assert.equal(element.password, 'test2');
+        assert.equal(element.hash, 'dGVzdDI6dGVzdDI=');
+      });
+
+      test('Does not update values for other types.', () => {
+        fire({
+          type: 'oauth2'
+        });
+        assert.isUndefined(element.username);
+        assert.isUndefined(element.password);
+        assert.isUndefined(element.hash);
+      });
+
+      test('Does not update values if target is self.', () => {
+        fire({
+          node: element
+        });
+        assert.isUndefined(element.username);
+        assert.isUndefined(element.password);
+        assert.isUndefined(element.hash);
+      });
+
+      test('Does not dispatch settings change event', () => {
+        let spy = sinon.stub();
+        element.addEventListener('auth-settings-changed', spy);
+        fire();
+        assert.isFalse(spy.called);
       });
     });
     </script>
-
   </body>
 </html>
