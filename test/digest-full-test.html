@@ -1,177 +1,119 @@
 <!doctype html>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../iron-test-helpers/test-helpers.js"></script>
-    <script src="../../iron-test-helpers/mock-interactions.js"></script>
-    <!-- Step 1: import the element to test -->
-    <link rel="import" href="../auth-methods.html">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../cryptojslib/rollups/md5.js"></script>
+  <link rel="import" href="../auth-methods.html">
+</head>
 
-    <test-fixture id="basic">
-      <template>
-        <auth-method-digest
-          request-url="https://api.domain.com/path/to/resource?parm=value"
-          http-method="GET"
-          full-form
-          realm="realm@domain.com"
-          nonce="1234abcd"
-          cnonce="19ed03580cf7125"></auth-method-digest>
-      </template>
-    </test-fixture>
+<body>
+  <test-fixture id="basic">
+    <template>
+      <auth-method-digest request-url="https://api.domain.com/path/to/resource?parm=value" http-method="GET" full-form realm="realm@domain.com" nonce="1234abcd" cnonce="19ed03580cf7125"></auth-method-digest>
+    </template>
+  </test-fixture>
+  <script>
+  suite('Validation', () => {
+    let element;
+    setup(() => {
+      element = fixture('basic');
+      element.hash = '';
+    });
 
-    <script>
-    /* global fixture, assert, sinon */
-    suite('full form', function() {
-      var element;
-      setup(function() {
-        element = fixture('basic');
-      });
-      test('Should not be validated', function() {
-        assert.isFalse(element.validate(), 'Active validation.');
-        // assert.isFalse(element.validate(true), 'Passive validation.');
-        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
-      });
-
-      test('Should be validated', function() {
-        element.username = 'test';
-        element.password = 'test';
-
-        assert.isTrue(element.validate(), 'Active validation.');
-        assert.isTrue(element.validate(true), 'Passive validation.');
-      });
-
-      test('Fire `auth-settings-changed` event', function() {
-        var spy = sinon.stub();
-        element.addEventListener('auth-settings-changed', spy);
-        element.username = 'test';
-        assert.isTrue(spy.calledOnce);
-      });
-
-      test('Generates client nounce', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.typeOf(e.detail.settings.cnonce, 'string');
-          done();
-        };
-        element.password = 'test';
-        element.cnonce = '';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Fire `auth-settings-changed` with validate eq. false', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.isFalse(e.detail.valid);
-          done();
-        };
-        element.addEventListener('auth-settings-changed', clb);
-        element.password = 'test';
-      });
-
-      test('Generates response for default values', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, '9a8b5b6771ec8409817578f91cccad45');
-          done();
-        };
-        element.password = 'test';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, '06bc4313a446a4c08b93a10430c148a8');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth-int', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, '8b989ea0dae03d12ef40842afeffe6b6');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth-int';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth and algorithm MD5-sess', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, 'aa22fed51486f14f00febc7ff0680cce');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth';
-        element.algorithm = 'MD5-sess';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth-int and algorithm MD5-sess', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, '51b4522ce2066bc202d4de288cbb614e');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth-int';
-        element.algorithm = 'MD5-sess';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth and algorithm MD5', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, '06bc4313a446a4c08b93a10430c148a8');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth';
-        element.algorithm = 'MD5';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
-      });
-
-      test('Generates response for qop auth-int and algorithm MD5', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.response, '8b989ea0dae03d12ef40842afeffe6b6');
-          done();
-        };
-        element.password = 'test';
-        element.qop = 'auth-int';
-        element.algorithm = 'MD5';
-        element.addEventListener('auth-settings-changed', clb);
-        element.username = 'test';
+    test('Not valid without username and password', (done) => {
+      flush(() => {
+        const result = element.validate();
+        assert.isFalse(result);
+        done();
       });
     });
-    </script>
 
-  </body>
+    test('Valid with username and password', (done) => {
+      element.username = 'test';
+      element.password = 'password';
+      flush(() => {
+        const result = element.validate();
+        assert.isTrue(result);
+        done();
+      });
+    });
+  });
+
+  suite('Basics', () => {
+    let element;
+    setup(() => {
+      element = fixture('basic');
+    });
+
+    test('Auto generates client nounce', () => {
+      element.password = 'test';
+      assert.typeOf(element.cnonce, 'string');
+    });
+
+    test('Generates response for default values', () => {
+      element.password = 'test';
+      element.username = 'test';
+      const result = element.getSettings();
+      assert.equal(result.response, '9a8b5b6771ec8409817578f91cccad45');
+    });
+
+    test('Generates response for qop auth', () => {
+      element.password = 'test';
+      element.username = 'test';
+      element.qop = 'auth';
+      const result = element.getSettings();
+      assert.equal(result.response, '06bc4313a446a4c08b93a10430c148a8');
+    });
+
+    test('Generates response for qop auth-int', () => {
+      element.password = 'test';
+      element.username = 'test';
+      element.qop = 'auth-int';
+      const result = element.getSettings();
+      assert.equal(result.response, '8b989ea0dae03d12ef40842afeffe6b6');
+    });
+
+    test('Generates response for qop auth and algorithm MD5-sess', () => {
+      element.password = 'test';
+      element.qop = 'auth';
+      element.algorithm = 'MD5-sess';
+      element.username = 'test';
+      const result = element.getSettings();
+      assert.equal(result.response, 'aa22fed51486f14f00febc7ff0680cce');
+    });
+
+    test('Generates response for qop auth-int and algorithm MD5-sess', () => {
+      element.password = 'test';
+      element.qop = 'auth-int';
+      element.algorithm = 'MD5-sess';
+      element.username = 'test';
+      const result = element.getSettings();
+      assert.equal(result.response, '51b4522ce2066bc202d4de288cbb614e');
+    });
+
+    test('Generates response for qop auth and algorithm MD5', () => {
+      element.password = 'test';
+      element.qop = 'auth';
+      element.algorithm = 'MD5';
+      element.username = 'test';
+      const result = element.getSettings();
+      assert.equal(result.response, '06bc4313a446a4c08b93a10430c148a8');
+    });
+
+    test('Generates response for qop auth and algorithm MD5', () => {
+      element.password = 'test';
+      element.qop = 'auth-int';
+      element.algorithm = 'MD5';
+      element.username = 'test';
+      const result = element.getSettings();
+      assert.equal(result.response, '8b989ea0dae03d12ef40842afeffe6b6');
+    });
+  });
+  </script>
+</body>
+
 </html>

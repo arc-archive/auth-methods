@@ -107,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('Valid with username and password', (done) => {
         element.username = 'test';
-        element.username = 'password';
+        element.password = 'password';
         flush(() => {
           const result = element.validate();
           assert.isTrue(result);
