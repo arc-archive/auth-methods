@@ -1,4 +1,9 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 <dom-module id="auth-method-step">
   <template>
     <style>
@@ -10,7 +15,7 @@
       pointer-events: none;
     }
 
-    .stepper.active {
+    :host([inactive]) .stepper {
       pointer-events: all;
       cursor: pointer;
     }
@@ -72,12 +77,20 @@
       @apply --auth-methods-step-content;
     }
 
-    .active .step-header:hover .edit-icon {
+    .step-header .edit-icon {
+      visibility: hidden;
+    }
+
+    :host([inactive]) .step-header:hover .edit-icon {
       visibility: visible;
     }
 
     .container {
       width: 100%;
+    }
+
+    [hidden] {
+      display: none !important;
     }
     </style>
     <template is="dom-if" if="[[noSteps]]" restamp="true">
@@ -86,19 +99,30 @@
     <template is="dom-if" if="[[!noSteps]]" restamp="true">
       <div class="row">
         <div class="stepper">
-          <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
-          <span class="step-header">
+          <span class="step">[[_computeStep(stepStartIndex, step)]]</span>
+          <span class="step-header" on-tap="_inactiveTap">
             <span class="step-title">
               <slot name="title"></slot>
+              <template is="dom-if" if="[[inactive]]">
+                <iron-icon icon="arc:edit" class="edit-icon" title="Click to make changes"></iron-icon>
+              </template>
+            </span>
+            <span class="step-inactive-title" hidden$="[[!inactive]]">
+              <slot name="inactive-title"></slot>
             </span>
           </span>
+          <template is="dom-if" if="inactive">
+            <paper-ripple></paper-ripple>
+          </template>
         </div>
-        <div class="step-content">
-          <div class="line"></div>
-          <div class="container">
-            <slot></slot>
+        <iron-collapse opened="[[!inactive]]">
+          <div class="step-content">
+            <div class="line"></div>
+            <div class="container">
+              <slot></slot>
+            </div>
           </div>
-        </div>
+        </iron-collapse>
       </div>
     </template>
   </template>
@@ -128,12 +152,27 @@
           value: false
         },
         // Title of the step
-        title: String
+        title: String,
+        // If inactive it shows alternative summary content
+        inactive: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        }
       };
     }
 
     _computeStep(stepStartIndex, currentStep) {
       return stepStartIndex + currentStep;
+    }
+
+    _inactiveTap() {
+      if (!this.inactive) {
+        return;
+      }
+      this.dispatchEvent(new CustomEvent('inactive-tap', {
+        bubbles: false
+      }));
     }
   }
   window.customElements.define(AuthMethodStep.is, AuthMethodStep);
