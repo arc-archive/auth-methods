@@ -1,6 +1,6 @@
 {
   "name": "@api-components/auth-methods",
-  "version": "3.0-preview",
+  "version": "3.0.0-preview",
   "license": "Apache-2.0",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
   "devDependencies": {
