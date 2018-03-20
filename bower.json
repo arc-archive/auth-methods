@@ -57,7 +57,8 @@
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "oauth-authorization": "advanced-rest-client/oauth-authorization#^2.0.1",
-    "cryptojs-lib": "advanced-rest-client/cryptojs-lib#^0.1.1"
+    "cryptojs-lib": "advanced-rest-client/cryptojs-lib#^0.1.1",
+    "iron-component-page": "^3.0.1"
   },
   "ignore": [
     "**/.*",
