@@ -11,7 +11,10 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../events-target-behavior/events-target-behavior.html">
 <link rel="import" href="../paper-masked-input/paper-masked-input.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
@@ -23,8 +26,11 @@ the License.
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="auth-methods-behavior.html">
+<link rel="import" href="../api-view-model-transformer/api-view-model-transformer.html">
+<link rel="import" href="../api-property-form-item/api-property-form-item.html">
+<link rel="import" href="auth-methods-mixin.html">
 <link rel="import" href="auth-methods-styles.html">
+<link rel="import" href="auth-method-step.html">
 <!--
 The `<auth-method-custom>` element displays a form to provide the authorization details for RAML's
 custom security scheme.
@@ -74,22 +80,33 @@ Input styles are consistent with `raml-headers-form` element.
       @apply --auth-method-panel;
       @apply --auth-method-custom;
 
-      --paper-input-container-label: {
-        color: var(--raml-headers-form-input-label-color, rgba(0, 0, 0, 0.48));
+      --paper-icon-button: {
+        color: var(--hint-trigger-color, rgba(0, 0, 0, 0.74));
+        transition: color 0.25s linear;
+        @apply --icon-button;
+      }
+
+      --paper-icon-button-hover: {
+        color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.88));
+        @apply --icon-button-hover;
       }
     }
 
-    paper-input[required] {
-      --paper-input-container-label: {
-        color: var(--raml-request-parameters-editor-required-input-label-color, rgba(0, 0, 0, 0.72));
-      }
+    .field-value {
+      @apply --layout-horizontal;
+      @apply --layout-flex;
     }
 
-    .input-row {
-      display: block;
+    api-property-form-item {
+      @apply --layout-flex;
     }
 
-    .docs {
+    .header-item,
+    .param-item {
+      width: 100%;
+    }
+
+    .data-docs {
       @apply --arc-font-common-base;
       font-size: 13px !important;
       font-weight: 200;
@@ -97,141 +114,398 @@ Input styles are consistent with `raml-headers-form` element.
       color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
     }
 
-    .markdown-html * {
-      font-size: 13px !important;
-    }
-
-    .markdown-html p:first-child {
-      margin-top: 0;
-      padding-top: 0;
-    }
-
-    .markdown-html p:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
     .help-icon {
-      color: var(--inline-help-icon-color, rgba(0, 0, 0, 0.24));
-      transition: color 0.2s linear;
-    }
-
-    .help-icon:hover {
-      color: var(--inline-help-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.74)));
-    }
-
-    .value-input {
-      @apply --layout-horizontal;
-      @apply --layout-center;
-      @apply --layout-flex;
-    }
-
-    .value-input paper-input,
-    .value-input paper-dropdown-menu {
-      @apply --layout-flex;
+      margin-top: 16px;
     }
     </style>
-    <form is="iron-form" id="form">
-      <div class="row">
-        <div class="stepper">
-          <span class="step">[[_computeStep(stepStartIndex, 1)]]</span>
-          <span class="step-header">
-            <span class="step-title">Set authorization data</span>
-          </span>
-        </div>
-        <div class="step-content">
-          <div class="line"></div>
-          <div class="content">
+    <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
+      <span slot="title">Set authorization data</span>
+      <section>
+        <iron-form>
+          <form autocomplete="on">
             <template is="dom-if" if="[[hasHeaders]]">
-              <section id="headersList">
-                <template is="dom-repeat" items="[[headers]]" headers-repeater>
-                  <div class="input-row">
-                    <div class="value-input">
-                      <paper-input
-                        label="[[item.inputLabel]]"
-                        value="{{item.value}}"
-                        required="[[item.required]]"
-                        pattern="[[item.pattern]]"
-                        name="[[item.name]]"
-                        auto-validate
-                        type="[[item.inputType]]"
-                        min="[[item.minimum]]"
-                        max="[[item.maximum]]"
-                        maxlength="[[item.maxLength]]"
-                        always-float-label="[[item.inputFloatLabel]]"
-                        placeholder="[[item.inputPlaceholder]]"
-                        on-input="_headerValueChanged">
-                      </paper-input>
-                      <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="_openHeaderDoc"></paper-icon-button>
+              <section>
+                <template is="dom-repeat" items="{{headers}}"  data-repeater="header">
+                  <div class="header-item">
+                    <div class="field-value">
+                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="header"></api-property-form-item>
+                      <template is="dom-if" if="[[item.hasDescription]]">
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="header" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      </template>
                     </div>
-                    <template is="dom-if" if="[[item.hasDescription]]">
-                      <div class="docs">
-                        <iron-collapse>
-                          <marked-element markdown="[[item.description]]">
-                            <div class="markdown-html markdown-body"></div>
-                          </marked-element>
-                        </iron-collapse>
-                      </div>
-                    </template>
+                    <div class="data-docs" data-source="header" data-key$="[[item.name]]"></div>
                   </div>
                 </template>
               </section>
             </template>
             <template is="dom-if" if="[[hasQueryParameters]]">
-              <section id="paramsList">
-                <template is="dom-repeat" items="[[queryParameters]]" params-repeater>
-                  <div class="input-row">
-                    <div class="value-input">
-                      <template is="dom-if" if="[[item.isEnum]]">
-                        <paper-dropdown-menu label="[[item.inputLabel]]" name="[[item.name]]" required="[[item.required]]" on-iron-select="_parameterValueChanged">
-                          <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{item.value}}">
-                            <template is="dom-repeat" items="[[item.enum]]">
-                              <paper-item data-value$="[[item]]">[[item]]</paper-item>
-                            </template>
-                          </paper-listbox>
-                        </paper-dropdown-menu>
+              <section>
+                <template is="dom-repeat" items="{{queryParameters}}" data-repeater="query">
+                  <div class="param-item">
+                    <div class="field-value">
+                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="query"></api-property-form-item>
+                      <template is="dom-if" if="[[item.hasDescription]]">
+                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
-                      <template is="dom-if" if="[[!item.isEnum]]">
-                        <paper-input
-                          label="[[item.inputLabel]]"
-                          value="{{item.value}}"
-                          required="[[item.required]]"
-                          pattern="[[item.pattern]]"
-                          name="[[item.name]]"
-                          auto-validate
-                          type="[[item.inputType]]"
-                          min="[[item.minimum]]"
-                          max="[[item.maximum]]"
-                          maxlength="[[item.maxLength]]"
-                          always-float-label="[[item.inputFloatLabel]]"
-                          placeholder="[[item.inputPlaceholder]]"
-                          on-input="_parameterValueChanged">
-                        </paper-input>
-                      </template>
-                      <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="_openParamDoc"></paper-icon-button>
                     </div>
-                    <template is="dom-if" if="[[item.hasDescription]]">
-                      <div class="docs">
-                        <iron-collapse>
-                          <marked-element markdown="[[item.description]]">
-                            <div class="markdown-html markdown-body"></div>
-                          </marked-element>
-                        </iron-collapse>
-                      </div>
-                    </template>
+                    <div class="data-docs" data-source="query" data-key$="[[item.name]]"></div>
                   </div>
                 </template>
               </section>
             </template>
-          </div>
-        </div>
-      </div>
-    </form>
+          </form>
+        </iron-form>
+      </section>
+    </auth-method-step>
   </template>
   <script>
-  Polymer({
-    is: 'auth-method-custom',
-    behaviors: [ArcBehaviors.AuthMethodsBehavior],
+  /**
+   *
+   * ## Changes in version 2
+   *
+   * - The element now works with AMF json/ld data model. RAML json parser output
+   * is no longer supported.
+   * - `ramlSettings` has been renamed to `securityScheme`
+   *
+   * @customElement
+   * @polymer
+   * @memberof UiElements
+   * @appliesMixin ArcBehaviors.EventsTargetBehavior
+   * @appliesMixin ArcBehaviors.AuthMethodsMixin
+   * @demo demo/custom.html
+   */
+  class AuthMethodCustom extends ArcBehaviors.AuthMethodsMixin(ArcBehaviors.EventsTargetBehavior(Polymer.Element)) {
+    static get is() { return 'auth-method-custom'; }
+    static get properties() {
+      return {
+        /**
+         * AMF security scheme model.
+         */
+        securityScheme: {
+          type: Object,
+          observer: '_schemeChanged'
+        },
+        /**
+         * Computed list of headers to render in the form.
+         */
+        headers: {
+          type: Array,
+          readOnly: true
+        },
+        /**
+         * Computed list of query parameters to render.
+         */
+        queryParameters: {
+          type: Array,
+          readOnly: true
+        },
+        // Computed value, true if headers are defined in RAML settings.
+        hasHeaders: {
+          type: Boolean,
+          computed: '_computeHasData(headers)'
+        },
+        // Computed value, true if query parameters are defined in RAML settings.
+        hasQueryParameters: {
+          type: Boolean,
+          computed: '_computeHasData(queryParameters)'
+        },
+        /**
+         * Name of the security scheme
+         */
+        schemeName: {
+          type: String,
+          readOnly: true
+        },
+        /**
+         * Security scheme description
+         */
+        schemeDescription: {
+          type: String,
+          readOnly: true
+        }
+      };
+    }
+
+    static get observers() {
+      return [
+        '_settingsChanged(headers.*)',
+        '_settingsChanged(queryParameters.*)'
+      ];
+    }
+
+    constructor() {
+      super();
+      this._headerChangedHandler = this._headerChangedHandler.bind(this);
+      this._parameterChangedHandler = this._parameterChangedHandler.bind(this);
+    }
+
+    _attachListeners(node) {
+      node.addEventListener('request-header-changed', this._headerChangedHandler);
+      node.addEventListener('query-parameter-changed', this._parameterChangedHandler);
+    }
+
+    _detachListeners(node) {
+      node.removeEventListener('request-header-changed', this._headerChangedHandler);
+      node.removeEventListener('query-parameter-changed', this._parameterChangedHandler);
+    }
+    /**
+     * Validates the form.
+     *
+     * @return {Boolean} `true` if valid, `false` otherwise.
+     */
+    validate() {
+      const form = this.shadowRoot.querySelector('iron-form');
+      return form.validate();
+    }
+
+    _schemeChanged(model) {
+      this.headers = undefined;
+      this.queryParameters = undefined;
+      this._clearDocs();
+      if (!model || !model['@type'] || !model['@type'].length) {
+        return;
+      }
+      const isSecurity = model['@type']
+        .indexOf('http://raml.org/vocabularies/security#SecurityScheme') !== -1;
+      if (!isSecurity) {
+        return;
+      }
+      const type = model['http://raml.org/vocabularies/security#type'];
+      const isCustom = type && type[0] && type[0]['@value'] === 'x-custom';
+      if (!isCustom) {
+        return;
+      }
+      const prefix = 'http://raml.org/vocabularies/http#';
+      this._createViewModel('header', model[prefix + 'header']);
+      this._createViewModel('parameter', model[prefix + 'parameter']);
+      this._setSchemeName(this._getAmfValue(model[prefix + 'name']));
+      this._setSchemeDescription(this._getAmfValue(model['http://schema.org/description']));
+    }
+    /**
+     * Generates view model using the tranformer.
+     *
+     * @param {String} type Param type. Either `header` or `parameter`.
+     * @param {Array} model
+     * @return {Promise}
+     */
+    _createViewModel(type, model) {
+      if (!model) {
+        return;
+      }
+      const factory = document.createElement('api-view-model-transformer');
+      return factory.computeViewModel(model)
+      .then((data) => {
+        if (!data) {
+          return;
+        }
+        if (type === 'header') {
+          this._setHeaders(data);
+        } else if (type === 'parameter') {
+          this._setQueryParameters(data);
+        }
+      });
+    }
+
+    _computeHasData(data) {
+      return !!(data && data.length);
+    }
+
+    _settingsChanged() {
+      if (!this.shadowRoot || this.__cancelChangeEvent) {
+        return;
+      }
+      this.notifySettingsChanged();
+    }
+    /**
+     * Returns current configuration of the OAuth2.
+     *
+     * @return {Object} Current OAuth2 configuration.
+     */
+    getSettings() {
+      const form = this.shadowRoot.querySelector('iron-form');
+      return form.serializeForm();
+    }
+    /**
+     * Restores settings from stored value.
+     * For custom methods this is dummy function.
+     */
+    restore() {}
+
+    notifySettingsChanged() {
+      const detail = {
+        settings: this.getSettings(),
+        type: 'x-custom',
+        name: this.shemeName,
+        valid: this.validate()
+      };
+      this.dispatchEvent(new CustomEvent('auth-settings-changed', {
+        detail: detail,
+        bubbles: true,
+        composed: true
+      }));
+    }
+
+    /**
+     * When header value changes then it will file the `request-header-changed` to inform other
+     * observers about this event.
+     */
+    _headerValueChanged(e) {
+      var item = e.model.get('item');
+      var name = item.name || item.key;
+      var value = item.value;
+      this.fire('request-header-changed', {
+        name: name,
+        value: value
+      });
+      this.notifySettingsChanged();
+    }
+
+    // Opens the documentation for headers item.
+    _openHeaderDoc(e) {
+      var model = this._getItemModel('headers', e);
+      this._toggleDoc('headers', model);
+    }
+    // Opens the documentation for query parameters item.
+    _openParamDoc(e) {
+      var model = this._getItemModel('params', e);
+      this._toggleDoc('params', model);
+    }
+    /**
+     * Returns model for event fired by a repeater defined as the `source`
+     */
+    _getItemModel(source, e) {
+      var template = this.$.form.querySelector('[' + source + '-repeater]');
+      return template.modelForElement(e.target);
+    }
+
+    _toggleDoc(type, model) {
+      var i = model.index + 1;
+      var collapse = this.$$('#' + type + 'List')
+        .querySelector('.input-row:nth-child(' + i + ') iron-collapse');
+      if (!collapse) {
+        return;
+      }
+      collapse.opened = !collapse.opened;
+    }
+    /**
+     * When query parameter value changes then it will file the `query-parameter-changed` custom
+     * event to inform other observers about this event.
+     */
+    _parameterValueChanged(e) {
+      var item = e.model.get('item');
+      var name = item.name || item.key;
+      var value = item.value;
+      this.fire('query-parameter-changed', {
+        name: name,
+        value: value
+      });
+      this.notifySettingsChanged();
+    }
+
+    /**
+     * Handler for the `request-header-changed` event.
+     * It updates value for a single header if this header is already on the list.
+     */
+    _headerChangedHandler(e) {
+      this._updateEventValue('headers', e);
+    }
+
+    /**
+     * Handler for the `query-parameter-changed` event.
+     * It updates value for a single parameter if this parameter is already on the list.
+     */
+    _parameterChangedHandler(e) {
+      this._updateEventValue('queryParameters', e);
+    }
+    /**
+     * Update array value for given type (`headers` or `queryParameters`) for given event.
+     */
+    _updateEventValue(target, e) {
+      if (e.target === this || !this._isOpened || e.defaultPrevented) {
+        return;
+      }
+      var name = e.detail.name;
+      if (!name) {
+        return;
+      }
+      // Headers are case insensitive.
+      name = target === 'headers' ? name.toLowerCase() : name;
+      var parameters = this[target];
+      if (!parameters || !parameters.length) {
+        return;
+      }
+      for (var i = 0, len = parameters.length; i < len; i++) {
+        var paramName = parameters[i].name || parameters[i].key;
+        if (!paramName) {
+          continue;
+        }
+        paramName = target === 'headers' ? paramName.toLowerCase() : paramName;
+        if (paramName === name) {
+          this.set([target, i, 'value'], e.detail.value);
+          return;
+        }
+      }
+    }
+    /**
+     * Toggles documentartion for custom property.
+     *
+     * @param {CustomEvent} e
+     */
+    _toggleDocumentation(e) {
+      const target = e.target;
+      const source = target.dataset.source;
+      if (!source) {
+        throw new Error('Could not find source of the event.');
+      }
+      const repeater = this.shadowRoot.querySelector('[data-repeater="' + source + '"]');
+      if (!repeater) {
+        throw new Error('Could not find repeater for the item.');
+      }
+      const model = repeater.modelForElement(target).get('item');
+      let selector = '.data-docs[data-source="' + source + '"]';
+      selector += '[data-key="' + model.name + '"]';
+      const docsContainer = this.shadowRoot.querySelector(selector);
+      if (!docsContainer) {
+        throw new Error('Could not find documentation container.');
+      }
+      if (!docsContainer.children[0]) {
+        this._createDocsElements(model, docsContainer);
+      } else {
+        docsContainer.children[0].opened = !docsContainer.children[0].opened;
+      }
+    }
+    /**
+     * Creates a documentation element.
+     *
+     * @param {Object} model
+     * @param {Object} appendTo
+     */
+    _createDocsElements(model, appendTo) {
+      const collapse = document.createElement('iron-collapse');
+      const marked = document.createElement('marked-element');
+      const wrapper = document.createElement('div');
+
+      collapse.dataset.docsCollapse = true;
+      wrapper.className = 'markdown-html markdown-body';
+      marked.appendChild(wrapper);
+      collapse.appendChild(marked);
+      appendTo.appendChild(collapse);
+
+      marked.markdown = model.description;
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        collapse.opened = true;
+      });
+    }
+    /**
+     * Clears all custom data documention nodes.
+     */
+    _clearDocs() {
+      const nodes = this.shadowRoot.querySelectorAll('[data-docs-collapse="true"]');
+      if (!nodes || !nodes.length) {
+        return;
+      }
+      nodes.forEach((node) => node.parentNode.removeChild(node));
+    }
     /**
      * Fired when the any of the auth method settings has changed.
      * This event will be fired quite frequently - each time anything in the text field changed.
@@ -258,267 +532,7 @@ Input styles are consistent with `raml-headers-form` element.
      * @param {String} name Name of the parameter
      * @param {String} value Value of the parameter
      */
-
-    properties: {
-      /**
-       * RAML `securedBy` obejct definition.
-       */
-      ramlSettings: Object,
-      /**
-       * List of headers to render in the form.
-       * Note, this value will be computed from the `ramlSettings` object after any change to it.
-       */
-      headers: {
-        type: Array,
-        computed: '_computeHeaders(ramlSettings.describedBy.*)'
-      },
-      /**
-       * List of query parameters to render.
-       * Note, this value will be computed from the `ramlSettings` object after any change to it.
-       */
-      queryParameters: {
-        type: Array,
-        computed: '_computeParameters(ramlSettings.describedBy.queryParameters.*)'
-      },
-      // Computed value, true if headers are defined in RAML settings.
-      hasHeaders: {
-        type: Boolean,
-        computed: '_computeHasHeaders(ramlSettings.describedBy.*)'
-      },
-      // Computed value, true if query parameters are defined in RAML settings.
-      hasQueryParameters: {
-        type: Boolean,
-        computed: '_computeHasQueryParameters(ramlSettings.describedBy.*)'
-      }
-    },
-
-    _attachListeners: function(node) {
-      this.listen(node, 'request-header-changed', '_headerChangedHandler');
-      this.listen(node, 'query-parameter-changed', '_parameterChangedHandler');
-    },
-
-    _detachListeners: function(node) {
-      this.unlisten(node, 'request-header-changed', '_headerChangedHandler');
-      this.unlisten(node, 'query-parameter-changed', '_parameterChangedHandler');
-    },
-
-    /**
-     * Gets a map of current settings (user provided data).
-     */
-    get settings() {
-      return this._getSettings();
-    },
-
-    /**
-     * Validate the form.
-     *
-     * @param {Boolean} passive If true then it will check validity of the form but will not
-     * highlight the fields when invalid. Default to false.
-     * @return {Boolean} `true` if valid, `false` otherwise.
-     */
-    validate: function(passive) {
-      return passive ? this.$.form.checkValidity() : this.$.form.validate();
-    },
-
-    // Computes a list of query parameters to display
-    _computeParameters: function(record) {
-      var array = record && record.base;
-      if (!array || !array.length) {
-        return;
-      }
-      return this._computeFormData(array);
-    },
-    // Computes a list of headers to display
-    _computeHeaders: function(record) {
-      var describedBy = record && record.base;
-      if (!(describedBy && describedBy.headers && describedBy.headers.length)) {
-        return;
-      }
-      return this._computeFormData(describedBy.headers);
-    },
-    // Computes form items data based on headers / query parameters input.
-    _computeFormData: function(array) {
-      var numTypes = ['number', 'integer', 'float'];
-      return array.map(function(item) {
-        item = Object.assign({}, item);
-        item.isEnum = !!(item.enum && item.enum.length);
-        item.hasDescription = !!item.description;
-        item.inputLabel = item.displayName || item.name || 'Value';
-        if (item.required) {
-          item.inputLabel += '*';
-        }
-        if (numTypes.indexOf(item.type) !== -1) {
-          item.inputType = 'number';
-        } else {
-          item.inputType = 'text';
-        }
-
-        if (item.examples && item.examples.length && item.examples[0]) {
-          item.inputPlaceholder = 'Example: ' + item.examples[0];
-        } else if (item.example && typeof item.example === 'string') {
-          item.inputPlaceholder = 'Example: ' + item.example;
-        }
-
-        if (item.inputPlaceholder) {
-          item.inputFloatLabel = true;
-        }
-
-        if (item.required && typeof item.default !== 'undefined' && !item.value) {
-          item.value = item.default;
-        }
-        if (typeof item.value === 'undefined' && item.required) {
-          if (item.examples) {
-            item.value = item.examples[0];
-          } else if (item.example) {
-            item.value = item.example;
-          }
-          if (item.value && item.value.indexOf && item.value.indexOf(item.name + '=') === 0) {
-            item.value = item.value.substr(item.name.length + 1);
-          }
-          if (typeof item.value === 'undefined' && item.isEnum) {
-            item.value = item.enum[0];
-          }
-        }
-        if (item.value && typeof item.value === 'string') {
-          item.value = decodeURIComponent(item.value.replace(/\+/g, ' '));
-        }
-        return item;
-      });
-    },
-
-    _computeHasHeaders: function(record) {
-      var describedBy = record && record.base;
-      return !!(describedBy && describedBy.headers && describedBy.headers.length);
-    },
-
-    _computeHasQueryParameters: function(record) {
-      var describedBy = record && record.base;
-      return !!(describedBy && describedBy.queryParameters && describedBy.queryParameters.length);
-    },
-
-    _getSettings: function() {
-      return this.$.form.serialize();
-    },
-
-    /**
-     * Restores settings from stored value.
-     * For custom methods this is dummy function.
-     */
-    restore: function() {},
-
-    notifySettingsChanged: function() {
-      var validationResult = this.$.form.validate();
-      var settings = this._getSettings();
-      var detail = {
-        settings: settings,
-        type: 'x-custom',
-        name: this.ramlSettings.name,
-        valid: validationResult
-      };
-      this.fire('auth-settings-changed', detail);
-    },
-
-    /**
-     * When header value changes then it will file the `request-header-changed` to inform other
-     * observers about this event.
-     */
-    _headerValueChanged: function(e) {
-      var item = e.model.get('item');
-      var name = item.name || item.key;
-      var value = item.value;
-      this.fire('request-header-changed', {
-        name: name,
-        value: value
-      });
-      this.notifySettingsChanged();
-    },
-
-    // Opens the documentation for headers item.
-    _openHeaderDoc: function(e) {
-      var model = this._getItemModel('headers', e);
-      this._toggleDoc('headers', model);
-    },
-    // Opens the documentation for query parameters item.
-    _openParamDoc:  function(e) {
-      var model = this._getItemModel('params', e);
-      this._toggleDoc('params', model);
-    },
-    /**
-     * Returns model for event fired by a repeater defined as the `source`
-     */
-    _getItemModel: function(source, e) {
-      var template = this.$.form.querySelector('[' + source + '-repeater]');
-      return template.modelForElement(e.target);
-    },
-
-    _toggleDoc: function(type, model) {
-      var i = model.index + 1;
-      var collapse = this.$$('#' + type + 'List')
-        .querySelector('.input-row:nth-child(' + i + ') iron-collapse');
-      if (!collapse) {
-        return;
-      }
-      collapse.opened = !collapse.opened;
-    },
-    /**
-     * When query parameter value changes then it will file the `query-parameter-changed` custom
-     * event to inform other observers about this event.
-     */
-    _parameterValueChanged: function(e) {
-      var item = e.model.get('item');
-      var name = item.name || item.key;
-      var value = item.value;
-      this.fire('query-parameter-changed', {
-        name: name,
-        value: value
-      });
-      this.notifySettingsChanged();
-    },
-
-    /**
-     * Handler for the `request-header-changed` event.
-     * It updates value for a single header if this header is already on the list.
-     */
-    _headerChangedHandler: function(e) {
-      this._updateEventValue('headers', e);
-    },
-
-    /**
-     * Handler for the `query-parameter-changed` event.
-     * It updates value for a single parameter if this parameter is already on the list.
-     */
-    _parameterChangedHandler: function(e) {
-      this._updateEventValue('queryParameters', e);
-    },
-    /**
-     * Update array value for given type (`headers` or `queryParameters`) for given event.
-     */
-    _updateEventValue: function(target, e) {
-      if (e.target === this || !this._isOpened || e.defaultPrevented) {
-        return;
-      }
-      var name = e.detail.name;
-      if (!name) {
-        return;
-      }
-      // Headers are case insensitive.
-      name = target === 'headers' ? name.toLowerCase() : name;
-      var parameters = this[target];
-      if (!parameters || !parameters.length) {
-        return;
-      }
-      for (var i = 0, len = parameters.length; i < len; i++) {
-        var paramName = parameters[i].name || parameters[i].key;
-        if (!paramName) {
-          continue;
-        }
-        paramName = target === 'headers' ? paramName.toLowerCase() : paramName;
-        if (paramName === name) {
-          this.set([target, i, 'value'], e.detail.value);
-          return;
-        }
-      }
-    }
-  });
+  }
+  window.customElements.define(AuthMethodCustom.is, AuthMethodCustom);
   </script>
 </dom-module>

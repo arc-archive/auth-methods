@@ -44,7 +44,7 @@ the License.
   <template strip-whitespace>
     <style include="markdown-styles"></style>
     <style include="auth-methods-styles">
-     :host {
+    :host {
       display: block;
       @apply --auth-method-panel;
       @apply --auth-method-oauth2;
@@ -1223,17 +1223,6 @@ the License.
           this._updateGrantTypes();
         }
         this._setupAnotationParameters(annotation);
-      }
-      /**
-       * Extracts value from AMF property.
-       * @param {Array} model Property model
-       * @return {String|undefined}
-       */
-      _getAmfValue(model) {
-        if (!model || !(model instanceof Array) || !model[0]) {
-          return;
-        }
-        return model[0]['@value'];
       }
       /**
        * Extracts array value from AMF property.
