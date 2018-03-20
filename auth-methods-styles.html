@@ -22,16 +22,58 @@ the License.
       max-width: 560px;
     }
 
-    #form {
-      width: 100%;
-    }
-
     .edit-icon {
       visibility: hidden;
     }
 
     [hidden] {
       display: none !important;
+    }
+
+    .hint-icon {
+      color: var(--hint-trigger-color, rgba(0, 0, 0, 0.74));
+      transition: color 0.25s linear;
+      @apply --icon-button;
+    }
+
+    .hint-icon:hover {
+      color: var(--hint-trigger-hover-color, var(--accent-color, rgba(0, 0, 0, 0.88)));
+      @apply --icon-button-hover;
+    }
+
+    .action-icon {
+      color: var(--from-row-action-icon-color, var(--icon-button-color, rgba(0, 0, 0, 0.74)));
+      transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    .action-icon:hover {
+      color: var(--from-row-action-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.88)));
+    }
+
+    .adv-toggle {
+      margin-top: 8px;
+    }
+
+    .markdown-body,
+    .docs-container {
+      @apply --arc-font-body1;
+      color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
+      font-size: 13px !important;
+    }
+
+    marked-element {
+      background-color: var(--inline-documentation-background-color, #FFF3E0);
+      padding: 4px;
+    }
+
+    .markdown-body p:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .markdown-body p:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
     </style>
   </template>

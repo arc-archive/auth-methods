@@ -36,7 +36,7 @@ the License.
       <iron-form>
         <form autocomplete="on">
           <paper-input label="User name" value="{{username}}" name="username" type="text" required auto-validate autocomplete="on">
-            <paper-icon-button slot="suffix" on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+            <paper-icon-button slot="suffix" class="action-icon" on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
           </paper-input>
           <paper-masked-input label="Password" name="password" value="{{password}}" autocomplete="on"></paper-masked-input>
         </form>

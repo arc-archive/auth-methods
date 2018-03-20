@@ -57,14 +57,6 @@ the License.
       width: 100%;
     }
 
-    .data-docs {
-      @apply --arc-font-common-base;
-      font-size: 13px !important;
-      font-weight: 200;
-      line-height: 24px;
-      color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
-    }
-
     .help-icon {
       margin-top: 16px;
     }
@@ -74,46 +66,25 @@ the License.
       @apply --auth-method-custom-subheader;
     }
 
-    .sheme-header h3 {
+    .scheme-header h3 {
       @apply --layout-horizontal;
       @apply --layout-center;
       margin: 0;
-    }
-
-    paper-icon-button {
-      color: var(--inline-help-icon-color, rgba(0, 0, 0, 0.74));
-      transition: color 0.25s linear;
-      @apply --icon-button;
-    }
-
-    paper-icon-button:hover {
-      color: var(--inline-help-icon-color-hover, rgba(0, 0, 0, 0.88));
-      @apply --icon-button-hover;
-    }
-
-    marked-element {
-      background-color: var(--inline-documentation-background-color, #FFF3E0);
-      padding: 4px;
-    }
-
-    .docs {
-      @apply --arc-font-body1;
-      color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
     }
     </style>
     <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
       <span slot="title">Set authorization data</span>
       <section>
         <template is="dom-if" if="[[schemeName]]">
-          <div class="sheme-header">
+          <div class="scheme-header">
             <h3>
               Scheme: [[schemeName]]
               <template is="dom-if" if="[[schemeDescription]]">
-                <paper-icon-button icon="arc:help" on-tap="toggleSchemeDocumentation" title="Display scheme description"></paper-icon-button>
+                <paper-icon-button class="hint-icon" icon="arc:help" on-tap="toggleSchemeDocumentation" title="Display scheme description"></paper-icon-button>
               </template>
             </h3>
             <template is="dom-if" if="[[schemeDescription]]">
-              <div class="docs">
+              <div class="docs-container">
                 <iron-collapse opened="[[documentationOpened]]">
                   <marked-element markdown="[[schemeDescription]]" main-docs>
                     <div slot="markdown-html" class="markdown-body"></div>
@@ -132,10 +103,10 @@ the License.
                     <div class="field-value">
                       <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_headerValueChanged" data-type="header"></api-property-form-item>
                       <template is="dom-if" if="[[item.hasDescription]]">
-                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="header" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                        <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="header" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
                     </div>
-                    <div class="data-docs" data-source="header" data-key$="[[item.name]]"></div>
+                    <div class="data-docs docs-container" data-source="header" data-key$="[[item.name]]"></div>
                   </div>
                 </template>
               </section>
@@ -147,10 +118,10 @@ the License.
                     <div class="field-value">
                       <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_queryValueChanged" data-type="query"></api-property-form-item>
                       <template is="dom-if" if="[[item.hasDescription]]">
-                        <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                        <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
                     </div>
-                    <div class="data-docs" data-source="query" data-key$="[[item.name]]"></div>
+                    <div class="data-docs docs-container" data-source="query" data-key$="[[item.name]]"></div>
                   </div>
                 </template>
               </section>

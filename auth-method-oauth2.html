@@ -186,24 +186,6 @@ the License.
       margin-top: 16px;
     }
 
-    .markdown-html p:first-child {
-      margin-top: 0;
-      padding-top: 0;
-    }
-
-    .markdown-html p:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .custom-data-field-docs {
-      @apply --arc-font-common-base;
-      font-size: 13px !important;
-      font-weight: 200;
-      line-height: 24px;
-      color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
-    }
-
     .error-toast {
       background-color: var(--warning-primary-color, #FF7043);
       color: var(--warning-contrast-color, #fff);
@@ -211,10 +193,6 @@ the License.
     }
 
     api-property-form-item[is-array] {
-      margin-top: 8px;
-    }
-
-    .adv-toggle {
       margin-top: 8px;
     }
     </style>
@@ -244,10 +222,10 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-query"></api-property-form-item>
                     <template is="dom-if" if="[[item.hasDescription]]">
-                      <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
-                  <div class="custom-data-field-docs" data-source="auth-query" data-key$="[[item.name]]"></div>
+                  <div class="custom-data-field-docs docs-container" data-source="auth-query" data-key$="[[item.name]]"></div>
                 </div>
               </template>
             </template>
@@ -258,10 +236,10 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-query"></api-property-form-item>
                     <template is="dom-if" if="[[item.hasDescription]]">
-                      <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
-                  <div class="custom-data-field-docs" data-source="token-query" data-key$="[[item.name]]"></div>
+                  <div class="custom-data-field-docs docs-container" data-source="token-query" data-key$="[[item.name]]"></div>
                 </div>
               </template>
             </template>
@@ -272,10 +250,10 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-headers"></api-property-form-item>
                     <template is="dom-if" if="[[item.hasDescription]]">
-                      <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-headers" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-headers" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
-                  <div class="custom-data-field-docs" data-source="token-headers" data-key$="[[item.name]]"></div>
+                  <div class="custom-data-field-docs docs-container" data-source="token-headers" data-key$="[[item.name]]"></div>
                 </div>
               </template>
             </template>
@@ -286,10 +264,10 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name$="[[item.name]]" auto-validate required$="[[item.required]]" value="{{item.value}}" data-type="token-body"></api-property-form-item>
                     <template is="dom-if" if="[[item.hasDescription]]">
-                      <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-body" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-body" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
-                  <div class="custom-data-field-docs" data-source="token-body" data-key$="[[item.name]]"></div>
+                  <div class="custom-data-field-docs docs-container" data-source="token-body" data-key$="[[item.name]]"></div>
                 </div>
               </template>
             </template>
@@ -300,10 +278,10 @@ the License.
             </template>
             <iron-collapse opened="[[advancedOpened]]">
               <paper-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" data-input="authuri" label="Authorization URI" value="{{authorizationUri}}" hiddable data-visible="implicit authorization_code" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code')]]" type="text" autocomplete="on" title="The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation.">
-                <paper-icon-button slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input" noink="[[noink]]"></paper-icon-button>
+                <paper-icon-button slot="suffix" class="action-icon" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input" noink="[[noink]]"></paper-icon-button>
               </paper-input>
               <paper-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" data-input="tokenuri" label="Access token URI" value="{{accessTokenUri}}" hiddable data-visible="client_credentials authorization_code password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code', 'password')]]" type="text" autocomplete="on" title="The access token URL is used by server implementations to exchange access code for access token.">
-                <paper-icon-button slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input" noink="[[noink]]"></paper-icon-button>
+                <paper-icon-button slot="suffix" class="action-icon" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input" noink="[[noink]]"></paper-icon-button>
               </paper-input>
               <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" data-input="username" label="Username" value="{{username}}" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on" title="The username required for this OAuth authentication."></paper-masked-input>
               <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" data-input="password" label="Password" value="{{password}}" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on" title="The password required for this OAuth authentication."></paper-masked-input>
@@ -321,7 +299,7 @@ the License.
               <p class="redirect-info">Set this redirect URL in OAuth 2.0 provider settings.</p>
               <p class="read-only-param-field padding">
                 <span class="code" tabindex="0" id="redirectLabel">[[redirectUri]]</span>
-                <paper-icon-button icon="arc:content-copy" on-tap="_copyContent" data-src="redirect" id="redirectCopyButton" noink="[[noink]]"></paper-icon-button>
+                <paper-icon-button icon="arc:content-copy" class="action-icon" on-tap="_copyContent" data-src="redirect" id="redirectCopyButton" noink="[[noink]]"></paper-icon-button>
               </p>
             </div>
             <div class="authorize-actions" hidden$="[[hasAccessToken]]">
@@ -333,7 +311,7 @@ the License.
               <p class="token-info">The token will be set to the corresponding field (header or query parameter).</p>
               <p class="read-only-param-field no-background">
                 <span class="code" tabindex="0" id="tokenLabel">[[accessToken]]</span>
-                <paper-icon-button icon="arc:content-copy" on-tap="_copyContent" data-src="token" id="tokenCopyButton" noink="[[noink]]"></paper-icon-button>
+                <paper-icon-button icon="arc:content-copy" class="action-icon" on-tap="_copyContent" data-src="token" id="tokenCopyButton" noink="[[noink]]"></paper-icon-button>
               </p>
               <div class="authorize-actions">
                 <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="refresh-token" on-tap="authorize" raised noink="[[noink]]">Refresh access token</paper-button>
@@ -1651,7 +1629,8 @@ the License.
         const wrapper = document.createElement('div');
 
         collapse.dataset.docsCollapse = true;
-        wrapper.className = 'markdown-html markdown-body';
+        wrapper.className = 'markdown-body';
+        wrapper.slot = 'markdown-html';
         marked.appendChild(wrapper);
         collapse.appendChild(marked);
         appendTo.appendChild(collapse);
