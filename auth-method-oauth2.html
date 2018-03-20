@@ -822,7 +822,6 @@ the License.
       }
 
       _attachListeners(node) {
-        console.log('Attaching listeners');
         node.addEventListener('oauth2-error', this._oauth2ErrorHandler);
         node.addEventListener('oauth2-token-response', this._tokenSuccessHandler);
         node.addEventListener('request-header-changed', this._headerChangedHandler);
@@ -1291,7 +1290,6 @@ the License.
         if (!gransts) {
           gransts = [];
         }
-        //http://raml.org/vocabularies/data#authorizationGrants
         const model = annotation['http://raml.org/vocabularies/data#authorizationGrants'];
         if (!model || !model.length) {
           return gransts;
@@ -1370,7 +1368,7 @@ the License.
        * @param {Array} params List of parameters from the annotation.
        */
       _setupAuthRequestQueryParameters(params) {
-        const model = this._createViewModel(params);
+        const model = this._createViewModel(params, this._queryModelOpts);
         if (!model) {
           return;
         }
@@ -1382,7 +1380,7 @@ the License.
        * @param {Array} params List of parameters from the annotation.
        */
       _setupTokenRequestQueryParameters(params) {
-        const model = this._createViewModel(params);
+        const model = this._createViewModel(params, this._queryModelOpts);
         if (!model) {
           return;
         }
@@ -1394,7 +1392,7 @@ the License.
        * @param {Array} params List of parameters from the annotation.
        */
       _setupTokenRequestHeaders(params) {
-        const model = this._createViewModel(params);
+        const model = this._createViewModel(params, this._headersModelOpts);
         if (!model) {
           return;
         }
@@ -1406,7 +1404,7 @@ the License.
        * @param {Array} params List of parameters from the annotation.
        */
       _setupTokenRequestBody(params) {
-        const model = this._createViewModel(params);
+        const model = this._createViewModel(params, this._queryModelOpts);
         if (!model) {
           return;
         }
@@ -1416,14 +1414,15 @@ the License.
        * Creats a form view model for type items.
        *
        * @param {Array} params List of properties to process.
+       * @param {Object} modelOptions
        * @return {Promise<Array|undefined>} Form view model or undefined if not set.
        */
-      _createViewModel(params) {
+      _createViewModel(params, modelOptions) {
         if (!params || !params[0] || !(params instanceof Array)) {
           return Promise.resolve();
         }
         const factory = document.createElement('api-view-model-transformer');
-        return factory.modelForRawObject(params[0]);
+        return factory.modelForRawObject(params[0], modelOptions);
       }
       /**
        * Computes value of `isCustomGrant` property when `grantType` changes.
