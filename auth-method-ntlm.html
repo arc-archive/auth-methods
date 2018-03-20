@@ -36,11 +36,11 @@ the License.
       <iron-form>
         <form autocomplete="on">
           <paper-input required auto-validate label="User name" value="{{username}}" type="text" autocomplete="on">
-            <paper-icon-button slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear username"></paper-icon-button>
+            <paper-icon-button class="action-icon" slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear username"></paper-icon-button>
           </paper-input>
           <paper-masked-input required auto-validate label="Password" value="{{password}}" autocomplete="on"></paper-masked-input>
           <paper-input label="NT domain" value="{{domain}}" type="text">
-            <paper-icon-button slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear domain"></paper-icon-button>
+            <paper-icon-button class="action-icon" slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear domain"></paper-icon-button>
           </paper-input>
         </form>
       </iron-form>

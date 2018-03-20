@@ -31,26 +31,11 @@ the License.
 <link rel="import" href="auth-methods-styles.html">
 <dom-module id="auth-method-oauth1">
   <template>
-    <style>
+    <style include="auth-methods-styles">
     :host {
       display: block;
       @apply --auth-method-panel;
       @apply --auth-method-oauth1;
-
-      --paper-icon-button: {
-        color: var(--hint-trigger-color, rgba(0, 0, 0, 0.54));
-        transition: color 0.25s linear;
-        @apply --icon-button;
-      }
-
-      --paper-icon-button-hover: {
-        color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.78));
-        @apply --icon-button-hover;
-      }
-
-      --paper-input-container-focus-color: {
-        @apply --input-line-color;
-      }
     }
 
     .form {
@@ -107,12 +92,12 @@ the License.
           <paper-input label="User authorization dialog URL" value="{{authorizationUrl}}"></paper-input>
           <paper-input label="Redirect URL" value="{{redirectUrl}}"></paper-input>
           <paper-input auto-validate required label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" autocomplete="on">
-            <paper-icon-button slot="suffix" on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
-            <paper-icon-button slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+            <paper-icon-button slot="suffix" class="action-icon" on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
+            <paper-icon-button slot="suffix" class="action-icon" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
           </paper-input>
           <paper-input auto-validate required label="Nonce" value="{{nonce}}" type="text" data-field="nonce" autocomplete="on">
-            <paper-icon-button slot="suffix" on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
-            <paper-icon-button slot="suffix" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
+            <paper-icon-button slot="suffix" class="action-icon" on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
+            <paper-icon-button slot="suffix" class="action-icon" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
           </paper-input>
           <paper-input label="Realm" value="{{realm}}" type="text" data-field="realm" autocomplete="on"></paper-input>
           <paper-dropdown-menu label="Signature method" class="grant-dropdown" required auto-validate>

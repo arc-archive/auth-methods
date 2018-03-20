@@ -8,14 +8,12 @@
     "bower": "^1.8.0"
   },
   "private": false,
-  "main": [
-    "auth-methods.html"
-  ],
+  "main": "auth-methods.html",
   "author": "The Advanced REST client authors <arc@mulesoft.com>",
   "scripts": {
-    "lint": "node_modules/.bin/polymer lint auth-method-basic.html auth-method-custom.html auth-method-digest.html auth-method-ntlm.html auth-method-oauth2.html auth-method-oauth1.html auth-methods-behavior.html",
-    "test-sauce": "node_modules/.bin/polymer test --plugin sauce --job-name \"auth-methods:local-test\"",
-    "test": "node_modules/.bin/polymer test --plugin local",
+    "lint": "polymer lint auth-method-basic.html auth-method-custom.html auth-method-digest.html auth-method-ntlm.html auth-method-oauth2.html auth-method-oauth1.html auth-method-step.html auth-methods-mixin.html",
+    "test-sauce": "polymer test --plugin sauce --job-name \"auth-methods:local-test\"",
+    "test": "polymer test --plugin local",
     "update-types": "gen-typescript-declarations --deleteExisting --outDir ."
   },
   "repository": {

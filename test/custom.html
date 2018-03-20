@@ -15,26 +15,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../iron-test-helpers/test-helpers.js"></script>
     <script src="../../iron-test-helpers/mock-interactions.js"></script>
-    <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
-    <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
-    <link rel="import" href="../auth-methods.html">
+    <link rel="import" href="../auth-method-custom.html">
+    <script src="amf-loader.js"></script>
   </head>
   <body>
-
-    <test-fixture id="parser">
-      <template>
-        <raml-js-parser json></raml-js-parser>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="enhancer">
-      <template>
-        <raml-json-enhance></raml-json-enhance>
-      </template>
-    </test-fixture>
-
     <test-fixture id="custom">
       <template>
         <auth-method-custom></auth-method-custom>
@@ -42,91 +27,277 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global fixture, assert, TestHelpers */
-    suite('custom auth', function() {
-      var parsedRaml;
-      var element;
-      suiteSetup(function(done) {
-        this.timeout(30000);
-        var baseUrl = location.href.substr(0, location.href.lastIndexOf('/') + 1);
-        var parser = fixture('parser');
-        var enhancer = fixture('enhancer');
-        enhancer.addEventListener('raml-json-enhance-ready', function(e) {
-          parsedRaml = e.detail.json;
-          done();
+    /* global AmfLoader, MockInteractions */
+    suite('custom auth', () => {
+      let amf;
+      let element;
+      suiteSetup(() => {
+        return AmfLoader.load(5)
+        .then((model) => amf = model);
+      });
+
+      suite('Basic', () => {
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
         });
-        enhancer.addEventListener('error', function(e) {
-          done(new Error(e.detail.message));
+
+        test('headers is computed', () => {
+          assert.typeOf(element.headers, 'array');
+          assert.lengthOf(element.headers, 1);
         });
-        parser.loadApi(baseUrl + 'test.raml')
-        .then(function(data) {
-          enhancer.json = data.json.specification;
-        })
-        .catch(function(e) {
-          done(new Error('Parser error: ' + (e.message || 'Some error happened...')));
+
+        test('queryParameters is computed', () => {
+          assert.typeOf(element.queryParameters, 'array');
+          assert.lengthOf(element.queryParameters, 2);
+        });
+
+        test('hasHeaders is computed', () => {
+          assert.isTrue(element.hasHeaders);
+        });
+
+        test('hasQueryParameters is computed', () => {
+          assert.isTrue(element.hasQueryParameters);
+        });
+
+        test('schemeName is computed', () => {
+          assert.equal(element.schemeName, 'custom1');
+        });
+
+        test('schemeDescription is computed', () => {
+          assert.typeOf(element.schemeDescription, 'string');
         });
       });
 
-      setup(function() {
-        element = fixture('custom');
-      });
-
-      test('Computes headers property', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        assert.isArray(element.headers, 'headers is array');
-        assert.lengthOf(element.headers, 1, 'headers has one item');
-      });
-
-      test('Computes queryParameters property', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        assert.isArray(element.queryParameters, 'queryParameters is array');
-        assert.lengthOf(element.queryParameters, 2, 'queryParameters has one item');
-      });
-
-      test('Computes hasHeaders property', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        assert.isTrue(element.hasHeaders);
-      });
-
-      test('Computes hasQueryParameters property', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        assert.isTrue(element.hasQueryParameters);
-      });
-
-      test('Don\'t passes the validation', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        TestHelpers.forceXIfStamp(element);
-        assert.isFalse(element.validate());
-      });
-
-      test('Updates header value from event cases insensitive', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        TestHelpers.forceXIfStamp(element);
-        var ev = new CustomEvent('request-header-changed', {
-          'detail': {
-            'name': 'specialtoken',
-            'value': 'test'
-          },
-          bubbles: true
+      suite('Validation', () => {
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
         });
-        document.dispatchEvent(ev);
-        assert.equal(element.headers[0].value, 'test');
-      });
 
-      test('Updates query parameter value from event cases sensitive', function() {
-        element.ramlSettings = parsedRaml.resources[0].methods[0].securedBy[0];
-        TestHelpers.forceXIfStamp(element);
-        var ev = new CustomEvent('query-parameter-changed', {
-          'detail': {
-            'name': 'debugToken',
-            'value': 'Critical'
-          },
-          bubbles: true
+        test('Should not be validated', () => {
+          assert.isFalse(element.validate());
         });
-        document.dispatchEvent(ev);
-        assert.equal(element.queryParameters[0].value, 'Critical');
+
+        test('Should be validated', (done) => {
+          const input = element.shadowRoot.querySelector('[data-type="header"]');
+          input.value = 'test';
+          flush(() => {
+            assert.isTrue(element.validate());
+            done();
+          });
+        });
       });
 
+      suite('getSettings()', () => {
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
+        });
+
+        test('Returns an object', () => {
+          const result = element.getSettings();
+          assert.typeOf(result, 'object');
+        });
+
+        test('Has all keys', () => {
+          const result = element.getSettings();
+          const keys = Object.keys(result);
+          assert.lengthOf(keys, 3);
+        });
+      });
+
+      suite('Docs', () => {
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
+        });
+
+        test('Main documentation is not rendered', () => {
+          assert.isUndefined(element.documentationOpened);
+        });
+
+        test('Toggles main documentation', () => {
+          const button = element.shadowRoot.querySelector('.sheme-header paper-icon-button');
+          MockInteractions.tap(button);
+          assert.isTrue(element.documentationOpened);
+        });
+
+        test('Renders item documentation', () => {
+          const button = element.shadowRoot.querySelector('.header-item .help-icon');
+          MockInteractions.tap(button);
+          const marked = element.shadowRoot.querySelector('.header-item .data-docs marked-element');
+          assert.ok(marked);
+          assert.typeOf(marked.markdown, 'string');
+        });
+
+        test('Item collapse is opened', () => {
+          const button = element.shadowRoot.querySelector('.header-item .help-icon');
+          MockInteractions.tap(button);
+          const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
+          assert.isTrue(collapse.opened);
+        });
+
+        test('Another click closes collapse', (done) => {
+          const button = element.shadowRoot.querySelector('.header-item .help-icon');
+          MockInteractions.tap(button);
+          const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
+          assert.isTrue(collapse.opened);
+          flush(() => {
+            MockInteractions.tap(button);
+            assert.isFalse(collapse.opened);
+            done();
+          });
+        });
+
+        test('Docs are cleared when scheme change', (done) => {
+          const button = element.shadowRoot.querySelector('.header-item .help-icon');
+          MockInteractions.tap(button);
+          flush(() => {
+            element.securityScheme = undefined;
+            const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
+            assert.equal(collapse, null);
+            done();
+          });
+        });
+      });
+
+      suite('Settings change event', () => {
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
+        });
+
+        test('Dispatches the event', (done) => {
+          element.addEventListener('auth-settings-changed', () => {
+            done();
+          });
+          const input = element.shadowRoot.querySelector('[data-type="header"]');
+          input.value = 'test';
+        });
+
+        test('The event has required properties', (done) => {
+          element.addEventListener('auth-settings-changed', (e) => {
+            assert.equal(e.detail.type, 'x-custom', 'type is set');
+            assert.equal(e.detail.valid, true, 'valid is set');
+            assert.equal(e.detail.name, 'custom1', 'name is set');
+            assert.typeOf(e.detail.settings, 'object', 'settings is set');
+            done();
+          });
+          const input = element.shadowRoot.querySelector('[data-type="header"]');
+          input.value = 'test';
+        });
+      });
+
+      suite('Params change event', () => {
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
+        });
+
+        test('request-header-changed is dispatched', (done) => {
+          element.addEventListener('request-header-changed', (e) => {
+            assert.equal(e.detail.name, 'SpecialToken', 'name is set');
+            assert.equal(e.detail.value, 'test-value', 'value is set');
+            done();
+          });
+          const input = element.shadowRoot.querySelector('[data-type="header"]');
+          input.value = 'test-value';
+        });
+
+        test('query-parameter-changed is dispatched', (done) => {
+          element.addEventListener('query-parameter-changed', (e) => {
+            assert.equal(e.detail.name, 'debugToken', 'name is set');
+            assert.equal(e.detail.value, 'Error', 'value is set');
+            done();
+          });
+          const input = element.shadowRoot.querySelector('[data-type="query"]');
+          input.value = 'Error';
+        });
+      });
+
+
+      suite('Updates headers from event', () => {
+        function fire(name) {
+          document.body.dispatchEvent(new CustomEvent('request-header-changed', {
+            detail: {
+              name: name,
+              value: 'test-value'
+            },
+            bubbles: true,
+            composed: true
+          }));
+        }
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
+        });
+
+        test('Updated existing header', () => {
+          fire('SpecialToken');
+          assert.lengthOf(element.headers, 1);
+          assert.equal(element.headers[0].value, 'test-value');
+        });
+
+        test('Does nothing when header not found', () => {
+          fire('other');
+          assert.lengthOf(element.headers, 1);
+          assert.isUndefined(element.headers[0].value);
+        });
+      });
+
+      suite('Updates query params from event', () => {
+        function fire(name, value) {
+          document.body.dispatchEvent(new CustomEvent('query-parameter-changed', {
+            detail: {
+              name: name,
+              value: value
+            },
+            bubbles: true,
+            composed: true
+          }));
+        }
+        setup((done) => {
+          element = fixture('custom');
+          element.securityScheme = amf;
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            flush(() => done());
+          });
+        });
+
+        test('Updated existing parameter', () => {
+          fire('debugToken', 'Error');
+          assert.lengthOf(element.queryParameters, 2);
+          assert.equal(element.queryParameters[0].value, 'Error');
+        });
+
+        test('Does nothing when header not found', () => {
+          fire('other', '');
+          assert.lengthOf(element.queryParameters, 2);
+          assert.isUndefined(element.queryParameters[0].value);
+        });
+      });
     });
     </script>
 

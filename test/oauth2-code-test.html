@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../auth-method-oauth2.html">
   </head>
   <body>
-    <test-fixture id="code">
+    <test-fixture id="authorizationCode">
       <template>
         <auth-method-oauth2 grant-type="authorization_code"></auth-method-oauth2>
       </template>
@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('Validation', () => {
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
           element.clientSecret = clientSecret;
@@ -87,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('Fields visibility', () => {
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -215,7 +215,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('Events', () => {
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
           element.clientSecret = clientSecret;
@@ -259,7 +259,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('getSettings()', () => {
         let element;
         setup(() => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
           element.redirectUri = redirectUri;
@@ -335,7 +335,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         let element;
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.amfSettings = amf;
           element.grantType = 'authorization_code';
           Polymer.RenderStatus.afterNextRender(this, () => {
@@ -346,7 +346,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('Contains only required params', () => {
           const result = element.getSettings();
           assert.typeOf(result.customData.auth.parameters, 'array', 'auth params is an array');
-          assert.lengthOf(result.customData.auth.parameters, 2, 'has one item');
+          assert.lengthOf(result.customData.auth.parameters, 1, 'has one item');
           assert.typeOf(result.customData.token.body, 'array', 'token body is an array');
           assert.lengthOf(result.customData.token.body, 1, 'has one item');
           assert.isUndefined(result.customData.token.headers, 'token headers is not set');
@@ -356,8 +356,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           const value = 'test-aq';
           element.authQueryParameters[3].value = value;
           const result = element.getSettings();
-          assert.lengthOf(result.customData.auth.parameters, 3, 'has one item');
-          assert.equal(result.customData.auth.parameters[2].value, value);
+          assert.lengthOf(result.customData.auth.parameters, 2, 'has one item');
+          assert.equal(result.customData.auth.parameters[1].value, value);
         });
       });
     });
