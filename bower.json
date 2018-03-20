@@ -39,7 +39,6 @@
     "marked-element": "PolymerElements/marked-element#^2.4.0",
     "markdown-styles": "advanced-rest-client/markdown-styles#^2.0.1",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.2",
-    "cryptojslib": "^3.1.2",
     "paper-spinner": "PolymerElements/paper-spinner#^2.1.0",
     "paper-toast": "PolymerElements/paper-toast#^2.1.0",
     "paper-ripple": "PolymerElements/paper-ripple#^2.1.0",
@@ -48,7 +47,8 @@
     "clipboard-copy": "advanced-rest-client/clipboard-copy#^2.0.0",
     "paper-masked-input": "advanced-rest-client/paper-masked-input#^2.0.0",
     "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^2.0.0",
-    "api-view-model-transformer": "advanced-rest-client/api-view-model-transformer#2.0-preview"
+    "api-view-model-transformer": "advanced-rest-client/api-view-model-transformer#2.0-preview",
+    "neon-animation": "PolymerElements/neon-animation#^2.2.1"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
@@ -56,7 +56,8 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
-    "oauth-authorization": "advanced-rest-client/oauth-authorization#^2.0.1"
+    "oauth-authorization": "advanced-rest-client/oauth-authorization#^2.0.1",
+    "cryptojs-lib": "advanced-rest-client/cryptojs-lib#^0.1.1"
   },
   "ignore": [
     "**/.*",

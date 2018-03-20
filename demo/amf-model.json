@@ -210,49 +210,35 @@
                                   "@type": [
                                     "http://raml.org/vocabularies/data#Object"
                                   ],
-                                  "http://raml.org/vocabularies/data#repetableParam2": [
+                                  "http://raml.org/vocabularies/data#dateParam": [
                                     {
-                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36",
+                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30",
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
                                       ],
                                       "http://raml.org/vocabularies/data#required": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36/scalar_39",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_32",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "true",
+                                              "@value": "false",
                                               "@type": "http://www.w3.org/2001/XMLSchema#boolean"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#items": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36/scalar_38",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "integer",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
                                             }
                                           ]
                                         }
                                       ],
                                       "http://raml.org/vocabularies/data#type": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36/scalar_37",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_31",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "array",
+                                              "@value": "date-only",
                                               "@type": "http://www.w3.org/2001/XMLSchema#string"
                                             }
                                           ]
@@ -266,65 +252,16 @@
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
                                       ],
-                                      "http://raml.org/vocabularies/data#pattern": [
+                                      "http://raml.org/vocabularies/data#type": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Array",
-                                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"
-                                          ],
-                                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#member": [
-                                            {
-                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_17",
-                                              "@type": [
-                                                "http://raml.org/vocabularies/data#Scalar"
-                                              ],
-                                              "http://raml.org/vocabularies/data#value": [
-                                                {
-                                                  "@value": "a-zA-Z\\s\\S",
-                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_18",
-                                              "@type": [
-                                                "http://raml.org/vocabularies/data#Scalar"
-                                              ],
-                                              "http://raml.org/vocabularies/data#value": [
-                                                {
-                                                  "@value": "test",
-                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#default": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_12",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_8",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "some default",
+                                              "@value": "string",
                                               "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#required": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_21",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "true",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#boolean"
                                             }
                                           ]
                                         }
@@ -338,34 +275,6 @@
                                           "http://raml.org/vocabularies/data#value": [
                                             {
                                               "@value": "3",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#displayName": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_11",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "Hello query parameeter",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#maxLength": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_19",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "12",
                                               "@type": "http://www.w3.org/2001/XMLSchema#integer"
                                             }
                                           ]
@@ -407,16 +316,79 @@
                                           ]
                                         }
                                       ],
-                                      "http://raml.org/vocabularies/data#type": [
+                                      "http://raml.org/vocabularies/data#pattern": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_8",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Array",
+                                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"
+                                          ],
+                                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#member": [
+                                            {
+                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_17",
+                                              "@type": [
+                                                "http://raml.org/vocabularies/data#Scalar"
+                                              ],
+                                              "http://raml.org/vocabularies/data#value": [
+                                                {
+                                                  "@value": "a-zA-Z\\s\\S",
+                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_18",
+                                              "@type": [
+                                                "http://raml.org/vocabularies/data#Scalar"
+                                              ],
+                                              "http://raml.org/vocabularies/data#value": [
+                                                {
+                                                  "@value": "test",
+                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#maxLength": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_19",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "string",
+                                              "@value": "12",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#displayName": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_11",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "Hello query parameeter",
                                               "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#required": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_21",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "true",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#boolean"
                                             }
                                           ]
                                         }
@@ -434,18 +406,32 @@
                                             }
                                           ]
                                         }
+                                      ],
+                                      "http://raml.org/vocabularies/data#default": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_12",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "some default",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
                                       ]
                                     }
                                   ],
-                                  "http://raml.org/vocabularies/data#repetableParam1": [
+                                  "http://raml.org/vocabularies/data#repetableParam2": [
                                     {
-                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33",
+                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36",
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
                                       ],
                                       "http://raml.org/vocabularies/data#required": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_35",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36/scalar_39",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
@@ -457,15 +443,29 @@
                                           ]
                                         }
                                       ],
-                                      "http://raml.org/vocabularies/data#type": [
+                                      "http://raml.org/vocabularies/data#items": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_34",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36/scalar_38",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "string[]",
+                                              "@value": "integer",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#type": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36/scalar_37",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "array",
                                               "@type": "http://www.w3.org/2001/XMLSchema#string"
                                             }
                                           ]
@@ -478,6 +478,48 @@
                                       "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22",
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
+                                      ],
+                                      "http://raml.org/vocabularies/data#type": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_23",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "number",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#multipleOf": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_26",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "2",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#minimum": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_24",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "10",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
                                       ],
                                       "http://raml.org/vocabularies/data#required": [
                                         {
@@ -521,34 +563,6 @@
                                           ]
                                         }
                                       ],
-                                      "http://raml.org/vocabularies/data#multipleOf": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_26",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "2",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#minimum": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_24",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "10",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
                                       "http://raml.org/vocabularies/data#format": [
                                         {
                                           "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_27",
@@ -562,32 +576,18 @@
                                             }
                                           ]
                                         }
-                                      ],
-                                      "http://raml.org/vocabularies/data#type": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_23",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "number",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
                                       ]
                                     }
                                   ],
-                                  "http://raml.org/vocabularies/data#dateParam": [
+                                  "http://raml.org/vocabularies/data#repetableParam1": [
                                     {
-                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30",
+                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33",
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
                                       ],
                                       "http://raml.org/vocabularies/data#required": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_32",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_35",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
@@ -601,13 +601,13 @@
                                       ],
                                       "http://raml.org/vocabularies/data#type": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_31",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_34",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "date-only",
+                                              "@value": "string[]",
                                               "@type": "http://www.w3.org/2001/XMLSchema#string"
                                             }
                                           ]
@@ -1214,6 +1214,219 @@
                                   "@type": [
                                     "http://raml.org/vocabularies/data#Object"
                                   ],
+                                  "http://raml.org/vocabularies/data#dateParam": [
+                                    {
+                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30",
+                                      "@type": [
+                                        "http://raml.org/vocabularies/data#Object"
+                                      ],
+                                      "http://raml.org/vocabularies/data#required": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_32",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "false",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#type": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_31",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "date-only",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "http://raml.org/vocabularies/data#resource": [
+                                    {
+                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7",
+                                      "@type": [
+                                        "http://raml.org/vocabularies/data#Object"
+                                      ],
+                                      "http://raml.org/vocabularies/data#type": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_8",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "string",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#minLength": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_20",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "3",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#examples": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/object_13",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Object"
+                                          ],
+                                          "http://raml.org/vocabularies/data#named": [
+                                            {
+                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/object_13/scalar_14",
+                                              "@type": [
+                                                "http://raml.org/vocabularies/data#Scalar"
+                                              ],
+                                              "http://raml.org/vocabularies/data#value": [
+                                                {
+                                                  "@value": "named example value",
+                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "http://raml.org/vocabularies/data#otherExample": [
+                                            {
+                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/object_13/scalar_15",
+                                              "@type": [
+                                                "http://raml.org/vocabularies/data#Scalar"
+                                              ],
+                                              "http://raml.org/vocabularies/data#value": [
+                                                {
+                                                  "@value": "test example value",
+                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#pattern": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Array",
+                                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"
+                                          ],
+                                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#member": [
+                                            {
+                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_17",
+                                              "@type": [
+                                                "http://raml.org/vocabularies/data#Scalar"
+                                              ],
+                                              "http://raml.org/vocabularies/data#value": [
+                                                {
+                                                  "@value": "a-zA-Z\\s\\S",
+                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_18",
+                                              "@type": [
+                                                "http://raml.org/vocabularies/data#Scalar"
+                                              ],
+                                              "http://raml.org/vocabularies/data#value": [
+                                                {
+                                                  "@value": "test",
+                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#maxLength": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_19",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "12",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#displayName": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_11",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "Hello query parameeter",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#required": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_21",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "true",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#description": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_10",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "A resource ID that defines a domain of authorization.\n",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#default": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_12",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "some default",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
                                   "http://raml.org/vocabularies/data#repetableParam2": [
                                     {
                                       "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_36",
@@ -1264,224 +1477,53 @@
                                       ]
                                     }
                                   ],
-                                  "http://raml.org/vocabularies/data#resource": [
-                                    {
-                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7",
-                                      "@type": [
-                                        "http://raml.org/vocabularies/data#Object"
-                                      ],
-                                      "http://raml.org/vocabularies/data#pattern": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Array",
-                                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"
-                                          ],
-                                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#member": [
-                                            {
-                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_17",
-                                              "@type": [
-                                                "http://raml.org/vocabularies/data#Scalar"
-                                              ],
-                                              "http://raml.org/vocabularies/data#value": [
-                                                {
-                                                  "@value": "a-zA-Z\\s\\S",
-                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/array_16/scalar_18",
-                                              "@type": [
-                                                "http://raml.org/vocabularies/data#Scalar"
-                                              ],
-                                              "http://raml.org/vocabularies/data#value": [
-                                                {
-                                                  "@value": "test",
-                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#default": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_12",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "some default",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#required": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_21",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "true",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#boolean"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#minLength": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_20",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "3",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#displayName": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_11",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "Hello query parameeter",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#maxLength": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_19",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "12",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#examples": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/object_13",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Object"
-                                          ],
-                                          "http://raml.org/vocabularies/data#named": [
-                                            {
-                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/object_13/scalar_14",
-                                              "@type": [
-                                                "http://raml.org/vocabularies/data#Scalar"
-                                              ],
-                                              "http://raml.org/vocabularies/data#value": [
-                                                {
-                                                  "@value": "named example value",
-                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                                }
-                                              ]
-                                            }
-                                          ],
-                                          "http://raml.org/vocabularies/data#otherExample": [
-                                            {
-                                              "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/object_13/scalar_15",
-                                              "@type": [
-                                                "http://raml.org/vocabularies/data#Scalar"
-                                              ],
-                                              "http://raml.org/vocabularies/data#value": [
-                                                {
-                                                  "@value": "test example value",
-                                                  "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#type": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_8",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "string",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#description": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_7/scalar_10",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "A resource ID that defines a domain of authorization.\n",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "http://raml.org/vocabularies/data#repetableParam1": [
-                                    {
-                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33",
-                                      "@type": [
-                                        "http://raml.org/vocabularies/data#Object"
-                                      ],
-                                      "http://raml.org/vocabularies/data#required": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_35",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "false",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#boolean"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#type": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_34",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "string[]",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ],
                                   "http://raml.org/vocabularies/data#numericParam": [
                                     {
                                       "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22",
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
+                                      ],
+                                      "http://raml.org/vocabularies/data#type": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_23",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "number",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#multipleOf": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_26",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "2",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "http://raml.org/vocabularies/data#minimum": [
+                                        {
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_24",
+                                          "@type": [
+                                            "http://raml.org/vocabularies/data#Scalar"
+                                          ],
+                                          "http://raml.org/vocabularies/data#value": [
+                                            {
+                                              "@value": "10",
+                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
+                                            }
+                                          ]
+                                        }
                                       ],
                                       "http://raml.org/vocabularies/data#required": [
                                         {
@@ -1525,34 +1567,6 @@
                                           ]
                                         }
                                       ],
-                                      "http://raml.org/vocabularies/data#multipleOf": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_26",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "2",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "http://raml.org/vocabularies/data#minimum": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_24",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "10",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#integer"
-                                            }
-                                          ]
-                                        }
-                                      ],
                                       "http://raml.org/vocabularies/data#format": [
                                         {
                                           "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_27",
@@ -1566,32 +1580,18 @@
                                             }
                                           ]
                                         }
-                                      ],
-                                      "http://raml.org/vocabularies/data#type": [
-                                        {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_22/scalar_23",
-                                          "@type": [
-                                            "http://raml.org/vocabularies/data#Scalar"
-                                          ],
-                                          "http://raml.org/vocabularies/data#value": [
-                                            {
-                                              "@value": "number",
-                                              "@type": "http://www.w3.org/2001/XMLSchema#string"
-                                            }
-                                          ]
-                                        }
                                       ]
                                     }
                                   ],
-                                  "http://raml.org/vocabularies/data#dateParam": [
+                                  "http://raml.org/vocabularies/data#repetableParam1": [
                                     {
-                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30",
+                                      "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33",
                                       "@type": [
                                         "http://raml.org/vocabularies/data#Object"
                                       ],
                                       "http://raml.org/vocabularies/data#required": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_32",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_35",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
@@ -1605,13 +1605,13 @@
                                       ],
                                       "http://raml.org/vocabularies/data#type": [
                                         {
-                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_30/scalar_31",
+                                          "@id": "file://raml-examples/raml-auth/api.raml#/declarations/oauth2/settings/oauth2/oauth-2-custom-settings/object_1/object_5/object_6/object_33/scalar_34",
                                           "@type": [
                                             "http://raml.org/vocabularies/data#Scalar"
                                           ],
                                           "http://raml.org/vocabularies/data#value": [
                                             {
-                                              "@value": "date-only",
+                                              "@value": "string[]",
                                               "@type": "http://www.w3.org/2001/XMLSchema#string"
                                             }
                                           ]
@@ -2142,6 +2142,92 @@
                     "http://raml.org/vocabularies/security#type": [
                       {
                         "@value": "Pass Through"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "file://raml-examples/raml-auth/api.raml#/web-api/end-points/%2Foauth1",
+            "@type": [
+              "http://raml.org/vocabularies/http#EndPoint",
+              "http://raml.org/vocabularies/document#DomainElement"
+            ],
+            "http://raml.org/vocabularies/http#path": [
+              {
+                "@value": "/oauth1"
+              }
+            ],
+            "http://www.w3.org/ns/hydra/core#supportedOperation": [
+              {
+                "@id": "file://raml-examples/raml-auth/api.raml#/web-api/end-points/%2Foauth1/get",
+                "@type": [
+                  "http://www.w3.org/ns/hydra/core#Operation",
+                  "http://raml.org/vocabularies/document#DomainElement"
+                ],
+                "http://www.w3.org/ns/hydra/core#method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "http://raml.org/vocabularies/security#security": [
+                  {
+                    "@id": "file://raml-examples/raml-auth/api.raml#/web-api/end-points/%2Foauth1/get/oauth1",
+                    "@type": [
+                      "http://raml.org/vocabularies/security#SecurityScheme",
+                      "http://raml.org/vocabularies/document#DomainElement"
+                    ],
+                    "http://raml.org/vocabularies/security#name": [
+                      {
+                        "@value": "oauth1"
+                      }
+                    ],
+                    "http://raml.org/vocabularies/security#type": [
+                      {
+                        "@value": "OAuth 1.0"
+                      }
+                    ],
+                    "http://schema.org/description": [
+                      {
+                        "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
+                      }
+                    ],
+                    "http://raml.org/vocabularies/security#settings": [
+                      {
+                        "@id": "file://raml-examples/raml-auth/api.raml#/web-api/end-points/%2Foauth1/get/oauth1/settings/oauth1",
+                        "@type": [
+                          "http://raml.org/vocabularies/security#OAuth1Settings",
+                          "http://raml.org/vocabularies/security#Settings",
+                          "http://raml.org/vocabularies/document#DomainElement"
+                        ],
+                        "http://raml.org/vocabularies/security#requestTokenUri": [
+                          {
+                            "@value": "http://api.domain.com/oauth1/request_token"
+                          }
+                        ],
+                        "http://raml.org/vocabularies/security#authorizationUri": [
+                          {
+                            "@value": "http://api.domain.com/oauth1/authorize"
+                          }
+                        ],
+                        "http://raml.org/vocabularies/security#tokenCredentialsUri": [
+                          {
+                            "@value": "http://api.domain.com/oauth1/access_token"
+                          }
+                        ],
+                        "http://raml.org/vocabularies/security#signature": [
+                          {
+                            "@value": "PLAINTEXT"
+                          },
+                          {
+                            "@value": "RSA-SHA1"
+                          },
+                          {
+                            "@value": "HMAC-SHA1"
+                          }
+                        ]
                       }
                     ]
                   }

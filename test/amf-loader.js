@@ -1,5 +1,6 @@
 const AmfLoader = {};
-AmfLoader.load = function() {
+AmfLoader.load = function(endpointIndex) {
+  endpointIndex = endpointIndex || 0;
   const url = location.protocol + '//' + location.host +
     location.pathname.substr(0, location.pathname.lastIndexOf('/'))
     .replace('/test', '/demo') + '/amf-model.json';
@@ -14,7 +15,7 @@ AmfLoader.load = function() {
         return;
       }
       data = data[0]['http://raml.org/vocabularies/document#encodes'][0];
-      data = data['http://raml.org/vocabularies/http#endpoint'][0];
+      data = data['http://raml.org/vocabularies/http#endpoint'][endpointIndex];
       data = data['http://www.w3.org/ns/hydra/core#supportedOperation'][0];
       data = data['http://raml.org/vocabularies/security#security'][0];
       resolve(data);
