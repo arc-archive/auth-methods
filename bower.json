@@ -47,7 +47,8 @@
     "events-target-behavior": "advanced-rest-client/events-target-behavior#^2.0.0",
     "clipboard-copy": "advanced-rest-client/clipboard-copy#^2.0.0",
     "paper-masked-input": "advanced-rest-client/paper-masked-input#^2.0.0",
-    "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^2.0.0"
+    "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^2.0.0",
+    "api-view-model-transformer": "advanced-rest-client/api-view-model-transformer#2.0-preview"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           id="auth"
           access-token-uri="https://www.googleapis.com/oauth2/v4/token"
           client-secret="hmhUZi8NaHmuFkmrPUwHzt7W"
-          scopes='["email","profile"]'
+          scopes='["custom"]'
           allowed-scopes='["user", "profile", "https://www.googleapis.com/auth/analytics.readonly", "https://www.googleapis.com/auth/bigquery", "https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/devstorage.read_only", "https://www.googleapis.com/auth/blogger.readonly", "https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/compute", "https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/firebase", "https://www.googleapis.com/auth/fitness.activity.read", "https://www.googleapis.com/auth/fitness.body.read", "https://www.googleapis.com/auth/fitness.location.read", "https://www.googleapis.com/auth/fitness.nutrition.read", "https://www.googleapis.com/auth/games", "https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/plus.me", "openid", "https://www.googleapis.com/auth/contacts.readonly", "https://www.googleapis.com/auth/user.addresses.read", "https://www.googleapis.com/auth/user.emails.read", "https://www.googleapis.com/auth/user.birthday.read","https://www.googleapis.com/auth/user.phonenumbers.read"]'
           client-id="821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com"
           authorization-uri="https://accounts.google.com/o/oauth2/v2/auth"
@@ -77,6 +77,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
   (function() {
     const AuthDemo = {
+      _load: function() {
+        fetch('./amf-model.json')
+        .then((response) => response.json())
+        .then((data) => {
+          data = data[0]['http://raml.org/vocabularies/document#encodes'][0];
+          data = data['http://raml.org/vocabularies/http#endpoint'][0];
+          data = data['http://www.w3.org/ns/hydra/core#supportedOperation'][0];
+          data = data['http://raml.org/vocabularies/security#security'][0];
+          AuthDemo.auth.amfSettings = data;
+        });
+      },
+
       init: () => {
         AuthDemo.auth = document.getElementById('auth');
         AuthDemo.output = document.getElementById('log');
@@ -93,6 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         const redirectUri = location.href.replace('/auth-methods/demo/oauth2.html',
             '/oauth-authorization/oauth-popup.html');
         AuthDemo.auth.redirectUri = redirectUri;
+        AuthDemo._load();
       },
 
       sendHeaderChange: function() {

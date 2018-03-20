@@ -92,6 +92,10 @@
     [hidden] {
       display: none !important;
     }
+
+    paper-ripple {
+      color: var(--stepper-step-title-color, #3D8099);
+    }
     </style>
     <template is="dom-if" if="[[noSteps]]" restamp="true">
       <slot></slot>
@@ -111,9 +115,7 @@
               <slot name="inactive-title"></slot>
             </span>
           </span>
-          <template is="dom-if" if="inactive">
-            <paper-ripple></paper-ripple>
-          </template>
+          <paper-ripple></paper-ripple>
         </div>
         <iron-collapse opened="[[!inactive]]">
           <div class="step-content">
