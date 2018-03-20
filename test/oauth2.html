@@ -126,6 +126,89 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     });
 
+    suite('Fields visibility', () => {
+      let element;
+      setup((done) => {
+        element = fixture('basic');
+        Polymer.RenderStatus.afterNextRender(this, () => {
+          flush(() => done());
+        });
+      });
+
+      test('Should not hide fields by default', () => {
+        assert.isTrue(element.advancedOpened);
+      });
+
+      test('Step 1 is closed per auto selection', () => {
+        assert.isTrue(element.isSelectedType);
+        const node = element.shadowRoot.querySelector('auth-method-step[step="1"]');
+        assert.isTrue(node.inactive);
+      });
+
+      test('Client id is required', () => {
+        const node = element.shadowRoot.querySelector('[data-input="clientid"]');
+        assert.isTrue(node.required);
+      });
+
+      test('Client id is required', () => {
+        const node = element.shadowRoot.querySelector('[data-input="clientid"]');
+        assert.isTrue(node.required);
+      });
+
+      test('Client secret is required', () => {
+        const node = element.shadowRoot.querySelector('[data-input="clientsecret"]');
+        assert.isTrue(node.required);
+      });
+
+      test('Client secret is disabled', () => {
+        const node = element.shadowRoot.querySelector('[data-input="clientsecret"]');
+        assert.isTrue(node.disabled);
+      });
+
+      test('Client secret is hidden', () => {
+        const node = element.shadowRoot.querySelector('[data-input="clientsecret"]');
+        const display = getComputedStyle(node).display;
+        assert.equal(display, 'none');
+      });
+
+      test('Advanced settings checkbox is not rendered', () => {
+        const node = element.shadowRoot.querySelector('.adv-settings-input');
+        assert.notOk(node);
+      });
+
+      test('Authorization URI is not hidden', () => {
+        const node = element.shadowRoot.querySelector('[data-input="authuri"]');
+        const display = getComputedStyle(node).display;
+        assert.equal(display, 'block');
+      });
+
+      test('Access token URI is hidden', () => {
+        const node = element.shadowRoot.querySelector('[data-input="tokenuri"]');
+        const display = getComputedStyle(node).display;
+        assert.equal(display, 'none');
+      });
+
+      test('Custom authorization query parameters are not rendered', () => {
+        const node = element.shadowRoot.querySelector('.custom-data-field.auth-query-parameter');
+        assert.notOk(node);
+      });
+
+      test('Custom token query parameters are not rendered', () => {
+        const node = element.shadowRoot.querySelector('.custom-data-field.token-query-parameter');
+        assert.notOk(node);
+      });
+
+      test('Custom token headers are not rendered', () => {
+        const node = element.shadowRoot.querySelector('.custom-data-field.token-header');
+        assert.notOk(node);
+      });
+
+      test('Custom token body parameters are not rendered', () => {
+        const node = element.shadowRoot.querySelector('.custom-data-field.body-parameter');
+        assert.notOk(node);
+      });
+    });
+
     suite('Events handling', () => {
       function fire(name, value) {
         const ev = new CustomEvent('request-header-changed', {
