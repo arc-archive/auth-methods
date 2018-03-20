@@ -418,25 +418,27 @@ the License.
      *
      * ```json
      * customData: {
-     *  parameters: {
-     *      auth: Array|undefined,
-     *      token: Array|undefined
-     *    },
-     *    headers: {
-     *      auth: Array|undefined,
-     *      token: Array|undefined
-     *    },
+     *  auth: {
+     *    parameters: Array|undefined
+     *  },
+     *  token: {
+     *    parameters: Array|undefined,
+     *    headers: Array|undefined,
      *    body: Array|undefined
      *  }
+     * }
      * ```
-     * Each array item is an object with `name` and `value` property.
-     * `value` can be empty if the property is required. Otherwise it will be ignored.
+     * `auth` contains properties to be applied to the authorization request.
+     * Only query parameetrs are (and can be) supported.
      *
-     * The `parameters` property contains all query parameters for both authorization and token request.
-     * The `headers` property contains all headers for both authorization and token request.
-     * `body` can be only applied to the token request.
-     * *
-     * Note: body content type is always `application/x-www-form-urlencoded`.
+     * `token` property contains properties to be applied when making token request.
+     * It can include `parameters` as a query parameters, `headers` as a list
+     * of headers to apply, and `body` as a list of properties to send with
+     * body.
+     *
+     * Note: `body` content type is always `application/x-www-form-urlencoded`.
+     * `customData.token.body` parameters must not be url encoded. Processors
+     * handing token request should handle values encoding.
      *
      * #### Annotation example
      *
@@ -946,9 +948,8 @@ the License.
           accessToken: this.accessToken || '',
           tokenType: this.tokenType,
           customData: {
-            parameters: {},
-            headers: {},
-            body: undefined
+            auth: {},
+            token: {}
           }
         };
         switch (this.grantType) {
@@ -958,6 +959,7 @@ the License.
             detail.redirectUri = this.redirectUri;
             detail.scopes = this.scopes;
             this._computeAuthCustomData(detail);
+            delete detail.customData.token;
             break;
           case 'authorization_code':
             // The server flow.
@@ -974,6 +976,7 @@ the License.
             detail.clientSecret = this.clientSecret;
             detail.accessTokenUri = this.accessTokenUri;
             this._computeTokenCustomData(detail);
+            delete detail.customData.auth;
             break;
           case 'password':
             // The server flow.
@@ -981,6 +984,7 @@ the License.
             detail.password = this.password;
             detail.accessTokenUri = this.accessTokenUri;
             this._computeTokenCustomData(detail);
+            delete detail.customData.auth;
             break;
           default:
             // Custom grant type.
@@ -1006,8 +1010,8 @@ the License.
        */
       _computeAuthCustomData(detail) {
         if (this.authQueryParameters) {
-          detail.customData.parameters.auth =
-            this._computeCustomParameters(this.authQueryParameters);
+          detail.customData.auth.parameters =
+          this._computeCustomParameters(this.authQueryParameters);
         }
       }
       /**
@@ -1019,15 +1023,15 @@ the License.
        */
       _computeTokenCustomData(detail) {
         if (this.tokenQueryParameters) {
-          detail.customData.parameters.token =
+          detail.customData.token.parameters =
             this._computeCustomParameters(this.tokenQueryParameters);
         }
         if (this.tokenHeaders) {
-          detail.customData.headers.token =
+          detail.customData.token.headers =
             this._computeCustomParameters(this.tokenHeaders);
         }
         if (this.tokenBody) {
-          detail.customData.body =
+          detail.customData.token.body =
             this._computeCustomParameters(this.tokenBody);
         }
       }
