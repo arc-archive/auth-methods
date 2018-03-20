@@ -39,23 +39,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       const redirectUri = 'https://redirect';
       const scopes = ['email', 'profile'];
 
-      // suite('Basics', () => {
-      //   setup((done) => {
-      //     element = fixture('implicit');
-      //     element.clientId = clientId;
-      //     element.authorizationUri = authorizationUri;
-      //     element.scopes = scopes;
-      //     element.redirectUri = redirectUri;
-      //     Polymer.RenderStatus.afterNextRender(this, () => {
-      //       flush(() => {
-      //         done();
-      //       });
-      //     });
-      //   });
-      //
-      //
-      // });
-
       suite('Amf model', () => {
         let amf;
         suiteSetup(() => {
@@ -399,15 +382,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('Contains only required params', function() {
           const result = element.getSettings();
           assert.typeOf(result.customData.auth.parameters, 'array', 'auth params is an array');
-          assert.lengthOf(result.customData.auth.parameters, 2, 'has one item');
+          assert.lengthOf(result.customData.auth.parameters, 1, 'has one item');
         });
 
         test('Contains not required data when added', function() {
           const value = 'test-aq';
           element.authQueryParameters[3].value = value;
           const result = element.getSettings();
-          assert.lengthOf(result.customData.auth.parameters, 3, 'has one item');
-          assert.equal(result.customData.auth.parameters[2].value, value);
+          assert.lengthOf(result.customData.auth.parameters, 2, 'has two items');
+          assert.equal(result.customData.auth.parameters[1].value, value);
         });
 
         test('Does not contain token data', function() {
