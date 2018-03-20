@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../auth-method-oauth2.html">
   </head>
   <body>
-    <test-fixture id="code">
+    <test-fixture id="authorizationCode">
       <template>
         <auth-method-oauth2 grant-type="authorization_code"></auth-method-oauth2>
       </template>
@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('Validation', () => {
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
           element.clientSecret = clientSecret;
@@ -87,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('Fields visibility', () => {
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -215,7 +215,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('Events', () => {
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
           element.clientSecret = clientSecret;
@@ -259,7 +259,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('getSettings()', () => {
         let element;
         setup(() => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
           element.redirectUri = redirectUri;
@@ -335,7 +335,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         let element;
         setup((done) => {
-          element = fixture('code');
+          element = fixture('authorizationCode');
           element.amfSettings = amf;
           element.grantType = 'authorization_code';
           Polymer.RenderStatus.afterNextRender(this, () => {
