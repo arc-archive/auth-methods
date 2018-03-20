@@ -2277,7 +2277,7 @@
                     ],
                     "http://schema.org/description": [
                       {
-                        "@value": "A custom security scheme for authenticating requests.\n"
+                        "@value": "A custom security scheme for authenticating requests.\n\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\n\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
                       }
                     ],
                     "http://raml.org/vocabularies/http#header": [

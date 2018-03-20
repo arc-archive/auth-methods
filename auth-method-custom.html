@@ -1,6 +1,6 @@
 <!--
 @license
-Copyright 2016 The Advanced REST client authors <arc@mulesoft.com>
+Copyright 2018 The Advanced REST client authors <arc@mulesoft.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -13,6 +13,7 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/lib/utils/render-status.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../events-target-behavior/events-target-behavior.html">
 <link rel="import" href="../paper-masked-input/paper-masked-input.html">
@@ -31,46 +32,7 @@ the License.
 <link rel="import" href="auth-methods-mixin.html">
 <link rel="import" href="auth-methods-styles.html">
 <link rel="import" href="auth-method-step.html">
-<!--
-The `<auth-method-custom>` element displays a form to provide the authorization details for RAML's
-custom security scheme.
 
-This element works differently than other authorization panels because it sends
-`request-header-changed` and `query-parameter-changed` custom events directly and it doesn't
-care if it's wrapped with the `authorization-panel` element that will handle this.
-This element will also listen for this events and if the application uses other ARC elements
-that use this events to communicate (like `raml-request-panel`) then the value for headers or query
-parameters will be updated when event occur.
-
-Besides events listed above it will also fire the `auth-settings-changed` custom event as other
-authorization methods.
-
-This element will rended empty if `ramlSettings` property is not set or is empty.
-Parent element should check if `securedBy` property of RAML method contains values.
-
-### Example
-```
-<auth-method-custom raml-settings="{...}"></auth-method-custom>
-```
-
-### Styling
-`<auth-methods>` provides the following custom properties and mixins for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--auth-method-custom` | Mixin applied to the element. | `{}`
-`--auth-method-panel` | Mixin applied to all auth elements. | `{}`
-`--inline-help-icon-color` | Color of the icon button to display help | `rgba(0, 0, 0, 0.24)`
-`--inline-help-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.74)`
-`--raml-headers-form-input-label-color` | Color of the lable of the `paper-input` element. | `rgba(0, 0, 0, 0.48)`
-`raml-headers-form-input-label-color-required` | Color of the lable of the `paper-input` element when it's required. | `rgba(0, 0, 0, 0.72)`
-
-Input styles are consistent with `raml-headers-form` element.
-
-@group UI Elements
-@element auth-method-custom
-@demo demo/custom.html
--->
 <dom-module id="auth-method-custom">
   <template strip-whitespace>
     <style include="markdown-styles"></style>
@@ -79,17 +41,6 @@ Input styles are consistent with `raml-headers-form` element.
       display: block;
       @apply --auth-method-panel;
       @apply --auth-method-custom;
-
-      --paper-icon-button: {
-        color: var(--hint-trigger-color, rgba(0, 0, 0, 0.74));
-        transition: color 0.25s linear;
-        @apply --icon-button;
-      }
-
-      --paper-icon-button-hover: {
-        color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.88));
-        @apply --icon-button-hover;
-      }
     }
 
     .field-value {
@@ -117,10 +68,61 @@ Input styles are consistent with `raml-headers-form` element.
     .help-icon {
       margin-top: 16px;
     }
+
+    h3 {
+      @apply --arc-font-subhead;
+      @apply --auth-method-custom-subheader;
+    }
+
+    .sheme-header h3 {
+      @apply --layout-horizontal;
+      @apply --layout-center;
+      margin: 0;
+    }
+
+    paper-icon-button {
+      color: var(--inline-help-icon-color, rgba(0, 0, 0, 0.74));
+      transition: color 0.25s linear;
+      @apply --icon-button;
+    }
+
+    paper-icon-button:hover {
+      color: var(--inline-help-icon-color-hover, rgba(0, 0, 0, 0.88));
+      @apply --icon-button-hover;
+    }
+
+    marked-element {
+      background-color: var(--inline-documentation-background-color, #FFF3E0);
+      padding: 4px;
+    }
+
+    .docs {
+      @apply --arc-font-body1;
+      color: var(--inline-documentation-color, rgba(0, 0, 0, 0.87));
+    }
     </style>
     <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
       <span slot="title">Set authorization data</span>
       <section>
+        <template is="dom-if" if="[[schemeName]]">
+          <div class="sheme-header">
+            <h3>
+              Scheme: [[schemeName]]
+              <template is="dom-if" if="[[schemeDescription]]">
+                <paper-icon-button icon="arc:help" on-tap="toggleSchemeDocumentation" title="Display scheme description"></paper-icon-button>
+              </template>
+            </h3>
+            <template is="dom-if" if="[[schemeDescription]]">
+              <div class="docs">
+                <iron-collapse opened="[[documentationOpened]]">
+                  <marked-element markdown="[[schemeDescription]]" main-docs>
+                    <div slot="markdown-html" class="markdown-body"></div>
+                  </marked-element>
+                </iron-collapse>
+              </div>
+            </template>
+          </div>
+        </template>
         <iron-form>
           <form autocomplete="on">
             <template is="dom-if" if="[[hasHeaders]]">
@@ -128,7 +130,7 @@ Input styles are consistent with `raml-headers-form` element.
                 <template is="dom-repeat" items="{{headers}}"  data-repeater="header">
                   <div class="header-item">
                     <div class="field-value">
-                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="header"></api-property-form-item>
+                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_headerValueChanged" data-type="header"></api-property-form-item>
                       <template is="dom-if" if="[[item.hasDescription]]">
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="header" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
@@ -143,7 +145,7 @@ Input styles are consistent with `raml-headers-form` element.
                 <template is="dom-repeat" items="{{queryParameters}}" data-repeater="query">
                   <div class="param-item">
                     <div class="field-value">
-                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="query"></api-property-form-item>
+                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_queryValueChanged" data-type="query"></api-property-form-item>
                       <template is="dom-if" if="[[item.hasDescription]]">
                         <paper-icon-button class="help-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
@@ -160,12 +162,42 @@ Input styles are consistent with `raml-headers-form` element.
   </template>
   <script>
   /**
+   * The `<auth-method-custom>` element displays a form to provide the
+   * authorization details for RAML's custom security scheme.
+   *
+   * The element, alike other auth methods, dispatches `auth-settings-changed`
+   * custom event. However, it also sends `request-header-changed` and
+   * `query-parameters-changed` custom event to directly manipulate values
+   * in corresponding UI element. This events are supported with all API components
+   * that handles headers or query parameters.
+   *
+   * This element is rendered empty if `securityScheme` property is not set.
+   * Parent element or application should check if model contains the scheme.
+   *
+   * ### Example
+   *
+   * ```html
+   * <auth-method-custom security-scheme="{...}"></auth-method-custom>
+   * ```
+   *
+   * ### Styling
+   * `<auth-methods>` provides the following custom properties and mixins for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--auth-method-custom` | Mixin applied to the element. | `{}`
+   * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
+   * `--inline-help-icon-color` | Color of the icon button to display help | `rgba(0, 0, 0, 0.74)`
+   * `--inline-help-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.88)`
+   * `--raml-headers-form-input-label-color` | Color of the lable of the `paper-input` element. | `rgba(0, 0, 0, 0.48)`
+   * `raml-headers-form-input-label-color-required` | Color of the lable of the `paper-input` element when it's required. | `rgba(0, 0, 0, 0.72)`
    *
    * ## Changes in version 2
    *
    * - The element now works with AMF json/ld data model. RAML json parser output
    * is no longer supported.
    * - `ramlSettings` has been renamed to `securityScheme`
+   * - Added scheme title and documentation to the panel.
    *
    * @customElement
    * @polymer
@@ -222,7 +254,11 @@ Input styles are consistent with `raml-headers-form` element.
         schemeDescription: {
           type: String,
           readOnly: true
-        }
+        },
+        /**
+         * True to opend scheme descripyion, if available.
+         */
+        documentationOpened: Boolean
       };
     }
 
@@ -248,6 +284,13 @@ Input styles are consistent with `raml-headers-form` element.
       node.removeEventListener('request-header-changed', this._headerChangedHandler);
       node.removeEventListener('query-parameter-changed', this._parameterChangedHandler);
     }
+
+    ready() {
+      super.ready();
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        this._initialized = true;
+      });
+    }
     /**
      * Validates the form.
      *
@@ -265,8 +308,9 @@ Input styles are consistent with `raml-headers-form` element.
       if (!model || !model['@type'] || !model['@type'].length) {
         return;
       }
+      const secPrefix = 'http://raml.org/vocabularies/security#';
       const isSecurity = model['@type']
-        .indexOf('http://raml.org/vocabularies/security#SecurityScheme') !== -1;
+        .indexOf(secPrefix + 'SecurityScheme') !== -1;
       if (!isSecurity) {
         return;
       }
@@ -278,7 +322,7 @@ Input styles are consistent with `raml-headers-form` element.
       const prefix = 'http://raml.org/vocabularies/http#';
       this._createViewModel('header', model[prefix + 'header']);
       this._createViewModel('parameter', model[prefix + 'parameter']);
-      this._setSchemeName(this._getAmfValue(model[prefix + 'name']));
+      this._setSchemeName(this._getAmfValue(model[secPrefix + 'name']));
       this._setSchemeDescription(this._getAmfValue(model['http://schema.org/description']));
     }
     /**
@@ -310,11 +354,29 @@ Input styles are consistent with `raml-headers-form` element.
       return !!(data && data.length);
     }
 
-    _settingsChanged() {
-      if (!this.shadowRoot || this.__cancelChangeEvent) {
+    _settingsChanged(record) {
+      if (!this.shadowRoot || this.__cancelChangeEvent || !this._initialized) {
         return;
       }
-      this.notifySettingsChanged();
+      if (!record || !record.path) {
+        this._debounceNotify();
+        return;
+      }
+      const path = record.path;
+      switch (path) {
+        case 'headers':
+        case 'headers.splices':
+        case 'headers.length':
+        case 'queryParameters':
+        case 'queryParameters.splices':
+        case 'queryParameters.length':
+          return this._debounceNotify();
+        default:
+          if (/[headers|queryParameters]\.\d+\.[name|value]/.test(path)) {
+            this._debounceNotify();
+            return;
+          }
+      }
     }
     /**
      * Returns current configuration of the OAuth2.
@@ -331,11 +393,24 @@ Input styles are consistent with `raml-headers-form` element.
      */
     restore() {}
 
-    notifySettingsChanged() {
+    _debounceNotify() {
+      if (this.__notifyingChange) {
+        return;
+      }
+      this.__notifyingChange = true;
+      setTimeout(() => {
+        this._notifySettingsChanged();
+        this.__notifyingChange = false;
+      }, 25);
+    }
+    /**
+     * Notifies about settings change.
+     */
+    _notifySettingsChanged() {
       const detail = {
         settings: this.getSettings(),
         type: 'x-custom',
-        name: this.shemeName,
+        name: this.schemeName,
         valid: this.validate()
       };
       this.dispatchEvent(new CustomEvent('auth-settings-changed', {
@@ -346,62 +421,35 @@ Input styles are consistent with `raml-headers-form` element.
     }
 
     /**
-     * When header value changes then it will file the `request-header-changed` to inform other
-     * observers about this event.
+     * Dispatches headers change event on user input.
      */
     _headerValueChanged(e) {
-      var item = e.model.get('item');
-      var name = item.name || item.key;
-      var value = item.value;
-      this.fire('request-header-changed', {
-        name: name,
-        value: value
-      });
-      this.notifySettingsChanged();
-    }
-
-    // Opens the documentation for headers item.
-    _openHeaderDoc(e) {
-      var model = this._getItemModel('headers', e);
-      this._toggleDoc('headers', model);
-    }
-    // Opens the documentation for query parameters item.
-    _openParamDoc(e) {
-      var model = this._getItemModel('params', e);
-      this._toggleDoc('params', model);
+      this._propertyValueChanged('header', e);
     }
     /**
-     * Returns model for event fired by a repeater defined as the `source`
+     * Dispatches query parameter change event on user input.
      */
-    _getItemModel(source, e) {
-      var template = this.$.form.querySelector('[' + source + '-repeater]');
-      return template.modelForElement(e.target);
-    }
-
-    _toggleDoc(type, model) {
-      var i = model.index + 1;
-      var collapse = this.$$('#' + type + 'List')
-        .querySelector('.input-row:nth-child(' + i + ') iron-collapse');
-      if (!collapse) {
-        return;
-      }
-      collapse.opened = !collapse.opened;
+    _queryValueChanged(e) {
+      this._propertyValueChanged('parameter', e);
     }
     /**
-     * When query parameter value changes then it will file the `query-parameter-changed` custom
-     * event to inform other observers about this event.
+     * Dispatches change event for headers and query parameters.
+     *
+     * @param {String} type Change type. `header` or `parameter`.
+     * @param {CustomEvent} e Custom event dispatched by the form control.
      */
-    _parameterValueChanged(e) {
-      var item = e.model.get('item');
-      var name = item.name || item.key;
-      var value = item.value;
-      this.fire('query-parameter-changed', {
-        name: name,
-        value: value
-      });
-      this.notifySettingsChanged();
+    _propertyValueChanged(type, e) {
+      const model = e.model.get('item');
+      const eventType = type === 'header' ? 'request-header-changed' : 'query-parameter-changed';
+      this.dispatchEvent(new CustomEvent(eventType, {
+        detail: {
+          name: model.name,
+          value: e.detail.value
+        },
+        bubbles: true,
+        composed: true
+      }));
     }
-
     /**
      * Handler for the `request-header-changed` event.
      * It updates value for a single header if this header is already on the list.
@@ -409,7 +457,6 @@ Input styles are consistent with `raml-headers-form` element.
     _headerChangedHandler(e) {
       this._updateEventValue('headers', e);
     }
-
     /**
      * Handler for the `query-parameter-changed` event.
      * It updates value for a single parameter if this parameter is already on the list.
@@ -421,26 +468,26 @@ Input styles are consistent with `raml-headers-form` element.
      * Update array value for given type (`headers` or `queryParameters`) for given event.
      */
     _updateEventValue(target, e) {
-      if (e.target === this || !this._isOpened || e.defaultPrevented) {
+      if (e.target === this || e.defaultPrevented) {
         return;
       }
-      var name = e.detail.name;
+      let name = e.detail.name;
       if (!name) {
         return;
       }
       // Headers are case insensitive.
       name = target === 'headers' ? name.toLowerCase() : name;
-      var parameters = this[target];
+      const parameters = this[target];
       if (!parameters || !parameters.length) {
         return;
       }
-      for (var i = 0, len = parameters.length; i < len; i++) {
-        var paramName = parameters[i].name || parameters[i].key;
-        if (!paramName) {
+      for (let i = 0, len = parameters.length; i < len; i++) {
+        let pName = parameters[i].name;
+        if (!pName) {
           continue;
         }
-        paramName = target === 'headers' ? paramName.toLowerCase() : paramName;
-        if (paramName === name) {
+        pName = target === 'headers' ? pName.toLowerCase() : pName;
+        if (pName === name) {
           this.set([target, i, 'value'], e.detail.value);
           return;
         }
@@ -492,9 +539,7 @@ Input styles are consistent with `raml-headers-form` element.
       appendTo.appendChild(collapse);
 
       marked.markdown = model.description;
-      Polymer.RenderStatus.afterNextRender(this, () => {
-        collapse.opened = true;
-      });
+      collapse.opened = true;
     }
     /**
      * Clears all custom data documention nodes.
@@ -506,6 +551,10 @@ Input styles are consistent with `raml-headers-form` element.
       }
       nodes.forEach((node) => node.parentNode.removeChild(node));
     }
+
+    toggleSchemeDocumentation() {
+      this.documentationOpened = !this.documentationOpened;
+    }
     /**
      * Fired when the any of the auth method settings has changed.
      * This event will be fired quite frequently - each time anything in the text field changed.
@@ -514,7 +563,7 @@ Input styles are consistent with `raml-headers-form` element.
      * @event auth-settings-changed
      * @param {Object} settings Current settings containing hash, password
      * and username.
-     * @param {String} type The authorization type - basic
+     * @param {String} type The authorization type - x-custom
      * @param {Boolean} valid True if the form has been validated.
      * @param {String} name Name of the custom method to differeciante them if many.
      */
