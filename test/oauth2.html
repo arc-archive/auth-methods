@@ -32,105 +32,77 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <auth-method-oauth2 grant-type="implicit"></auth-method-oauth2>
       </template>
     </test-fixture>
-
-    <test-fixture id="notOpened">
-      <template>
-        <auth-method-oauth2 grant-type="implicit" attr-for-opened="any"></auth-method-oauth2>
-      </template>
-    </test-fixture>
-
     <script>
     /* global fixture, assert, TestHelpers */
-    suite('Basic', function() {
-      var element;
-      setup(function() {
+    suite('Basic', () => {
+      let element;
+      setup(() => {
         element = fixture('basic');
       });
 
-      test('The `oauth2-token-response` event sets the tokenValue', function() {
-        var event = new CustomEvent('oauth2-token-response', {
+      function dispatchTokenResponse(detail) {
+        let event = new CustomEvent('oauth2-token-response', {
           bubbles: true,
           cancelable: true,
-          detail: {
-            accessToken: 'test-token'
-          }
+          composed: true,
+          detail: detail
         });
-        element.dispatchEvent(event);
-        assert.equal(element.tokenValue, 'test-token');
+        document.body.dispatchEvent(event);
+      }
+
+      test('The `oauth2-token-response` event sets the accessToken', () => {
+        dispatchTokenResponse({
+          accessToken: 'test-token'
+        });
+        assert.equal(element.accessToken, 'test-token');
       });
 
-      test('The event sets tokenValue with state parameter', function() {
-        var state = 'test123';
+      test('The event sets accessToken with state parameter', () => {
+        let state = 'test123';
         element._lastState = state;
-        var event = new CustomEvent('oauth2-token-response', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            accessToken: 'test-token',
-            state: state
-          }
+        dispatchTokenResponse({
+          accessToken: 'test-token',
+          state: state
         });
-        element.dispatchEvent(event);
-        assert.equal(element.tokenValue, 'test-token');
+        assert.equal(element.accessToken, 'test-token');
       });
 
-      test('The event do not sets tokenValue when state missmatch', function() {
+      test('The event do not sets accessToken when state missmatch', () => {
         element._lastState = 'test123';
-        var event = new CustomEvent('oauth2-token-response', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            accessToken: 'test-token',
-            state: 'test456'
-          }
+        dispatchTokenResponse({
+          accessToken: 'test-token',
+          state: 'test456'
         });
-        element.dispatchEvent(event);
-        assert.equal(element.tokenValue, '');
+        assert.isUndefined(element.accessToken);
       });
 
-      test('Should set first auth type from RAML settings', function() {
-        var aUrl = 'http://domain.com/authorizationUri';
-        var type = ['implicit', 'code'];
-        var scopes = ['test-1', 'test2'];
-        var raml = {
-          settings: {
-            authorizationGrants: type,
-            authorizationUri: aUrl,
-            scopes: scopes
-          }
-        };
-        element.ramlSettings = raml;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.grantType, type[0]);
-      });
-
-      test('hasTokenValue is set', function() {
-        assert.isFalse(element.hasTokenValue, 'Initally is false');
-        element.tokenValue = 'test';
-        assert.isTrue(element.hasTokenValue, 'True when token value is set');
+      test('hasAccessToken is set', () => {
+        assert.isFalse(element.hasAccessToken, 'Initally is false');
+        element.accessToken = 'test';
+        assert.isTrue(element.hasAccessToken, 'True when token value is set');
       });
     });
 
-    suite('_authorizing state', function() {
-      var element;
-      setup(function() {
+    suite('_authorizing state', () => {
+      let element;
+      setup(() => {
         element = fixture('implicit');
         element._authorizing = true;
         TestHelpers.forceXIfStamp(element);
       });
 
-      test('Get token button is disabled ', function() {
-        var button = Polymer.dom(element.root).querySelector('.auth-button[data-type="get-token"]');
+      test('Get token button is disabled ', () => {
+        let button = Polymer.dom(element.root).querySelector('.auth-button[data-type="get-token"]');
         assert.isTrue(button.disabled);
       });
 
-      test('Refresh token button is disabled ', function() {
-        var button = Polymer.dom(element.root).querySelector('.auth-button[data-type="refresh-token"]');
+      test('Refresh token button is disabled ', () => {
+        let button = Polymer.dom(element.root).querySelector('.auth-button[data-type="refresh-token"]');
         assert.isTrue(button.disabled);
       });
 
-      test('`oauth2-token-response` event restores _authorizing', function() {
-        var event = new CustomEvent('oauth2-token-response', {
+      test('`oauth2-token-response` event restores _authorizing', () => {
+        let event = new CustomEvent('oauth2-token-response', {
           bubbles: true,
           cancelable: true,
           detail: {
@@ -141,8 +113,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.isFalse(element._authorizing);
       });
 
-      test('oauth2-error event restores _authorizing', function() {
-        var event = new CustomEvent('oauth2-error', {
+      test('oauth2-error event restores _authorizing', () => {
+        let event = new CustomEvent('oauth2-error', {
           bubbles: true,
           cancelable: true,
           detail: {
@@ -154,64 +126,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     });
 
-    suite('Events handling', function() {
+    suite('Events handling', () => {
       function fire(name, value) {
-        var event = new CustomEvent('request-header-changed', {
+        const ev = new CustomEvent('request-header-changed', {
           detail: {
             name: name,
             value: value
           },
           bubbles: true
         });
-        document.body.dispatchEvent(event);
+        document.body.dispatchEvent(ev);
       }
-      var authName = 'authorization';
-      suite('Opened element', function() {
-        var element;
-        var clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
-        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-        setup(function() {
-          element = fixture('implicit');
-          element.tokenValue = '';
-          element.clientId = clientId;
-          element.authUrl = authUrl;
-          element.scopes = ['email', 'profile'];
-        });
-
-        test('Updates tokenValue from the event', function() {
-          fire(authName, 'bearer testToken');
-          assert.equal(element.tokenValue, 'testToken');
-        });
-
-        test('Updates "Bearer" uppercase', function() {
-          fire(authName, 'Bearer testToken');
-          assert.equal(element.tokenValue, 'testToken');
-        });
-
-        test('Does not change values for other headers', function() {
-          element.tokenValue = 'test';
-          fire('x-test', 'something');
-          assert.equal(element.tokenValue, 'test');
-        });
-
-        test('Clears the value for empty header', function() {
-          element.tokenValue = 'test-1';
-          fire(authName, '');
-          assert.equal(element.tokenValue, '');
-        });
+      const authName = 'authorization';
+      let element;
+      const clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
+      const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+      setup(() => {
+        element = fixture('implicit');
+        element.accessToken = '';
+        element.clientId = clientId;
+        element.authorizationUri = authUrl;
+        element.scopes = ['email', 'profile'];
       });
 
-      suite('Not opened element', function() {
-        var element;
-        setup(function() {
-          element = fixture('notOpened');
-          element.tokenValue = '';
-        });
+      test('Updates accessToken from the event', () => {
+        fire(authName, 'bearer testToken');
+        assert.equal(element.accessToken, 'testToken');
+      });
 
-        test('Does not updates properties from the event', function() {
-          fire(authName, 'bearer testToken');
-          assert.equal(element.tokenValue, '');
-        });
+      test('Updates "Bearer" uppercase', () => {
+        fire(authName, 'Bearer testToken');
+        assert.equal(element.accessToken, 'testToken');
+      });
+
+      test('Does not change values for other headers', () => {
+        element.accessToken = 'test';
+        fire('x-test', 'something');
+        assert.equal(element.accessToken, 'test');
+      });
+
+      test('Clears the value for empty header', () => {
+        element.accessToken = 'test-1';
+        fire(authName, '');
+        assert.equal(element.accessToken, '');
       });
     });
     </script>
