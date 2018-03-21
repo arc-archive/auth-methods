@@ -92,6 +92,7 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
      * dispatches `auth-settings-changed` custom event
      *
      * @param {String} type Auth form type.
+     * @return {CustomEvent} Dispatched event
      */
     _notifySettingsChange(type) {
       const detail = {
@@ -99,11 +100,13 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
         type: type,
         valid: this.validate()
       };
-      this.dispatchEvent(new CustomEvent('auth-settings-changed', {
+      const e = new CustomEvent('auth-settings-changed', {
         detail: detail,
         bubbles: true,
         composed: true
-      }));
+      });
+      this.dispatchEvent(e);
+      return e;
     }
 
     /**
