@@ -291,7 +291,6 @@ the License.
             </iron-collapse>
           </section>
         </auth-method-step>
-
         <auth-method-step step-start-index="[[stepStartIndex]]" step="3" no-steps="[[noSteps]]">
           <span slot="title">Set redirect URL</span>
           <section>
@@ -500,6 +499,8 @@ the License.
      * [AMF](https://github.com/mulesoft/amf/) `json/ld` model. Use AMF to read
      * API spec file (RAML, OAS, etc) and load settings via `amfSettings`
      * property
+     * - Added `deliveryMethod` and `deliveryName` properties to the
+     * `detail.setting` object.
      *
      * @customElement
      * @polymer
@@ -739,6 +740,32 @@ the License.
           tokenBody: {
             type: Array,
             readOnly: true
+          },
+          /**
+           * Default delivery method of access token. Reported with
+           * settings change event as `deliveryMethod`.
+           *
+           * This value is added to event's `settings` property.
+           *
+           * When setting AMF model, this value may change, if AMF description
+           * forces different than default placement of the token.
+           */
+          oauthDeliveryMethod: {
+            type: String,
+            value: 'header'
+          },
+          /**
+           * Default parameter name that carries access token. Reported with
+           * the settings change event as `deliveryName`.
+           *
+           * This value is added to event's `settings` property.
+           *
+           * When setting AMF model, this value may change, if AMF description
+           * forces different than default parameter name for the token.
+           */
+          oauthDeliveryName: {
+            type: String,
+            value: 'authorization'
           }
         };
       }
@@ -934,7 +961,9 @@ the License.
           customData: {
             auth: {},
             token: {}
-          }
+          },
+          deliveryMethod: this.oauthDeliveryMethod,
+          deliveryName: this.oauthDeliveryName
         };
         switch (this.grantType) {
           case 'implicit':
@@ -1143,21 +1172,29 @@ the License.
           }));
         }
       }
-
+      /**
+       * Handler to set up data from the AMF model.
+       *
+       * @param {Object} model Security model of AMF
+       */
       _amfChanged(model) {
         if (!model || !model['@type'] || !model['@type'].length) {
+          this._setupOAuthDeliveryMethod();
           return;
         }
         const isSecurity = model['@type']
           .indexOf('http://raml.org/vocabularies/security#SecurityScheme') !== -1;
         if (!isSecurity) {
+          this._setupOAuthDeliveryMethod();
           return;
         }
         const type = model['http://raml.org/vocabularies/security#type'];
         const isOauth2 = type && type[0] && type[0]['@value'] === 'OAuth 2.0';
         if (!isOauth2) {
+          this._setupOAuthDeliveryMethod();
           return;
         }
+        this._setupOAuthDeliveryMethod(model);
         const settings = model['http://raml.org/vocabularies/security#settings'][0];
         this._clearDocs();
         this.__cancelChangeEvent = true;
@@ -1165,6 +1202,53 @@ the License.
         this.__cancelChangeEvent = false;
         this._settingsChanged();
         this._autoHide();
+      }
+
+      _setupOAuthDeliveryMethod(model) {
+        const info = this._getOauth2DeliveryMethod(model);
+        if (this.oauthDeliveryMethod !== info.method) {
+          this.oauthDeliveryMethod = info.method;
+        }
+        if (this.oauthDeliveryName !== info.name) {
+          this.oauthDeliveryName = info.name;
+        }
+      }
+      /**
+       * Determines placemenet of OAuth authorization token location.
+       * It can be either query parameter or header. This function
+       * reads API spec to get this information or provides default if
+       * not specifies.
+       *
+       * @return {Object}
+       */
+      _getOauth2DeliveryMethod(info) {
+        const result = {
+          method: 'header',
+          name: 'authorization'
+        };
+        if (!info) {
+          return result;
+        }
+        const prefix = 'http://raml.org/vocabularies/http#';
+        const headers = info[prefix + 'header'];
+        const nameKey = 'http://schema.org/name';
+        if (headers && headers[0]) {
+          const headerName = this._getAmfValue(headers[0][nameKey]);
+          if (headerName) {
+            result.name = headerName;
+            return result;
+          }
+        }
+        const parameters = info[prefix + 'parameter'];
+        if (parameters && parameters[0]) {
+          const paramName = this._getAmfValue(parameters[0][nameKey]);
+          if (paramName) {
+            result.name = paramName;
+            result.method = 'query';
+            return result;
+          }
+        }
+        return result;
       }
       /**
        * Reads API security definition and applies itn to the view as predefined
@@ -1682,6 +1766,10 @@ the License.
        * @param {String} password Used with `password` type.
        * @param {Object} customData Custom query parameters, headers and body applied
        * to the authorization or token request. See this element description for details.
+       * @param {String} deliveryMethod Access token location in the request.
+       * It can be either `header` or `query`. Defaults to header.
+       * @param {String} deliveryName Name of the parmater to use to transport
+       * the token. By default it is `authorization` for header value.
        */
       /**
        * Fired when the any of the auth method settings has changed.

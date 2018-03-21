@@ -105,11 +105,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 95,
+                  "line": 96,
                   "column": 4
                 },
                 "end": {
-                  "line": 106,
+                  "line": 109,
                   "column": 5
                 }
               },
@@ -120,7 +120,11 @@
                   "type": "String",
                   "description": "Auth form type."
                 }
-              ]
+              ],
+              "return": {
+                "type": "CustomEvent",
+                "desc": "Dispatched event"
+              }
             },
             {
               "name": "_getAmfValue",
@@ -128,11 +132,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 113,
+                  "line": 116,
                   "column": 4
                 },
                 "end": {
-                  "line": 118,
+                  "line": 121,
                   "column": 5
                 }
               },
@@ -158,7 +162,7 @@
               "column": 0
             },
             "end": {
-              "line": 121,
+              "line": 124,
               "column": 2
             }
           },
@@ -4234,11 +4238,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 8
             },
             "end": {
-              "line": 95,
+              "line": 96,
               "column": 9
             }
           },
@@ -4255,11 +4259,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 97,
+              "line": 98,
               "column": 8
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 9
             }
           },
@@ -4276,11 +4280,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 103,
               "column": 8
             },
             "end": {
-              "line": 105,
+              "line": 106,
               "column": 9
             }
           },
@@ -4361,11 +4365,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 124,
               "column": 4
             },
             "end": {
-              "line": 126,
+              "line": 127,
               "column": 5
             }
           },
@@ -4382,11 +4386,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 4
             },
             "end": {
-              "line": 131,
+              "line": 132,
               "column": 5
             }
           },
@@ -4423,11 +4427,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 109,
               "column": 5
             }
           },
@@ -4439,6 +4443,10 @@
               "description": "Auth form type."
             }
           ],
+          "return": {
+            "type": "CustomEvent",
+            "desc": "Dispatched event"
+          },
           "inheritedFrom": "ArcBehaviors.AuthMethodsMixin"
         },
         {
@@ -4448,11 +4456,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 113,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 5
             }
           },
@@ -4475,11 +4483,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 135,
+              "line": 136,
               "column": 4
             },
             "end": {
-              "line": 139,
+              "line": 140,
               "column": 5
             }
           },
@@ -4492,11 +4500,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 146,
               "column": 4
             },
             "end": {
-              "line": 148,
+              "line": 149,
               "column": 5
             }
           },
@@ -4513,11 +4521,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 152,
+              "line": 153,
               "column": 4
             },
             "end": {
-              "line": 157,
+              "line": 159,
               "column": 5
             }
           },
@@ -4530,11 +4538,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 163,
+              "line": 165,
               "column": 4
             },
             "end": {
-              "line": 169,
+              "line": 171,
               "column": 5
             }
           },
@@ -4551,11 +4559,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 175,
+              "line": 177,
               "column": 4
             },
             "end": {
-              "line": 182,
+              "line": 184,
               "column": 5
             }
           },
@@ -4574,11 +4582,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 188,
+              "line": 190,
               "column": 4
             },
             "end": {
-              "line": 212,
+              "line": 214,
               "column": 5
             }
           },
@@ -4597,11 +4605,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 222,
+              "line": 224,
               "column": 4
             },
             "end": {
-              "line": 237,
+              "line": 239,
               "column": 5
             }
           },
@@ -4629,11 +4637,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 246,
               "column": 4
             },
             "end": {
-              "line": 248,
+              "line": 250,
               "column": 5
             }
           },
@@ -4657,11 +4665,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 252,
+              "line": 254,
               "column": 4
             },
             "end": {
-              "line": 254,
+              "line": 256,
               "column": 5
             }
           },
@@ -4674,11 +4682,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 262,
+              "line": 264,
               "column": 4
             },
             "end": {
-              "line": 269,
+              "line": 271,
               "column": 5
             }
           },
@@ -4695,11 +4703,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 275,
+              "line": 277,
               "column": 4
             },
             "end": {
-              "line": 303,
+              "line": 307,
               "column": 5
             }
           },
@@ -4709,6 +4717,33 @@
               "name": "e"
             }
           ]
+        },
+        {
+          "name": "_notifyHeaderChange",
+          "description": "Dispatches `request-header-changed` custom event to inform other\nelements about authorization value change.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 315,
+              "column": 4
+            },
+            "end": {
+              "line": 328,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings",
+              "type": "[type]",
+              "description": "[description]"
+            }
+          ],
+          "return": {
+            "type": "[type]",
+            "desc": "[description]"
+          }
         }
       ],
       "staticMethods": [],
@@ -4721,11 +4756,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 87,
+          "line": 86,
           "column": 2
         },
         "end": {
-          "line": 323,
+          "line": 354,
           "column": 3
         }
       },
@@ -4810,11 +4845,11 @@
           "description": "base64 hash of the uid and passwd. When set it will override current username and password.",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 8
             },
             "end": {
-              "line": 95,
+              "line": 96,
               "column": 9
             }
           },
@@ -4826,11 +4861,11 @@
           "description": "The password.",
           "sourceRange": {
             "start": {
-              "line": 97,
+              "line": 98,
               "column": 8
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 9
             }
           },
@@ -4842,11 +4877,11 @@
           "description": "The username.",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 103,
               "column": 8
             },
             "end": {
-              "line": 105,
+              "line": 106,
               "column": 9
             }
           },
@@ -4865,6 +4900,12 @@
           "type": "CustomEvent",
           "name": "error",
           "description": "error",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "request-header-changed",
+          "description": "request-header-changed",
           "metadata": {}
         },
         {
@@ -5309,11 +5350,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 109,
               "column": 5
             }
           },
@@ -5325,6 +5366,10 @@
               "description": "Auth form type."
             }
           ],
+          "return": {
+            "type": "CustomEvent",
+            "desc": "Dispatched event"
+          },
           "inheritedFrom": "ArcBehaviors.AuthMethodsMixin"
         },
         {
@@ -5334,11 +5379,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 113,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 5
             }
           },
@@ -6573,11 +6618,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 109,
               "column": 5
             }
           },
@@ -6589,6 +6634,10 @@
               "description": "Auth form type."
             }
           ],
+          "return": {
+            "type": "CustomEvent",
+            "desc": "Dispatched event"
+          },
           "inheritedFrom": "ArcBehaviors.AuthMethodsMixin"
         },
         {
@@ -6598,11 +6647,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 113,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 5
             }
           },
@@ -7542,11 +7591,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 109,
               "column": 5
             }
           },
@@ -7558,6 +7607,10 @@
               "description": "Auth form type."
             }
           ],
+          "return": {
+            "type": "CustomEvent",
+            "desc": "Dispatched event"
+          },
           "inheritedFrom": "ArcBehaviors.AuthMethodsMixin"
         },
         {
@@ -7567,11 +7620,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 113,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 5
             }
           },
@@ -8509,11 +8562,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 109,
               "column": 5
             }
           },
@@ -8525,6 +8578,10 @@
               "description": "Auth form type."
             }
           ],
+          "return": {
+            "type": "CustomEvent",
+            "desc": "Dispatched event"
+          },
           "inheritedFrom": "ArcBehaviors.AuthMethodsMixin"
         },
         {
@@ -9217,7 +9274,7 @@
       ]
     },
     {
-      "description": "The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.\n\n### Example\n\n```html\n<auth-method-oauth2></auth-method-oauth2>\n```\n\nThis element uses `oauth2-scope-selector` so the `allowedScopes`, `preventCustomScopes` and\n`scopes` properties will be set on this element. See documentation of `oauth2-scope-selector`\nfor more description.\n\n### Forcing the user to select scope from the list\n\n```html\n<auth-method-oauth2 prevent-custom-scopes></auth-method-oauth2>\n```\n\n```javascript\nvar form = document.querySelector('auth-method-oauth2');\nform.allowedScopes = ['profile', 'email'];\n```\n\n## Authorizing the user\nThe element sends the `oauth2-token-requested` with the OAuth settings provided with the form.\nAny element / app can handle this event and perform authorization.\n*\nWhen the authorization is performed the app / other element should set back `accessToken` property\nof this element or send the `oauth2-token-response` with token response value so the change will\ncan reflected in the UI.\nARC provides the `oauth2-authorization` element that can handle this events.\n\n### Example\n\n```html\n<auth-method-oauth2></auth-method-oauth2>\n<oauth2-authorization></oauth2-authorization>\n```\n\nThe `oauth2-authorization` can be set anywhere in the DOM up from this element siblings to the\nbody. See demo for example usage.\n\n     ## Redirect URL\nMost OAuth 2 providers requires setting the redirect URL with the request. This can't be changed\nby the user and redirect URL can be only set in the provider's settings panel. The element\naccepts the `redirectUri` property which will be displayed to the user that (s)he has to set up\nthis callback URL in the OAuth provider settings. It can be any URL where token / code will be\nhandled properly and the value returned to the `oauth2-authorization` element.\nSee `oauth2-authorization` documentation for more information.\n\nIf you going to use `oauth2-authorization` popup then the redirect URL value must be set to:\n`/bower_components/oauth-authorization/oauth-popup.html`. Mind missing `2` in `oauth-authorization`.\nThis popup is a common popup for auth methods.\n\n### OAuth 2.0 extensibility\n\nAs per [RFC6749, section 8](https://tools.ietf.org/html/rfc6749#section-8) OAuth 2.0\nprotocol can be extended by custom `grant_type`, custom query parameters and custom headers.\n\nThis is not yet supported in RAML. However, working together with RAML spec creators,\nan official RAML annotation to extend OAuth 2.0 settings has been created.\nThe annotation source can be found in the [RAML organization repository](https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).\n\nWhen the annotation is applied to the `ramlSettings` property, this element renders\nadditional form inputs to support custom schemes.\n\nThis produces additional property in the token authorization request: `customData`.\nThe object contains user input from custom properties.\n*\n#### `customData` model\n\n```json\ncustomData: {\n auth: {\n   parameters: Array|undefined\n },\n token: {\n   parameters: Array|undefined,\n   headers: Array|undefined,\n   body: Array|undefined\n }\n}\n```\n`auth` contains properties to be applied to the authorization request.\nOnly query parameetrs are (and can be) supported.\n\n`token` property contains properties to be applied when making token request.\nIt can include `parameters` as a query parameters, `headers` as a list\nof headers to apply, and `body` as a list of properties to send with\nbody.\n\nNote: `body` content type is always `application/x-www-form-urlencoded`.\n`customData.token.body` parameters must not be url encoded. Processors\nhanding token request should handle values encoding.\n\n#### Annotation example\n\n```yaml\n annotationTypes:\n   customSettings: !include oauth-2-custom-settings.raml\n securitySchemes:\n   oauth2:\n     type: OAuth 2.0\n     describedBy:\n       headers:\n         Authorization:\n           example: \"Bearer token\"\n     settings:\n       (customSettings):\n         authorizationSettings:\n           queryParameters:\n             resource:\n               type: string\n               required: true\n               description: |\n                 A resource ID that defines a domain of authorization.\n         accessTokenSettings:\n           body:\n             resource:\n               type: string\n               required: true\n               description: |\n                 A resource ID that defines a domain of authorization.\n       accessTokenUri: https://auth.domain.com/authorize\n       authorizationUri: https://auth.domain.com/token\n       authorizationGrants: [code]\n    scopes: profile\n```\n### Styling\n\n`<auth-method-oauth2>` provides the following custom properties and mixins for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--auth-method-oauth2` | Mixin applied to the element. | `{}`\n`--auth-method-panel` | Mixin applied to all auth elements. | `{}`\n`--auth-grant-dropdown` | Mixin applied to the authorization grants dropdown list | `{}`\n\nThis is very basic element. Style inputs using `paper-input`'s or `\npaper-toggle`'s css variables.\n\n### Theming\nUse this mixins as a theming option across all ARC elements.\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`\n`--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`\n`--input-line-color` | Mixin applied to the input underline | `{}`\n`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`\n`--auth-button` | Mixin applied to authorization and next buttons` | `{}`\n`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`\n`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`\n`--auth-redirect-section` | Mixin applied to the redirect uri section | `{}`\n`--error-toast` | Mixin applied to the error toast message | `{}`\n`--warning-primary-color` | Error toast background color | `#FF7043`\n`--warning-contrast-color` | Error toast color | `#fff`\n\n## Changes in version 2\n\n- Renamed properties\n - `authUrl` -> `authorizationUri`\n - `redirectUrl` -> `redirectUri`\n - `accessTokenUrl` -> `accessTokenUri`\n - `tokenValue` -> `accessToken`\n - `hasTokenValue` -> `hasAccessToken`\n- Added `tokenType` to the events describing type of the token.\nBy default it's `Bearer`\n- **The element does not support RAML js data model anymore**. It uses\n[AMF](https://github.com/mulesoft/amf/) `json/ld` model. Use AMF to read\nAPI spec file (RAML, OAS, etc) and load settings via `amfSettings`\nproperty",
+      "description": "The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.\n\n### Example\n\n```html\n<auth-method-oauth2></auth-method-oauth2>\n```\n\nThis element uses `oauth2-scope-selector` so the `allowedScopes`, `preventCustomScopes` and\n`scopes` properties will be set on this element. See documentation of `oauth2-scope-selector`\nfor more description.\n\n### Forcing the user to select scope from the list\n\n```html\n<auth-method-oauth2 prevent-custom-scopes></auth-method-oauth2>\n```\n\n```javascript\nvar form = document.querySelector('auth-method-oauth2');\nform.allowedScopes = ['profile', 'email'];\n```\n\n## Authorizing the user\nThe element sends the `oauth2-token-requested` with the OAuth settings provided with the form.\nAny element / app can handle this event and perform authorization.\n*\nWhen the authorization is performed the app / other element should set back `accessToken` property\nof this element or send the `oauth2-token-response` with token response value so the change will\ncan reflected in the UI.\nARC provides the `oauth2-authorization` element that can handle this events.\n\n### Example\n\n```html\n<auth-method-oauth2></auth-method-oauth2>\n<oauth2-authorization></oauth2-authorization>\n```\n\nThe `oauth2-authorization` can be set anywhere in the DOM up from this element siblings to the\nbody. See demo for example usage.\n\n     ## Redirect URL\nMost OAuth 2 providers requires setting the redirect URL with the request. This can't be changed\nby the user and redirect URL can be only set in the provider's settings panel. The element\naccepts the `redirectUri` property which will be displayed to the user that (s)he has to set up\nthis callback URL in the OAuth provider settings. It can be any URL where token / code will be\nhandled properly and the value returned to the `oauth2-authorization` element.\nSee `oauth2-authorization` documentation for more information.\n\nIf you going to use `oauth2-authorization` popup then the redirect URL value must be set to:\n`/bower_components/oauth-authorization/oauth-popup.html`. Mind missing `2` in `oauth-authorization`.\nThis popup is a common popup for auth methods.\n\n### OAuth 2.0 extensibility\n\nAs per [RFC6749, section 8](https://tools.ietf.org/html/rfc6749#section-8) OAuth 2.0\nprotocol can be extended by custom `grant_type`, custom query parameters and custom headers.\n\nThis is not yet supported in RAML. However, working together with RAML spec creators,\nan official RAML annotation to extend OAuth 2.0 settings has been created.\nThe annotation source can be found in the [RAML organization repository](https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).\n\nWhen the annotation is applied to the `ramlSettings` property, this element renders\nadditional form inputs to support custom schemes.\n\nThis produces additional property in the token authorization request: `customData`.\nThe object contains user input from custom properties.\n*\n#### `customData` model\n\n```json\ncustomData: {\n auth: {\n   parameters: Array|undefined\n },\n token: {\n   parameters: Array|undefined,\n   headers: Array|undefined,\n   body: Array|undefined\n }\n}\n```\n`auth` contains properties to be applied to the authorization request.\nOnly query parameetrs are (and can be) supported.\n\n`token` property contains properties to be applied when making token request.\nIt can include `parameters` as a query parameters, `headers` as a list\nof headers to apply, and `body` as a list of properties to send with\nbody.\n\nNote: `body` content type is always `application/x-www-form-urlencoded`.\n`customData.token.body` parameters must not be url encoded. Processors\nhanding token request should handle values encoding.\n\n#### Annotation example\n\n```yaml\n annotationTypes:\n   customSettings: !include oauth-2-custom-settings.raml\n securitySchemes:\n   oauth2:\n     type: OAuth 2.0\n     describedBy:\n       headers:\n         Authorization:\n           example: \"Bearer token\"\n     settings:\n       (customSettings):\n         authorizationSettings:\n           queryParameters:\n             resource:\n               type: string\n               required: true\n               description: |\n                 A resource ID that defines a domain of authorization.\n         accessTokenSettings:\n           body:\n             resource:\n               type: string\n               required: true\n               description: |\n                 A resource ID that defines a domain of authorization.\n       accessTokenUri: https://auth.domain.com/authorize\n       authorizationUri: https://auth.domain.com/token\n       authorizationGrants: [code]\n    scopes: profile\n```\n### Styling\n\n`<auth-method-oauth2>` provides the following custom properties and mixins for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--auth-method-oauth2` | Mixin applied to the element. | `{}`\n`--auth-method-panel` | Mixin applied to all auth elements. | `{}`\n`--auth-grant-dropdown` | Mixin applied to the authorization grants dropdown list | `{}`\n\nThis is very basic element. Style inputs using `paper-input`'s or `\npaper-toggle`'s css variables.\n\n### Theming\nUse this mixins as a theming option across all ARC elements.\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`\n`--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`\n`--input-line-color` | Mixin applied to the input underline | `{}`\n`--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`\n`--auth-button` | Mixin applied to authorization and next buttons` | `{}`\n`--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`\n`--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`\n`--auth-redirect-section` | Mixin applied to the redirect uri section | `{}`\n`--error-toast` | Mixin applied to the error toast message | `{}`\n`--warning-primary-color` | Error toast background color | `#FF7043`\n`--warning-contrast-color` | Error toast color | `#fff`\n\n## Changes in version 2\n\n- Renamed properties\n - `authUrl` -> `authorizationUri`\n - `redirectUrl` -> `redirectUri`\n - `accessTokenUrl` -> `accessTokenUri`\n - `tokenValue` -> `accessToken`\n - `hasTokenValue` -> `hasAccessToken`\n- Added `tokenType` to the events describing type of the token.\nBy default it's `Bearer`\n- **The element does not support RAML js data model anymore**. It uses\n[AMF](https://github.com/mulesoft/amf/) `json/ld` model. Use AMF to read\nAPI spec file (RAML, OAS, etc) and load settings via `amfSettings`\nproperty\n- Added `deliveryMethod` and `deliveryName` properties to the\n`detail.setting` object.",
       "summary": "",
       "path": "auth-method-oauth2.html",
       "properties": [
@@ -9336,11 +9393,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 516,
+              "line": 517,
               "column": 10
             },
             "end": {
-              "line": 521,
+              "line": 522,
               "column": 11
             }
           },
@@ -9359,11 +9416,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 525,
+              "line": 526,
               "column": 10
             },
             "end": {
-              "line": 529,
+              "line": 530,
               "column": 11
             }
           },
@@ -9381,11 +9438,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 531,
+              "line": 532,
               "column": 10
             },
             "end": {
-              "line": 535,
+              "line": 536,
               "column": 11
             }
           },
@@ -9403,11 +9460,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 539,
+              "line": 540,
               "column": 10
             },
             "end": {
-              "line": 542,
+              "line": 543,
               "column": 11
             }
           },
@@ -9423,11 +9480,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 544,
+              "line": 545,
               "column": 10
             },
             "end": {
-              "line": 548,
+              "line": 549,
               "column": 11
             }
           },
@@ -9445,11 +9502,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 550,
+              "line": 551,
               "column": 10
             },
             "end": {
-              "line": 554,
+              "line": 555,
               "column": 11
             }
           },
@@ -9467,11 +9524,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 556,
+              "line": 557,
               "column": 10
             },
             "end": {
-              "line": 560,
+              "line": 561,
               "column": 11
             }
           },
@@ -9489,11 +9546,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 562,
+              "line": 563,
               "column": 10
             },
             "end": {
-              "line": 566,
+              "line": 567,
               "column": 11
             }
           },
@@ -9511,11 +9568,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 568,
+              "line": 569,
               "column": 10
             },
             "end": {
-              "line": 572,
+              "line": 573,
               "column": 11
             }
           },
@@ -9533,11 +9590,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 574,
+              "line": 575,
               "column": 10
             },
             "end": {
-              "line": 578,
+              "line": 579,
               "column": 11
             }
           },
@@ -9555,11 +9612,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 586,
+              "line": 587,
               "column": 10
             },
             "end": {
-              "line": 589,
+              "line": 590,
               "column": 11
             }
           },
@@ -9576,11 +9633,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 594,
+              "line": 595,
               "column": 10
             },
             "end": {
-              "line": 596,
+              "line": 597,
               "column": 11
             }
           },
@@ -9595,11 +9652,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 601,
+              "line": 602,
               "column": 10
             },
             "end": {
-              "line": 601,
+              "line": 602,
               "column": 30
             }
           },
@@ -9614,11 +9671,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 606,
+              "line": 607,
               "column": 10
             },
             "end": {
-              "line": 606,
+              "line": 607,
               "column": 38
             }
           },
@@ -9633,11 +9690,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 608,
+              "line": 609,
               "column": 10
             },
             "end": {
-              "line": 608,
+              "line": 609,
               "column": 31
             }
           },
@@ -9652,11 +9709,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 616,
+              "line": 617,
               "column": 10
             },
             "end": {
-              "line": 619,
+              "line": 620,
               "column": 11
             }
           },
@@ -9673,11 +9730,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 627,
+              "line": 628,
               "column": 10
             },
             "end": {
-              "line": 630,
+              "line": 631,
               "column": 11
             }
           },
@@ -9693,11 +9750,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 632,
+              "line": 633,
               "column": 10
             },
             "end": {
-              "line": 636,
+              "line": 637,
               "column": 11
             }
           },
@@ -9715,11 +9772,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 640,
+              "line": 641,
               "column": 10
             },
             "end": {
-              "line": 643,
+              "line": 644,
               "column": 11
             }
           },
@@ -9736,11 +9793,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 646,
+              "line": 647,
               "column": 10
             },
             "end": {
-              "line": 649,
+              "line": 650,
               "column": 11
             }
           },
@@ -9757,11 +9814,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 655,
+              "line": 656,
               "column": 10
             },
             "end": {
-              "line": 658,
+              "line": 659,
               "column": 11
             }
           },
@@ -9778,11 +9835,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 660,
+              "line": 661,
               "column": 10
             },
             "end": {
-              "line": 663,
+              "line": 664,
               "column": 11
             }
           },
@@ -9798,11 +9855,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 677,
+              "line": 678,
               "column": 10
             },
             "end": {
-              "line": 677,
+              "line": 678,
               "column": 25
             }
           },
@@ -9817,11 +9874,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 682,
+              "line": 683,
               "column": 10
             },
             "end": {
-              "line": 682,
+              "line": 683,
               "column": 29
             }
           },
@@ -9836,11 +9893,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 686,
+              "line": 687,
               "column": 10
             },
             "end": {
-              "line": 686,
+              "line": 687,
               "column": 33
             }
           },
@@ -9855,11 +9912,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 690,
+              "line": 691,
               "column": 10
             },
             "end": {
-              "line": 693,
+              "line": 694,
               "column": 11
             }
           },
@@ -9876,11 +9933,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 702,
+              "line": 703,
               "column": 10
             },
             "end": {
-              "line": 705,
+              "line": 706,
               "column": 11
             }
           },
@@ -9897,11 +9954,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 714,
+              "line": 715,
               "column": 10
             },
             "end": {
-              "line": 717,
+              "line": 718,
               "column": 11
             }
           },
@@ -9918,11 +9975,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 726,
+              "line": 727,
               "column": 10
             },
             "end": {
-              "line": 729,
+              "line": 730,
               "column": 11
             }
           },
@@ -9939,11 +9996,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 738,
+              "line": 739,
               "column": 10
             },
             "end": {
-              "line": 741,
+              "line": 742,
               "column": 11
             }
           },
@@ -9952,6 +10009,46 @@
               "readOnly": true
             }
           }
+        },
+        {
+          "name": "oauthDeliveryMethod",
+          "type": "string",
+          "description": "Default delivery method of access token. Reported with\nsettings change event as `deliveryMethod`.\n\nThis value is added to event's `settings` property.\n\nWhen setting AMF model, this value may change, if AMF description\nforces different than default placement of the token.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 752,
+              "column": 10
+            },
+            "end": {
+              "line": 755,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"header\""
+        },
+        {
+          "name": "oauthDeliveryName",
+          "type": "string",
+          "description": "Default parameter name that carries access token. Reported with\nthe settings change event as `deliveryName`.\n\nThis value is added to event's `settings` property.\n\nWhen setting AMF model, this value may change, if AMF description\nforces different than default parameter name for the token.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 765,
+              "column": 10
+            },
+            "end": {
+              "line": 768,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"authorization\""
         }
       ],
       "methods": [
@@ -10024,11 +10121,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 809,
+              "line": 836,
               "column": 6
             },
             "end": {
-              "line": 813,
+              "line": 840,
               "column": 7
             }
           },
@@ -10045,11 +10142,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 815,
+              "line": 842,
               "column": 6
             },
             "end": {
-              "line": 819,
+              "line": 846,
               "column": 7
             }
           },
@@ -10086,11 +10183,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 109,
               "column": 5
             }
           },
@@ -10102,6 +10199,10 @@
               "description": "Auth form type."
             }
           ],
+          "return": {
+            "type": "CustomEvent",
+            "desc": "Dispatched event"
+          },
           "inheritedFrom": "ArcBehaviors.AuthMethodsMixin"
         },
         {
@@ -10111,11 +10212,11 @@
           "sourceRange": {
             "file": "auth-methods-mixin.html",
             "start": {
-              "line": 113,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 5
             }
           },
@@ -10138,11 +10239,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 798,
+              "line": 825,
               "column": 6
             },
             "end": {
-              "line": 807,
+              "line": 834,
               "column": 7
             }
           },
@@ -10155,11 +10256,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 827,
+              "line": 854,
               "column": 6
             },
             "end": {
-              "line": 838,
+              "line": 865,
               "column": 7
             }
           },
@@ -10172,11 +10273,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 844,
+              "line": 871,
               "column": 6
             },
             "end": {
-              "line": 847,
+              "line": 874,
               "column": 7
             }
           },
@@ -10193,11 +10294,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 849,
+              "line": 876,
               "column": 6
             },
             "end": {
-              "line": 854,
+              "line": 881,
               "column": 7
             }
           },
@@ -10210,11 +10311,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 857,
+              "line": 884,
               "column": 6
             },
             "end": {
-              "line": 869,
+              "line": 896,
               "column": 7
             }
           },
@@ -10231,11 +10332,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 871,
+              "line": 898,
               "column": 6
             },
             "end": {
-              "line": 879,
+              "line": 906,
               "column": 7
             }
           },
@@ -10248,11 +10349,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 887,
+              "line": 914,
               "column": 6
             },
             "end": {
-              "line": 889,
+              "line": 916,
               "column": 7
             }
           },
@@ -10273,11 +10374,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 892,
+              "line": 919,
               "column": 6
             },
             "end": {
-              "line": 906,
+              "line": 933,
               "column": 7
             }
           },
@@ -10290,11 +10391,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 913,
+              "line": 940,
               "column": 6
             },
             "end": {
-              "line": 920,
+              "line": 947,
               "column": 7
             }
           },
@@ -10311,11 +10412,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 927,
+              "line": 954,
               "column": 6
             },
             "end": {
-              "line": 986,
+              "line": 1015,
               "column": 7
             }
           },
@@ -10332,11 +10433,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 994,
+              "line": 1023,
               "column": 6
             },
             "end": {
-              "line": 999,
+              "line": 1028,
               "column": 7
             }
           },
@@ -10355,11 +10456,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1007,
+              "line": 1036,
               "column": 6
             },
             "end": {
-              "line": 1020,
+              "line": 1049,
               "column": 7
             }
           },
@@ -10378,11 +10479,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1031,
+              "line": 1060,
               "column": 6
             },
             "end": {
-              "line": 1049,
+              "line": 1078,
               "column": 7
             }
           },
@@ -10405,11 +10506,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 1055,
+              "line": 1084,
               "column": 6
             },
             "end": {
-              "line": 1082,
+              "line": 1111,
               "column": 7
             }
           },
@@ -10428,11 +10529,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1089,
+              "line": 1118,
               "column": 6
             },
             "end": {
-              "line": 1091,
+              "line": 1120,
               "column": 7
             }
           },
@@ -10454,11 +10555,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1099,
+              "line": 1128,
               "column": 6
             },
             "end": {
-              "line": 1112,
+              "line": 1141,
               "column": 7
             }
           },
@@ -10476,11 +10577,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1118,
+              "line": 1147,
               "column": 6
             },
             "end": {
-              "line": 1144,
+              "line": 1173,
               "column": 7
             }
           },
@@ -10494,15 +10595,38 @@
         },
         {
           "name": "_amfChanged",
+          "description": "Handler to set up data from the AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1179,
+              "column": 6
+            },
+            "end": {
+              "line": 1204,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Security model of AMF"
+            }
+          ]
+        },
+        {
+          "name": "_setupOAuthDeliveryMethod",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1146,
+              "line": 1206,
               "column": 6
             },
             "end": {
-              "line": 1167,
+              "line": 1214,
               "column": 7
             }
           },
@@ -10514,16 +10638,40 @@
           ]
         },
         {
+          "name": "_getOauth2DeliveryMethod",
+          "description": "Determines placemenet of OAuth authorization token location.\nIt can be either query parameter or header. This function\nreads API spec to get this information or provides default if\nnot specifies.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1223,
+              "column": 6
+            },
+            "end": {
+              "line": 1251,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "info"
+            }
+          ],
+          "return": {
+            "type": "Object"
+          }
+        },
+        {
           "name": "_preFillAmfData",
           "description": "Reads API security definition and applies itn to the view as predefined\nvalues.",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1175,
+              "line": 1259,
               "column": 6
             },
             "end": {
-              "line": 1203,
+              "line": 1287,
               "column": 7
             }
           },
@@ -10542,11 +10690,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1209,
+              "line": 1293,
               "column": 6
             },
             "end": {
-              "line": 1214,
+              "line": 1298,
               "column": 7
             }
           },
@@ -10568,11 +10716,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1220,
+              "line": 1304,
               "column": 6
             },
             "end": {
-              "line": 1234,
+              "line": 1318,
               "column": 7
             }
           },
@@ -10593,11 +10741,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1240,
+              "line": 1324,
               "column": 6
             },
             "end": {
-              "line": 1254,
+              "line": 1338,
               "column": 7
             }
           },
@@ -10619,11 +10767,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1262,
+              "line": 1346,
               "column": 6
             },
             "end": {
-              "line": 1290,
+              "line": 1374,
               "column": 7
             }
           },
@@ -10651,11 +10799,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1301,
+              "line": 1385,
               "column": 6
             },
             "end": {
-              "line": 1340,
+              "line": 1424,
               "column": 7
             }
           },
@@ -10674,11 +10822,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1346,
+              "line": 1430,
               "column": 6
             },
             "end": {
-              "line": 1352,
+              "line": 1436,
               "column": 7
             }
           },
@@ -10697,11 +10845,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1358,
+              "line": 1442,
               "column": 6
             },
             "end": {
-              "line": 1364,
+              "line": 1448,
               "column": 7
             }
           },
@@ -10720,11 +10868,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1370,
+              "line": 1454,
               "column": 6
             },
             "end": {
-              "line": 1376,
+              "line": 1460,
               "column": 7
             }
           },
@@ -10743,11 +10891,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1382,
+              "line": 1466,
               "column": 6
             },
             "end": {
-              "line": 1388,
+              "line": 1472,
               "column": 7
             }
           },
@@ -10766,11 +10914,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1396,
+              "line": 1480,
               "column": 6
             },
             "end": {
-              "line": 1402,
+              "line": 1486,
               "column": 7
             }
           },
@@ -10797,11 +10945,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1410,
+              "line": 1494,
               "column": 6
             },
             "end": {
-              "line": 1413,
+              "line": 1497,
               "column": 7
             }
           },
@@ -10824,11 +10972,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1421,
+              "line": 1505,
               "column": 6
             },
             "end": {
-              "line": 1435,
+              "line": 1519,
               "column": 7
             }
           },
@@ -10847,11 +10995,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1443,
+              "line": 1527,
               "column": 6
             },
             "end": {
-              "line": 1467,
+              "line": 1551,
               "column": 7
             }
           },
@@ -10868,11 +11016,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1474,
+              "line": 1558,
               "column": 6
             },
             "end": {
-              "line": 1476,
+              "line": 1560,
               "column": 7
             }
           },
@@ -10895,11 +11043,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1480,
+              "line": 1564,
               "column": 6
             },
             "end": {
-              "line": 1482,
+              "line": 1566,
               "column": 7
             }
           },
@@ -10912,11 +11060,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1489,
+              "line": 1573,
               "column": 6
             },
             "end": {
-              "line": 1506,
+              "line": 1590,
               "column": 7
             }
           },
@@ -10939,11 +11087,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1508,
+              "line": 1592,
               "column": 6
             },
             "end": {
-              "line": 1538,
+              "line": 1622,
               "column": 7
             }
           },
@@ -10960,11 +11108,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1540,
+              "line": 1624,
               "column": 6
             },
             "end": {
-              "line": 1542,
+              "line": 1626,
               "column": 7
             }
           },
@@ -10981,11 +11129,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1544,
+              "line": 1628,
               "column": 6
             },
             "end": {
-              "line": 1546,
+              "line": 1630,
               "column": 7
             }
           },
@@ -11002,11 +11150,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1548,
+              "line": 1632,
               "column": 6
             },
             "end": {
-              "line": 1554,
+              "line": 1638,
               "column": 7
             }
           },
@@ -11026,11 +11174,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1561,
+              "line": 1645,
               "column": 6
             },
             "end": {
-              "line": 1590,
+              "line": 1674,
               "column": 7
             }
           },
@@ -11047,11 +11195,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1596,
+              "line": 1680,
               "column": 6
             },
             "end": {
-              "line": 1618,
+              "line": 1702,
               "column": 7
             }
           },
@@ -11069,11 +11217,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1625,
+              "line": 1709,
               "column": 6
             },
             "end": {
-              "line": 1641,
+              "line": 1725,
               "column": 7
             }
           },
@@ -11095,11 +11243,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1645,
+              "line": 1729,
               "column": 6
             },
             "end": {
-              "line": 1651,
+              "line": 1735,
               "column": 7
             }
           },
@@ -11121,11 +11269,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 511,
+          "line": 512,
           "column": 4
         },
         "end": {
-          "line": 1712,
+          "line": 1800,
           "column": 5
         }
       },
@@ -11210,11 +11358,11 @@
           "description": "Seleted authorization grand type.",
           "sourceRange": {
             "start": {
-              "line": 516,
+              "line": 517,
               "column": 10
             },
             "end": {
-              "line": 521,
+              "line": 522,
               "column": 11
             }
           },
@@ -11226,11 +11374,11 @@
           "description": "Computed value, true if the grant type is a cutom definition.",
           "sourceRange": {
             "start": {
-              "line": 525,
+              "line": 526,
               "column": 10
             },
             "end": {
-              "line": 529,
+              "line": 530,
               "column": 11
             }
           },
@@ -11242,11 +11390,11 @@
           "description": "Computed value, true if the `grantType` is set.",
           "sourceRange": {
             "start": {
-              "line": 531,
+              "line": 532,
               "column": 10
             },
             "end": {
-              "line": 535,
+              "line": 536,
               "column": 11
             }
           },
@@ -11258,11 +11406,11 @@
           "description": "If true, OAuth flow selector will be collapsed.",
           "sourceRange": {
             "start": {
-              "line": 539,
+              "line": 540,
               "column": 10
             },
             "end": {
-              "line": 542,
+              "line": 543,
               "column": 11
             }
           },
@@ -11274,11 +11422,11 @@
           "description": "The client ID for the auth token.",
           "sourceRange": {
             "start": {
-              "line": 544,
+              "line": 545,
               "column": 10
             },
             "end": {
-              "line": 548,
+              "line": 549,
               "column": 11
             }
           },
@@ -11290,11 +11438,11 @@
           "description": "The client secret. It to be used when selected server flow.",
           "sourceRange": {
             "start": {
-              "line": 550,
+              "line": 551,
               "column": 10
             },
             "end": {
-              "line": 554,
+              "line": 555,
               "column": 11
             }
           },
@@ -11306,11 +11454,11 @@
           "description": "The authorization URL to initialize the OAuth flow.",
           "sourceRange": {
             "start": {
-              "line": 556,
+              "line": 557,
               "column": 10
             },
             "end": {
-              "line": 560,
+              "line": 561,
               "column": 11
             }
           },
@@ -11322,11 +11470,11 @@
           "description": "The access token URL to exchange code for token. It is used in server flow.",
           "sourceRange": {
             "start": {
-              "line": 562,
+              "line": 563,
               "column": 10
             },
             "end": {
-              "line": 566,
+              "line": 567,
               "column": 11
             }
           },
@@ -11338,11 +11486,11 @@
           "description": "The password. To be used with the password flow.",
           "sourceRange": {
             "start": {
-              "line": 568,
+              "line": 569,
               "column": 10
             },
             "end": {
-              "line": 572,
+              "line": 573,
               "column": 11
             }
           },
@@ -11354,11 +11502,11 @@
           "description": "The password. To be used with the password flow.",
           "sourceRange": {
             "start": {
-              "line": 574,
+              "line": 575,
               "column": 10
             },
             "end": {
-              "line": 578,
+              "line": 579,
               "column": 11
             }
           },
@@ -11370,11 +11518,11 @@
           "description": "A callback URL to be used with this element.\nUser can't change the callback URL and it will inform the user to setup OAuth to use\nthis value.\n\nThis is relevant when selected flow is the browser flow.",
           "sourceRange": {
             "start": {
-              "line": 586,
+              "line": 587,
               "column": 10
             },
             "end": {
-              "line": 589,
+              "line": 590,
               "column": 11
             }
           },
@@ -11386,11 +11534,11 @@
           "description": "List of user selected scopes.\nIt can be pre-populated with list of scopes (array of strings).",
           "sourceRange": {
             "start": {
-              "line": 594,
+              "line": 595,
               "column": 10
             },
             "end": {
-              "line": 596,
+              "line": 597,
               "column": 11
             }
           },
@@ -11402,11 +11550,11 @@
           "description": "List of pre-defined scopes to choose from. It will be passed to the `oauth2-scope-selector`\nelement.",
           "sourceRange": {
             "start": {
-              "line": 601,
+              "line": 602,
               "column": 10
             },
             "end": {
-              "line": 601,
+              "line": 602,
               "column": 30
             }
           },
@@ -11418,11 +11566,11 @@
           "description": "If true then the `oauth2-scope-selector` will disallow to add a scope that is not\nin the `allowedScopes` list. Has no effect if the `allowedScopes` is not set.",
           "sourceRange": {
             "start": {
-              "line": 606,
+              "line": 607,
               "column": 10
             },
             "end": {
-              "line": 606,
+              "line": 607,
               "column": 38
             }
           },
@@ -11434,11 +11582,11 @@
           "description": "When the user authorized the app it should be set to the token value.\nThis element do not perform authorization. Other elements must intercept\n`oauth2-token-requested` and perform the authorization. As a result the element\nperforming an authorization should set back the auth token on the event target object\n(this element).",
           "sourceRange": {
             "start": {
-              "line": 616,
+              "line": 617,
               "column": 10
             },
             "end": {
-              "line": 619,
+              "line": 620,
               "column": 11
             }
           },
@@ -11450,11 +11598,11 @@
           "description": "Received from the response token value.\nBy default it is \"bearer\" as the only one defined in OAuth 2.0\nspec.\nIf the token response contains `tokenType` property this value is\nupdated.",
           "sourceRange": {
             "start": {
-              "line": 627,
+              "line": 628,
               "column": 10
             },
             "end": {
-              "line": 630,
+              "line": 631,
               "column": 11
             }
           },
@@ -11466,11 +11614,11 @@
           "description": "Computed value, true if access token is set.",
           "sourceRange": {
             "start": {
-              "line": 632,
+              "line": 633,
               "column": 10
             },
             "end": {
-              "line": 636,
+              "line": 637,
               "column": 11
             }
           },
@@ -11482,11 +11630,11 @@
           "description": "AMF json/ld mode describing security scheme.",
           "sourceRange": {
             "start": {
-              "line": 640,
+              "line": 641,
               "column": 10
             },
             "end": {
-              "line": 643,
+              "line": 644,
               "column": 11
             }
           },
@@ -11498,11 +11646,11 @@
           "description": "Currently available grant types.",
           "sourceRange": {
             "start": {
-              "line": 646,
+              "line": 647,
               "column": 10
             },
             "end": {
-              "line": 649,
+              "line": 650,
               "column": 11
             }
           },
@@ -11514,11 +11662,11 @@
           "description": "The element will automatically hide following fileds it the element has been initialized\nwith values for this fields (without user interaction):\n\n- autorization url\n- token url\n- scopes\n\nIf all this values are set then the element will set `isAdvanced` attribute and set\n`advancedOpened` to false\n\nSetting this property will prevent this behavior.",
           "sourceRange": {
             "start": {
-              "line": 677,
+              "line": 678,
               "column": 10
             },
             "end": {
-              "line": 677,
+              "line": 678,
               "column": 25
             }
           },
@@ -11530,11 +11678,11 @@
           "description": "If set it will render autorization url, token url and scopes as advanced options\nactivated on user interaction.",
           "sourceRange": {
             "start": {
-              "line": 682,
+              "line": 683,
               "column": 10
             },
             "end": {
-              "line": 682,
+              "line": 683,
               "column": 29
             }
           },
@@ -11546,11 +11694,11 @@
           "description": "If true then the advanced options are opened.",
           "sourceRange": {
             "start": {
-              "line": 686,
+              "line": 687,
               "column": 10
             },
             "end": {
-              "line": 686,
+              "line": 687,
               "column": 33
             }
           },
@@ -11562,11 +11710,11 @@
           "description": "If set, the grant typr selector will be hidden from the UI.",
           "sourceRange": {
             "start": {
-              "line": 690,
+              "line": 691,
               "column": 10
             },
             "end": {
-              "line": 693,
+              "line": 694,
               "column": 11
             }
           },
@@ -11578,11 +11726,11 @@
           "description": "List of query parameters to apply to authorization request.\nThis is allowed by the OAuth 2.0 spec as an extension of the\nprotocol.\nThis value is computed if the `ramlSettings` contains annotations\nand one of it is `customSettings`.\nSee https://github.com/raml-org/raml-annotations for definition.",
           "sourceRange": {
             "start": {
-              "line": 702,
+              "line": 703,
               "column": 10
             },
             "end": {
-              "line": 705,
+              "line": 706,
               "column": 11
             }
           },
@@ -11594,11 +11742,11 @@
           "description": "List of query parameters to apply to token request.\nThis is allowed by the OAuth 2.0 spec as an extension of the\nprotocol.\nThis value is computed if the `ramlSettings` contains annotations\nand one of it is `customSettings`.\nSee https://github.com/raml-org/raml-annotations for definition.",
           "sourceRange": {
             "start": {
-              "line": 714,
+              "line": 715,
               "column": 10
             },
             "end": {
-              "line": 717,
+              "line": 718,
               "column": 11
             }
           },
@@ -11610,11 +11758,11 @@
           "description": "List of headers to apply to token request.\nThis is allowed by the OAuth 2.0 spec as an extension of the\nprotocol.\nThis value is computed if the `ramlSettings` contains annotations\nand one of it is `customSettings`.\nSee https://github.com/raml-org/raml-annotations for definition.",
           "sourceRange": {
             "start": {
-              "line": 726,
+              "line": 727,
               "column": 10
             },
             "end": {
-              "line": 729,
+              "line": 730,
               "column": 11
             }
           },
@@ -11626,16 +11774,48 @@
           "description": "List of body parameters to apply to token request.\nThis is allowed by the OAuth 2.0 spec as an extension of the\nprotocol.\nThis value is computed if the `ramlSettings` contains annotations\nand one of it is `customSettings`.\nSee https://github.com/raml-org/raml-annotations for definition.",
           "sourceRange": {
             "start": {
-              "line": 738,
+              "line": 739,
               "column": 10
             },
             "end": {
-              "line": 741,
+              "line": 742,
               "column": 11
             }
           },
           "metadata": {},
           "type": "Array"
+        },
+        {
+          "name": "oauth-delivery-method",
+          "description": "Default delivery method of access token. Reported with\nsettings change event as `deliveryMethod`.\n\nThis value is added to event's `settings` property.\n\nWhen setting AMF model, this value may change, if AMF description\nforces different than default placement of the token.",
+          "sourceRange": {
+            "start": {
+              "line": 752,
+              "column": 10
+            },
+            "end": {
+              "line": 755,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "oauth-delivery-name",
+          "description": "Default parameter name that carries access token. Reported with\nthe settings change event as `deliveryName`.\n\nThis value is added to event's `settings` property.\n\nWhen setting AMF model, this value may change, if AMF description\nforces different than default parameter name for the token.",
+          "sourceRange": {
+            "start": {
+              "line": 765,
+              "column": 10
+            },
+            "end": {
+              "line": 768,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
         }
       ],
       "events": [

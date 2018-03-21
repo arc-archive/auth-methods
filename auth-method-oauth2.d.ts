@@ -213,6 +213,8 @@ declare namespace UiElements {
    * [AMF](https://github.com/mulesoft/amf/) `json/ld` model. Use AMF to read
    * API spec file (RAML, OAS, etc) and load settings via `amfSettings`
    * property
+   * - Added `deliveryMethod` and `deliveryName` properties to the
+   * `detail.setting` object.
    */
   class AuthMethodOauth2 extends
     ArcBehaviors.EventsTargetBehavior(
@@ -424,6 +426,28 @@ declare namespace UiElements {
      * See https://github.com/raml-org/raml-annotations for definition.
      */
     readonly tokenBody: any[]|null|undefined;
+
+    /**
+     * Default delivery method of access token. Reported with
+     * settings change event as `deliveryMethod`.
+     *
+     * This value is added to event's `settings` property.
+     *
+     * When setting AMF model, this value may change, if AMF description
+     * forces different than default placement of the token.
+     */
+    oauthDeliveryMethod: string|null|undefined;
+
+    /**
+     * Default parameter name that carries access token. Reported with
+     * the settings change event as `deliveryName`.
+     *
+     * This value is added to event's `settings` property.
+     *
+     * When setting AMF model, this value may change, if AMF description
+     * forces different than default parameter name for the token.
+     */
+    oauthDeliveryName: string|null|undefined;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
     ready(): void;
@@ -535,7 +559,22 @@ declare namespace UiElements {
      * Handler for the token response from the authorization component.
      */
     _tokenSuccessHandler(e: CustomEvent|null): void;
-    _amfChanged(model: any): void;
+
+    /**
+     * Handler to set up data from the AMF model.
+     *
+     * @param model Security model of AMF
+     */
+    _amfChanged(model: object|null): void;
+    _setupOAuthDeliveryMethod(model: any): void;
+
+    /**
+     * Determines placemenet of OAuth authorization token location.
+     * It can be either query parameter or header. This function
+     * reads API spec to get this information or provides default if
+     * not specifies.
+     */
+    _getOauth2DeliveryMethod(info: any): object|null;
 
     /**
      * Reads API security definition and applies itn to the view as predefined

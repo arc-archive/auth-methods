@@ -63,8 +63,9 @@ declare namespace ArcBehaviors {
      * dispatches `auth-settings-changed` custom event
      *
      * @param type Auth form type.
+     * @returns Dispatched event
      */
-    _notifySettingsChange(type: String|null): void;
+    _notifySettingsChange(type: String|null): CustomEvent|null;
 
     /**
      * Extracts value from AMF property.

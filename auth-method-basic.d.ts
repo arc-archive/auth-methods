@@ -153,6 +153,15 @@ declare namespace UiElements {
      * authorization.
      */
     _headerChangedHandler(e: any): void;
+
+    /**
+     * Dispatches `request-header-changed` custom event to inform other
+     * elements about authorization value change.
+     *
+     * @param settings [description]
+     * @returns [description]
+     */
+    _notifyHeaderChange(settings: any): any;
   }
 }
 

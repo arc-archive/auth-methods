@@ -361,6 +361,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.isUndefined(result.customData.auth.parameters, 'auth params is not set');
           assert.isUndefined(result.customData.token, 'token is not set');
         });
+
+        test('deliveryMethod is set', () => {
+          const result = element.getSettings();
+          assert.equal(result.deliveryMethod, 'header', 'default value is set');
+        });
+
+        test('deliveryName is set', () => {
+          const result = element.getSettings();
+          assert.equal(result.deliveryName, 'authorization', 'default value is set');
+        });
       });
 
       suite('getSettings() - custom data', () => {
@@ -396,6 +406,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('Does not contain token data', function() {
           const result = element.getSettings();
           assert.isUndefined(result.customData.token);
+        });
+
+        test('deliveryMethod is set', () => {
+          const result = element.getSettings();
+          assert.equal(result.deliveryMethod, 'query', 'Custom value is set');
+        });
+
+        test('deliveryName is set', () => {
+          const result = element.getSettings();
+          assert.equal(result.deliveryName, 'access_token', 'Custom value is set');
+        });
+
+        test('deliveryMethod is restored to default', () => {
+          element.amfSettings = undefined;
+          const result = element.getSettings();
+          assert.equal(result.deliveryMethod, 'header');
+        });
+
+        test('deliveryName is restored to default', () => {
+          element.amfSettings = undefined;
+          const result = element.getSettings();
+          assert.equal(result.deliveryName, 'authorization');
         });
       });
     });
