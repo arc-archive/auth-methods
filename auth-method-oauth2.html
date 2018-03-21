@@ -920,6 +920,9 @@ the License.
       authorize() {
         const validationResult = this.validate();
         if (!validationResult) {
+          const toast = this.shadowRoot.querySelector('paper-toast.error-toast');
+          toast.text = 'Authorization form is not valid.';
+          toast.opened = true;
           return;
         }
         const detail = this.getSettings();
@@ -931,6 +934,7 @@ the License.
           bubbles: true,
           composed: true
         }));
+        this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'requested');
       }
 
       /**
@@ -1139,6 +1143,7 @@ the License.
         const toast = this.shadowRoot.querySelector('paper-toast.error-toast');
         toast.text = info.message;
         toast.opened = true;
+        this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'failure');
       }
       /**
        * Handler for the token response from the authorization component.
@@ -1171,6 +1176,7 @@ the License.
             composed: true
           }));
         }
+        this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'success');
       }
       /**
        * Handler to set up data from the AMF model.
@@ -1733,6 +1739,27 @@ the License.
           return;
         }
         nodes.forEach((node) => node.parentNode.removeChild(node));
+      }
+
+      /**
+       * Dispatches analytics event.
+       *
+       * @param {String} category Event category
+       * @param {String} action Event action
+       * @param {String} label Event label
+       */
+      _analyticsEvent(category, action, label) {
+        const e = new CustomEvent('send-analytics', {
+          detail: {
+            type: 'event',
+            category: category,
+            action: action,
+            label: label
+          },
+          bubbles: true,
+          composed: true
+        });
+        this.dispatchEvent(e);
       }
       /**
        * Fired when user requested to perform an authorization.
