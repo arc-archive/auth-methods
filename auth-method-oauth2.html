@@ -1068,8 +1068,24 @@ the License.
         }
         const result = [];
         params.forEach((item) => {
-          if ((!item.value || !item.value[0]) && !item.required) {
-            return;
+          const value = item.value;
+          if (!item.required) {
+            const type = typeof value;
+            if (type === 'number') {
+              if (!value && value !== 0) {
+                return;
+              }
+            } else if (type === 'string') {
+              if (!value) {
+                return;
+              }
+            } else if (value instanceof Array) {
+              if (!value[0]) {
+                return;
+              }
+            } else if (type === 'undefined') {
+              return;
+            }
           }
           result.push({
             name: item.name,

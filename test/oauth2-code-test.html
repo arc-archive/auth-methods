@@ -363,11 +363,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('Contains not required data when added', () => {
-          const value = 'test-aq';
-          element.authQueryParameters[3].value = value;
+          const value = 1234;
+          element.authQueryParameters[0].value = value;
           const result = element.getSettings();
           assert.lengthOf(result.customData.auth.parameters, 2, 'has one item');
-          assert.equal(result.customData.auth.parameters[1].value, value);
+          assert.equal(result.customData.auth.parameters[0].value, value);
         });
 
         test('deliveryMethod is set', () => {

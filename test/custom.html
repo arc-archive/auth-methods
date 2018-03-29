@@ -39,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('Basic', () => {
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -75,7 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('Validation', () => {
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -86,8 +86,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('Should be validated', (done) => {
-          const input = element.shadowRoot.querySelector('[data-type="header"]');
-          input.value = 'test';
+          const hInput = element.shadowRoot.querySelector('[data-type="header"]');
+          hInput.value = 'test';
+          const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
+          qInput.value = 'true';
           flush(() => {
             assert.isTrue(element.validate());
             done();
@@ -98,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('getSettings()', () => {
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -119,7 +121,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('Docs', () => {
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -166,7 +168,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           const button = element.shadowRoot.querySelector('.header-item .help-icon');
           MockInteractions.tap(button);
           flush(() => {
-            element.securityScheme = undefined;
+            element.amfSettings = undefined;
             const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
             assert.equal(collapse, null);
             done();
@@ -177,7 +179,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('Settings change event', () => {
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -192,6 +194,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('The event has required properties', (done) => {
+          const hInput = element.shadowRoot.querySelector('[data-type="header"]');
+          hInput.value = 'test';
+          const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
           element.addEventListener('auth-settings-changed', (e) => {
             assert.equal(e.detail.type, 'x-custom', 'type is set');
             assert.equal(e.detail.valid, true, 'valid is set');
@@ -199,15 +204,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             assert.typeOf(e.detail.settings, 'object', 'settings is set');
             done();
           });
-          const input = element.shadowRoot.querySelector('[data-type="header"]');
-          input.value = 'test';
+          qInput.value = 'true';
         });
       });
 
       suite('Params change event', () => {
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -248,7 +252,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -280,7 +284,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         setup((done) => {
           element = fixture('custom');
-          element.securityScheme = amf;
+          element.amfSettings = amf;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });

@@ -97,7 +97,7 @@ the License.
         <iron-form>
           <form autocomplete="on">
             <template is="dom-if" if="[[hasHeaders]]">
-              <section>
+              <section class="headers-section">
                 <template is="dom-repeat" items="{{headers}}"  data-repeater="header">
                   <div class="header-item">
                     <div class="field-value">
@@ -112,7 +112,7 @@ the License.
               </section>
             </template>
             <template is="dom-if" if="[[hasQueryParameters]]">
-              <section>
+              <section class="query-section">
                 <template is="dom-repeat" items="{{queryParameters}}" data-repeater="query">
                   <div class="param-item">
                     <div class="field-value">
@@ -142,7 +142,7 @@ the License.
    * in corresponding UI element. This events are supported with all API components
    * that handles headers or query parameters.
    *
-   * This element is rendered empty if `securityScheme` property is not set.
+   * This element is rendered empty if `amfSettings` property is not set.
    * Parent element or application should check if model contains the scheme.
    *
    * ### Example
@@ -167,7 +167,7 @@ the License.
    *
    * - The element now works with AMF json/ld data model. RAML json parser output
    * is no longer supported.
-   * - `ramlSettings` has been renamed to `securityScheme`
+   * - `ramlSettings` has been renamed to `amfSettings`
    * - Added scheme title and documentation to the panel.
    *
    * @customElement
@@ -184,7 +184,7 @@ the License.
         /**
          * AMF security scheme model.
          */
-        securityScheme: {
+        amfSettings: {
           type: Object,
           observer: '_schemeChanged'
         },
