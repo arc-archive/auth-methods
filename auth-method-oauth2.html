@@ -926,21 +926,34 @@ the License.
       authorize() {
         const validationResult = this.validate();
         if (!validationResult) {
-          const toast = this.shadowRoot.querySelector('paper-toast.error-toast');
-          toast.text = 'Authorization form is not valid.';
-          toast.opened = true;
+          this._errorToast('Authorization form is not valid.');
           return;
         }
         const detail = this.getSettings();
         this._lastState = this.generateState();
         detail.state = this._lastState;
         this._authorizing = true;
-        this.dispatchEvent(new CustomEvent('oauth2-token-requested', {
+        const e = new CustomEvent('oauth2-token-requested', {
           detail: detail,
           bubbles: true,
-          composed: true
-        }));
+          composed: true,
+          cancelable: true
+        });
+        this.dispatchEvent(e);
+        if (!e.defaultPrevented) {
+          this._errorToast('The application did not handled token request correctly.');
+          this._authorizing = false;
+        }
         this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'requested');
+      }
+      /**
+       * Displays an error message in error toast
+       * @param {String} message Message to display.
+       */
+      _errorToast(message) {
+        const toast = this.shadowRoot.querySelector('paper-toast.error-toast');
+        toast.text = message;
+        toast.opened = true;
       }
 
       /**
@@ -1162,9 +1175,7 @@ the License.
         }
         this._authorizing = false;
         this._lastState = undefined;
-        const toast = this.shadowRoot.querySelector('paper-toast.error-toast');
-        toast.text = info.message;
-        toast.opened = true;
+        this._errorToast(info.message);
         this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'failure');
       }
       /**
