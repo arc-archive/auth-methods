@@ -58,7 +58,8 @@
     "oauth-authorization": "advanced-rest-client/oauth-authorization#^2.0.1",
     "cryptojs-lib": "advanced-rest-client/cryptojs-lib#^0.1.1",
     "iron-component-page": "^3.0.1",
-    "neon-animation": "PolymerElements/neon-animation#^2.2.1"
+    "neon-animation": "PolymerElements/neon-animation#^2.2.1",
+    "arc-polyfills": "advanced-rest-client/arc-polyfills#^0.1.11"
   },
   "ignore": [
     "**/.*",
