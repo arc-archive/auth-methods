@@ -32,7 +32,7 @@ the License.
 
     .hint-icon {
       color: var(--hint-trigger-color, rgba(0, 0, 0, 0.74));
-      transition: color 0.25s linear;
+      transition: color 0.25s ease-in-out;
       @apply --icon-button;
     }
 
@@ -42,12 +42,13 @@ the License.
     }
 
     .action-icon {
-      color: var(--from-row-action-icon-color, var(--icon-button-color, rgba(0, 0, 0, 0.74)));
-      transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+      /* --api-form-action-* to have consistent styling rules */
+      color: var(--api-form-action-icon-color, var(--icon-button-color, rgba(0, 0, 0, 0.74)));
+      transition: color 0.2s ease-in-out;
     }
 
     .action-icon:hover {
-      color: var(--from-row-action-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.88)));
+      color: var(--api-form-action-icon-hover-color, var(--accent-color, rgba(0, 0, 0, 0.88)));
     }
 
     .adv-toggle {
