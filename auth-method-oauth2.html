@@ -295,8 +295,8 @@ the License.
               </paper-input>
               <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" data-input="username" label="Username" value="{{username}}" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on" title="The username required for this OAuth authentication."></paper-masked-input>
               <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" data-input="password" label="Password" value="{{password}}" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on" title="The password required for this OAuth authentication."></paper-masked-input>
-              <div hiddable data-visible="implicit authorization_code">
-                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" value="{{scopes}}" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+              <div>
+                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" value="{{scopes}}"></oauth2-scope-selector>
               </div>
             </iron-collapse>
           </section>
@@ -1073,6 +1073,7 @@ the License.
           clientId: this.clientId,
           accessToken: this.accessToken || '',
           tokenType: this.tokenType,
+          scopes: this.scopes,
           customData: {
             auth: {},
             token: {}
@@ -1085,7 +1086,6 @@ the License.
             // The browser flow.
             detail.authorizationUri = this.authorizationUri;
             detail.redirectUri = this.redirectUri;
-            detail.scopes = this.scopes;
             this._computeAuthCustomData(detail);
             delete detail.customData.token;
             break;
@@ -1095,7 +1095,6 @@ the License.
             detail.clientSecret = this.clientSecret;
             detail.accessTokenUri = this.accessTokenUri;
             detail.redirectUri = this.redirectUri;
-            detail.scopes = this.scopes;
             this._computeAuthCustomData(detail);
             this._computeTokenCustomData(detail);
             break;
@@ -1120,7 +1119,6 @@ the License.
             detail.clientSecret = this.clientSecret;
             detail.accessTokenUri = this.accessTokenUri;
             detail.redirectUri = this.redirectUri;
-            detail.scopes = this.scopes;
             detail.username = this.username;
             detail.password = this.password;
             this._computeAuthCustomData(detail);
@@ -1217,16 +1215,15 @@ the License.
         this.grantType = settings.type;
         this.clientId = settings.clientId;
         this.accessToken = settings.accessToken;
+        this.scopes = settings.scopes;
         switch (this.grantType) {
           case 'implicit':
             this.authorizationUri = settings.authorizationUri;
-            this.scopes = settings.scopes;
             break;
           case 'authorization_code':
             this.authorizationUri = settings.authorizationUri;
             this.clientSecret = settings.clientSecret;
             this.accessTokenUri = settings.accessTokenUri;
-            this.scopes = settings.scopes;
             break;
           case 'client_credentials':
             // The server flow.

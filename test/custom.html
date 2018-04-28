@@ -178,6 +178,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       suite('Settings change event', () => {
+
+        suiteSetup(() => {
+          sessionStorage.clear();
+        });
+
         setup((done) => {
           element = fixture('custom');
           element.amfSettings = amf;
@@ -186,17 +191,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
         });
 
+        teardown(() => {
+          sessionStorage.clear();
+        });
+
         test('Dispatches the event', (done) => {
           element.addEventListener('auth-settings-changed', () => {
             done();
           });
           const input = element.shadowRoot.querySelector('[data-type="header"]');
-          input.value = 'test';
+          input.value = 'test-x';
         });
 
         test('The event has required properties', (done) => {
           const hInput = element.shadowRoot.querySelector('[data-type="header"]');
-          hInput.value = 'test';
+          hInput.value = 'test-y';
           const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
           element.addEventListener('auth-settings-changed', (e) => {
             assert.equal(e.detail.type, 'x-custom', 'type is set');
@@ -239,7 +248,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       });
 
-
       suite('Updates headers from event', () => {
         function fire(name) {
           document.body.dispatchEvent(new CustomEvent('request-header-changed', {
@@ -268,7 +276,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('Does nothing when header not found', () => {
           fire('other');
           assert.lengthOf(element.headers, 1);
-          assert.isUndefined(element.headers[0].value);
+          // Model transformer caches model so it resutls with last value
+          assert.equal(element.headers[0].value, 'test-value');
         });
       });
 
@@ -300,7 +309,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         test('Does nothing when header not found', () => {
           fire('other', '');
           assert.lengthOf(element.queryParameters, 2);
-          assert.isUndefined(element.queryParameters[0].value);
+          // Model transformer caches model so it resutls with last value
+          assert.equal(element.queryParameters[0].value, 'Error');
         });
       });
     });

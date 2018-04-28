@@ -45,7 +45,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           element.clientSecret = clientSecret;
           element.accessTokenUri = accessTokenUri;
           element.redirectUri = redirectUri;
-          element.scopes = scopes;
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
@@ -56,12 +55,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.isFalse(element.validate(), 'Active validation.');
         });
 
-        test('Should be validated', (done) => {
-          element.scopes = ['email', 'profile'];
-          flush(() => {
-            assert.isTrue(element.validate());
-            done();
-          });
+        test('Should be validated', () => {
+          assert.isTrue(element.validate());
         });
 
         test('Should not fire oauth2-token-requested event', () => {
@@ -74,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('Fire oauth2-token-requested event', (done) => {
-          element.scopes = ['email', 'profile'];
+          element.scopes = scopes;
           flush(() => {
             const spy = sinon.stub();
             element.addEventListener('oauth2-token-requested', spy);
@@ -87,11 +82,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       suite('Fields visibility', () => {
+        suiteSetup(() => {
+          sessionStorage.clear();
+        });
+        
         setup((done) => {
           element = fixture('authorizationCode');
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
+        });
+
+        teardown(() => {
+          sessionStorage.clear();
         });
 
         test('Step 1 is closed per auto selection', () => {

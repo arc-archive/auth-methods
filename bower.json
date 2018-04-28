@@ -35,7 +35,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.3",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.1.0",
-    "api-property-form-item": "advanced-rest-client/api-property-form-item#^2.0.1",
+    "api-property-form-item": "advanced-rest-client/api-property-form-item#2.0.0-preview",
     "marked-element": "PolymerElements/marked-element#^2.4.0",
     "markdown-styles": "advanced-rest-client/markdown-styles#^2.0.1",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.2",
@@ -59,6 +59,7 @@
     "cryptojs-lib": "advanced-rest-client/cryptojs-lib#^0.1.1",
     "iron-component-page": "^3.0.1",
     "neon-animation": "PolymerElements/neon-animation#^2.2.1",
+    "web-animations-js": "web-animations/web-animations-js#^2.3",
     "arc-polyfills": "advanced-rest-client/arc-polyfills#^0.1.11"
   },
   "ignore": [
