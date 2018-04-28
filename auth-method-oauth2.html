@@ -556,37 +556,37 @@ the License.
           clientId: {
             type: String,
             notify: true,
-            observer: '_settingsChanged'
+            observer: '_clientIdChanged'
           },
           // The client secret. It to be used when selected server flow.
           clientSecret: {
             type: String,
             notify: true,
-            observer: '_settingsChanged'
+            observer: '_clientSecretChanged'
           },
           // The authorization URL to initialize the OAuth flow.
           authorizationUri: {
             type: String,
             notify: true,
-            observer: '_settingsChanged'
+            observer: '_authorizationUriChanged'
           },
           // The access token URL to exchange code for token. It is used in server flow.
           accessTokenUri: {
             type: String,
             notify: true,
-            observer: '_settingsChanged'
+            observer: '_accessTokenUriChanged'
           },
           // The password. To be used with the password flow.
           password: {
             type: String,
             notify: true,
-            observer: '_settingsChanged'
+            observer: '_passwordChanged'
           },
           // The password. To be used with the password flow.
           username: {
             type: String,
             notify: true,
-            observer: '_settingsChanged'
+            observer: '_usernameChanged'
           },
           /**
            * A callback URL to be used with this element.
@@ -627,7 +627,7 @@ the License.
            */
           accessToken: {
             type: String,
-            observer: '_settingsChanged'
+            observer: '_accessTokenChanged'
           },
           /**
            * Received from the response token value.
@@ -638,7 +638,8 @@ the License.
            */
           tokenType: {
             type: String,
-            value: 'Bearer'
+            value: 'Bearer',
+            observer: '_tokenTypeChanged'
           },
           // Computed value, true if access token is set.
           hasAccessToken: {
@@ -841,6 +842,7 @@ the License.
             this._updateGrantTypes();
           }
           this._autoHide();
+          this._autoRestore();
         });
       }
 
@@ -874,6 +876,53 @@ the License.
           this.advancedOpened = true;
         }
       }
+
+      get storeKeys() {
+        return {
+          clientId: 'auth.methods.latest.client_id',
+          secret: 'auth.methods.latest.client_secret',
+          token: 'auth.methods.latest.auth_token',
+          authUri: 'auth.methods.latest.auth_uri',
+          tokenUri: 'auth.methods.latest.auth_uri',
+          username: 'auth.methods.latest.username',
+          password: 'auth.methods.latest.password',
+          tokenType: 'auth.methods.latest.tokenType'
+        };
+      }
+      /**
+       * Automatically restores value from session store if any exists.
+       * It does not override values already set.
+       */
+      _autoRestore() {
+        const keys = this.storeKeys;
+        this._restoreSessionProperty(keys.clientId, 'clientId');
+        this._restoreSessionProperty(keys.token, 'accessToken');
+        this._restoreSessionProperty(keys.tokenType, 'tokenType');
+        this._restoreSessionProperty(keys.authUri, 'authorizationUri');
+        this._restoreSessionProperty(keys.tokenUri, 'accessTokenUri');
+        this._restoreSessionProperty(keys.secret, 'clientSecret');
+        this._restoreSessionProperty(keys.username, 'username');
+        this._restoreSessionProperty(keys.password, 'password');
+      }
+
+      _restoreSessionProperty(sessionKey, localKey) {
+        if (!this[localKey]) {
+          const value = sessionStorage.getItem(sessionKey);
+          if (value) {
+            this.set(localKey, value);
+          }
+        }
+      }
+
+      _storeSessionProperty(sessionKey, value) {
+        if (!value) {
+          return;
+        }
+        if (typeof value === 'object') {
+          value = JSON.stringify(value);
+        }
+        sessionStorage.setItem(sessionKey, value);
+      }
       /**
        * Validates the form.
        *
@@ -882,6 +931,45 @@ the License.
       validate() {
         const form = this.shadowRoot.querySelector('iron-form');
         return form.validate();
+      }
+
+      _clientIdChanged(value) {
+        this._storeSessionProperty(this.storeKeys.clientId, value);
+        this._settingsChanged();
+      }
+
+      _clientSecretChanged(value) {
+        this._storeSessionProperty(this.storeKeys.secret, value);
+        this._settingsChanged();
+      }
+
+      _authorizationUriChanged(value) {
+        this._storeSessionProperty(this.storeKeys.authUri, value);
+        this._settingsChanged();
+      }
+
+      _accessTokenUriChanged(value) {
+        this._storeSessionProperty(this.storeKeys.tokenUri, value);
+        this._settingsChanged();
+      }
+
+      _passwordChanged(value) {
+        this._storeSessionProperty(this.storeKeys.username, value);
+        this._settingsChanged();
+      }
+
+      _usernameChanged(value) {
+        this._storeSessionProperty(this.storeKeys.username, value);
+        this._settingsChanged();
+      }
+
+      _accessTokenChanged(value) {
+        this._storeSessionProperty(this.storeKeys.token, value);
+        this._settingsChanged();
+      }
+
+      _tokenTypeChanged(value) {
+        this._storeSessionProperty(this.storeKeys.tokenType, value);
       }
 
       _settingsChanged() {
