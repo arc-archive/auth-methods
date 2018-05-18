@@ -8,32 +8,6 @@
  *   auth-method-oauth2.html
  */
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-button/paper-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../paper-styles/paper-styles.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="../paper-toast/paper-toast.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../oauth2-scope-selector/oauth2-scope-selector.d.ts" />
-/// <reference path="../paper-spinner/paper-spinner.d.ts" />
-/// <reference path="../iron-collapse/iron-collapse.d.ts" />
-/// <reference path="../paper-ripple/paper-ripple.d.ts" />
-/// <reference path="../paper-checkbox/paper-checkbox.d.ts" />
-/// <reference path="../clipboard-copy/clipboard-copy.d.ts" />
-/// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
-/// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
-/// <reference path="../marked-element/marked-element.d.ts" />
-/// <reference path="../markdown-styles/markdown-styles.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />
@@ -228,6 +202,7 @@ declare namespace UiElements {
      * This list can be extended by custom grants
      */
     readonly _oauth2GrantTypes: Array<object|null>|null;
+    readonly storeKeys: any;
 
     /**
      * Seleted authorization grand type.
@@ -448,9 +423,9 @@ declare namespace UiElements {
      * forces different than default parameter name for the token.
      */
     oauthDeliveryName: string|null|undefined;
+    ready(): void;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
-    ready(): void;
 
     /**
      * This function hides all non-crucial fields that has been pre-filled when element has been
@@ -462,11 +437,27 @@ declare namespace UiElements {
     _autoHide(): void;
 
     /**
+     * Automatically restores value from session store if any exists.
+     * It does not override values already set.
+     */
+    _autoRestore(): void;
+    _restoreSessionProperty(sessionKey: any, localKey: any): void;
+    _storeSessionProperty(sessionKey: any, value: any): void;
+
+    /**
      * Validates the form.
      *
      * @returns `true` if valid, `false` otherwise.
      */
     validate(): Boolean|null;
+    _clientIdChanged(value: any): void;
+    _clientSecretChanged(value: any): void;
+    _authorizationUriChanged(value: any): void;
+    _accessTokenUriChanged(value: any): void;
+    _passwordChanged(value: any): void;
+    _usernameChanged(value: any): void;
+    _accessTokenChanged(value: any): void;
+    _tokenTypeChanged(value: any): void;
     _settingsChanged(): void;
 
     /**
@@ -489,6 +480,13 @@ declare namespace UiElements {
      * Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
      */
     authorize(): void;
+
+    /**
+     * Displays an error message in error toast
+     *
+     * @param message Message to display.
+     */
+    _errorToast(message: String|null): void;
 
     /**
      * Generates `state` parameter for the OAuth2 call.
@@ -730,6 +728,15 @@ declare namespace UiElements {
      * Clears all custom data documention nodes.
      */
     _clearDocs(): void;
+
+    /**
+     * Dispatches analytics event.
+     *
+     * @param category Event category
+     * @param action Event action
+     * @param label Event label
+     */
+    _analyticsEvent(category: String|null, action: String|null, label: String|null): void;
   }
 }
 

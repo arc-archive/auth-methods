@@ -8,6 +8,3 @@
  *   auth-methods-styles.html
  */
 
-/// <reference path="../polymer/types/polymer.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-

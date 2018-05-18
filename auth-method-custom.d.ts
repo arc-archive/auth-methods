@@ -8,24 +8,6 @@
  *   auth-method-custom.html
  */
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../markdown-styles/markdown-styles.d.ts" />
-/// <reference path="../iron-collapse/iron-collapse.d.ts" />
-/// <reference path="../marked-element/marked-element.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
-/// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />
@@ -42,7 +24,7 @@ declare namespace UiElements {
    * in corresponding UI element. This events are supported with all API components
    * that handles headers or query parameters.
    *
-   * This element is rendered empty if `securityScheme` property is not set.
+   * This element is rendered empty if `amfSettings` property is not set.
    * Parent element or application should check if model contains the scheme.
    *
    * ### Example
@@ -67,7 +49,7 @@ declare namespace UiElements {
    *
    * - The element now works with AMF json/ld data model. RAML json parser output
    * is no longer supported.
-   * - `ramlSettings` has been renamed to `securityScheme`
+   * - `ramlSettings` has been renamed to `amfSettings`
    * - Added scheme title and documentation to the panel.
    */
   class AuthMethodCustom extends
@@ -78,7 +60,7 @@ declare namespace UiElements {
     /**
      * AMF security scheme model.
      */
-    securityScheme: object|null|undefined;
+    amfSettings: object|null|undefined;
 
     /**
      * Computed list of headers to render in the form.

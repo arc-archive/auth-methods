@@ -8,22 +8,6 @@
  *   auth-method-oauth1.html
  */
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-button/paper-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../paper-styles/paper-styles.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="../paper-toast/paper-toast.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../paper-spinner/paper-spinner.d.ts" />
-/// <reference path="../neon-animation/web-animations.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 
@@ -198,9 +182,9 @@ declare namespace UiElements {
      * This can be updated when `amfSettings` property is set.
      */
     signatureMethods: any[]|null|undefined;
+    _getAmfValue(model: any): any;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
-    _getAmfValue(model: any): any;
     ready(): void;
 
     /**
