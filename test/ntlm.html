@@ -82,16 +82,16 @@
       });
 
       test('Invalid settings dispatched', function(done) {
-        element.addEventListener('auth-settings-changed', function clb(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.username, '', 'username is empty');
-          assert.equal(e.detail.settings.password, 'test', 'password is set');
-          assert.equal(e.detail.settings.domain, '', 'Domain is empty');
-          assert.equal(e.detail.type, 'ntlm', 'type is set');
-          assert.isFalse(e.detail.valid, 'valid is false');
-          done();
-        });
         flush(() => {
+          element.addEventListener('auth-settings-changed', function clb(e) {
+            element.removeEventListener('auth-settings-changed', clb);
+            assert.equal(e.detail.settings.username, '', 'username is empty');
+            assert.equal(e.detail.settings.password, 'test', 'password is set');
+            assert.equal(e.detail.settings.domain, '', 'Domain is empty');
+            assert.equal(e.detail.type, 'ntlm', 'type is set');
+            assert.isFalse(e.detail.valid, 'valid is false');
+            done();
+          });
           element.password = 'test';
         });
       });
@@ -99,16 +99,16 @@
       test('Valid settings dispatched', (done) => {
         element.username = 'test-username';
         element.password = 'test-password';
-        element.addEventListener('auth-settings-changed', function clb(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.equal(e.detail.settings.username, 'test-username', 'Username is set');
-          assert.equal(e.detail.settings.password, 'test-password', 'Password is empty');
-          assert.equal(e.detail.settings.domain, 'test-domain', 'Domain is set');
-          assert.equal(e.detail.type, 'ntlm', 'type is set');
-          assert.isTrue(e.detail.valid, 'valid is true');
-          done();
-        });
         flush(() => {
+          element.addEventListener('auth-settings-changed', function clb(e) {
+            element.removeEventListener('auth-settings-changed', clb);
+            assert.equal(e.detail.settings.username, 'test-username', 'Username is set');
+            assert.equal(e.detail.settings.password, 'test-password', 'Password is empty');
+            assert.equal(e.detail.settings.domain, 'test-domain', 'Domain is set');
+            assert.equal(e.detail.type, 'ntlm', 'type is set');
+            assert.isTrue(e.detail.valid, 'valid is true');
+            done();
+          });
           element.domain = 'test-domain';
         });
       });
