@@ -1,25 +1,14 @@
 <!doctype html>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../iron-test-helpers/test-helpers.js"></script>
     <script src="../../iron-test-helpers/mock-interactions.js"></script>
-    <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
-    <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
-    <link rel="import" href="../auth-methods.html">
+    <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
+    <script src="amf-loader.js"></script>
+    <link rel="import" href="../auth-method-oauth1.html">
   </head>
   <body>
 
@@ -28,63 +17,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <auth-method-oauth1></auth-method-oauth1>
       </template>
     </test-fixture>
-
-    <test-fixture id="parser">
-      <template>
-        <raml-js-parser json></raml-js-parser>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="enhancer">
-      <template>
-        <raml-json-enhance></raml-json-enhance>
-      </template>
-    </test-fixture>
-
     <script>
-    /* global fixture, assert, TestHelpers, MockInteractions */
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-    // jscs:disable requireDotNotation
-    suite('Basic', function() {
-      var element;
-      setup(function() {
+    /* global flush, MockInteractions, AmfLoader */
+    suite('Basic', () => {
+      let element;
+      setup(() => {
         element = fixture('basic');
       });
 
-      test('timestamp is set by default', function() {
+      test('timestamp is set by default', () => {
         assert.typeOf(element.timestamp, 'number');
       });
 
-      test('nonce is set by default', function() {
+      test('nonce is set by default', () => {
         assert.typeOf(element.nonce, 'string');
       });
 
-      test('signatureMethods is set by default', function() {
+      test('signatureMethods is set by default', () => {
         assert.typeOf(element.signatureMethods, 'array');
         assert.lengthOf(element.signatureMethods, 3);
       });
 
-      test('authTokenMethod is set', function() {
+      test('authTokenMethod is set', () => {
         assert.equal(element.authTokenMethod, 'POST');
       });
 
-      test('authParamsLocation is set', function() {
+      test('authParamsLocation is set', () => {
         assert.equal(element.authParamsLocation, 'authorization');
       });
 
-      test('Do not passes validation', function() {
+      test('Do not passes validation', () => {
         assert.isFalse(element.validate());
       });
 
-      test('Passes validation for minimum parameters', function() {
+      test('Passes validation for minimum parameters', (done) => {
         element.consumerKey = 'test-key';
-        TestHelpers.forceXIfStamp(element);
-        assert.isTrue(element.validate());
+        flush(() => {
+          assert.isTrue(element.validate());
+          done();
+        });
       });
 
-      test('Fires auth-settings-changed custom event', function() {
-        TestHelpers.forceXIfStamp(element);
-        var eventData;
+      test('Fires auth-settings-changed custom event', () => {
+        let eventData;
         element.addEventListener('auth-settings-changed', function clb(e) {
           element.removeEventListener('auth-settings-changed', clb);
           eventData = e.detail;
@@ -95,8 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.typeOf(eventData.settings, 'object');
       });
 
-      test('auth-settings-changed custom event contains settings', function() {
-        TestHelpers.forceXIfStamp(element);
+      test('auth-settings-changed custom event contains settings', () => {
         element.consumerSecret = 'test-secret';
         element.requestTokenUrl = 'test-request-token-url';
         element.accessTokenUrl = 'test-access-token-url';
@@ -105,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.nonce = 'test-nonce';
         element.timestamp = 12345;
 
-        var eventData;
+        let eventData;
         element.addEventListener('auth-settings-changed', function clb(e) {
           element.removeEventListener('auth-settings-changed', clb);
           eventData = e.detail;
@@ -113,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         element.consumerKey = 'test-key';
         assert.isFalse(eventData.valid, 'valid is false');
-        var s = eventData.settings;
+        let s = eventData.settings;
         assert.typeOf(s, 'object');
         assert.equal(s.consumerKey, element.consumerKey);
         assert.equal(s.consumerSecret, element.consumerSecret);
@@ -126,26 +100,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(s.type, 'oauth1');
       });
 
-      test('auth-settings-changed valid is true with token data', function() {
-        TestHelpers.forceXIfStamp(element);
+      test('auth-settings-changed valid is true with token data', (done) => {
         element.consumerSecret = 'test-secret';
         element.token = 'test-token';
         element.tokenSecret = 'test-token-secret';
 
-        var eventData;
-        element.addEventListener('auth-settings-changed', function clb(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          eventData = e.detail;
+        flush(() => {
+          let eventData;
+          element.addEventListener('auth-settings-changed', function clb(e) {
+            element.removeEventListener('auth-settings-changed', clb);
+            eventData = e.detail;
+          });
+          element.consumerKey = 'test-key';
+          let s = eventData.settings;
+          assert.isTrue(eventData.valid, 'valid is true');
+          assert.equal(s.token, element.token);
+          assert.equal(s.tokenSecret, element.tokenSecret);
+          done();
         });
-        element.consumerKey = 'test-key';
-        var s = eventData.settings;
-        assert.isTrue(eventData.valid, 'valid is true');
-        assert.equal(s.token, element.token);
-        assert.equal(s.tokenSecret, element.tokenSecret);
       });
 
-      test('Fires oauth1-token-requested custom event', function() {
-        TestHelpers.forceXIfStamp(element);
+      test('Fires oauth1-token-requested custom event', () => {
         element.consumerSecret = 'test-secret';
         element.requestTokenUrl = 'test-request-token-url';
         element.accessTokenUrl = 'test-access-token-url';
@@ -154,14 +129,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.nonce = 'test-nonce';
         element.timestamp = 12345;
         element.consumerKey = 'test-key';
-        var button = element.$$('.auth-button');
-        var eventData;
+        let button = element.shadowRoot.querySelector('.auth-button');
+        let eventData;
         element.addEventListener('oauth1-token-requested', function clb(e) {
           element.removeEventListener('oauth1-token-requested', clb);
           eventData = e.detail;
         });
         MockInteractions.tap(button);
-        var s = eventData;
+        let s = eventData;
         assert.equal(s.consumerKey, element.consumerKey);
         assert.equal(s.consumerSecret, element.consumerSecret);
         assert.equal(s.requestTokenUrl, element.requestTokenUrl);
@@ -173,20 +148,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(s.type, 'oauth1');
       });
 
-      test('Requesting token activates loader', function() {
-        TestHelpers.forceXIfStamp(element);
+      test('Requesting token activates loader', () => {
         element.consumerKey = 'test-key';
         element.authorize();
         assert.isTrue(element._authorizing);
-        assert.isTrue(element.$$('paper-spinner').active);
+        assert.isTrue(element.shadowRoot.querySelector('paper-spinner').active);
       });
 
-      test('Resets the UI state when token response ready', function() {
-        TestHelpers.forceXIfStamp(element);
+      test('Resets the UI state when token response ready', () => {
         element.consumerKey = 'test-key';
         element.authorize();
         assert.isTrue(element._authorizing);
-        var event = new CustomEvent('oauth1-token-response', {
+        let event = new CustomEvent('oauth1-token-response', {
           detail: {
             oauth_token: 'token',
             oauth_token_secret: 'secret'
@@ -198,50 +171,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     });
 
-    suite('RAML type', function() {
-      var element;
-      var oauth1;
-      suiteSetup(function(done) {
-        this.timeout(30000);
-        var baseUrl = location.href.substr(0, location.href.lastIndexOf('/') + 1);
-        var parser = fixture('parser');
-        var enhancer = fixture('enhancer');
-        enhancer.addEventListener('raml-json-enhance-ready', function(e) {
-          oauth1 = e.detail.json.securitySchemes.oauth1;
-          done();
-        });
-        enhancer.addEventListener('error', function(e) {
-          done(new Error(e.detail.message));
-        });
-        parser.loadApi(baseUrl + 'test.raml')
-        .then(function(data) {
-          enhancer.json = data.json.specification;
-        })
-        .catch(function(e) {
-          done(new Error('Parser error: ' + (e.message || 'Some error happened...')));
-        });
+    suite('AMF model', () => {
+      let amf;
+      suiteSetup(() => {
+        return AmfLoader.load(4)
+        .then((model) => amf = model);
       });
 
-      setup(function() {
+      let element;
+      setup((done) => {
         element = fixture('basic');
-        element.ramlSettings = oauth1;
+        element.amfSettings = amf;
+        Polymer.RenderStatus.afterNextRender(this, () => {
+          flush(() => done());
+        });
       });
 
-      test('Authorization endpoints are set', function() {
-        assert.equal(element.requestTokenUrl, oauth1.settings.requestTokenUri);
-        assert.equal(element.authorizationUrl, oauth1.settings.authorizationUri);
-        assert.equal(element.accessTokenUrl, oauth1.settings.tokenCredentialsUri);
+      test('requestTokenUrl is set', () => {
+        assert.equal(element.requestTokenUrl, 'http://api.domain.com/oauth1/request_token');
       });
 
-      test('signatureMethods are set', function() {
-        assert.typeOf(element.signatureMethods, 'array');
-        assert.lengthOf(element.signatureMethods, 2);
+      test('authorizationUrl is set', () => {
+        assert.equal(element.authorizationUrl, 'http://api.domain.com/oauth1/authorize');
       });
 
-      test('removing ramlSettings resets signatureMethods', function() {
-        element.ramlSettings = undefined;
-        assert.typeOf(element.signatureMethods, 'array');
-        assert.lengthOf(element.signatureMethods, 3);
+      test('accessTokenUrl is set', () => {
+        assert.equal(element.accessTokenUrl, 'http://api.domain.com/oauth1/access_token');
+      });
+
+      test('signatureMethods is set', () => {
+        assert.deepEqual(element.signatureMethods, ['PLAINTEXT', 'RSA-SHA1', 'HMAC-SHA1']);
       });
     });
     </script>
