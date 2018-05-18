@@ -35,7 +35,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.3",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.1.0",
-    "api-property-form-item": "advanced-rest-client/api-property-form-item#2.0.0-preview",
+    "api-property-form-item": "advanced-rest-client/api-property-form-item#^2.0.0",
     "marked-element": "PolymerElements/marked-element#^2.4.0",
     "markdown-styles": "advanced-rest-client/markdown-styles#^2.0.1",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.2",
@@ -47,7 +47,7 @@
     "clipboard-copy": "advanced-rest-client/clipboard-copy#^2.0.0",
     "paper-masked-input": "advanced-rest-client/paper-masked-input#^2.0.0",
     "oauth2-scope-selector": "advanced-rest-client/oauth2-scope-selector#^2.0.0",
-    "api-view-model-transformer": "advanced-rest-client/api-view-model-transformer#2.0-preview"
+    "api-view-model-transformer": "advanced-rest-client/api-view-model-transformer#^2.0.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
