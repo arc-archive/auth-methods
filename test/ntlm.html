@@ -1,27 +1,13 @@
 <!doctype html>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../iron-test-helpers/test-helpers.js"></script>
-    <script src="../../iron-test-helpers/mock-interactions.js"></script>
-    <!-- Step 1: import the element to test -->
-    <link rel="import" href="../auth-methods.html">
+    <link rel="import" href="../auth-method-ntlm.html">
   </head>
   <body>
-
     <test-fixture id="basic">
       <template>
         <auth-method-ntlm></auth-method-ntlm>
@@ -29,65 +15,158 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global fixture, assert, sinon */
-    suite('basic', function() {
-      var element;
-      setup(function() {
+    suite('basic', () => {
+      let element;
+      setup(() => {
         element = fixture('basic');
       });
 
-      test('Should not be validated', function() {
-        assert.isFalse(element.validate(), 'Active validation.');
-        // assert.isFalse(element.validate(true), 'Passive validation.');
-        // This test is disabled due the: https://github.com/PolymerElements/iron-form/issues/160
+      test('Computes settings', () => {
+        element.username = 'test-user';
+        element.password = 'test-passwd';
+        element.domain = 'test-domain';
+        const settings = element.getSettings();
+        assert.equal(settings.username, element.username, 'username is set');
+        assert.equal(settings.password, element.password, 'password is set');
+        assert.equal(settings.domain, element.domain, 'Domain is  set');
+      });
+    });
+
+    suite('Validation', () => {
+      let element;
+      setup(() => {
+        element = fixture('basic');
       });
 
-      test('Should be validated', function() {
+      test('Not valid without username and password', (done) => {
+        flush(() => {
+          const result = element.validate();
+          assert.isFalse(result);
+          done();
+        });
+      });
+
+      test('Valid with username and password', (done) => {
         element.username = 'test';
         element.password = 'test';
-
-        assert.isTrue(element.validate(), 'Active validation.');
-        assert.isTrue(element.validate(true), 'Passive validation.');
+        flush(() => {
+          const result = element.validate();
+          assert.isTrue(result);
+          done();
+        });
       });
 
-      test('Settings are set', function() {
-        element.username = 'test-username';
-        element.password = 'test-password';
-        element.domain = 'test-domain';
-        var settings = element.settings;
+      test('Valid with username, password and domain', (done) => {
+        element.username = 'test';
+        element.password = 'password';
+        element.domain = 'test';
+        flush(() => {
+          const result = element.validate();
+          assert.isTrue(result);
+          done();
+        });
+      });
+    });
 
-        assert.equal(settings.username, 'test-username');
-        assert.equal(settings.password, 'test-password');
-        assert.equal(settings.domain, 'test-domain');
+    suite('Settings notification', () => {
+      let element;
+      setup(() => {
+        element = fixture('basic');
       });
 
-      test('Fire `auth-settings-changed` event', function() {
-        var spy = sinon.stub();
+      test('Dispatches `auth-settings-changed` event once', () => {
+        let spy = sinon.stub();
         element.addEventListener('auth-settings-changed', spy);
         element.username = 'test';
         assert.isTrue(spy.calledOnce);
       });
 
-      test('Fire `auth-settings-changed` with validate eq. false', function(done) {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.isFalse(e.detail.valid);
-          done();
-        };
-        element.addEventListener('auth-settings-changed', clb);
-        element.password = 'test';
+      test('Invalid settings dispatched', function(done) {
+        flush(() => {
+          element.addEventListener('auth-settings-changed', function clb(e) {
+            element.removeEventListener('auth-settings-changed', clb);
+            assert.equal(e.detail.settings.username, '', 'username is empty');
+            assert.equal(e.detail.settings.password, 'test', 'password is set');
+            assert.equal(e.detail.settings.domain, '', 'Domain is empty');
+            assert.equal(e.detail.type, 'ntlm', 'type is set');
+            assert.isFalse(e.detail.valid, 'valid is false');
+            done();
+          });
+          element.password = 'test';
+        });
       });
 
-      test('Fire `auth-settings-changed` with validate eq. true', function() {
-        var clb = function(e) {
-          element.removeEventListener('auth-settings-changed', clb);
-          assert.isTrue(e.detail.valid);
-        };
-        element.username = 'test';
-        element.addEventListener('auth-settings-changed', clb);
-        element.password = 'test';
+      test('Valid settings dispatched', (done) => {
+        element.username = 'test-username';
+        element.password = 'test-password';
+        flush(() => {
+          element.addEventListener('auth-settings-changed', function clb(e) {
+            element.removeEventListener('auth-settings-changed', clb);
+            assert.equal(e.detail.settings.username, 'test-username', 'Username is set');
+            assert.equal(e.detail.settings.password, 'test-password', 'Password is empty');
+            assert.equal(e.detail.settings.domain, 'test-domain', 'Domain is set');
+            assert.equal(e.detail.type, 'ntlm', 'type is set');
+            assert.isTrue(e.detail.valid, 'valid is true');
+            done();
+          });
+          element.domain = 'test-domain';
+        });
+      });
+    });
+
+    suite('Settings change event handling', () => {
+      function fire(opts) {
+        opts = opts || {};
+        let event = new CustomEvent('auth-settings-changed', {
+          detail: {
+            type: opts.type || 'ntlm',
+            valid: true,
+            settings: {
+              username: 'user',
+              password: 'passwd',
+              domain: 'domain'
+            }
+          },
+          bubbles: true
+        });
+        (opts.node || document.body).dispatchEvent(event);
+      }
+      let element;
+      setup(() => {
+        element = fixture('basic');
       });
 
+      test('Updates properties from the event', () => {
+        fire();
+        assert.equal(element.username, 'user');
+        assert.equal(element.password, 'passwd');
+        assert.equal(element.domain, 'domain');
+      });
+
+      test('Does not update values for other types.', () => {
+        fire({
+          type: 'oauth2'
+        });
+        assert.isUndefined(element.username);
+        assert.isUndefined(element.password);
+        assert.isUndefined(element.domain);
+      });
+
+      test('Does not update values if target is self.', () => {
+        fire({
+          node: element
+        });
+        assert.isUndefined(element.username);
+        assert.isUndefined(element.password);
+        assert.isUndefined(element.domain);
+      });
+
+      test('Does not dispatch settings change event', () => {
+        let spy = sinon.stub();
+        element.addEventListener('auth-settings-changed', spy);
+        fire();
+        assert.isFalse(spy.called);
+      });
     });
     </script>
 
