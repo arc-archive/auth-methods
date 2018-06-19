@@ -482,8 +482,8 @@ Custom property | Description | Default
               <paper-tooltip for="username" position="bottom">The username required for this OAuth authentication.</paper-tooltip>
               <paper-masked-input auto-validate required$="[[_isFieldRequired(isCustomGrant)]]" label="Password" value="{{password}}" id="password" hiddable data-visible="password" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on"></paper-masked-input>
               <paper-tooltip for="password" position="bottom">The password required for this OAuth authentication.</paper-tooltip>
-              <div hiddable data-visible="implicit authorization_code">
-                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}" disabled$="[[_isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code')]]"></oauth2-scope-selector>
+              <div>
+                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" scopes="{{scopes}}"></oauth2-scope-selector>
               </div>
             </iron-collapse>
           </div>
@@ -989,6 +989,7 @@ Custom property | Description | Default
         type: this.grantType,
         clientId: this.clientId,
         tokenValue: this.tokenValue || '',
+        scopes: this.scopes,
         customData: {
           auth: {
             parameters: undefined
@@ -1005,7 +1006,6 @@ Custom property | Description | Default
           // The browser flow.
           detail.authorizationUrl = this.authUrl;
           detail.redirectUrl = this.redirectUrl;
-          detail.scopes = this.scopes;
           this._computeAuthCustomData(detail);
           break;
         case 'authorization_code':
@@ -1014,7 +1014,6 @@ Custom property | Description | Default
           detail.clientSecret = this.clientSecret;
           detail.accessTokenUrl = this.accessTokenUrl;
           detail.redirectUrl = this.redirectUrl;
-          detail.scopes = this.scopes;
           this._computeAuthCustomData(detail);
           this._computeTokenCustomData(detail);
           break;
@@ -1037,7 +1036,6 @@ Custom property | Description | Default
           detail.clientSecret = this.clientSecret;
           detail.accessTokenUrl = this.accessTokenUrl;
           detail.redirectUrl = this.redirectUrl;
-          detail.scopes = this.scopes;
           detail.username = this.username;
           detail.password = this.password;
           this._computeAuthCustomData(detail);
@@ -1118,16 +1116,15 @@ Custom property | Description | Default
       this.grantType = settings.type;
       this.clientId = settings.clientId;
       this.tokenValue = settings.tokenValue;
+      this.scopes = settings.scopes;
       switch (this.grantType) {
         case 'implicit':
           this.authUrl = settings.authorizationUrl;
-          this.scopes = settings.scopes;
           break;
         case 'authorization_code':
           this.authUrl = settings.authorizationUrl;
           this.clientSecret = settings.clientSecret;
           this.accessTokenUrl = settings.accessTokenUrl;
-          this.scopes = settings.scopes;
           break;
         case 'client_credentials':
           // The server flow.
