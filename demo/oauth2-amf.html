@@ -77,7 +77,7 @@
           data = data[0]['http://raml.org/vocabularies/document#encodes'][0];
           data = data['http://raml.org/vocabularies/http#endpoint'][0];
           data = data['http://www.w3.org/ns/hydra/core#supportedOperation'][0];
-          data = data['http://raml.org/vocabularies/security#security'][1];
+          data = data['http://raml.org/vocabularies/security#security'][0];
           AuthDemo.auth.amfSettings = data;
         });
       },
