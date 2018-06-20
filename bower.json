@@ -1,7 +1,7 @@
 {
   "name": "auth-methods",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "authors": [
     "Pawel Psztyc",
     "The Advanced REST client authors <arc@mulesoft.com>"
@@ -60,7 +60,8 @@
     "iron-component-page": "^3.0.1",
     "neon-animation": "PolymerElements/neon-animation#^2.2.1",
     "web-animations-js": "web-animations/web-animations-js#^2.3",
-    "arc-polyfills": "advanced-rest-client/arc-polyfills#^0.1.11"
+    "arc-polyfills": "advanced-rest-client/arc-polyfills#^0.1.11",
+    "api-navigation": "advanced-rest-client/api-navigation#^2.0.0"
   },
   "ignore": [
     "**/.*",

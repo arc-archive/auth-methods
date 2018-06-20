@@ -8,6 +8,13 @@
  *   auth-method-ntlm.html
  */
 
+/// <reference path="../polymer/types/polymer.d.ts" />
+/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
+/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
+/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
+/// <reference path="../paper-input/paper-input.d.ts" />
+/// <reference path="../arc-icons/arc-icons.d.ts" />
+/// <reference path="../iron-form/iron-form.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />

@@ -8,6 +8,32 @@
  *   auth-method-oauth2.html
  */
 
+/// <reference path="../polymer/types/polymer-element.d.ts" />
+/// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
+/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
+/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
+/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
+/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
+/// <reference path="../paper-button/paper-button.d.ts" />
+/// <reference path="../paper-input/paper-input.d.ts" />
+/// <reference path="../arc-icons/arc-icons.d.ts" />
+/// <reference path="../paper-styles/paper-styles.d.ts" />
+/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
+/// <reference path="../iron-form/iron-form.d.ts" />
+/// <reference path="../paper-item/paper-item.d.ts" />
+/// <reference path="../paper-toast/paper-toast.d.ts" />
+/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
+/// <reference path="../paper-listbox/paper-listbox.d.ts" />
+/// <reference path="../oauth2-scope-selector/oauth2-scope-selector.d.ts" />
+/// <reference path="../paper-spinner/paper-spinner.d.ts" />
+/// <reference path="../iron-collapse/iron-collapse.d.ts" />
+/// <reference path="../paper-ripple/paper-ripple.d.ts" />
+/// <reference path="../paper-checkbox/paper-checkbox.d.ts" />
+/// <reference path="../clipboard-copy/clipboard-copy.d.ts" />
+/// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
+/// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
+/// <reference path="../marked-element/marked-element.d.ts" />
+/// <reference path="../markdown-styles/markdown-styles.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />
@@ -165,9 +191,12 @@ declare namespace UiElements {
    * `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
    * `--input-line-color` | Mixin applied to the input underline | `{}`
    * `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
-   * `--auth-button` | Mixin applied to authorization and next buttons` | `{}`
-   * `--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
-   * `--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
+   * `--auth-button` | Mixin applied to authorization action buttons | `{}`
+   * `--auth-button-hover` | Mixin applied to authorization buttons when hovered | `{}`
+   * `--auth-button-disabled` | Mixin applied to authorization buttons when disabled | `{}`
+   * `--auth-button-narrow` | Mixin applied to authorization action buttons when narrow layout | `{}`
+   * `--auth-button-narrow-hover` | Mixin applied to authorization buttons when hovered and narrow layout | `{}`
+   * `--auth-button-narrow-disabled` | | Mixin applied to authorization buttons when disabled and narrow layout | `{}`
    * `--auth-redirect-section` | Mixin applied to the redirect uri section | `{}`
    * `--error-toast` | Mixin applied to the error toast message | `{}`
    * `--warning-primary-color` | Error toast background color | `#FF7043`
@@ -423,9 +452,15 @@ declare namespace UiElements {
      * forces different than default parameter name for the token.
      */
     oauthDeliveryName: string|null|undefined;
-    ready(): void;
+
+    /**
+     * Renders slightly different view that is optymized for mobile
+     * or narrow area on desktop.
+     */
+    narrow: boolean|null|undefined;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
+    ready(): void;
 
     /**
      * This function hides all non-crucial fields that has been pre-filled when element has been
@@ -461,11 +496,6 @@ declare namespace UiElements {
     _settingsChanged(): void;
 
     /**
-     * Removes a value from the (paper-)input going up through path of the event.
-     */
-    _clearField(e: any): void;
-
-    /**
      * Checks if the HTML element should be visible in the UI for given properties.
      */
     _isFieldDisabled(): any;
@@ -477,7 +507,11 @@ declare namespace UiElements {
     _isFieldRequired(isCustomGrant: Boolean|null): Boolean|null;
 
     /**
-     * Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
+     * Dispatches the `oauth2-token-requested` event.
+     * The event is handled by `oauth-authorization` component.
+     *
+     * If your application has own OAuth2 token exchange system then
+     * handle the event and authorize the user.
      */
     authorize(): void;
 
@@ -702,8 +736,6 @@ declare namespace UiElements {
      * @returns Label to render
      */
     _computeSelectedTypeLabel(grantType: String|null): String|null;
-    _copyContent(e: any): void;
-    _resetCopyButtonState(button: any): void;
     _updateStepperState(noStepper: any): void;
     _noGrantTypeChanged(newValue: any, oldValue: any): void;
 
@@ -737,6 +769,12 @@ declare namespace UiElements {
      * @param label Event label
      */
     _analyticsEvent(category: String|null, action: String|null, label: String|null): void;
+
+    /**
+     * A handler for `focus` event on a label that contains text and
+     * should be coppied to clipboard when user is interacting with it.
+     */
+    _clickCopyAction(e: ClickEvent|null): void;
   }
 }
 

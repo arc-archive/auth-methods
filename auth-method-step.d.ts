@@ -8,6 +8,13 @@
  *   auth-method-step.html
  */
 
+/// <reference path="../polymer/types/polymer-element.d.ts" />
+/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
+/// <reference path="../paper-ripple/paper-ripple.d.ts" />
+/// <reference path="../iron-collapse/iron-collapse.d.ts" />
+/// <reference path="../arc-icons/arc-icons.d.ts" />
+/// <reference path="../iron-icon/iron-icon.d.ts" />
+
 declare namespace UiElements {
 
   /**
@@ -37,6 +44,7 @@ declare namespace UiElements {
     inactive: boolean|null|undefined;
     _computeStep(stepStartIndex: any, currentStep: any): any;
     _inactiveTap(): void;
+    _computeContentOpened(inactive: any, noSteps: any): any;
   }
 }
 

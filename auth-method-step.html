@@ -7,10 +7,13 @@
 <dom-module id="auth-method-step">
   <template>
     <style>
+    .row {
+      padding: 12px 0;
+    }
+
     .stepper {
       @apply --layout-horizontal;
       @apply --layout-center;
-      padding: 12px 0;
       position: relative;
       pointer-events: none;
     }
@@ -46,6 +49,20 @@
       font-weight: 500;
     }
 
+    .edit-icon {
+      margin-left: 8px;
+      color: var(--api-form-action-icon-color, rgba(0, 0, 0, 0.74));
+      transition: color 0.25s linear;
+      width: 20px;
+      height: 20px;
+      @apply --icon-button;
+    }
+
+    .edit-icon:hover {
+      color: var(--api-form-action-icon-hover-color, rgba(0, 0, 0, 0.84));
+      @apply --icon-button-hover;
+    }
+
     .stepper .step-selection {
       @apply --arc-font-body1;
       color: var(--stepper-step-selection-label-color, rgba(0, 0, 0, 0.54));
@@ -60,29 +77,21 @@
 
     .step-content {
       @apply --layout-horizontal;
-      margin-bottom: 12px;
       min-height: 32px;
     }
 
-    .step-content .line {
+    .line {
       min-width: 11px;
       max-width: 11px;
       border-right: 1px var(--stepper-line-color, rgba(0, 0, 0, 0.12)) solid;
       margin-right: 24px;
+      margin-top: 8px;
     }
 
     .step-content .content {
       @apply --layout-flex;
       max-width: calc(100% - 16px);
       @apply --auth-methods-step-content;
-    }
-
-    .step-header .edit-icon {
-      visibility: hidden;
-    }
-
-    :host([inactive]) .step-header:hover .edit-icon {
-      visibility: visible;
     }
 
     .container {
@@ -96,37 +105,69 @@
     paper-ripple {
       color: var(--stepper-step-title-color, #3D8099);
     }
+
+    .step-title-render {
+      @apply --layout-vertical;
+      @apply --layout-center;
+      @apply --layout-self-stretch;
+    }
+
+    .step-title-render .line {
+      @apply --layout-flex;
+      display: none;
+    }
+
+    :host([inactive]) .step-title-render .line {
+      display: block;
+    }
+
+    :host([no-steps]) .line {
+      display: none;
+    }
+
+    .step-inactive-title {
+      @apply --arc-font-body1;
+      font-size: 16px;
+      font-weight: 400;
+      margin-top: 12px;
+      display: block;
+
+      @apply --layout-horizontal;
+      @apply --layout-center;
+    }
+
+    :host([no-steps]) .stepper {
+      display: none !important;
+    }
     </style>
-    <template is="dom-if" if="[[noSteps]]" restamp="true">
-      <slot></slot>
-    </template>
-    <template is="dom-if" if="[[!noSteps]]" restamp="true">
-      <div class="row">
-        <div class="stepper">
+
+    <div class="row">
+      <div class="stepper">
+        <div class="step-title-render">
           <span class="step">[[_computeStep(stepStartIndex, step)]]</span>
-          <span class="step-header" on-tap="_inactiveTap">
-            <span class="step-title">
-              <slot name="title"></slot>
-              <template is="dom-if" if="[[inactive]]">
-                <iron-icon icon="arc:edit" class="edit-icon" title="Click to make changes"></iron-icon>
-              </template>
-            </span>
-            <span class="step-inactive-title" hidden$="[[!inactive]]">
-              <slot name="inactive-title"></slot>
-            </span>
-          </span>
-          <paper-ripple></paper-ripple>
+          <div class="line"></div>
         </div>
-        <iron-collapse opened="[[!inactive]]">
-          <div class="step-content">
-            <div class="line"></div>
-            <div class="container">
-              <slot></slot>
-            </div>
-          </div>
-        </iron-collapse>
+        <span class="step-header" on-tap="_inactiveTap">
+          <span class="step-title">
+            <slot name="title"></slot>
+            <iron-icon icon="arc:edit" class="edit-icon" title="Click to make changes" hidden$="[[!inactive]]"></iron-icon>
+          </span>
+          <span class="step-inactive-title" hidden$="[[!inactive]]">
+            <slot name="inactive-title"></slot>
+          </span>
+        </span>
+        <paper-ripple></paper-ripple>
       </div>
-    </template>
+      <iron-collapse opened="[[_computeContentOpened(inactive, noSteps)]]">
+        <div class="step-content">
+          <div class="line"></div>
+          <div class="container">
+            <slot></slot>
+          </div>
+        </div>
+      </iron-collapse>
+    </div>
+
   </template>
   <script>
   /**
@@ -151,7 +192,8 @@
          */
         noSteps: {
           type: Boolean,
-          value: false
+          value: false,
+          reflectToAttribute: true
         },
         // Title of the step
         title: String,
@@ -175,6 +217,13 @@
       this.dispatchEvent(new CustomEvent('inactive-tap', {
         bubbles: false
       }));
+    }
+
+    _computeContentOpened(inactive, noSteps) {
+      if (noSteps) {
+        return true;
+      }
+      return !inactive;
     }
   }
   window.customElements.define(AuthMethodStep.is, AuthMethodStep);
