@@ -4,7 +4,7 @@ version: v1
 baseUri: http://domain.api.domain.com/{version}/
 
 annotationTypes:
-  oauth-2-custom-settings:
+  oauth2CustomSettings:
     allowedTargets: [ SecuritySchemeSettings ]
     properties:
       authorizationSettings:
@@ -24,6 +24,17 @@ annotationTypes:
               Use the same notation as RAML's `queryParameters`.
               If you define a parameter that is already defined in OAuth 2.0 specification
               (RFC6749) it should be ignored by the processor.
+            type: object
+            required: false
+            properties:
+              /a-zA-Z0-9\-\_/*:
+                type: object
+                required: false
+          headers:
+            displayName: Authorization headers
+            description: |
+              Headers to be set on the authorization request.
+              Use the same notation as RAML's `headers`.
             type: object
             required: false
             properties:
@@ -89,10 +100,10 @@ annotationTypes:
           properties defined in the `settings` and should be replaced by
           `authorizationGrants` defined in this annotation.
           This can be used only if this annotation `authorizationGrants` is set.
-
 securitySchemes:
   oauth2Normal:
     type: OAuth 2.0
+    displayName: Normal OAuth 2.0 definition
     settings:
       accessTokenUri: https://token.com
       authorizationUri: https://auth.com
@@ -103,12 +114,16 @@ securitySchemes:
         access_token:
           type: string
           description: Apply access token here.
+      headers:
+        Authorization:
+          type: string
   oauth2:
     type: OAuth 2.0
+    displayName: OAuth 2.0 with annotation
     settings:
-      (customSettings):
+      (oauth-2-custom-settings):
         # ignoreDefaultGrants:
-        authorizationGrants: [annotated_custom_grant]
+        authorizationGrants: [annotated_custom_grant, annotated_custom_grant2]
         authorizationSettings:
           queryParameters:
             resource:
@@ -116,10 +131,38 @@ securitySchemes:
               required: true
               description: |
                 A resource ID that defines a domain of authorization.
+              displayName: Hello query parameeter
+              default: some default
+              examples:
+                named: named example value
+                otherExample: test example value
+              pattern: [a-zA-Z\s\S, test]
+              maxLength: 12
+              minLength: 3
+              required: true
+            numericParam:
+              type: number
+              minimum: 10
+              maximum: 20
+              multipleOf: 2
+              format: float
+              required: false
+              example: 22
+            dateParam:
+              type: date-only
+              required: false
+            repetableParam1:
+              type: string[]
+              required: false
+            repetableParam2:
+              type: array
+              items: integer
+              required: false
           headers:
             x-auth-resource:
               type: string
               required: false
+              enum: [a, b, c]
         accessTokenSettings:
           queryParameters:
             queryTokenResource: string
@@ -135,15 +178,52 @@ securitySchemes:
               displayName: Body detailed property
       accessTokenUri: https://token.com
       authorizationUri: https://auth.com
-      authorizationGrants: implicit
+      authorizationGrants: [implicit, authorization_code]
       scopes: [profile, email]
     describedBy:
       queryParameters:
         access_token:
           type: string
           description: Apply access token here.
-/endpoint:
+  basic:
+    type: Basic Authentication
+  digest:
+    type: Digest Authentication
+  pass:
+    type: Pass Through
+  oauth1: !include oauth_1_0.raml
+  custom1: !include x-custom.raml
+  custom2: !include x-other.raml
+/oauth2:
   get:
-    securedBy: oauth2
+    securedBy: [oauth2]
   post:
-    securedBy: oauth2Normal
+    securedBy: [oauth2Normal, oauth2]
+  put:
+    securedBy: [null, oauth2]
+/basic:
+  get:
+    securedBy: [basic]
+/digest:
+  get:
+    securedBy: [digest]
+/pass:
+  get:
+    securedBy: [pass]
+    queryParameters:
+      exampleTest:
+        examples:
+          example1: hello example
+          example2: Other example
+/oauth1:
+  get:
+    securedBy: [oauth1]
+/custom1:
+  get:
+    securedBy: [custom1]
+/custom2:
+  get:
+    securedBy: [custom2]
+/combo:
+  get:
+    securedBy: [null, basic, digest, pass, oauth1, oauth2Normal, custom1, custom2]

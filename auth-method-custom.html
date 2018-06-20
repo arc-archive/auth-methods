@@ -282,7 +282,7 @@ the License.
         return;
       }
       const type = model['http://raml.org/vocabularies/security#type'];
-      const isCustom = type && type[0] && type[0]['@value'] === 'x-custom';
+      const isCustom = type && type[0] && type[0]['@value'] && type[0]['@value'].indexOf('x-') === 0;
       if (!isCustom) {
         return;
       }

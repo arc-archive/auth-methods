@@ -1,3 +1,31 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/advanced-rest-client/auth-methods/compare/2.2.15...3.0.2) (2018-06-20)
+
+
+### Docs
+
+* Updated demo description. ([6881b3da2031d7d10eb6b53b1f1d50f8cb3e4dd5](https://github.com/advanced-rest-client/auth-methods/commit/6881b3da2031d7d10eb6b53b1f1d50f8cb3e4dd5))
+* Updated documentation page. ([f88f753de50553959543828177f962ced3c6105d](https://github.com/advanced-rest-client/auth-methods/commit/f88f753de50553959543828177f962ced3c6105d))
+* Upodating docuimentation ([7bdb47cb18d8ba14a7381b19af2d756aa33ab1a3](https://github.com/advanced-rest-client/auth-methods/commit/7bdb47cb18d8ba14a7381b19af2d756aa33ab1a3))
+
+### Fix
+
+* Fixed custom scheme recognition. ([c62847e7a83860c68c318ec3c48c12b5753ac040](https://github.com/advanced-rest-client/auth-methods/commit/c62847e7a83860c68c318ec3c48c12b5753ac040))
+* Fixing tests ([01c754189c9a75d330a97855fd3b0dcc6d919f19](https://github.com/advanced-rest-client/auth-methods/commit/01c754189c9a75d330a97855fd3b0dcc6d919f19))
+
+### New
+
+* Adding `deliveryMethod` and `deliveryName` properties to settings ([74e670980c9e79ce9c822f10514d33bebdb6bb1c](https://github.com/advanced-rest-client/auth-methods/commit/74e670980c9e79ce9c822f10514d33bebdb6bb1c))
+* Adding support for RAML OAuth2 settings annotation. ([21c8a0684347e7131bef1b34a2c913a2827dba06](https://github.com/advanced-rest-client/auth-methods/commit/21c8a0684347e7131bef1b34a2c913a2827dba06))
+
+### Update
+
+* Removed `authHeaders` as they cannot be applied to the request anyway. ([5fe5a4670043f40f3a106f5b73b88f1aa32d8dc6](https://github.com/advanced-rest-client/auth-methods/commit/5fe5a4670043f40f3a106f5b73b88f1aa32d8dc6))
+* Updated styling for the request token button. Finally it's aligned wit the spinner ([45e1fa6896ab50b75e8bc8ebae943cb21eca772e](https://github.com/advanced-rest-client/auth-methods/commit/45e1fa6896ab50b75e8bc8ebae943cb21eca772e))
+* Updated tests for oauth 2.0 ([d6db8cd09db40ba005c9d2b72cf90742ae0ca35b](https://github.com/advanced-rest-client/auth-methods/commit/d6db8cd09db40ba005c9d2b72cf90742ae0ca35b))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/advanced-rest-client/auth-methods/compare/2.2.15...3.0.1) (2018-05-18)
 
