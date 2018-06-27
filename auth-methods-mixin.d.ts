@@ -8,7 +8,7 @@
  *   auth-methods-mixin.html
  */
 
-/// <reference path="../polymer/types/polymer.d.ts" />
+/// <reference path="../polymer/types/lib/utils/mixin.d.ts" />
 
 declare namespace ArcBehaviors {
 

@@ -23,6 +23,7 @@
 /// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
 /// <reference path="../paper-listbox/paper-listbox.d.ts" />
 /// <reference path="../paper-spinner/paper-spinner.d.ts" />
+/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 
@@ -99,7 +100,8 @@ declare namespace UiElements {
   class AuthMethodOauth1 extends
     ArcBehaviors.EventsTargetBehavior(
     ArcBehaviors.AuthMethodsMixin(
-    Polymer.Element)) {
+    ApiElements.AmfHelperMixin(
+    Polymer.Element))) {
 
     /**
      * Returns default list of signature methods for OAuth1
