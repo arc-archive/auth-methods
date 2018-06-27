@@ -22,6 +22,7 @@
 /// <reference path="../marked-element/marked-element.d.ts" />
 /// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
 /// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
+/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />
@@ -69,7 +70,8 @@ declare namespace UiElements {
   class AuthMethodCustom extends
     ArcBehaviors.EventsTargetBehavior(
     ArcBehaviors.AuthMethodsMixin(
-    Polymer.Element)) {
+    ApiElements.AmfHelperMixin(
+    Polymer.Element))) {
 
     /**
      * AMF security scheme model.

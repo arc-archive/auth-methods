@@ -1,3 +1,21 @@
+<a name="3.0.3"></a>
+## [3.0.3](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...3.0.3) (2018-06-27)
+
+
+### Breaking
+
+* Updated component to work with stable AMF model ([99eaad33e9db8f3c50b5cd45035161ab3c7f8b99](https://github.com/advanced-rest-client/auth-methods/commit/99eaad33e9db8f3c50b5cd45035161ab3c7f8b99))
+
+### Docs
+
+* Updating documentation. ([d678d68ac2eb44273ce082a748250d000078904d](https://github.com/advanced-rest-client/auth-methods/commit/d678d68ac2eb44273ce082a748250d000078904d))
+
+### Fix
+
+* Fixed custom scheme recognition. ([c62847e7a83860c68c318ec3c48c12b5753ac040](https://github.com/advanced-rest-client/auth-methods/commit/c62847e7a83860c68c318ec3c48c12b5753ac040))
+
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/advanced-rest-client/auth-methods/compare/2.2.15...3.0.2) (2018-06-20)
 

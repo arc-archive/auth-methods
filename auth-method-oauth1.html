@@ -26,6 +26,7 @@ the License.
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../amf-helper-mixin/amf-helper-mixin.html">
 <link rel="import" href="auth-methods-mixin.html">
 <link rel="import" href="auth-methods-styles.html">
 <dom-module id="auth-method-oauth1">
@@ -193,9 +194,10 @@ the License.
    * @memberof UiElements
    * @appliesMixin ArcBehaviors.EventsTargetBehavior
    * @appliesMixin ArcBehaviors.AuthMethodsMixin
+   * @appliesMixin ApiElements.AmfHelperMixin
    * @demo demo/oauth1.html
    */
-  class AuthMethodOauth1 extends ArcBehaviors.AuthMethodsMixin(ArcBehaviors.EventsTargetBehavior(Polymer.Element)) {
+  class AuthMethodOauth1 extends ApiElements.AmfHelperMixin(ArcBehaviors.AuthMethodsMixin(ArcBehaviors.EventsTargetBehavior(Polymer.Element))) {
     static get is() { return 'auth-method-oauth1'; }
     static get properties() {
       return {
@@ -546,15 +548,15 @@ the License.
       if (!model) {
         return;
       }
-      const prefix = 'http://raml.org/vocabularies/security#';
+      const prefix = this.ns.raml.vocabularies.security;
       let settings = model[prefix + 'settings'];
       if (!settings || !settings[0]) {
         return;
       }
       settings = settings[0];
-      this.requestTokenUrl = this._getAmfValue(settings[prefix + 'requestTokenUri']);
-      this.authorizationUrl = this._getAmfValue(settings[prefix + 'authorizationUri']);
-      this.accessTokenUrl = this._getAmfValue(settings[prefix + 'tokenCredentialsUri']);
+      this.requestTokenUrl = this._getValue(settings, prefix + 'requestTokenUri');
+      this.authorizationUrl = this._getValue(settings, prefix + 'authorizationUri');
+      this.accessTokenUrl = this._getValue(settings, prefix + 'tokenCredentialsUri');
       const signaturtes = settings[prefix + 'signature'];
       if (!signaturtes || !signaturtes.length) {
         this.signatureMethods = this.defaultSignatureMethods;

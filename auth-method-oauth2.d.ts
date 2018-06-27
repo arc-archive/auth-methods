@@ -34,6 +34,7 @@
 /// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
 /// <reference path="../marked-element/marked-element.d.ts" />
 /// <reference path="../markdown-styles/markdown-styles.d.ts" />
+/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />
@@ -222,7 +223,8 @@ declare namespace UiElements {
   class AuthMethodOauth2 extends
     ArcBehaviors.EventsTargetBehavior(
     ArcBehaviors.AuthMethodsMixin(
-    Polymer.Element)) {
+    ApiElements.AmfHelperMixin(
+    Polymer.Element))) {
     readonly _queryModelOpts: any;
     readonly _headersModelOpts: any;
 
@@ -630,7 +632,7 @@ declare namespace UiElements {
     _redSecurityScopes(model: any[]|null): Array<String|null>|null|undefined;
 
     /**
-     * Finds a key for Custom
+     * Finds a key for Custom settings
      *
      * @param model Security scheme settings object.
      */
