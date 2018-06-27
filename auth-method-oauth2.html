@@ -37,6 +37,7 @@ the License.
 <link rel="import" href="../api-property-form-item/api-property-form-item.html">
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../markdown-styles/markdown-styles.html">
+<link rel="import" href="../amf-helper-mixin/amf-helper-mixin.html">
 <link rel="import" href="auth-methods-mixin.html">
 <link rel="import" href="auth-methods-styles.html">
 <link rel="import" href="auth-method-step.html">
@@ -532,10 +533,11 @@ the License.
      * @memberof UiElements
      * @appliesMixin ArcBehaviors.EventsTargetBehavior
      * @appliesMixin ArcBehaviors.AuthMethodsMixin
+     * @appliesMixin ApiElements.AmfHelperMixin
      * @demo demo/oauth2.html
      * @demo demo/oauth2-amf.html Using AMF data model
      */
-    class AuthMethodOauth2 extends ArcBehaviors.AuthMethodsMixin(ArcBehaviors.EventsTargetBehavior(Polymer.Element)) {
+    class AuthMethodOauth2 extends ApiElements.AmfHelperMixin(ArcBehaviors.AuthMethodsMixin(ArcBehaviors.EventsTargetBehavior(Polymer.Element))) {
       static get is() { return 'auth-method-oauth2'; }
       static get properties() {
         return {
@@ -1320,24 +1322,19 @@ the License.
        * @param {Object} model Security model of AMF
        */
       _amfChanged(model) {
-        if (!model || !model['@type'] || !model['@type'].length) {
+        if (!this._hasType(model, this.ns.raml.vocabularies.security + 'SecurityScheme')) {
           this._setupOAuthDeliveryMethod();
+          this._updateGrantTypes();
           return;
         }
-        const isSecurity = model['@type']
-          .indexOf('http://raml.org/vocabularies/security#SecurityScheme') !== -1;
-        if (!isSecurity) {
-          this._setupOAuthDeliveryMethod();
-          return;
-        }
-        const type = model['http://raml.org/vocabularies/security#type'];
-        const isOauth2 = type && type[0] && type[0]['@value'] === 'OAuth 2.0';
+        const isOauth2 = this._getValue(model, this.ns.raml.vocabularies.security + 'type') === 'OAuth 2.0';
         if (!isOauth2) {
           this._setupOAuthDeliveryMethod();
+          this._updateGrantTypes();
           return;
         }
         this._setupOAuthDeliveryMethod(model);
-        const settings = model['http://raml.org/vocabularies/security#settings'][0];
+        const settings = model[this.ns.raml.vocabularies.security + 'settings'][0];
         this._clearDocs();
         this.__cancelChangeEvent = true;
         this._preFillAmfData(settings);
@@ -1375,19 +1372,17 @@ the License.
         if (!info) {
           return result;
         }
-        const prefix = 'http://raml.org/vocabularies/http#';
-        const headers = info[prefix + 'header'];
-        const nameKey = 'http://schema.org/name';
+        const headers = info[this.ns.raml.vocabularies.http + 'header'];
         if (headers && headers[0]) {
-          const headerName = this._getAmfValue(headers[0][nameKey]);
+          const headerName = this._getAmfValue(headers[0][this.ns.schema.schemaName]);
           if (headerName) {
             result.name = headerName;
             return result;
           }
         }
-        const parameters = info[prefix + 'parameter'];
+        const parameters = info[this.ns.raml.vocabularies.http + 'parameter'];
         if (parameters && parameters[0]) {
-          const paramName = this._getAmfValue(parameters[0][nameKey]);
+          const paramName = this._getAmfValue(parameters[0][this.ns.schema.schemaName]);
           if (paramName) {
             result.name = paramName;
             result.method = 'query';
@@ -1407,13 +1402,11 @@ the License.
         if (!model) {
           throw new Error('The `settings` argument is not set.');
         }
-        const isOauth2Settings = model['@type']
-          .indexOf('http://raml.org/vocabularies/security#OAuth2Settings') !== -1;
-        if (!isOauth2Settings) {
+        const sec = this.ns.raml.vocabularies.security;
+        if (!this._hasType(model, sec + 'OAuth2Settings')) {
           console.warn('Passed model does not represent OAuth 2.0 Settings');
           return;
         }
-        const sec = 'http://raml.org/vocabularies/security#';
         this.authorizationUri = this._getAmfValue(model[sec + 'authorizationUri']) || '';
         this.accessTokenUri = this._getAmfValue(model[sec + 'accessTokenUri']) || '';
         this.scopes = this._redSecurityScopes(model[sec + 'scope']);
@@ -1454,7 +1447,7 @@ the License.
         }
         const result = [];
         for (let i = 0, len = model.length; i < len; i++) {
-          const name = model[i]['http://raml.org/vocabularies/security#name'];
+          const name = model[i][this.ns.raml.vocabularies.security + 'name'];
           const value = this._getAmfValue(name);
           if (!value) {
             continue;
@@ -1464,13 +1457,13 @@ the License.
         return result;
       }
       /**
-       * Finds a key for Custom
+       * Finds a key for Custom settings
        * @param {Object} model Security scheme settings object.
        * @return {String|undefined}
        */
       _amfCustomSettingsKey(model) {
         const keys = Object.keys(model);
-        const data = 'http://raml.org/vocabularies/data#';
+        const data = this.ns.raml.vocabularies.data;
         const settingsKeys = [
           data + 'authorizationSettings',
           data + 'authorizationGrants',
@@ -1497,23 +1490,24 @@ the License.
         if (!gransts) {
           gransts = [];
         }
-        const model = annotation['http://raml.org/vocabularies/data#authorizationGrants'];
+        const d = this.ns.raml.vocabularies.data;
+        const model = annotation[d + 'authorizationGrants'];
         if (!model || !model.length) {
           return gransts;
         }
-        const list = model[0]['http://www.w3.org/1999/02/22-rdf-syntax-ns#member'];
+        const list = model[0][this.ns.w3.name + '1999/02/22-rdf-syntax-ns#member'];
         const addedGrants = [];
         list.forEach((item) => {
-          let obj = item['http://raml.org/vocabularies/data#value'];
-          if (!obj) {
+          const v = this._getValue(item, d + 'value');
+          if (!v) {
             return;
           }
-          addedGrants.push(obj[0]['@value']);
+          addedGrants.push(v);
         });
         if (!addedGrants.length) {
           return gransts;
         }
-        if (typeof annotation['http://raml.org/vocabularies/data#ignoreDefaultGrants'] !== 'undefined') {
+        if (typeof annotation[d + 'ignoreDefaultGrants'] !== 'undefined') {
           gransts = [];
         }
         gransts = gransts.concat(addedGrants);
@@ -1545,19 +1539,19 @@ the License.
         if (!annotation) {
           return;
         }
-        const prefix = 'http://raml.org/vocabularies/data#';
-        const authSettings = annotation[prefix + 'authorizationSettings'];
-        const tokenSettings = annotation[prefix + 'accessTokenSettings'];
+        const d = this.ns.raml.vocabularies.data;
+        const authSettings = annotation[d + 'authorizationSettings'];
+        const tokenSettings = annotation[d + 'accessTokenSettings'];
         if (authSettings) {
-          const qp = authSettings[0][prefix + 'queryParameters'];
+          const qp = authSettings[0][d + 'queryParameters'];
           if (qp) {
             this._setupAuthRequestQueryParameters(qp);
           }
         }
         if (tokenSettings) {
-          const qp = tokenSettings[0][prefix + 'queryParameters'];
-          const headers = tokenSettings[0][prefix + 'headers'];
-          const body = tokenSettings[0][prefix + 'body'];
+          const qp = tokenSettings[0][d + 'queryParameters'];
+          const headers = tokenSettings[0][d + 'headers'];
+          const body = tokenSettings[0][d + 'body'];
           if (qp) {
             this._setupTokenRequestQueryParameters(qp);
           }
