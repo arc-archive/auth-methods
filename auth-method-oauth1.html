@@ -330,14 +330,14 @@ the License.
       this._tokenResponseHandler = this._tokenResponseHandler.bind(this);
     }
 
-    _attachListeners(node) {
-      node.addEventListener('oauth1-error', this._onAuthSettings);
-      node.addEventListener('oauth1-token-response', this._tokenResponseHandler);
+    _attachListeners() {
+      window.addEventListener('oauth1-error', this._onAuthSettings);
+      window.addEventListener('oauth1-token-response', this._tokenResponseHandler);
     }
 
-    _detachListeners(node) {
-      node.removeEventListener('oauth1-error', this._onAuthSettings);
-      node.removeEventListener('oauth1-token-response', this._tokenResponseHandler);
+    _detachListeners() {
+      window.removeEventListener('oauth1-error', this._onAuthSettings);
+      window.removeEventListener('oauth1-token-response', this._tokenResponseHandler);
     }
 
     ready() {

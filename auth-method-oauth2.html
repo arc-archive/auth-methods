@@ -872,14 +872,14 @@ the License.
       }
 
       _attachListeners(node) {
-        node.addEventListener('oauth2-error', this._oauth2ErrorHandler);
-        node.addEventListener('oauth2-token-response', this._tokenSuccessHandler);
+        window.addEventListener('oauth2-error', this._oauth2ErrorHandler);
+        window.addEventListener('oauth2-token-response', this._tokenSuccessHandler);
         node.addEventListener('request-header-changed', this._headerChangedHandler);
       }
 
       _detachListeners(node) {
-        node.removeEventListener('oauth2-error', this._oauth2ErrorHandler);
-        node.removeEventListener('oauth2-token-response', this._tokenSuccessHandler);
+        window.removeEventListener('oauth2-error', this._oauth2ErrorHandler);
+        window.removeEventListener('oauth2-token-response', this._tokenSuccessHandler);
         node.removeEventListener('request-header-changed', this._headerChangedHandler);
       }
       /**
