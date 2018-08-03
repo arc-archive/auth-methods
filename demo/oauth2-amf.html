@@ -103,7 +103,7 @@
     const AuthDemo = {
       model: undefined,
       _load: function() {
-        fetch('./amf-model.json')
+        fetch('./oauth2-api.json')
         .then((response) => response.json())
         .then((data) => {
           document.getElementById('apiNav').amfModel = data;

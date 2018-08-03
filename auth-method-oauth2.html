@@ -970,7 +970,11 @@ the License.
           }
         }
       }
-
+      /**
+       * Stores a property in a session storage.
+       * @param {String} sessionKey A storage key
+       * @param {String} value Value to store
+       */
       _storeSessionProperty(sessionKey, value) {
         if (!value) {
           return;
