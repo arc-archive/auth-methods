@@ -1710,6 +1710,8 @@ the License.
           } else {
             this.set('grantType', '');
           }
+        } else if (available.length === 1) {
+          this.set('grantType', available[0].type);
         }
       }
       /**
