@@ -35,6 +35,7 @@
 /// <reference path="../marked-element/marked-element.d.ts" />
 /// <reference path="../markdown-styles/markdown-styles.d.ts" />
 /// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
+/// <reference path="../iron-meta/iron-meta.d.ts" />
 /// <reference path="auth-methods-mixin.d.ts" />
 /// <reference path="auth-methods-styles.d.ts" />
 /// <reference path="auth-method-step.d.ts" />
@@ -170,7 +171,27 @@ declare namespace UiElements {
    *        authorizationGrants: [code]
    *     scopes: profile
    * ```
-   * ### Styling
+   *
+   * ## clientId and clientSecret
+   *
+   * In RAML there's no way to set an example or demo clientId/secret for the
+   * tools like API console. This component supports reading data from
+   * Polymer's `iron-meta` component. Meta components creeated with
+   * `oauth2-client-id` and `oauth2-client-secret` will be used to prepopulate
+   * the form if the form doesn't contain this properties already.
+   *
+   * Note, values changed by the user are persistant per browser session
+   * (until browser is closed). Refresing the page will restore user input
+   * instead the one defined in `iron-meta` elements.
+   *
+   * ### Example
+   *
+   * ```html
+   * <iron-meta key="oauth2-client-id" value="abcd"></iron-meta>
+   * <iron-meta key="oauth2-client-secret" value="efgh"></iron-meta>
+   * ```
+   *
+   * ## Styling
    *
    * `<auth-method-oauth2>` provides the following custom properties and mixins for styling:
    *
@@ -478,8 +499,35 @@ declare namespace UiElements {
      * It does not override values already set.
      */
     _autoRestore(): void;
-    _restoreSessionProperty(sessionKey: any, localKey: any): void;
-    _storeSessionProperty(sessionKey: any, value: any): void;
+
+    /**
+     * Restores an item from a session store and assigns it to a local
+     * property.
+     *
+     * @param sessionKey Session storage key
+     * @param localKey This component's property
+     */
+    _restoreSessionProperty(sessionKey: String|null, localKey: String|null): void;
+
+    /**
+     * Stores a property in a session storage.
+     *
+     * @param sessionKey A storage key
+     * @param value Value to store
+     */
+    _storeSessionProperty(sessionKey: String|null, value: String|null): void;
+
+    /**
+     * Sets `clientId` property from `iron-meta` if created.
+     * The key for the meta is `oauth2-client-id`
+     */
+    _restoreMetaClientId(): void;
+
+    /**
+     * Sets `clientSecret` property from `iron-meta` if created.
+     * The key for the meta is `oauth2-client-secret`
+     */
+    _restoreMetaClientSecret(): void;
 
     /**
      * Validates the form.

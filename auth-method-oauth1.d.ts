@@ -199,8 +199,8 @@ declare namespace UiElements {
      * This can be updated when `amfSettings` property is set.
      */
     signatureMethods: any[]|null|undefined;
-    _attachListeners(node: any): void;
-    _detachListeners(node: any): void;
+    _attachListeners(): void;
+    _detachListeners(): void;
     _getAmfValue(model: any): any;
     ready(): void;
 
