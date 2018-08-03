@@ -330,14 +330,14 @@ the License.
       this._tokenResponseHandler = this._tokenResponseHandler.bind(this);
     }
 
-    _attachListeners(node) {
-      node.addEventListener('oauth1-error', this._onAuthSettings);
-      node.addEventListener('oauth1-token-response', this._tokenResponseHandler);
+    _attachListeners() {
+      window.addEventListener('oauth1-error', this._onAuthSettings);
+      window.addEventListener('oauth1-token-response', this._tokenResponseHandler);
     }
 
-    _detachListeners(node) {
-      node.removeEventListener('oauth1-error', this._onAuthSettings);
-      node.removeEventListener('oauth1-token-response', this._tokenResponseHandler);
+    _detachListeners() {
+      window.removeEventListener('oauth1-error', this._onAuthSettings);
+      window.removeEventListener('oauth1-token-response', this._tokenResponseHandler);
     }
 
     ready() {
@@ -443,7 +443,12 @@ the License.
       }
       inputTarget.value = '';
     }
-    // Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
+
+    /**
+     * Sends the `oauth2-token-requested` event.
+     * @return {Boolean} True if event was sent. Can be false if event is not
+     * handled or when the form is invalid.
+     */
     authorize() {
       this._authorizing = true;
       var detail = {};
@@ -495,6 +500,7 @@ the License.
         bubbles: true,
         composed: true
       }));
+      return true;
     }
     /**
      * Handles OAuth1 authorization errors.

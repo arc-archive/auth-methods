@@ -1,11 +1,11 @@
 {
   "name": "@api-components/auth-methods",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "license": "Apache-2.0",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
   "devDependencies": {
     "@polymer/gen-typescript-declarations": "^1.1.1",
-    "amf-client-js": "^1.5.0"
+    "amf-client-js": "^1.7.1"
   },
   "private": false,
   "main": "auth-methods.html",

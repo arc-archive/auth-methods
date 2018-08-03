@@ -3,7 +3,7 @@ AmfLoader.load = function(endpointIndex) {
   endpointIndex = endpointIndex || 0;
   const url = location.protocol + '//' + location.host +
     location.pathname.substr(0, location.pathname.lastIndexOf('/'))
-    .replace('/test', '/demo') + '/amf-model.json';
+    .replace('/test', '/demo') + '/oauth2-api.json';
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', (e) => {

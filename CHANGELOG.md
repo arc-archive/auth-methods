@@ -1,3 +1,32 @@
+<a name="3.0.4"></a>
+## [3.0.4](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...3.0.4) (2018-08-03)
+
+
+### Breaking
+
+* Updated component to work with stable AMF model ([99eaad33e9db8f3c50b5cd45035161ab3c7f8b99](https://github.com/advanced-rest-client/auth-methods/commit/99eaad33e9db8f3c50b5cd45035161ab3c7f8b99))
+
+### Docs
+
+* Updating docs ([bd1b42e65f26f854ed6ef69146934cc0898d22f0](https://github.com/advanced-rest-client/auth-methods/commit/bd1b42e65f26f854ed6ef69146934cc0898d22f0))
+* Updating documentation. ([d678d68ac2eb44273ce082a748250d000078904d](https://github.com/advanced-rest-client/auth-methods/commit/d678d68ac2eb44273ce082a748250d000078904d))
+
+### Fix
+
+* Fixed custom scheme recognition. ([c62847e7a83860c68c318ec3c48c12b5753ac040](https://github.com/advanced-rest-client/auth-methods/commit/c62847e7a83860c68c318ec3c48c12b5753ac040))
+
+### New
+
+* Adding option to set client ID and Client Secret in `iron-meta`, outside RAML configuration ([cdef0ed2c57a5628a0e805d63e40fae5bf4ca990](https://github.com/advanced-rest-client/auth-methods/commit/cdef0ed2c57a5628a0e805d63e40fae5bf4ca990))
+
+### Update
+
+* `authorize` function now returns a value ([ec6a37f66113b272b396dc135a7f20816bbbaf0a](https://github.com/advanced-rest-client/auth-methods/commit/ec6a37f66113b272b396dc135a7f20816bbbaf0a))
+* Pre-selecting token type if single possible option left ([61aa2ba85c27d2d6cda0749de614f173e8d9d929](https://github.com/advanced-rest-client/auth-methods/commit/61aa2ba85c27d2d6cda0749de614f173e8d9d929))
+* Updating AMF version and models ([9374bc84755bf1b4bd4ad5edd01fbe694d54cc65](https://github.com/advanced-rest-client/auth-methods/commit/9374bc84755bf1b4bd4ad5edd01fbe694d54cc65))
+
+
+
 <a name="3.0.3"></a>
 ## [3.0.3](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...3.0.3) (2018-06-27)
 
