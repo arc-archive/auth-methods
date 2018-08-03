@@ -443,7 +443,12 @@ the License.
       }
       inputTarget.value = '';
     }
-    // Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
+
+    /**
+     * Sends the `oauth2-token-requested` event.
+     * @return {Boolean} True if event was sent. Can be false if event is not
+     * handled or when the form is invalid.
+     */
     authorize() {
       this._authorizing = true;
       var detail = {};
@@ -495,6 +500,7 @@ the License.
         bubbles: true,
         composed: true
       }));
+      return true;
     }
     /**
      * Handles OAuth1 authorization errors.

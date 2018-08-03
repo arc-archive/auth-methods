@@ -1088,12 +1088,15 @@ the License.
        *
        * If your application has own OAuth2 token exchange system then
        * handle the event and authorize the user.
+       *
+       * @return {Boolean} True if event was sent. Can be false if event is not
+       * handled or when the form is invalid.
        */
       authorize() {
         const validationResult = this.validate();
         if (!validationResult) {
           this._errorToast('Authorization form is not valid.');
-          return;
+          return false;
         }
         const detail = this.getSettings();
         this._lastState = this.generateState();
@@ -1106,11 +1109,13 @@ the License.
           cancelable: true
         });
         this.dispatchEvent(e);
+        this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'requested');
         if (!e.defaultPrevented) {
           this._errorToast('The application did not handled token request correctly.');
           this._authorizing = false;
+          return false;
         }
-        this._analyticsEvent('auth-method-oauth2', 'usage-authorize', 'requested');
+        return true;
       }
       /**
        * Displays an error message in error toast
