@@ -64,7 +64,14 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
         /**
          * Setting passed to paper buttons.
          */
-        noink: Boolean
+        noink: Boolean,
+        /**
+         * WHen set it prohibits methods from rendering inline documentation.
+         */
+        noDocs: {
+          type: Boolean,
+          value: false
+        }
       };
     }
     /**
@@ -119,6 +126,21 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
         return;
       }
       return model[0]['@value'];
+    }
+    /**
+     * Computes value for conditions containg documentation block.
+     * It always returns false if `noDocs` is true. Otherwise it returns
+     * boolean value of the `value` argument
+     *
+     * @param {Boolean} noDocs Value of the `noDocs` property
+     * @param {Boolean|String} value Docs value
+     * @return {Boolean}
+     */
+    _computeHasDoc(noDocs, value) {
+      if (noDocs) {
+        return false;
+      }
+      return !!value;
     }
   }
   return AMmixin;
