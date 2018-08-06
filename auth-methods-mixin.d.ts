@@ -52,6 +52,11 @@ declare namespace ArcBehaviors {
     noink: boolean|null|undefined;
 
     /**
+     * WHen set it prohibits methods from rendering inline documentation.
+     */
+    noDocs: boolean|null|undefined;
+
+    /**
      * Gets a oauth type by the elemnt name.
      * Possible values: 'basic', 'ntlm', 'oauth1', 'oauth2', 'digest', 'custom'
      * or undefined.
@@ -73,5 +78,15 @@ declare namespace ArcBehaviors {
      * @param model Property model
      */
     _getAmfValue(model: any[]|null): String|null|undefined;
+
+    /**
+     * Computes value for conditions containg documentation block.
+     * It always returns false if `noDocs` is true. Otherwise it returns
+     * boolean value of the `value` argument
+     *
+     * @param noDocs Value of the `noDocs` property
+     * @param value Docs value
+     */
+    _computeHasDoc(noDocs: Boolean|null, value: Boolean|String|null): Boolean|null;
   }
 }
