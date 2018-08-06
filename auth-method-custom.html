@@ -345,6 +345,9 @@ the License.
      * @return {Object} Current OAuth2 configuration.
      */
     getSettings() {
+      if (!this.shadowRoot) {
+        return {};
+      }
       const form = this.shadowRoot.querySelector('iron-form');
       return form.serializeForm();
     }
