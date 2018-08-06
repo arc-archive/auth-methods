@@ -562,8 +562,11 @@ declare namespace UiElements {
      *
      * If your application has own OAuth2 token exchange system then
      * handle the event and authorize the user.
+     *
+     * @returns True if event was sent. Can be false if event is not
+     * handled or when the form is invalid.
      */
-    authorize(): void;
+    authorize(): Boolean|null;
 
     /**
      * Displays an error message in error toast

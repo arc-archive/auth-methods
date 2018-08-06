@@ -77,6 +77,7 @@
         <paper-toggle-button id="toggle">Hide steps</paper-toggle-button>
         <paper-toggle-button id="grantToggle">Hide grant type selector</paper-toggle-button>
         <paper-toggle-button id="noinkToggle">Toggle "noink" property</paper-toggle-button>
+        <paper-toggle-button id="noDocs">Disable docs rendering</paper-toggle-button>
       </div>
 
       <div class="enevts card">
@@ -141,6 +142,8 @@
         .addEventListener('checked-changed', () => AuthDemo.toggleGrant());
         document.getElementById('noinkToggle')
         .addEventListener('checked-changed', () => AuthDemo.toggleNoink());
+        document.getElementById('noDocs')
+        .addEventListener('checked-changed', () => AuthDemo.toggleNoDocs());
         AuthDemo.auth.addEventListener('auth-settings-changed', AuthDemo.settingsChanged);
         AuthDemo.auth.addEventListener('error', AuthDemo.errorHandler);
         document.getElementById('sendHeaderEventButton')
@@ -185,6 +188,10 @@
 
       toggleNoink: function() {
         AuthDemo.auth.noink = !AuthDemo.auth.noink;
+      },
+
+      toggleNoDocs: function() {
+        AuthDemo.auth.noDocs = !AuthDemo.auth.noDocs;
       },
 
       navChanged: function(e) {

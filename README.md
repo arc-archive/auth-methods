@@ -27,4 +27,4 @@ A set of elements that contains an UI to create different authorization headers 
 
 ### API components
 
-This components is a part of API components ecosystem: https://elements.advancedrestclient.com/
+This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)

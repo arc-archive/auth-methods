@@ -236,9 +236,12 @@ declare namespace UiElements {
     _clearField(e: any): void;
 
     /**
-     * Handler for "authorize" button click. Sends the `oauth2-token-requested` event.
+     * Sends the `oauth2-token-requested` event.
+     *
+     * @returns True if event was sent. Can be false if event is not
+     * handled or when the form is invalid.
      */
-    authorize(): void;
+    authorize(): Boolean|null;
 
     /**
      * Handles OAuth1 authorization errors.

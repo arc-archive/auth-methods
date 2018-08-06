@@ -76,11 +76,11 @@ the License.
           <div class="scheme-header">
             <h3>
               Scheme: [[schemeName]]
-              <template is="dom-if" if="[[schemeDescription]]">
+              <template is="dom-if" if="[[_computeHasDoc(noDocs, schemeDescription)]]">
                 <paper-icon-button class="hint-icon" icon="arc:help" on-tap="toggleSchemeDocumentation" title="Display scheme description"></paper-icon-button>
               </template>
             </h3>
-            <template is="dom-if" if="[[schemeDescription]]">
+            <template is="dom-if" if="[[_computeHasDoc(noDocs, schemeDescription)]]">
               <div class="docs-container">
                 <iron-collapse opened="[[documentationOpened]]">
                   <marked-element markdown="[[schemeDescription]]" main-docs>
@@ -99,7 +99,7 @@ the License.
                   <div class="header-item">
                     <div class="field-value">
                       <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_headerValueChanged" data-type="header"></api-property-form-item>
-                      <template is="dom-if" if="[[item.hasDescription]]">
+                      <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
                         <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="header" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
                     </div>
@@ -114,7 +114,7 @@ the License.
                   <div class="param-item">
                     <div class="field-value">
                       <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_queryValueChanged" data-type="query"></api-property-form-item>
-                      <template is="dom-if" if="[[item.hasDescription]]">
+                      <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
                         <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                       </template>
                     </div>
@@ -345,6 +345,9 @@ the License.
      * @return {Object} Current OAuth2 configuration.
      */
     getSettings() {
+      if (!this.shadowRoot) {
+        return {};
+      }
       const form = this.shadowRoot.querySelector('iron-form');
       return form.serializeForm();
     }

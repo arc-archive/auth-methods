@@ -250,7 +250,7 @@ the License.
                 <div class="custom-data-field auth-query-parameter">
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-query"></api-property-form-item>
-                    <template is="dom-if" if="[[item.hasDescription]]">
+                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
                       <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
@@ -264,7 +264,7 @@ the License.
                 <div class="custom-data-field token-query-parameter">
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-query"></api-property-form-item>
-                    <template is="dom-if" if="[[item.hasDescription]]">
+                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
                       <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
@@ -278,7 +278,7 @@ the License.
                 <div class="custom-data-field token-header">
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-headers"></api-property-form-item>
-                    <template is="dom-if" if="[[item.hasDescription]]">
+                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
                       <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-headers" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
@@ -292,7 +292,7 @@ the License.
                 <div class="custom-data-field body-parameter">
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name$="[[item.name]]" auto-validate required$="[[item.required]]" value="{{item.value}}" data-type="token-body"></api-property-form-item>
-                    <template is="dom-if" if="[[item.hasDescription]]">
+                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
                       <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-body" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
