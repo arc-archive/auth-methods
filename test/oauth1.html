@@ -172,35 +172,48 @@
     });
 
     suite('AMF model', () => {
-      let amf;
-      suiteSetup(() => {
-        return AmfLoader.load(4)
-        .then((model) => amf = model);
-      });
+      [
+        ['Full data model', false],
+        ['Compact data model', true]
+      ].forEach((setupItem) => {
+        suite(setupItem[0], function() {
+          let amf;
+          let security;
+          let element;
+          suiteSetup(() => {
+            return AmfLoader.load(4, setupItem[1])
+            .then((model) => {
+              amf = model[0];
+              security = model[1];
+            });
+          });
 
-      let element;
-      setup((done) => {
-        element = fixture('basic');
-        element.amfSettings = amf;
-        Polymer.RenderStatus.afterNextRender(this, () => {
-          flush(() => done());
+          setup((done) => {
+            element = fixture('basic');
+            element.amfModel = amf;
+            element.amfSettings = security;
+            element.grantType = 'client_credentials';
+            Polymer.RenderStatus.afterNextRender(this, () => {
+              flush(() => done());
+            });
+          });
+          
+          test('requestTokenUrl is set', () => {
+            assert.equal(element.requestTokenUrl, 'http://api.domain.com/oauth1/request_token');
+          });
+
+          test('authorizationUrl is set', () => {
+            assert.equal(element.authorizationUrl, 'http://api.domain.com/oauth1/authorize');
+          });
+
+          test('accessTokenUrl is set', () => {
+            assert.equal(element.accessTokenUrl, 'http://api.domain.com/oauth1/access_token');
+          });
+
+          test('signatureMethods is set', () => {
+            assert.deepEqual(element.signatureMethods, ['PLAINTEXT', 'RSA-SHA1', 'HMAC-SHA1']);
+          });
         });
-      });
-
-      test('requestTokenUrl is set', () => {
-        assert.equal(element.requestTokenUrl, 'http://api.domain.com/oauth1/request_token');
-      });
-
-      test('authorizationUrl is set', () => {
-        assert.equal(element.authorizationUrl, 'http://api.domain.com/oauth1/authorize');
-      });
-
-      test('accessTokenUrl is set', () => {
-        assert.equal(element.accessTokenUrl, 'http://api.domain.com/oauth1/access_token');
-      });
-
-      test('signatureMethods is set', () => {
-        assert.deepEqual(element.signatureMethods, ['PLAINTEXT', 'RSA-SHA1', 'HMAC-SHA1']);
       });
     });
     </script>

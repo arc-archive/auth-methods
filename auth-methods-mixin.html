@@ -115,18 +115,6 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
       this.dispatchEvent(e);
       return e;
     }
-
-    /**
-     * Extracts value from AMF property.
-     * @param {Array} model Property model
-     * @return {String|undefined}
-     */
-    _getAmfValue(model) {
-      if (!model || !(model instanceof Array) || !model[0]) {
-        return;
-      }
-      return model[0]['@value'];
-    }
     /**
      * Computes value for conditions containg documentation block.
      * It always returns false if `noDocs` is true. Otherwise it returns
