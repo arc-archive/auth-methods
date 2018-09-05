@@ -1385,19 +1385,33 @@ the License.
        * @param {Object} model Security model of AMF
        */
       _amfChanged(model) {
-        if (!this._hasType(model, this.ns.raml.vocabularies.security + 'SecurityScheme')) {
+        const prefix = this.ns.raml.vocabularies.security;
+        if (!this._hasType(model, prefix + 'ParametrizedSecurityScheme')) {
           this._setupOAuthDeliveryMethod();
           this._updateGrantTypes();
           return;
         }
-        const isOauth2 = this._getValue(model, this.ns.raml.vocabularies.security + 'type') === 'OAuth 2.0';
+        const shKey = this._getAmfKey(prefix + 'scheme');
+        let scheme = model[shKey];
+        let type;
+        if (scheme) {
+          if (scheme instanceof Array) {
+            scheme = scheme[0];
+          }
+          type = this._getValue(scheme, prefix + 'type');
+        }
+        const isOauth2 = type === 'OAuth 2.0';
         if (!isOauth2) {
           this._setupOAuthDeliveryMethod();
           this._updateGrantTypes();
           return;
         }
-        this._setupOAuthDeliveryMethod(model);
-        const settings = model[this.ns.raml.vocabularies.security + 'settings'][0];
+        this._setupOAuthDeliveryMethod(scheme);
+        const sKey = this._getAmfKey(this.ns.raml.vocabularies.security + 'settings');
+        let settings = scheme[sKey];
+        if (settings instanceof Array) {
+          settings = settings[0];
+        }
         this._clearDocs();
         this.__cancelChangeEvent = true;
         this._preFillAmfData(settings);
@@ -1435,17 +1449,27 @@ the License.
         if (!info) {
           return result;
         }
-        const headers = info[this.ns.raml.vocabularies.http + 'header'];
-        if (headers && headers[0]) {
-          const headerName = this._getAmfValue(headers[0][this.ns.schema.schemaName]);
+        const http = this.ns.raml.vocabularies.http;
+        const hKey = this._getAmfKey(http + 'header');
+        const pKey = this._getAmfKey(http + 'parameter');
+        const nKey = this._getAmfKey(this.ns.schema.schemaName);
+        let header = info[hKey];
+        if (header instanceof Array) {
+          header = header[0];
+        }
+        if (header) {
+          const headerName = this._getValue(header, nKey);
           if (headerName) {
             result.name = headerName;
             return result;
           }
         }
-        const parameters = info[this.ns.raml.vocabularies.http + 'parameter'];
-        if (parameters && parameters[0]) {
-          const paramName = this._getAmfValue(parameters[0][this.ns.schema.schemaName]);
+        let parameter = info[pKey];
+        if (parameter instanceof Array) {
+          parameter = parameter[0];
+        }
+        if (parameter) {
+          const paramName = this._getValue(parameter, nKey);
           if (paramName) {
             result.name = paramName;
             result.method = 'query';
@@ -1470,10 +1494,10 @@ the License.
           console.warn('Passed model does not represent OAuth 2.0 Settings');
           return;
         }
-        this.authorizationUri = this._getAmfValue(model[sec + 'authorizationUri']) || '';
-        this.accessTokenUri = this._getAmfValue(model[sec + 'accessTokenUri']) || '';
-        this.scopes = this._redSecurityScopes(model[sec + 'scope']);
-        const apiGrants = this._getAmfArrayValue(model[sec + 'authorizationGrant']);
+        this.authorizationUri = this._getValue(model, sec + 'authorizationUri') || '';
+        this.accessTokenUri = this._getValue(model, sec + 'accessTokenUri') || '';
+        this.scopes = this._redSecurityScopes(model[this._getAmfKey(sec + 'scope')]);
+        const apiGrants = this._getValueArray(model, sec + 'authorizationGrant');
         const annotationKey = this._amfCustomSettingsKey(model);
         const annotation = annotationKey ? model[annotationKey] : undefined;
         const grants = this._applyAnnotationGranst(apiGrants, annotation);
@@ -1489,29 +1513,18 @@ the License.
         this._setupAnotationParameters(annotation);
       }
       /**
-       * Extracts array value from AMF property.
-       * @param {Array} model Property model
-       * @return {Array<String>|undefined}
-       */
-      _getAmfArrayValue(model) {
-        if (!model || !(model instanceof Array) || !model.length) {
-          return;
-        }
-        return model.map((item) => item['@value']);
-      }
-      /**
        * Extracts scopes list from the security definition
        * @param {Array} model
        * @return {Array<String>|undefined}
        */
       _redSecurityScopes(model) {
-        if (!model || !model.length) {
+        model = this._ensureArray(model);
+        if (!model) {
           return;
         }
         const result = [];
         for (let i = 0, len = model.length; i < len; i++) {
-          const name = model[i][this.ns.raml.vocabularies.security + 'name'];
-          const value = this._getAmfValue(name);
+          const value = this._getValue(model[i], this.ns.raml.vocabularies.security + 'name');
           if (!value) {
             continue;
           }
@@ -1528,9 +1541,9 @@ the License.
         const keys = Object.keys(model);
         const data = this.ns.raml.vocabularies.data;
         const settingsKeys = [
-          data + 'authorizationSettings',
-          data + 'authorizationGrants',
-          data + 'accessTokenSettings'
+          this._getAmfKey(data + 'authorizationSettings'),
+          this._getAmfKey(data + 'authorizationGrants'),
+          this._getAmfKey(data + 'accessTokenSettings')
         ];
         for (let i = 0; i < keys.length; i++) {
           const node = model[keys[i]];
@@ -1554,11 +1567,12 @@ the License.
           gransts = [];
         }
         const d = this.ns.raml.vocabularies.data;
-        const model = annotation[d + 'authorizationGrants'];
+        let model = annotation[this._getAmfKey(d + 'authorizationGrants')];
+        model = this._ensureArray(model);
         if (!model || !model.length) {
           return gransts;
         }
-        const list = model[0][this.ns.w3.name + '1999/02/22-rdf-syntax-ns#member'];
+        const list = model[0][this._getAmfKey(this.ns.w3.name + '1999/02/22-rdf-syntax-ns#member')];
         const addedGrants = [];
         list.forEach((item) => {
           const v = this._getValue(item, d + 'value');
@@ -1570,7 +1584,8 @@ the License.
         if (!addedGrants.length) {
           return gransts;
         }
-        if (typeof annotation[d + 'ignoreDefaultGrants'] !== 'undefined') {
+        const ignoreKey = d + 'ignoreDefaultGrants';
+        if (typeof annotation[ignoreKey] !== 'undefined') {
           gransts = [];
         }
         gransts = gransts.concat(addedGrants);
@@ -1603,18 +1618,25 @@ the License.
           return;
         }
         const d = this.ns.raml.vocabularies.data;
-        const authSettings = annotation[d + 'authorizationSettings'];
-        const tokenSettings = annotation[d + 'accessTokenSettings'];
+        const qpKey = this._getAmfKey(d + 'queryParameters');
+        let authSettings = annotation[this._getAmfKey(d + 'authorizationSettings')];
+        let tokenSettings = annotation[this._getAmfKey(d + 'accessTokenSettings')];
         if (authSettings) {
-          const qp = authSettings[0][d + 'queryParameters'];
+          if (authSettings instanceof Array) {
+            authSettings = authSettings[0];
+          }
+          const qp = authSettings[qpKey];
           if (qp) {
             this._setupAuthRequestQueryParameters(qp);
           }
         }
         if (tokenSettings) {
-          const qp = tokenSettings[0][d + 'queryParameters'];
-          const headers = tokenSettings[0][d + 'headers'];
-          const body = tokenSettings[0][d + 'body'];
+          if (tokenSettings instanceof Array) {
+            tokenSettings = tokenSettings[0];
+          }
+          const qp = tokenSettings[qpKey];
+          const headers = tokenSettings[this._getAmfKey(d + 'headers')];
+          const body = tokenSettings[this._getAmfKey(d + 'body')];
           if (qp) {
             this._setupTokenRequestQueryParameters(qp);
           }
@@ -1677,16 +1699,20 @@ the License.
       /**
        * Creats a form view model for type items.
        *
-       * @param {Array} params List of properties to process.
+       * @param {Array|object} param Property or list of properties to process.
        * @param {Object} modelOptions
-       * @return {Promise<Array|undefined>} Form view model or undefined if not set.
+       * @return {Array|undefined} Form view model or undefined if not set.
        */
-      _createViewModel(params, modelOptions) {
-        if (!params || !params[0] || !(params instanceof Array)) {
-          return Promise.resolve();
+      _createViewModel(param, modelOptions) {
+        if (!param) {
+          return;
+        }
+        if (param instanceof Array) {
+          param = param[0];
         }
         const factory = document.createElement('api-view-model-transformer');
-        return factory.modelForRawObject(params[0], modelOptions);
+        factory.amfModel = this.amfModel;
+        return factory.modelForRawObject(param, modelOptions);
       }
       /**
        * Computes value of `isCustomGrant` property when `grantType` changes.

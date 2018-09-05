@@ -552,31 +552,41 @@ the License.
      */
     _amfSettingsChanged(model) {
       if (!model) {
+        this.signatureMethods = this.defaultSignatureMethods;
         return;
       }
       const prefix = this.ns.raml.vocabularies.security;
-      let settings = model[prefix + 'settings'];
-      if (!settings || !settings[0]) {
+      const shKey = this._getAmfKey(prefix + 'scheme');
+      let scheme = model[shKey];
+      let type;
+      if (scheme) {
+        if (scheme instanceof Array) {
+          scheme = scheme[0];
+        }
+        type = this._getValue(scheme, prefix + 'type');
+      }
+      if (type !== 'OAuth 1.0') {
+        this.signatureMethods = this.defaultSignatureMethods;
         return;
       }
-      settings = settings[0];
+      const sKey = this._getAmfKey(this.ns.raml.vocabularies.security + 'settings');
+      let settings = scheme[sKey];
+      if (settings instanceof Array) {
+        settings = settings[0];
+      }
+      if (!settings) {
+        this.signatureMethods = this.defaultSignatureMethods;
+        return;
+      }
       this.requestTokenUrl = this._getValue(settings, prefix + 'requestTokenUri');
       this.authorizationUrl = this._getValue(settings, prefix + 'authorizationUri');
       this.accessTokenUrl = this._getValue(settings, prefix + 'tokenCredentialsUri');
-      const signaturtes = settings[prefix + 'signature'];
+      const signaturtes = this._getValueArray(settings, prefix + 'signature');
       if (!signaturtes || !signaturtes.length) {
         this.signatureMethods = this.defaultSignatureMethods;
       } else {
-        this.signatureMethods = signaturtes.map((item) => item['@value']);
+        this.signatureMethods = signaturtes;
       }
-    }
-
-    _getAmfValue(model) {
-      if (!model) {
-        return;
-      }
-      model = model[0];
-      return model['@value'];
     }
     /**
      * Fired when user requested to perform an authorization.

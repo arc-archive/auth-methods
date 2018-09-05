@@ -16,295 +16,374 @@
         <auth-method-custom></auth-method-custom>
       </template>
     </test-fixture>
-
     <script>
     /* global AmfLoader, MockInteractions */
     suite('custom auth', () => {
-      let amf;
-      let element;
-      suiteSetup(() => {
-        return AmfLoader.load(5)
-        .then((model) => amf = model);
-      });
-
-      suite('Basic', () => {
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
+      [
+        ['Full data model', false],
+        ['Compact data model', true]
+      ].forEach((setupItem) => {
+        suite(setupItem[0], function() {
+          let amf;
+          let security;
+          let element;
+          suiteSetup(() => {
+            return AmfLoader.load(5, setupItem[1])
+            .then((model) => {
+              amf = model[0];
+              security = model[1];
+            });
           });
-        });
 
-        test('headers is computed', () => {
-          assert.typeOf(element.headers, 'array');
-          assert.lengthOf(element.headers, 1);
-        });
+          suite('Basic', () => {
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
 
-        test('queryParameters is computed', () => {
-          assert.typeOf(element.queryParameters, 'array');
-          assert.lengthOf(element.queryParameters, 2);
-        });
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
 
-        test('hasHeaders is computed', () => {
-          assert.isTrue(element.hasHeaders);
-        });
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
 
-        test('hasQueryParameters is computed', () => {
-          assert.isTrue(element.hasQueryParameters);
-        });
+            test('headers is computed', () => {
+              assert.typeOf(element.headers, 'array');
+              assert.lengthOf(element.headers, 1);
+            });
 
-        test('schemeName is computed', () => {
-          assert.equal(element.schemeName, 'custom1');
-        });
+            test('queryParameters is computed', () => {
+              assert.typeOf(element.queryParameters, 'array');
+              assert.lengthOf(element.queryParameters, 2);
+            });
 
-        test('schemeDescription is computed', () => {
-          assert.typeOf(element.schemeDescription, 'string');
-        });
-      });
+            test('hasHeaders is computed', () => {
+              assert.isTrue(element.hasHeaders);
+            });
 
-      suite('Validation', () => {
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
+            test('hasQueryParameters is computed', () => {
+              assert.isTrue(element.hasQueryParameters);
+            });
+
+            test('schemeName is computed', () => {
+              assert.equal(element.schemeName, 'custom1');
+            });
+
+            test('schemeDescription is computed', () => {
+              assert.typeOf(element.schemeDescription, 'string');
+            });
           });
-        });
 
-        test('Should not be validated', () => {
-          assert.isFalse(element.validate());
-        });
+          suite('Validation', () => {
+            setup((done) => {
+              element = fixture('custom');
+              sessionStorage.clear();
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
 
-        test('Should be validated', (done) => {
-          const hInput = element.shadowRoot.querySelector('[data-type="header"]');
-          hInput.value = 'test';
-          const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
-          qInput.value = 'true';
-          flush(() => {
-            assert.isTrue(element.validate());
-            done();
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
+
+            test('Should not be validated', () => {
+              assert.isFalse(element.validate());
+            });
+
+            test('Should be validated', (done) => {
+              const hInput = element.shadowRoot.querySelector('[data-type="header"]');
+              hInput.value = 'test';
+              const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
+              qInput.value = 'true';
+              flush(() => {
+                assert.isTrue(element.validate());
+                done();
+              });
+            });
           });
-        });
-      });
 
-      suite('getSettings()', () => {
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
+          suite('getSettings()', () => {
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
+
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
+
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
+
+            test('Returns an object', () => {
+              const result = element.getSettings();
+              assert.typeOf(result, 'object');
+            });
+
+            test('Has all keys', () => {
+              const result = element.getSettings();
+              const keys = Object.keys(result);
+              assert.lengthOf(keys, 3);
+            });
           });
-        });
 
-        test('Returns an object', () => {
-          const result = element.getSettings();
-          assert.typeOf(result, 'object');
-        });
+          suite('Docs', () => {
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
 
-        test('Has all keys', () => {
-          const result = element.getSettings();
-          const keys = Object.keys(result);
-          assert.lengthOf(keys, 3);
-        });
-      });
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
 
-      suite('Docs', () => {
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
+
+            test('Main documentation is not rendered', () => {
+              assert.isUndefined(element.documentationOpened);
+            });
+
+            test('Toggles main documentation', () => {
+              const button = element.shadowRoot.querySelector('.scheme-header paper-icon-button');
+              MockInteractions.tap(button);
+              assert.isTrue(element.documentationOpened);
+            });
+
+            test('Renders item documentation', () => {
+              const button = element.shadowRoot.querySelector('.header-item .help-icon');
+              MockInteractions.tap(button);
+              const marked = element.shadowRoot.querySelector('.header-item .data-docs marked-element');
+              assert.ok(marked);
+              assert.typeOf(marked.markdown, 'string');
+            });
+
+            test('Item collapse is opened', () => {
+              const button = element.shadowRoot.querySelector('.header-item .help-icon');
+              MockInteractions.tap(button);
+              const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
+              assert.isTrue(collapse.opened);
+            });
+
+            test('Another click closes collapse', (done) => {
+              const button = element.shadowRoot.querySelector('.header-item .help-icon');
+              MockInteractions.tap(button);
+              const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
+              assert.isTrue(collapse.opened);
+              flush(() => {
+                MockInteractions.tap(button);
+                assert.isFalse(collapse.opened);
+                done();
+              });
+            });
+
+            test('Docs are cleared when scheme change', (done) => {
+              const button = element.shadowRoot.querySelector('.header-item .help-icon');
+              MockInteractions.tap(button);
+              flush(() => {
+                element.amfSettings = undefined;
+                Polymer.RenderStatus.afterNextRender(this, () => {
+                  const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
+                  assert.equal(collapse, null);
+                  done();
+                });
+              });
+            });
           });
-        });
 
-        test('Main documentation is not rendered', () => {
-          assert.isUndefined(element.documentationOpened);
-        });
+          suite('Settings change event', () => {
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
 
-        test('Toggles main documentation', () => {
-          const button = element.shadowRoot.querySelector('.scheme-header paper-icon-button');
-          MockInteractions.tap(button);
-          assert.isTrue(element.documentationOpened);
-        });
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
 
-        test('Renders item documentation', () => {
-          const button = element.shadowRoot.querySelector('.header-item .help-icon');
-          MockInteractions.tap(button);
-          const marked = element.shadowRoot.querySelector('.header-item .data-docs marked-element');
-          assert.ok(marked);
-          assert.typeOf(marked.markdown, 'string');
-        });
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
 
-        test('Item collapse is opened', () => {
-          const button = element.shadowRoot.querySelector('.header-item .help-icon');
-          MockInteractions.tap(button);
-          const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
-          assert.isTrue(collapse.opened);
-        });
+            test('Dispatches the event', (done) => {
+              element.addEventListener('auth-settings-changed', () => {
+                done();
+              });
+              const input = element.shadowRoot.querySelector('[data-type="header"]');
+              input.value = 'test-x';
+            });
 
-        test('Another click closes collapse', (done) => {
-          const button = element.shadowRoot.querySelector('.header-item .help-icon');
-          MockInteractions.tap(button);
-          const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
-          assert.isTrue(collapse.opened);
-          flush(() => {
-            MockInteractions.tap(button);
-            assert.isFalse(collapse.opened);
-            done();
+            test('The event has required properties', (done) => {
+              const hInput = element.shadowRoot.querySelector('[data-type="header"]');
+              hInput.value = 'test-y';
+              const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
+              element.addEventListener('auth-settings-changed', (e) => {
+                assert.equal(e.detail.type, 'x-custom', 'type is set');
+                assert.equal(e.detail.valid, true, 'valid is set');
+                assert.equal(e.detail.name, 'custom1', 'name is set');
+                assert.typeOf(e.detail.settings, 'object', 'settings is set');
+                done();
+              });
+              qInput.value = 'true';
+            });
           });
-        });
 
-        test('Docs are cleared when scheme change', (done) => {
-          const button = element.shadowRoot.querySelector('.header-item .help-icon');
-          MockInteractions.tap(button);
-          flush(() => {
-            element.amfSettings = undefined;
-            const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
-            assert.equal(collapse, null);
-            done();
+          suite('Params change event', () => {
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
+
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
+
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
+
+            test('request-header-changed is dispatched', (done) => {
+              element.addEventListener('request-header-changed', (e) => {
+                assert.equal(e.detail.name, 'SpecialToken', 'name is set');
+                assert.equal(e.detail.value, 'test-value', 'value is set');
+                done();
+              });
+              const input = element.shadowRoot.querySelector('[data-type="header"]');
+              input.value = 'test-value';
+            });
+
+            test('query-parameter-changed is dispatched', (done) => {
+              element.addEventListener('query-parameter-changed', (e) => {
+                assert.equal(e.detail.name, 'debugToken', 'name is set');
+                assert.equal(e.detail.value, 'Error', 'value is set');
+                done();
+              });
+              const input = element.shadowRoot.querySelector('[data-type="query"]');
+              input.value = 'Error';
+            });
           });
-        });
-      });
 
-      suite('Settings change event', () => {
+          suite('Updates headers from event', () => {
+            function fire(name) {
+              document.body.dispatchEvent(new CustomEvent('request-header-changed', {
+                detail: {
+                  name: name,
+                  value: 'test-value'
+                },
+                bubbles: true,
+                composed: true
+              }));
+            }
 
-        suiteSetup(() => {
-          sessionStorage.clear();
-        });
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
 
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
+
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
+
+            test('Updated existing header', () => {
+              fire('SpecialToken');
+              assert.lengthOf(element.headers, 1);
+              assert.equal(element.headers[0].value, 'test-value');
+            });
+
+            test('Does nothing when header not found', () => {
+              fire('other');
+              assert.lengthOf(element.headers, 1);
+              assert.equal(element.headers[0].value, '');
+            });
           });
-        });
 
-        teardown(() => {
-          sessionStorage.clear();
-        });
+          suite('Updates query params from event', () => {
+            function fire(name, value) {
+              document.body.dispatchEvent(new CustomEvent('query-parameter-changed', {
+                detail: {
+                  name: name,
+                  value: value
+                },
+                bubbles: true,
+                composed: true
+              }));
+            }
 
-        test('Dispatches the event', (done) => {
-          element.addEventListener('auth-settings-changed', () => {
-            done();
+            suiteSetup(() => {
+              sessionStorage.clear();
+            });
+
+            setup((done) => {
+              element = fixture('custom');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
+
+            teardown(() => {
+              const factory = document.createElement('api-view-model-transformer');
+              factory.clearCache();
+            });
+
+            test('Updated existing parameter', () => {
+              fire('debugToken', 'Error');
+              assert.lengthOf(element.queryParameters, 2);
+              assert.equal(element.queryParameters[0].value, 'Error');
+            });
+
+            test('Does nothing when param not found', () => {
+              fire('other', '');
+              assert.lengthOf(element.queryParameters, 2);
+              assert.notOk(element.queryParameters[0].value);
+            });
           });
-          const input = element.shadowRoot.querySelector('[data-type="header"]');
-          input.value = 'test-x';
-        });
-
-        test('The event has required properties', (done) => {
-          const hInput = element.shadowRoot.querySelector('[data-type="header"]');
-          hInput.value = 'test-y';
-          const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
-          element.addEventListener('auth-settings-changed', (e) => {
-            assert.equal(e.detail.type, 'x-custom', 'type is set');
-            assert.equal(e.detail.valid, true, 'valid is set');
-            assert.equal(e.detail.name, 'custom1', 'name is set');
-            assert.typeOf(e.detail.settings, 'object', 'settings is set');
-            done();
-          });
-          qInput.value = 'true';
-        });
-      });
-
-      suite('Params change event', () => {
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
-          });
-        });
-
-        test('request-header-changed is dispatched', (done) => {
-          element.addEventListener('request-header-changed', (e) => {
-            assert.equal(e.detail.name, 'SpecialToken', 'name is set');
-            assert.equal(e.detail.value, 'test-value', 'value is set');
-            done();
-          });
-          const input = element.shadowRoot.querySelector('[data-type="header"]');
-          input.value = 'test-value';
-        });
-
-        test('query-parameter-changed is dispatched', (done) => {
-          element.addEventListener('query-parameter-changed', (e) => {
-            assert.equal(e.detail.name, 'debugToken', 'name is set');
-            assert.equal(e.detail.value, 'Error', 'value is set');
-            done();
-          });
-          const input = element.shadowRoot.querySelector('[data-type="query"]');
-          input.value = 'Error';
-        });
-      });
-
-      suite('Updates headers from event', () => {
-        function fire(name) {
-          document.body.dispatchEvent(new CustomEvent('request-header-changed', {
-            detail: {
-              name: name,
-              value: 'test-value'
-            },
-            bubbles: true,
-            composed: true
-          }));
-        }
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
-          });
-        });
-
-        test('Updated existing header', () => {
-          fire('SpecialToken');
-          assert.lengthOf(element.headers, 1);
-          assert.equal(element.headers[0].value, 'test-value');
-        });
-
-        test('Does nothing when header not found', () => {
-          fire('other');
-          assert.lengthOf(element.headers, 1);
-          // Model transformer caches model so it resutls with last value
-          assert.equal(element.headers[0].value, 'test-value');
-        });
-      });
-
-      suite('Updates query params from event', () => {
-        function fire(name, value) {
-          document.body.dispatchEvent(new CustomEvent('query-parameter-changed', {
-            detail: {
-              name: name,
-              value: value
-            },
-            bubbles: true,
-            composed: true
-          }));
-        }
-        setup((done) => {
-          element = fixture('custom');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
-          });
-        });
-
-        test('Updated existing parameter', () => {
-          fire('debugToken', 'Error');
-          assert.lengthOf(element.queryParameters, 2);
-          assert.equal(element.queryParameters[0].value, 'Error');
-        });
-
-        test('Does nothing when header not found', () => {
-          fire('other', '');
-          assert.lengthOf(element.queryParameters, 2);
-          // Model transformer caches model so it resutls with last value
-          assert.equal(element.queryParameters[0].value, 'Error');
         });
       });
     });
     </script>
-
   </body>
 </html>

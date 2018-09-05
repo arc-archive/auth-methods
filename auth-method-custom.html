@@ -75,7 +75,7 @@ the License.
         <template is="dom-if" if="[[schemeName]]">
           <div class="scheme-header">
             <h3>
-              Scheme: [[schemeName]]
+              <span>Scheme: [[schemeName]]</span>
               <template is="dom-if" if="[[_computeHasDoc(noDocs, schemeDescription)]]">
                 <paper-icon-button class="hint-icon" icon="arc:help" on-tap="toggleSchemeDocumentation" title="Display scheme description"></paper-icon-button>
               </template>
@@ -175,16 +175,17 @@ the License.
    * @appliesMixin ApiElements.AmfHelperMixin
    * @demo demo/custom.html
    */
-  class AuthMethodCustom extends ApiElements.AmfHelperMixin(ArcBehaviors.AuthMethodsMixin(ArcBehaviors.EventsTargetBehavior(Polymer.Element))) {
-    static get is() { return 'auth-method-custom'; }
+  class AuthMethodCustom extends ApiElements.AmfHelperMixin(
+    ArcBehaviors.AuthMethodsMixin(
+      ArcBehaviors.EventsTargetBehavior(Polymer.Element))) {
+    static get is() {return 'auth-method-custom';}
     static get properties() {
       return {
         /**
          * AMF security scheme model.
          */
         amfSettings: {
-          type: Object,
-          observer: '_schemeChanged'
+          type: Object
         },
         /**
          * Computed list of headers to render in the form.
@@ -234,7 +235,8 @@ the License.
     static get observers() {
       return [
         '_settingsChanged(headers.*)',
-        '_settingsChanged(queryParameters.*)'
+        '_settingsChanged(queryParameters.*)',
+        '_schemeChanged(amfSettings, amfModel)'
       ];
     }
 
@@ -270,21 +272,44 @@ the License.
       return form.validate();
     }
 
-    _schemeChanged(model) {
+    _schemeChanged() {
+      if (this.__schemeChangeDebouncer) {
+        return;
+      }
+      this.__schemeChangeDebouncer = true;
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        this.__schemeChangeDebouncer = false;
+        this.__schemeChanged(this.amfSettings);
+      });
+    }
+
+    __schemeChanged(model) {
+      const prefix = this.ns.raml.vocabularies.security;
       this.headers = undefined;
       this.queryParameters = undefined;
       this._clearDocs();
-      if (!this._hasType(model, this.ns.raml.vocabularies.security + 'SecurityScheme')) {
+      if (!this._hasType(model, this.ns.raml.vocabularies.security + 'ParametrizedSecurityScheme')) {
         return;
       }
-      const type = this._getValue(model, this.ns.raml.vocabularies.security + 'type');
-      if (!type || type.indexOf('x-') === -1) {
+      const shKey = this._getAmfKey(prefix + 'scheme');
+      let scheme = model[shKey];
+      let type;
+      if (scheme) {
+        if (scheme instanceof Array) {
+          scheme = scheme[0];
+        }
+        type = this._getValue(scheme, prefix + 'type');
+      }
+
+      if (!type || type.indexOf('x-') !== 0) {
         return;
       }
-      this._createViewModel('header', model[this.ns.raml.vocabularies.http + 'header']);
-      this._createViewModel('parameter', model[this.ns.raml.vocabularies.http + 'parameter']);
-      this._setSchemeName(this._getValue(model, this.ns.raml.vocabularies.security + 'name'));
-      this._setSchemeDescription(this._getValue(model, this.ns.schema.desc));
+      const hKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'header');
+      const pKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'parameter');
+      this._createViewModel('header', this._ensureArray(scheme[hKey]));
+      this._createViewModel('parameter', this._ensureArray(scheme[pKey]));
+      this._setSchemeName(this._getValue(model, prefix + 'name'));
+      this._setSchemeDescription(this._getValue(scheme, this.ns.schema.desc));
     }
     /**
      * Generates view model using the tranformer.
@@ -298,17 +323,16 @@ the License.
         return;
       }
       const factory = document.createElement('api-view-model-transformer');
-      return factory.computeViewModel(model)
-      .then((data) => {
-        if (!data) {
-          return;
-        }
-        if (type === 'header') {
-          this._setHeaders(data);
-        } else if (type === 'parameter') {
-          this._setQueryParameters(data);
-        }
-      });
+      factory.amfModel = this.amfModel;
+      const data = factory.computeViewModel(model);
+      if (!data) {
+        return;
+      }
+      if (type === 'header') {
+        this._setHeaders(data);
+      } else if (type === 'parameter') {
+        this._setQueryParameters(data);
+      }
     }
 
     _computeHasData(data) {
@@ -515,7 +539,9 @@ the License.
       }
       nodes.forEach((node) => node.parentNode.removeChild(node));
     }
-
+    /**
+     * Toggles docs opened state
+     */
     toggleSchemeDocumentation() {
       this.documentationOpened = !this.documentationOpened;
     }

@@ -30,65 +30,15 @@
       const redirectUri = 'https://redirect';
       const scopes = ['email', 'profile'];
 
-      suite('Amf model', () => {
-        let amf;
-        suiteSetup(() => {
-          return AmfLoader.load()
-          .then((model) => amf = model);
-        });
-        let element;
-        setup(() => {
-          element = fixture('empty');
-          element.amfSettings = amf;
-        });
-
-        test('Computes authorizationUri', () => {
-          assert.equal(element.authorizationUri, 'https://auth.com');
-        });
-
-        test('Computes accessTokenUri', () => {
-          assert.equal(element.accessTokenUri, 'https://token.com');
-        });
-
-        test('Computes scopes', () => {
-          assert.deepEqual(element.scopes, ['profile', 'email']);
-        });
-
-        test('Computes grant types', () => {
-          const compare = [{
-              type: 'implicit',
-              label: 'Access token (browser flow)'
-            }, {
-              type: 'authorization_code',
-              label: 'Authorization code (server flow)'
-            }, {
-              label: 'annotated_custom_grant',
-              type: 'annotated_custom_grant'
-            }, {
-              label: 'annotated_custom_grant2',
-              type: 'annotated_custom_grant2'
-            }];
-          assert.deepEqual(element.grantTypes, compare);
-        });
-
-        test('computes authQueryParameters', () => {
-          assert.typeOf(element.authQueryParameters, 'array');
-          assert.lengthOf(element.authQueryParameters, 5);
-        });
-
-        test('computes tokenQueryParameters', () => {
-          assert.typeOf(element.tokenQueryParameters, 'array');
-          assert.lengthOf(element.tokenQueryParameters, 2);
-        });
-
-        test('computes tokenBody', () => {
-          assert.typeOf(element.tokenBody, 'array');
-          assert.lengthOf(element.tokenBody, 2);
-        });
-      });
+      function clearCache() {
+        sessionStorage.clear();
+        const factory = document.createElement('api-view-model-transformer');
+        factory.clearCache();
+      }
 
       suite('Validation', () => {
         setup((done) => {
+          clearCache();
           element = fixture('implicit');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
@@ -136,14 +86,11 @@
         });
 
         setup((done) => {
+          clearCache();
           element = fixture('implicit');
           Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
-        });
-
-        teardown(() => {
-          sessionStorage.clear();
         });
 
         test('Step 1 is closed per auto selection', () => {
@@ -268,6 +215,7 @@
 
       suite('Events', () => {
         setup((done) => {
+          clearCache();
           element = fixture('implicit');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
@@ -310,6 +258,7 @@
       suite('getSettings()', () => {
         let element;
         setup(() => {
+          clearCache();
           element = fixture('implicit');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
@@ -372,61 +321,147 @@
         });
       });
 
-      suite('getSettings() - custom data', () => {
-        let amf;
-        suiteSetup(() => {
-          return AmfLoader.load()
-          .then((model) => amf = model);
-        });
 
-        let element;
-        setup((done) => {
-          element = fixture('implicit');
-          element.amfSettings = amf;
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            flush(() => done());
+
+      suite('Amf model', () => {
+        [
+          ['Full data model', false],
+          ['Compact data model', true]
+        ].forEach((setupItem) => {
+          suite(setupItem[0], function() {
+            let amf;
+            let security;
+            let element;
+            suiteSetup(() => {
+              return AmfLoader.load(0, setupItem[1])
+              .then((model) => {
+                amf = model[0];
+                security = model[1];
+              });
+            });
+
+            setup(() => {
+              clearCache();
+              element = fixture('empty');
+              element.amfModel = amf;
+              element.amfSettings = security;
+            });
+
+            test('Computes authorizationUri', () => {
+              assert.equal(element.authorizationUri, 'https://auth.com');
+            });
+
+            test('Computes accessTokenUri', () => {
+              assert.equal(element.accessTokenUri, 'https://token.com');
+            });
+
+            test('Computes scopes', () => {
+              assert.deepEqual(element.scopes, ['profile', 'email']);
+            });
+
+            test('Computes grant types', () => {
+              const compare = [{
+                  type: 'implicit',
+                  label: 'Access token (browser flow)'
+                }, {
+                  type: 'authorization_code',
+                  label: 'Authorization code (server flow)'
+                }, {
+                  label: 'annotated_custom_grant',
+                  type: 'annotated_custom_grant'
+                }, {
+                  label: 'annotated_custom_grant2',
+                  type: 'annotated_custom_grant2'
+                }];
+              assert.deepEqual(element.grantTypes, compare);
+            });
+
+            test('computes authQueryParameters', () => {
+              assert.typeOf(element.authQueryParameters, 'array');
+              assert.lengthOf(element.authQueryParameters, 5);
+            });
+
+            test('computes tokenQueryParameters', () => {
+              assert.typeOf(element.tokenQueryParameters, 'array');
+              assert.lengthOf(element.tokenQueryParameters, 2);
+            });
+
+            test('computes tokenBody', () => {
+              assert.typeOf(element.tokenBody, 'array');
+              assert.lengthOf(element.tokenBody, 2);
+            });
           });
         });
+      });
 
-        test('Contains only required params', function() {
-          const result = element.getSettings();
-          assert.typeOf(result.customData.auth.parameters, 'array', 'auth params is an array');
-          assert.lengthOf(result.customData.auth.parameters, 1, 'has one item');
-        });
+      suite('getSettings() - custom data', () => {
+        [
+          ['Full data model', false],
+          ['Compact data model', true]
+        ].forEach((setupItem) => {
+          suite(setupItem[0], function() {
+            let amf;
+            let security;
+            let element;
+            suiteSetup(() => {
+              return AmfLoader.load(0, setupItem[1])
+              .then((model) => {
+                amf = model[0];
+                security = model[1];
+              });
+            });
 
-        test('Contains not required data when added', function() {
-          const value = 1234;
-          element.authQueryParameters[0].value = value;
-          const result = element.getSettings();
-          assert.lengthOf(result.customData.auth.parameters, 2, 'has two items');
-          assert.equal(result.customData.auth.parameters[0].value, value);
-        });
+            setup((done) => {
+              clearCache();
+              element = fixture('implicit');
+              element.amfModel = amf;
+              element.amfSettings = security;
+              Polymer.RenderStatus.afterNextRender(this, () => {
+                flush(() => done());
+              });
+            });
 
-        test('Does not contain token data', function() {
-          const result = element.getSettings();
-          assert.isUndefined(result.customData.token);
-        });
+            test('Contains only required params', function() {
+              const result = element.getSettings();
+              assert.typeOf(result.customData.auth.parameters, 'array', 'auth params is an array');
+              assert.lengthOf(result.customData.auth.parameters, 1, 'has one item');
+            });
 
-        test('deliveryMethod is set', () => {
-          const result = element.getSettings();
-          assert.equal(result.deliveryMethod, 'query', 'Custom value is set');
-        });
+            test('Contains not required data when added', function() {
+              const value = 1234;
+              element.authQueryParameters[0].value = value;
+              const result = element.getSettings();
+              assert.lengthOf(result.customData.auth.parameters, 2, 'has two items');
+              assert.equal(result.customData.auth.parameters[0].value, value);
+            });
 
-        test('deliveryName is set', () => {
-          const result = element.getSettings();
-          assert.equal(result.deliveryName, 'access_token', 'Custom value is set');
-        });
+            test('Does not contain token data', function() {
+              const result = element.getSettings();
+              assert.isUndefined(result.customData.token);
+            });
 
-        test('deliveryMethod is restored to default', () => {
-          element.amfSettings = undefined;
-          const result = element.getSettings();
-          assert.equal(result.deliveryMethod, 'header');
-        });
+            test('deliveryMethod is set', () => {
+              const result = element.getSettings();
+              assert.equal(result.deliveryMethod, 'query', 'Custom value is set');
+            });
 
-        test('deliveryName is restored to default', () => {
-          element.amfSettings = undefined;
-          const result = element.getSettings();
-          assert.equal(result.deliveryName, 'authorization');
+            test('deliveryName is set', () => {
+              const result = element.getSettings();
+              assert.equal(result.deliveryName, 'access_token', 'Custom value is set');
+            });
+
+            test('deliveryMethod is restored to default', () => {
+              element.amfSettings = undefined;
+              const result = element.getSettings();
+              assert.equal(result.deliveryMethod, 'header');
+            });
+
+            test('deliveryName is restored to default', () => {
+              element.amfSettings = undefined;
+              const result = element.getSettings();
+              assert.equal(result.deliveryName, 'authorization');
+            });
+          });
         });
       });
     });
