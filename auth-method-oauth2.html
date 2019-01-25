@@ -251,7 +251,7 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-query"></api-property-form-item>
                     <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="auth-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="auth-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
                   <div class="custom-data-field-docs docs-container" data-source="auth-query" data-key$="[[item.name]]"></div>
@@ -265,7 +265,7 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-query"></api-property-form-item>
                     <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="token-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
                   <div class="custom-data-field-docs docs-container" data-source="token-query" data-key$="[[item.name]]"></div>
@@ -279,7 +279,7 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-headers"></api-property-form-item>
                     <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-headers" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="token-headers" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
                   <div class="custom-data-field-docs docs-container" data-source="token-headers" data-key$="[[item.name]]"></div>
@@ -293,7 +293,7 @@ the License.
                   <div class="custom-data-field-value">
                     <api-property-form-item model="[[item]]" name$="[[item.name]]" auto-validate required$="[[item.required]]" value="{{item.value}}" data-type="token-body"></api-property-form-item>
                     <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-tap="_toggleDocumentation" data-source="token-body" title="Display documentation" noink="[[noink]]"></paper-icon-button>
+                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="token-body" title="Display documentation" noink="[[noink]]"></paper-icon-button>
                     </template>
                   </div>
                   <div class="custom-data-field-docs docs-container" data-source="token-body" data-key$="[[item.name]]"></div>
@@ -330,7 +330,7 @@ the License.
       </form>
     </iron-form>
     <div class="authorize-actions" hidden$="[[hasAccessToken]]">
-      <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="get-token" on-tap="authorize" raised noink="[[noink]]">Request access token</paper-button>
+      <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="get-token" on-click="authorize" raised noink="[[noink]]">Request access token</paper-button>
       <paper-spinner active="[[_authorizing]]"></paper-spinner>
     </div>
 
@@ -340,7 +340,7 @@ the License.
         <span class="code" on-click="_clickCopyAction">[[accessToken]]</span>
       </p>
       <div class="authorize-actions">
-        <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="refresh-token" on-tap="authorize" raised noink="[[noink]]">Refresh access token</paper-button>
+        <paper-button disabled$="[[_authorizing]]" class="auth-button" data-type="refresh-token" on-click="authorize" raised noink="[[noink]]">Refresh access token</paper-button>
         <paper-spinner active="[[_authorizing]]"></paper-spinner>
       </div>
     </div>
@@ -1439,6 +1439,7 @@ the License.
        * reads API spec to get this information or provides default if
        * not specifies.
        *
+       * @param {Object} info Security AMF model
        * @return {Object}
        */
       _getOauth2DeliveryMethod(info) {
@@ -1752,9 +1753,10 @@ the License.
       /**
        * Computes list of grant types to render in the form.
        *
-       * @param {?Array<String>} supportedTypes List of types allowed by the
+       * @param {?Array<String>} allowed List of types allowed by the
        * component configuration or API spec applied to this element. If empty
        * or not set then all OAuth 2.0 default types are returned.
+       * @return {Array<Object>}
        */
       _computeGrantList(allowed) {
         let defaults = this._oauth2GrantTypes;
@@ -1900,7 +1902,7 @@ the License.
        * Creates a documentation element.
        *
        * @param {Object} model
-       * @param {Object} appendTo
+       * @param {Element} appendTo
        */
       _createDocsElements(model, appendTo) {
         const collapse = document.createElement('iron-collapse');

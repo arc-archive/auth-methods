@@ -8,7 +8,7 @@
     <script src="../../iron-test-helpers/test-helpers.js"></script>
     <script src="../../iron-test-helpers/mock-interactions.js"></script>
     <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
-    <link rel="import" href="../auth-methods.html">
+    <link rel="import" href="../auth-method-oauth2.html">
   </head>
   <body>
 
@@ -243,6 +243,43 @@
         element.accessToken = 'test-1';
         fire(authName, '');
         assert.equal(element.accessToken, '');
+      });
+    });
+
+    suite('_createDocsElements()', () => {
+      let element;
+      let model;
+      let node;
+      setup(() => {
+        element = fixture('basic');
+        model = {
+          description: 'test-desc'
+        };
+        node = document.createElement('div');
+      });
+
+      test('Appends iron-collapse to passed node', () => {
+        element._createDocsElements(model, node);
+        assert.ok(node.querySelector('iron-collapse'));
+      });
+
+      test('iron-collapse is eventually opened', (done) => {
+        element._createDocsElements(model, node);
+        Polymer.RenderStatus.afterNextRender(element, () => {
+          assert.isTrue(node.querySelector('iron-collapse').opened);
+          done();
+        });
+      });
+
+      test('Node has marked element', () => {
+        element._createDocsElements(model, node);
+        assert.ok(node.querySelector('marked-element'));
+      });
+
+      test('Description is set', () => {
+        element._createDocsElements(model, node);
+        const marked = node.querySelector('marked-element');
+        assert.equal(marked.markdown, model.description);
       });
     });
     </script>
