@@ -8,6 +8,10 @@
  *   auth-method-oauth2.html
  */
 
+
+// tslint:disable:variable-name Describing an API that's defined elsewhere.
+// tslint:disable:no-any describes the API as best we are able today
+
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 /// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
 /// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
@@ -658,8 +662,10 @@ declare namespace UiElements {
      * It can be either query parameter or header. This function
      * reads API spec to get this information or provides default if
      * not specifies.
+     *
+     * @param info Security AMF model
      */
-    _getOauth2DeliveryMethod(info: any): object|null;
+    _getOauth2DeliveryMethod(info: object|null): object|null;
 
     /**
      * Reads API security definition and applies itn to the view as predefined
@@ -759,8 +765,12 @@ declare namespace UiElements {
 
     /**
      * Computes list of grant types to render in the form.
+     *
+     * @param allowed List of types allowed by the
+     * component configuration or API spec applied to this element. If empty
+     * or not set then all OAuth 2.0 default types are returned.
      */
-    _computeGrantList(allowed: any): any;
+    _computeGrantList(allowed: Array<String|null>|null): Array<object|null>|null;
 
     /**
      * Computes boolean value for `isSelectedType` if `grantType` is set.
@@ -800,7 +810,7 @@ declare namespace UiElements {
     /**
      * Creates a documentation element.
      */
-    _createDocsElements(model: object|null, appendTo: object|null): void;
+    _createDocsElements(model: object|null, appendTo: Element|null): void;
 
     /**
      * Clears all custom data documention nodes.

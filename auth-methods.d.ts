@@ -8,6 +8,9 @@
  *   auth-methods.html
  */
 
+
+// tslint:disable:variable-name Describing an API that's defined elsewhere.
+
 /// <reference path="auth-method-basic.d.ts" />
 /// <reference path="auth-method-digest.d.ts" />
 /// <reference path="auth-method-ntlm.d.ts" />

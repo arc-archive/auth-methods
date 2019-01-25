@@ -291,11 +291,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1148,
+              "line": 1098,
               "column": 8
             },
             "end": {
-              "line": 1148,
+              "line": 1098,
               "column": 32
             }
           },
@@ -314,11 +314,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1150,
+              "line": 1100,
               "column": 8
             },
             "end": {
-              "line": 1150,
+              "line": 1100,
               "column": 34
             }
           },
@@ -337,11 +337,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1152,
+              "line": 1102,
               "column": 8
             },
             "end": {
-              "line": 1152,
+              "line": 1102,
               "column": 28
             }
           },
@@ -360,11 +360,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1154,
+              "line": 1104,
               "column": 8
             },
             "end": {
-              "line": 1154,
+              "line": 1104,
               "column": 31
             }
           },
@@ -383,11 +383,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1156,
+              "line": 1106,
               "column": 8
             },
             "end": {
-              "line": 1156,
+              "line": 1106,
               "column": 28
             }
           },
@@ -406,11 +406,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1158,
+              "line": 1108,
               "column": 8
             },
             "end": {
-              "line": 1158,
+              "line": 1108,
               "column": 35
             }
           },
@@ -429,11 +429,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1160,
+              "line": 1110,
               "column": 8
             },
             "end": {
-              "line": 1160,
+              "line": 1110,
               "column": 24
             }
           },
@@ -452,11 +452,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1162,
+              "line": 1112,
               "column": 8
             },
             "end": {
-              "line": 1162,
+              "line": 1112,
               "column": 24
             }
           },
@@ -475,11 +475,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1164,
+              "line": 1114,
               "column": 8
             },
             "end": {
-              "line": 1164,
+              "line": 1114,
               "column": 38
             }
           },
@@ -498,11 +498,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1166,
+              "line": 1116,
               "column": 8
             },
             "end": {
-              "line": 1166,
+              "line": 1116,
               "column": 20
             }
           },
@@ -521,11 +521,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1168,
+              "line": 1118,
               "column": 8
             },
             "end": {
-              "line": 1168,
+              "line": 1118,
               "column": 27
             }
           },
@@ -544,11 +544,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1170,
+              "line": 1120,
               "column": 8
             },
             "end": {
-              "line": 1170,
+              "line": 1120,
               "column": 23
             }
           },
@@ -567,11 +567,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1172,
+              "line": 1122,
               "column": 8
             },
             "end": {
-              "line": 1172,
+              "line": 1122,
               "column": 30
             }
           },
@@ -590,11 +590,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1174,
+              "line": 1124,
               "column": 8
             },
             "end": {
-              "line": 1174,
+              "line": 1124,
               "column": 30
             }
           },
@@ -613,11 +613,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1176,
+              "line": 1126,
               "column": 8
             },
             "end": {
-              "line": 1176,
+              "line": 1126,
               "column": 29
             }
           },
@@ -636,11 +636,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1178,
+              "line": 1128,
               "column": 8
             },
             "end": {
-              "line": 1178,
+              "line": 1128,
               "column": 32
             }
           },
@@ -659,11 +659,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1180,
+              "line": 1130,
               "column": 8
             },
             "end": {
-              "line": 1180,
+              "line": 1130,
               "column": 30
             }
           },
@@ -682,11 +682,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1182,
+              "line": 1132,
               "column": 8
             },
             "end": {
-              "line": 1182,
+              "line": 1132,
               "column": 24
             }
           },
@@ -705,11 +705,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1184,
+              "line": 1134,
               "column": 8
             },
             "end": {
-              "line": 1184,
+              "line": 1134,
               "column": 28
             }
           },
@@ -728,11 +728,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1187,
+              "line": 1137,
               "column": 6
             },
             "end": {
-              "line": 1189,
+              "line": 1139,
               "column": 7
             }
           },
@@ -751,11 +751,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 435,
+              "line": 486,
               "column": 8
             },
             "end": {
-              "line": 435,
+              "line": 486,
               "column": 23
             }
           },
@@ -774,11 +774,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 437,
+              "line": 488,
               "column": 8
             },
             "end": {
-              "line": 437,
+              "line": 488,
               "column": 25
             }
           },
@@ -797,11 +797,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 439,
+              "line": 490,
               "column": 8
             },
             "end": {
-              "line": 439,
+              "line": 490,
               "column": 22
             }
           },
@@ -820,11 +820,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 441,
+              "line": 492,
               "column": 8
             },
             "end": {
-              "line": 441,
+              "line": 492,
               "column": 24
             }
           },
@@ -843,11 +843,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 443,
+              "line": 494,
               "column": 8
             },
             "end": {
-              "line": 443,
+              "line": 494,
               "column": 18
             }
           },
@@ -866,11 +866,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 445,
+              "line": 496,
               "column": 8
             },
             "end": {
-              "line": 445,
+              "line": 496,
               "column": 15
             }
           },
@@ -1027,11 +1027,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 452,
+              "line": 460,
               "column": 6
             },
             "end": {
-              "line": 457,
+              "line": 465,
               "column": 7
             }
           },
@@ -1071,11 +1071,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 467,
+              "line": 475,
               "column": 6
             },
             "end": {
-              "line": 469,
+              "line": 477,
               "column": 7
             }
           },
@@ -1109,11 +1109,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 479,
+              "line": 487,
               "column": 6
             },
             "end": {
-              "line": 481,
+              "line": 489,
               "column": 7
             }
           },
@@ -1241,11 +1241,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 553,
+              "line": 603,
               "column": 6
             },
             "end": {
-              "line": 559,
+              "line": 609,
               "column": 7
             }
           },
@@ -1263,11 +1263,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 460,
+              "line": 511,
               "column": 6
             },
             "end": {
-              "line": 493,
+              "line": 543,
               "column": 7
             }
           },
@@ -1816,11 +1816,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1218,
+              "line": 1168,
               "column": 6
             },
             "end": {
-              "line": 1222,
+              "line": 1172,
               "column": 7
             }
           },
@@ -1935,11 +1935,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1256,
+              "line": 1206,
               "column": 6
             },
             "end": {
-              "line": 1264,
+              "line": 1214,
               "column": 7
             }
           },
@@ -1973,11 +1973,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1274,
+              "line": 1224,
               "column": 6
             },
             "end": {
-              "line": 1280,
+              "line": 1230,
               "column": 7
             }
           },
@@ -2011,11 +2011,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1291,
+              "line": 1241,
               "column": 6
             },
             "end": {
-              "line": 1294,
+              "line": 1244,
               "column": 7
             }
           },
@@ -2045,11 +2045,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1304,
+              "line": 1254,
               "column": 6
             },
             "end": {
-              "line": 1306,
+              "line": 1256,
               "column": 7
             }
           },
@@ -2074,11 +2074,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1316,
+              "line": 1266,
               "column": 6
             },
             "end": {
-              "line": 1318,
+              "line": 1268,
               "column": 7
             }
           },
@@ -2103,11 +2103,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1328,
+              "line": 1278,
               "column": 6
             },
             "end": {
-              "line": 1330,
+              "line": 1280,
               "column": 7
             }
           },
@@ -2132,11 +2132,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1340,
+              "line": 1290,
               "column": 6
             },
             "end": {
-              "line": 1342,
+              "line": 1292,
               "column": 7
             }
           },
@@ -2161,11 +2161,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1374,
+              "line": 1324,
               "column": 6
             },
             "end": {
-              "line": 1406,
+              "line": 1356,
               "column": 7
             }
           },
@@ -2205,11 +2205,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1429,
+              "line": 1379,
               "column": 6
             },
             "end": {
-              "line": 1437,
+              "line": 1387,
               "column": 7
             }
           },
@@ -2243,11 +2243,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1544,
+              "line": 1494,
               "column": 6
             },
             "end": {
-              "line": 1549,
+              "line": 1499,
               "column": 7
             }
           },
@@ -2271,11 +2271,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1570,
+              "line": 1520,
               "column": 6
             },
             "end": {
-              "line": 1581,
+              "line": 1531,
               "column": 7
             }
           },
@@ -2293,11 +2293,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1595,
+              "line": 1545,
               "column": 6
             },
             "end": {
-              "line": 1608,
+              "line": 1558,
               "column": 7
             }
           },
@@ -2315,11 +2315,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 571,
+              "line": 621,
               "column": 6
             },
             "end": {
-              "line": 580,
+              "line": 630,
               "column": 7
             }
           },
@@ -2337,11 +2337,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1637,
+              "line": 1587,
               "column": 6
             },
             "end": {
-              "line": 1648,
+              "line": 1598,
               "column": 7
             }
           },
@@ -2370,11 +2370,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1735,
+              "line": 1685,
               "column": 6
             },
             "end": {
-              "line": 1745,
+              "line": 1695,
               "column": 7
             }
           },
@@ -2408,11 +2408,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1756,
+              "line": 1706,
               "column": 6
             },
             "end": {
-              "line": 1761,
+              "line": 1711,
               "column": 7
             }
           },
@@ -2441,11 +2441,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1773,
+              "line": 1723,
               "column": 6
             },
             "end": {
-              "line": 1778,
+              "line": 1728,
               "column": 7
             }
           },
@@ -2469,11 +2469,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1810,
+              "line": 1760,
               "column": 6
             },
             "end": {
-              "line": 1814,
+              "line": 1764,
               "column": 7
             }
           },
@@ -2502,11 +2502,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1835,
+              "line": 1785,
               "column": 6
             },
             "end": {
-              "line": 1837,
+              "line": 1787,
               "column": 7
             }
           },
@@ -2536,11 +2536,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1860,
+              "line": 1810,
               "column": 6
             },
             "end": {
-              "line": 1870,
+              "line": 1820,
               "column": 7
             }
           },
@@ -2574,11 +2574,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1886,
+              "line": 1836,
               "column": 6
             },
             "end": {
-              "line": 1895,
+              "line": 1845,
               "column": 7
             }
           },
@@ -2609,11 +2609,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1910,
+              "line": 1860,
               "column": 6
             },
             "end": {
-              "line": 1919,
+              "line": 1869,
               "column": 7
             }
           },
@@ -2638,11 +2638,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1938,
+              "line": 1888,
               "column": 6
             },
             "end": {
-              "line": 1975,
+              "line": 1925,
               "column": 7
             }
           },
@@ -2683,11 +2683,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 1990,
+              "line": 1940,
               "column": 6
             },
             "end": {
-              "line": 1999,
+              "line": 1949,
               "column": 7
             }
           },
@@ -2712,11 +2712,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2015,
+              "line": 1965,
               "column": 6
             },
             "end": {
-              "line": 2023,
+              "line": 1973,
               "column": 7
             }
           },
@@ -2747,11 +2747,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2038,
+              "line": 1988,
               "column": 6
             },
             "end": {
-              "line": 2055,
+              "line": 2005,
               "column": 7
             }
           },
@@ -2780,11 +2780,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2068,
+              "line": 2018,
               "column": 6
             },
             "end": {
-              "line": 2075,
+              "line": 2025,
               "column": 7
             }
           },
@@ -2813,11 +2813,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2089,
+              "line": 2039,
               "column": 6
             },
             "end": {
-              "line": 2099,
+              "line": 2049,
               "column": 7
             }
           },
@@ -2851,11 +2851,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2112,
+              "line": 2062,
               "column": 6
             },
             "end": {
-              "line": 2118,
+              "line": 2068,
               "column": 7
             }
           },
@@ -2884,11 +2884,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2129,
+              "line": 2079,
               "column": 6
             },
             "end": {
-              "line": 2137,
+              "line": 2087,
               "column": 7
             }
           },
@@ -2912,11 +2912,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2148,
+              "line": 2098,
               "column": 6
             },
             "end": {
-              "line": 2161,
+              "line": 2111,
               "column": 7
             }
           },
@@ -2940,11 +2940,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2175,
+              "line": 2125,
               "column": 6
             },
             "end": {
-              "line": 2181,
+              "line": 2131,
               "column": 7
             }
           },
@@ -2968,6 +2968,45 @@
           ],
           "return": {
             "type": "void"
+          },
+          "inheritedFrom": "Polymer.PropertyEffects"
+        },
+        {
+          "name": "_marshalArgs",
+          "description": "Gather the argument values for a method specified in the provided array\nof argument metadata.\n\nThe `path` and `value` arguments are used to fill in wildcard descriptor\nwhen the method is being called as a result of a path notification.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "../polymer/lib/mixins/property-effects.html",
+            "start": {
+              "line": 2146,
+              "column": 6
+            },
+            "end": {
+              "line": 2181,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "args",
+              "type": "!Array.<!MethodArg>",
+              "description": "Array of argument metadata"
+            },
+            {
+              "name": "path",
+              "type": "string",
+              "description": "Property/path name that triggered the method effect"
+            },
+            {
+              "name": "props",
+              "type": "Object",
+              "description": "Bag of current property changes"
+            }
+          ],
+          "return": {
+            "type": "Array.<*>",
+            "desc": "Array of argument values"
           },
           "inheritedFrom": "Polymer.PropertyEffects"
         },
@@ -3040,11 +3079,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 540,
+              "line": 590,
               "column": 6
             },
             "end": {
-              "line": 545,
+              "line": 595,
               "column": 7
             }
           },
@@ -3062,11 +3101,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/properties-mixin.html",
             "start": {
-              "line": 216,
+              "line": 226,
               "column": 6
             },
             "end": {
-              "line": 220,
+              "line": 230,
               "column": 7
             }
           },
@@ -3084,11 +3123,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 594,
+              "line": 644,
               "column": 6
             },
             "end": {
-              "line": 610,
+              "line": 660,
               "column": 7
             }
           },
@@ -3113,11 +3152,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 633,
+              "line": 683,
               "column": 6
             },
             "end": {
-              "line": 637,
+              "line": 687,
               "column": 7
             }
           },
@@ -3141,11 +3180,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 654,
+              "line": 704,
               "column": 6
             },
             "end": {
-              "line": 659,
+              "line": 709,
               "column": 7
             }
           },
@@ -3245,11 +3284,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 197,
+              "line": 201,
               "column": 6
             },
             "end": {
-              "line": 208,
+              "line": 212,
               "column": 7
             }
           },
@@ -3279,11 +3318,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 670,
+              "line": 720,
               "column": 6
             },
             "end": {
-              "line": 673,
+              "line": 723,
               "column": 7
             }
           },
@@ -3347,11 +3386,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 258,
+              "line": 263,
               "column": 6
             },
             "end": {
-              "line": 295,
+              "line": 303,
               "column": 7
             }
           },
@@ -3385,11 +3424,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2592,
+              "line": 2597,
               "column": 6
             },
             "end": {
-              "line": 2602,
+              "line": 2607,
               "column": 7
             }
           },
@@ -3424,11 +3463,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 333,
+              "line": 341,
               "column": 6
             },
             "end": {
-              "line": 342,
+              "line": 350,
               "column": 7
             }
           },
@@ -3467,7 +3506,7 @@
               "column": 6
             },
             "end": {
-              "line": 2576,
+              "line": 2581,
               "column": 7
             }
           },
@@ -3512,11 +3551,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/template-stamp.html",
             "start": {
-              "line": 388,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 391,
+              "line": 399,
               "column": 7
             }
           },
@@ -3541,11 +3580,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 326,
-              "column": 7
+              "line": 351,
+              "column": 6
             },
             "end": {
-              "line": 330,
+              "line": 355,
               "column": 7
             }
           },
@@ -3596,11 +3635,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/properties-mixin.html",
             "start": {
-              "line": 181,
+              "line": 190,
               "column": 6
             },
             "end": {
-              "line": 184,
+              "line": 193,
               "column": 7
             }
           },
@@ -3951,11 +3990,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2648,
+              "line": 2653,
               "column": 6
             },
             "end": {
-              "line": 2713,
+              "line": 2718,
               "column": 7
             }
           },
@@ -3985,11 +4024,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/property-effects.html",
             "start": {
-              "line": 2729,
+              "line": 2734,
               "column": 6
             },
             "end": {
-              "line": 2746,
+              "line": 2751,
               "column": 7
             }
           },
@@ -4039,11 +4078,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/properties-mixin.html",
             "start": {
-              "line": 129,
+              "line": 138,
               "column": 6
             },
             "end": {
-              "line": 138,
+              "line": 147,
               "column": 7
             }
           },
@@ -4061,11 +4100,33 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 294,
-              "column": 5
+              "line": 319,
+              "column": 6
             },
             "end": {
-              "line": 317,
+              "line": 326,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "Polymer.ElementMixin"
+        },
+        {
+          "name": "_prepareTemplate",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../polymer/lib/mixins/element-mixin.html",
+            "start": {
+              "line": 328,
+              "column": 6
+            },
+            "end": {
+              "line": 342,
               "column": 7
             }
           },
@@ -4083,11 +4144,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 343,
+              "line": 368,
               "column": 6
             },
             "end": {
-              "line": 348,
+              "line": 373,
               "column": 7
             }
           },
@@ -4116,11 +4177,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 503,
+              "line": 553,
               "column": 6
             },
             "end": {
-              "line": 505,
+              "line": 555,
               "column": 7
             }
           },
@@ -4150,11 +4211,11 @@
           "sourceRange": {
             "file": "../polymer/lib/mixins/element-mixin.html",
             "start": {
-              "line": 516,
+              "line": 566,
               "column": 6
             },
             "end": {
-              "line": 527,
+              "line": 577,
               "column": 7
             }
           },
@@ -7461,11 +7522,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 8
             },
             "end": {
-              "line": 128,
+              "line": 129,
               "column": 32
             }
           },
@@ -7484,11 +7545,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 132,
+              "line": 133,
               "column": 8
             },
             "end": {
-              "line": 138,
+              "line": 139,
               "column": 9
             }
           },
@@ -8524,11 +8585,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 147,
+              "line": 148,
               "column": 4
             },
             "end": {
-              "line": 179,
+              "line": 180,
               "column": 5
             }
           },
@@ -8553,11 +8614,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 186,
+              "line": 187,
               "column": 4
             },
             "end": {
-              "line": 196,
+              "line": 197,
               "column": 5
             }
           },
@@ -8582,11 +8643,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 206,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 214,
+              "line": 215,
               "column": 5
             }
           },
@@ -8610,11 +8671,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 221,
+              "line": 222,
               "column": 4
             },
             "end": {
-              "line": 239,
+              "line": 240,
               "column": 5
             }
           },
@@ -8644,11 +8705,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 246,
+              "line": 247,
               "column": 4
             },
             "end": {
-              "line": 253,
+              "line": 254,
               "column": 5
             }
           },
@@ -8678,11 +8739,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 260,
+              "line": 261,
               "column": 4
             },
             "end": {
-              "line": 272,
+              "line": 273,
               "column": 5
             }
           },
@@ -8712,11 +8773,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 279,
+              "line": 280,
               "column": 4
             },
             "end": {
-              "line": 282,
+              "line": 283,
               "column": 5
             }
           },
@@ -8745,11 +8806,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 290,
+              "line": 291,
               "column": 4
             },
             "end": {
-              "line": 300,
+              "line": 301,
               "column": 5
             }
           },
@@ -8778,11 +8839,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 309,
+              "line": 310,
               "column": 4
             },
             "end": {
-              "line": 313,
+              "line": 314,
               "column": 5
             }
           },
@@ -8811,11 +8872,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 320,
+              "line": 321,
               "column": 4
             },
             "end": {
-              "line": 322,
+              "line": 323,
               "column": 5
             }
           },
@@ -8839,11 +8900,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 329,
+              "line": 330,
               "column": 4
             },
             "end": {
-              "line": 331,
+              "line": 332,
               "column": 5
             }
           },
@@ -8867,11 +8928,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 337,
+              "line": 338,
               "column": 4
             },
             "end": {
-              "line": 339,
+              "line": 340,
               "column": 5
             }
           },
@@ -8896,11 +8957,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 341,
+              "line": 342,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 344,
               "column": 5
             }
           },
@@ -8919,11 +8980,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 345,
+              "line": 346,
               "column": 4
             },
             "end": {
-              "line": 347,
+              "line": 348,
               "column": 5
             }
           },
@@ -8942,11 +9003,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 349,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 351,
+              "line": 352,
               "column": 5
             }
           },
@@ -8959,40 +9020,17 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
-          "name": "_computeApiVersion",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "../amf-helper-mixin/amf-helper-mixin.html",
-            "start": {
-              "line": 353,
-              "column": 4
-            },
-            "end": {
-              "line": 360,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "amfModel"
-            }
-          ],
-          "inheritedFrom": "ApiElements.AmfHelperMixin"
-        },
-        {
           "name": "_computeServerVariables",
           "description": "Computes value for `serverVariables` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 368,
+              "line": 359,
               "column": 4
             },
             "end": {
-              "line": 370,
+              "line": 361,
               "column": 5
             }
           },
@@ -9017,11 +9055,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 377,
+              "line": 368,
               "column": 4
             },
             "end": {
-              "line": 379,
+              "line": 370,
               "column": 5
             }
           },
@@ -9046,11 +9084,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 386,
+              "line": 377,
               "column": 4
             },
             "end": {
-              "line": 388,
+              "line": 379,
               "column": 5
             }
           },
@@ -9071,6 +9109,34 @@
         {
           "name": "_computeReturns",
           "description": "Computes value for `returns` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 386,
+              "column": 4
+            },
+            "end": {
+              "line": 388,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeSecurity",
+          "description": "Computes value for `security` property",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
@@ -9097,8 +9163,8 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
-          "name": "_computeSecurity",
-          "description": "Computes value for `security` property",
+          "name": "_computeHasCustomProperties",
+          "description": "Computes value for `hasCustomProperties` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
@@ -9108,34 +9174,6 @@
             },
             "end": {
               "line": 406,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "method",
-              "type": "Object",
-              "description": "AMF `supportedOperation` model"
-            }
-          ],
-          "return": {
-            "type": "(Array.<Object> | undefined)"
-          },
-          "inheritedFrom": "ApiElements.AmfHelperMixin"
-        },
-        {
-          "name": "_computeHasCustomProperties",
-          "description": "Computes value for `hasCustomProperties` property.",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "../amf-helper-mixin/amf-helper-mixin.html",
-            "start": {
-              "line": 413,
-              "column": 4
-            },
-            "end": {
-              "line": 415,
               "column": 5
             }
           },
@@ -9153,17 +9191,44 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
+          "name": "_computeApiVersion",
+          "description": "Computes API version from the AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 413,
+              "column": 4
+            },
+            "end": {
+              "line": 419,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "amfModel",
+              "type": "(Object | Array.<Object>)"
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
           "name": "_computeEncodes",
           "description": "Computes model's `encodes` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 422,
+              "line": 426,
               "column": 4
             },
             "end": {
-              "line": 434,
+              "line": 438,
               "column": 5
             }
           },
@@ -9188,11 +9253,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 441,
+              "line": 445,
               "column": 4
             },
             "end": {
-              "line": 454,
+              "line": 458,
               "column": 5
             }
           },
@@ -9217,11 +9282,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 461,
+              "line": 465,
               "column": 4
             },
             "end": {
-              "line": 474,
+              "line": 478,
               "column": 5
             }
           },
@@ -9246,11 +9311,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 481,
+              "line": 485,
               "column": 4
             },
             "end": {
-              "line": 489,
+              "line": 493,
               "column": 5
             }
           },
@@ -9275,11 +9340,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 496,
+              "line": 500,
               "column": 4
             },
             "end": {
-              "line": 504,
+              "line": 508,
               "column": 5
             }
           },
@@ -9304,11 +9369,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 514,
+              "line": 518,
               "column": 4
             },
             "end": {
-              "line": 526,
+              "line": 530,
               "column": 5
             }
           },
@@ -9348,11 +9413,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 536,
+              "line": 540,
               "column": 4
             },
             "end": {
-              "line": 547,
+              "line": 551,
               "column": 5
             }
           },
@@ -9387,11 +9452,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 557,
+              "line": 561,
               "column": 4
             },
             "end": {
-              "line": 561,
+              "line": 565,
               "column": 5
             }
           },
@@ -9421,11 +9486,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 573,
+              "line": 577,
               "column": 4
             },
             "end": {
-              "line": 587,
+              "line": 591,
               "column": 5
             }
           },
@@ -9455,11 +9520,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 594,
+              "line": 598,
               "column": 4
             },
             "end": {
-              "line": 600,
+              "line": 604,
               "column": 5
             }
           },
@@ -9483,11 +9548,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 607,
+              "line": 611,
               "column": 4
             },
             "end": {
-              "line": 615,
+              "line": 619,
               "column": 5
             }
           },
@@ -9511,11 +9576,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 623,
+              "line": 627,
               "column": 4
             },
             "end": {
-              "line": 641,
+              "line": 648,
               "column": 5
             }
           },
@@ -9539,11 +9604,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 647,
+              "line": 654,
               "column": 4
             },
             "end": {
-              "line": 653,
+              "line": 660,
               "column": 5
             }
           },
@@ -9567,11 +9632,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 661,
+              "line": 668,
               "column": 4
             },
             "end": {
-              "line": 664,
+              "line": 671,
               "column": 5
             }
           },
@@ -9601,11 +9666,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 672,
+              "line": 679,
               "column": 4
             },
             "end": {
-              "line": 683,
+              "line": 690,
               "column": 5
             }
           },
@@ -9635,11 +9700,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 691,
+              "line": 698,
               "column": 4
             },
             "end": {
-              "line": 697,
+              "line": 704,
               "column": 5
             }
           },
@@ -9669,11 +9734,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 704,
+              "line": 711,
               "column": 4
             },
             "end": {
-              "line": 711,
+              "line": 718,
               "column": 5
             }
           },
@@ -9703,11 +9768,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 718,
+              "line": 725,
               "column": 4
             },
             "end": {
-              "line": 739,
+              "line": 746,
               "column": 5
             }
           },
@@ -9737,11 +9802,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 748,
+              "line": 755,
               "column": 4
             },
             "end": {
-              "line": 755,
+              "line": 762,
               "column": 5
             }
           },
@@ -9771,11 +9836,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 764,
+              "line": 771,
               "column": 4
             },
             "end": {
-              "line": 781,
+              "line": 788,
               "column": 5
             }
           },
@@ -9805,28 +9870,36 @@
         },
         {
           "name": "_computeReferenceType",
-          "description": "",
+          "description": "Computes a type model from a reference (library for example).",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 782,
+              "line": 795,
               "column": 4
             },
             "end": {
-              "line": 788,
+              "line": 810,
               "column": 5
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "reference"
+              "name": "reference",
+              "type": "(Object | Array)",
+              "description": "AMF model for a reference to extract the data from"
             },
             {
-              "name": "selected"
+              "name": "selected",
+              "type": "String",
+              "description": "Node ID to look for"
             }
           ],
+          "return": {
+            "type": "(Object | undefined)",
+            "desc": "Type definition or undefined if not found."
+          },
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
@@ -9836,11 +9909,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 796,
+              "line": 818,
               "column": 4
             },
             "end": {
-              "line": 801,
+              "line": 823,
               "column": 5
             }
           },
@@ -9870,11 +9943,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 809,
+              "line": 831,
               "column": 4
             },
             "end": {
-              "line": 816,
+              "line": 838,
               "column": 5
             }
           },
@@ -9904,11 +9977,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 823,
+              "line": 845,
               "column": 4
             },
             "end": {
-              "line": 872,
+              "line": 894,
               "column": 5
             }
           },
@@ -9933,11 +10006,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 874,
+              "line": 896,
               "column": 4
             },
             "end": {
-              "line": 896,
+              "line": 918,
               "column": 5
             }
           },
@@ -9959,11 +10032,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 898,
+              "line": 920,
               "column": 4
             },
             "end": {
-              "line": 917,
+              "line": 937,
               "column": 5
             }
           },
@@ -9985,11 +10058,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 919,
+              "line": 939,
               "column": 4
             },
             "end": {
-              "line": 930,
+              "line": 950,
               "column": 5
             }
           },
@@ -10011,11 +10084,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 939,
+              "line": 959,
               "column": 4
             },
             "end": {
-              "line": 952,
+              "line": 972,
               "column": 5
             }
           },
@@ -10044,11 +10117,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 959,
+              "line": 979,
               "column": 4
             },
             "end": {
-              "line": 980,
+              "line": 1000,
               "column": 5
             }
           },
@@ -10073,11 +10146,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 986,
+              "line": 1006,
               "column": 4
             },
             "end": {
-              "line": 1012,
+              "line": 1032,
               "column": 5
             }
           },
@@ -10858,18 +10931,20 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1443,
+              "line": 1444,
               "column": 6
             },
             "end": {
-              "line": 1479,
+              "line": 1480,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "info"
+              "name": "info",
+              "type": "Object",
+              "description": "Security AMF model"
             }
           ],
           "return": {
@@ -10882,11 +10957,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1487,
+              "line": 1488,
               "column": 6
             },
             "end": {
-              "line": 1513,
+              "line": 1514,
               "column": 7
             }
           },
@@ -10908,11 +10983,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1519,
+              "line": 1520,
               "column": 6
             },
             "end": {
-              "line": 1533,
+              "line": 1534,
               "column": 7
             }
           },
@@ -10933,11 +11008,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1539,
+              "line": 1540,
               "column": 6
             },
             "end": {
-              "line": 1553,
+              "line": 1554,
               "column": 7
             }
           },
@@ -10959,11 +11034,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1561,
+              "line": 1562,
               "column": 6
             },
             "end": {
-              "line": 1592,
+              "line": 1593,
               "column": 7
             }
           },
@@ -10991,11 +11066,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1603,
+              "line": 1604,
               "column": 6
             },
             "end": {
-              "line": 1649,
+              "line": 1650,
               "column": 7
             }
           },
@@ -11017,11 +11092,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1655,
+              "line": 1656,
               "column": 6
             },
             "end": {
-              "line": 1661,
+              "line": 1662,
               "column": 7
             }
           },
@@ -11043,11 +11118,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1667,
+              "line": 1668,
               "column": 6
             },
             "end": {
-              "line": 1673,
+              "line": 1674,
               "column": 7
             }
           },
@@ -11069,11 +11144,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1679,
+              "line": 1680,
               "column": 6
             },
             "end": {
-              "line": 1685,
+              "line": 1686,
               "column": 7
             }
           },
@@ -11095,11 +11170,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1691,
+              "line": 1692,
               "column": 6
             },
             "end": {
-              "line": 1697,
+              "line": 1698,
               "column": 7
             }
           },
@@ -11121,11 +11196,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1705,
+              "line": 1706,
               "column": 6
             },
             "end": {
-              "line": 1715,
+              "line": 1716,
               "column": 7
             }
           },
@@ -11152,11 +11227,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1723,
+              "line": 1724,
               "column": 6
             },
             "end": {
-              "line": 1726,
+              "line": 1727,
               "column": 7
             }
           },
@@ -11179,11 +11254,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1734,
+              "line": 1735,
               "column": 6
             },
             "end": {
-              "line": 1750,
+              "line": 1751,
               "column": 7
             }
           },
@@ -11205,20 +11280,25 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1758,
+              "line": 1760,
               "column": 6
             },
             "end": {
-              "line": 1782,
+              "line": 1784,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "allowed"
+              "name": "allowed",
+              "type": "?Array.<String>",
+              "description": "List of types allowed by the\ncomponent configuration or API spec applied to this element. If empty\nor not set then all OAuth 2.0 default types are returned."
             }
-          ]
+          ],
+          "return": {
+            "type": "Array.<Object>"
+          }
         },
         {
           "name": "_computeIsSelectedType",
@@ -11226,11 +11306,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1789,
+              "line": 1791,
               "column": 6
             },
             "end": {
-              "line": 1791,
+              "line": 1793,
               "column": 7
             }
           },
@@ -11253,11 +11333,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1795,
+              "line": 1797,
               "column": 6
             },
             "end": {
-              "line": 1797,
+              "line": 1799,
               "column": 7
             }
           },
@@ -11273,11 +11353,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1804,
+              "line": 1806,
               "column": 6
             },
             "end": {
-              "line": 1821,
+              "line": 1823,
               "column": 7
             }
           },
@@ -11300,11 +11380,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1823,
+              "line": 1825,
               "column": 6
             },
             "end": {
-              "line": 1825,
+              "line": 1827,
               "column": 7
             }
           },
@@ -11324,11 +11404,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1827,
+              "line": 1829,
               "column": 6
             },
             "end": {
-              "line": 1833,
+              "line": 1835,
               "column": 7
             }
           },
@@ -11351,11 +11431,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1840,
+              "line": 1842,
               "column": 6
             },
             "end": {
-              "line": 1869,
+              "line": 1871,
               "column": 7
             }
           },
@@ -11375,11 +11455,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1875,
+              "line": 1877,
               "column": 6
             },
             "end": {
-              "line": 1897,
+              "line": 1899,
               "column": 7
             }
           },
@@ -11400,11 +11480,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1904,
+              "line": 1906,
               "column": 6
             },
             "end": {
-              "line": 1920,
+              "line": 1922,
               "column": 7
             }
           },
@@ -11416,7 +11496,7 @@
             },
             {
               "name": "appendTo",
-              "type": "Object"
+              "type": "Element"
             }
           ],
           "return": {
@@ -11429,11 +11509,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1924,
+              "line": 1926,
               "column": 6
             },
             "end": {
-              "line": 1930,
+              "line": 1932,
               "column": 7
             }
           },
@@ -11449,11 +11529,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1939,
+              "line": 1941,
               "column": 6
             },
             "end": {
-              "line": 1951,
+              "line": 1953,
               "column": 7
             }
           },
@@ -11485,11 +11565,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1958,
+              "line": 1960,
               "column": 6
             },
             "end": {
-              "line": 1978,
+              "line": 1980,
               "column": 7
             }
           },
@@ -11523,7 +11603,7 @@
           "column": 4
         },
         "end": {
-          "line": 2043,
+          "line": 2045,
           "column": 5
         }
       },
@@ -11627,11 +11707,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 8
             },
             "end": {
-              "line": 128,
+              "line": 129,
               "column": 32
             }
           },
@@ -11645,11 +11725,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 132,
+              "line": 133,
               "column": 8
             },
             "end": {
-              "line": 138,
+              "line": 139,
               "column": 9
             }
           },
@@ -12366,11 +12446,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 8
             },
             "end": {
-              "line": 128,
+              "line": 129,
               "column": 32
             }
           },
@@ -12389,11 +12469,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 132,
+              "line": 133,
               "column": 8
             },
             "end": {
-              "line": 138,
+              "line": 139,
               "column": 9
             }
           },
@@ -13011,11 +13091,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 147,
+              "line": 148,
               "column": 4
             },
             "end": {
-              "line": 179,
+              "line": 180,
               "column": 5
             }
           },
@@ -13040,11 +13120,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 186,
+              "line": 187,
               "column": 4
             },
             "end": {
-              "line": 196,
+              "line": 197,
               "column": 5
             }
           },
@@ -13069,11 +13149,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 206,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 214,
+              "line": 215,
               "column": 5
             }
           },
@@ -13097,11 +13177,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 221,
+              "line": 222,
               "column": 4
             },
             "end": {
-              "line": 239,
+              "line": 240,
               "column": 5
             }
           },
@@ -13131,11 +13211,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 246,
+              "line": 247,
               "column": 4
             },
             "end": {
-              "line": 253,
+              "line": 254,
               "column": 5
             }
           },
@@ -13165,11 +13245,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 260,
+              "line": 261,
               "column": 4
             },
             "end": {
-              "line": 272,
+              "line": 273,
               "column": 5
             }
           },
@@ -13199,11 +13279,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 279,
+              "line": 280,
               "column": 4
             },
             "end": {
-              "line": 282,
+              "line": 283,
               "column": 5
             }
           },
@@ -13232,11 +13312,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 290,
+              "line": 291,
               "column": 4
             },
             "end": {
-              "line": 300,
+              "line": 301,
               "column": 5
             }
           },
@@ -13265,11 +13345,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 309,
+              "line": 310,
               "column": 4
             },
             "end": {
-              "line": 313,
+              "line": 314,
               "column": 5
             }
           },
@@ -13298,11 +13378,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 320,
+              "line": 321,
               "column": 4
             },
             "end": {
-              "line": 322,
+              "line": 323,
               "column": 5
             }
           },
@@ -13326,11 +13406,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 329,
+              "line": 330,
               "column": 4
             },
             "end": {
-              "line": 331,
+              "line": 332,
               "column": 5
             }
           },
@@ -13354,11 +13434,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 337,
+              "line": 338,
               "column": 4
             },
             "end": {
-              "line": 339,
+              "line": 340,
               "column": 5
             }
           },
@@ -13383,11 +13463,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 341,
+              "line": 342,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 344,
               "column": 5
             }
           },
@@ -13406,11 +13486,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 345,
+              "line": 346,
               "column": 4
             },
             "end": {
-              "line": 347,
+              "line": 348,
               "column": 5
             }
           },
@@ -13429,11 +13509,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 349,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 351,
+              "line": 352,
               "column": 5
             }
           },
@@ -13446,40 +13526,17 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
-          "name": "_computeApiVersion",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "../amf-helper-mixin/amf-helper-mixin.html",
-            "start": {
-              "line": 353,
-              "column": 4
-            },
-            "end": {
-              "line": 360,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "amfModel"
-            }
-          ],
-          "inheritedFrom": "ApiElements.AmfHelperMixin"
-        },
-        {
           "name": "_computeServerVariables",
           "description": "Computes value for `serverVariables` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 368,
+              "line": 359,
               "column": 4
             },
             "end": {
-              "line": 370,
+              "line": 361,
               "column": 5
             }
           },
@@ -13504,11 +13561,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 377,
+              "line": 368,
               "column": 4
             },
             "end": {
-              "line": 379,
+              "line": 370,
               "column": 5
             }
           },
@@ -13533,11 +13590,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 386,
+              "line": 377,
               "column": 4
             },
             "end": {
-              "line": 388,
+              "line": 379,
               "column": 5
             }
           },
@@ -13558,6 +13615,34 @@
         {
           "name": "_computeReturns",
           "description": "Computes value for `returns` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 386,
+              "column": 4
+            },
+            "end": {
+              "line": 388,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeSecurity",
+          "description": "Computes value for `security` property",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
@@ -13584,8 +13669,8 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
-          "name": "_computeSecurity",
-          "description": "Computes value for `security` property",
+          "name": "_computeHasCustomProperties",
+          "description": "Computes value for `hasCustomProperties` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
@@ -13595,34 +13680,6 @@
             },
             "end": {
               "line": 406,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "method",
-              "type": "Object",
-              "description": "AMF `supportedOperation` model"
-            }
-          ],
-          "return": {
-            "type": "(Array.<Object> | undefined)"
-          },
-          "inheritedFrom": "ApiElements.AmfHelperMixin"
-        },
-        {
-          "name": "_computeHasCustomProperties",
-          "description": "Computes value for `hasCustomProperties` property.",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "../amf-helper-mixin/amf-helper-mixin.html",
-            "start": {
-              "line": 413,
-              "column": 4
-            },
-            "end": {
-              "line": 415,
               "column": 5
             }
           },
@@ -13640,17 +13697,44 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
+          "name": "_computeApiVersion",
+          "description": "Computes API version from the AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 413,
+              "column": 4
+            },
+            "end": {
+              "line": 419,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "amfModel",
+              "type": "(Object | Array.<Object>)"
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
           "name": "_computeEncodes",
           "description": "Computes model's `encodes` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 422,
+              "line": 426,
               "column": 4
             },
             "end": {
-              "line": 434,
+              "line": 438,
               "column": 5
             }
           },
@@ -13675,11 +13759,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 441,
+              "line": 445,
               "column": 4
             },
             "end": {
-              "line": 454,
+              "line": 458,
               "column": 5
             }
           },
@@ -13704,11 +13788,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 461,
+              "line": 465,
               "column": 4
             },
             "end": {
-              "line": 474,
+              "line": 478,
               "column": 5
             }
           },
@@ -13733,11 +13817,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 481,
+              "line": 485,
               "column": 4
             },
             "end": {
-              "line": 489,
+              "line": 493,
               "column": 5
             }
           },
@@ -13762,11 +13846,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 496,
+              "line": 500,
               "column": 4
             },
             "end": {
-              "line": 504,
+              "line": 508,
               "column": 5
             }
           },
@@ -13791,11 +13875,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 514,
+              "line": 518,
               "column": 4
             },
             "end": {
-              "line": 526,
+              "line": 530,
               "column": 5
             }
           },
@@ -13835,11 +13919,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 536,
+              "line": 540,
               "column": 4
             },
             "end": {
-              "line": 547,
+              "line": 551,
               "column": 5
             }
           },
@@ -13874,11 +13958,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 557,
+              "line": 561,
               "column": 4
             },
             "end": {
-              "line": 561,
+              "line": 565,
               "column": 5
             }
           },
@@ -13908,11 +13992,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 573,
+              "line": 577,
               "column": 4
             },
             "end": {
-              "line": 587,
+              "line": 591,
               "column": 5
             }
           },
@@ -13942,11 +14026,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 594,
+              "line": 598,
               "column": 4
             },
             "end": {
-              "line": 600,
+              "line": 604,
               "column": 5
             }
           },
@@ -13970,11 +14054,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 607,
+              "line": 611,
               "column": 4
             },
             "end": {
-              "line": 615,
+              "line": 619,
               "column": 5
             }
           },
@@ -13998,11 +14082,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 623,
+              "line": 627,
               "column": 4
             },
             "end": {
-              "line": 641,
+              "line": 648,
               "column": 5
             }
           },
@@ -14026,11 +14110,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 647,
+              "line": 654,
               "column": 4
             },
             "end": {
-              "line": 653,
+              "line": 660,
               "column": 5
             }
           },
@@ -14054,11 +14138,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 661,
+              "line": 668,
               "column": 4
             },
             "end": {
-              "line": 664,
+              "line": 671,
               "column": 5
             }
           },
@@ -14088,11 +14172,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 672,
+              "line": 679,
               "column": 4
             },
             "end": {
-              "line": 683,
+              "line": 690,
               "column": 5
             }
           },
@@ -14122,11 +14206,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 691,
+              "line": 698,
               "column": 4
             },
             "end": {
-              "line": 697,
+              "line": 704,
               "column": 5
             }
           },
@@ -14156,11 +14240,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 704,
+              "line": 711,
               "column": 4
             },
             "end": {
-              "line": 711,
+              "line": 718,
               "column": 5
             }
           },
@@ -14190,11 +14274,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 718,
+              "line": 725,
               "column": 4
             },
             "end": {
-              "line": 739,
+              "line": 746,
               "column": 5
             }
           },
@@ -14224,11 +14308,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 748,
+              "line": 755,
               "column": 4
             },
             "end": {
-              "line": 755,
+              "line": 762,
               "column": 5
             }
           },
@@ -14258,11 +14342,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 764,
+              "line": 771,
               "column": 4
             },
             "end": {
-              "line": 781,
+              "line": 788,
               "column": 5
             }
           },
@@ -14292,28 +14376,36 @@
         },
         {
           "name": "_computeReferenceType",
-          "description": "",
+          "description": "Computes a type model from a reference (library for example).",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 782,
+              "line": 795,
               "column": 4
             },
             "end": {
-              "line": 788,
+              "line": 810,
               "column": 5
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "reference"
+              "name": "reference",
+              "type": "(Object | Array)",
+              "description": "AMF model for a reference to extract the data from"
             },
             {
-              "name": "selected"
+              "name": "selected",
+              "type": "String",
+              "description": "Node ID to look for"
             }
           ],
+          "return": {
+            "type": "(Object | undefined)",
+            "desc": "Type definition or undefined if not found."
+          },
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
@@ -14323,11 +14415,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 796,
+              "line": 818,
               "column": 4
             },
             "end": {
-              "line": 801,
+              "line": 823,
               "column": 5
             }
           },
@@ -14357,11 +14449,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 809,
+              "line": 831,
               "column": 4
             },
             "end": {
-              "line": 816,
+              "line": 838,
               "column": 5
             }
           },
@@ -14391,11 +14483,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 823,
+              "line": 845,
               "column": 4
             },
             "end": {
-              "line": 872,
+              "line": 894,
               "column": 5
             }
           },
@@ -14420,11 +14512,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 874,
+              "line": 896,
               "column": 4
             },
             "end": {
-              "line": 896,
+              "line": 918,
               "column": 5
             }
           },
@@ -14446,11 +14538,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 898,
+              "line": 920,
               "column": 4
             },
             "end": {
-              "line": 917,
+              "line": 937,
               "column": 5
             }
           },
@@ -14472,11 +14564,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 919,
+              "line": 939,
               "column": 4
             },
             "end": {
-              "line": 930,
+              "line": 950,
               "column": 5
             }
           },
@@ -14498,11 +14590,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 939,
+              "line": 959,
               "column": 4
             },
             "end": {
-              "line": 952,
+              "line": 972,
               "column": 5
             }
           },
@@ -14531,11 +14623,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 959,
+              "line": 979,
               "column": 4
             },
             "end": {
-              "line": 980,
+              "line": 1000,
               "column": 5
             }
           },
@@ -14560,11 +14652,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 986,
+              "line": 1006,
               "column": 4
             },
             "end": {
-              "line": 1012,
+              "line": 1032,
               "column": 5
             }
           },
@@ -14972,11 +15064,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 8
             },
             "end": {
-              "line": 128,
+              "line": 129,
               "column": 32
             }
           },
@@ -14990,11 +15082,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 132,
+              "line": 133,
               "column": 8
             },
             "end": {
-              "line": 138,
+              "line": 139,
               "column": 9
             }
           },
@@ -15487,11 +15579,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 8
             },
             "end": {
-              "line": 128,
+              "line": 129,
               "column": 32
             }
           },
@@ -15510,11 +15602,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 132,
+              "line": 133,
               "column": 8
             },
             "end": {
-              "line": 138,
+              "line": 139,
               "column": 9
             }
           },
@@ -15910,11 +16002,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 147,
+              "line": 148,
               "column": 4
             },
             "end": {
-              "line": 179,
+              "line": 180,
               "column": 5
             }
           },
@@ -15939,11 +16031,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 186,
+              "line": 187,
               "column": 4
             },
             "end": {
-              "line": 196,
+              "line": 197,
               "column": 5
             }
           },
@@ -15968,11 +16060,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 206,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 214,
+              "line": 215,
               "column": 5
             }
           },
@@ -15996,11 +16088,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 221,
+              "line": 222,
               "column": 4
             },
             "end": {
-              "line": 239,
+              "line": 240,
               "column": 5
             }
           },
@@ -16030,11 +16122,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 246,
+              "line": 247,
               "column": 4
             },
             "end": {
-              "line": 253,
+              "line": 254,
               "column": 5
             }
           },
@@ -16064,11 +16156,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 260,
+              "line": 261,
               "column": 4
             },
             "end": {
-              "line": 272,
+              "line": 273,
               "column": 5
             }
           },
@@ -16098,11 +16190,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 279,
+              "line": 280,
               "column": 4
             },
             "end": {
-              "line": 282,
+              "line": 283,
               "column": 5
             }
           },
@@ -16131,11 +16223,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 290,
+              "line": 291,
               "column": 4
             },
             "end": {
-              "line": 300,
+              "line": 301,
               "column": 5
             }
           },
@@ -16164,11 +16256,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 309,
+              "line": 310,
               "column": 4
             },
             "end": {
-              "line": 313,
+              "line": 314,
               "column": 5
             }
           },
@@ -16197,11 +16289,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 320,
+              "line": 321,
               "column": 4
             },
             "end": {
-              "line": 322,
+              "line": 323,
               "column": 5
             }
           },
@@ -16225,11 +16317,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 329,
+              "line": 330,
               "column": 4
             },
             "end": {
-              "line": 331,
+              "line": 332,
               "column": 5
             }
           },
@@ -16253,11 +16345,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 337,
+              "line": 338,
               "column": 4
             },
             "end": {
-              "line": 339,
+              "line": 340,
               "column": 5
             }
           },
@@ -16282,11 +16374,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 341,
+              "line": 342,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 344,
               "column": 5
             }
           },
@@ -16305,11 +16397,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 345,
+              "line": 346,
               "column": 4
             },
             "end": {
-              "line": 347,
+              "line": 348,
               "column": 5
             }
           },
@@ -16328,11 +16420,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 349,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 351,
+              "line": 352,
               "column": 5
             }
           },
@@ -16345,40 +16437,17 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
-          "name": "_computeApiVersion",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "../amf-helper-mixin/amf-helper-mixin.html",
-            "start": {
-              "line": 353,
-              "column": 4
-            },
-            "end": {
-              "line": 360,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "amfModel"
-            }
-          ],
-          "inheritedFrom": "ApiElements.AmfHelperMixin"
-        },
-        {
           "name": "_computeServerVariables",
           "description": "Computes value for `serverVariables` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 368,
+              "line": 359,
               "column": 4
             },
             "end": {
-              "line": 370,
+              "line": 361,
               "column": 5
             }
           },
@@ -16403,11 +16472,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 377,
+              "line": 368,
               "column": 4
             },
             "end": {
-              "line": 379,
+              "line": 370,
               "column": 5
             }
           },
@@ -16432,11 +16501,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 386,
+              "line": 377,
               "column": 4
             },
             "end": {
-              "line": 388,
+              "line": 379,
               "column": 5
             }
           },
@@ -16457,6 +16526,34 @@
         {
           "name": "_computeReturns",
           "description": "Computes value for `returns` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 386,
+              "column": 4
+            },
+            "end": {
+              "line": 388,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeSecurity",
+          "description": "Computes value for `security` property",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
@@ -16483,8 +16580,8 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
-          "name": "_computeSecurity",
-          "description": "Computes value for `security` property",
+          "name": "_computeHasCustomProperties",
+          "description": "Computes value for `hasCustomProperties` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
@@ -16494,34 +16591,6 @@
             },
             "end": {
               "line": 406,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "method",
-              "type": "Object",
-              "description": "AMF `supportedOperation` model"
-            }
-          ],
-          "return": {
-            "type": "(Array.<Object> | undefined)"
-          },
-          "inheritedFrom": "ApiElements.AmfHelperMixin"
-        },
-        {
-          "name": "_computeHasCustomProperties",
-          "description": "Computes value for `hasCustomProperties` property.",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "../amf-helper-mixin/amf-helper-mixin.html",
-            "start": {
-              "line": 413,
-              "column": 4
-            },
-            "end": {
-              "line": 415,
               "column": 5
             }
           },
@@ -16539,17 +16608,44 @@
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
+          "name": "_computeApiVersion",
+          "description": "Computes API version from the AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "../amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 413,
+              "column": 4
+            },
+            "end": {
+              "line": 419,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "amfModel",
+              "type": "(Object | Array.<Object>)"
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
           "name": "_computeEncodes",
           "description": "Computes model's `encodes` property.",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 422,
+              "line": 426,
               "column": 4
             },
             "end": {
-              "line": 434,
+              "line": 438,
               "column": 5
             }
           },
@@ -16574,11 +16670,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 441,
+              "line": 445,
               "column": 4
             },
             "end": {
-              "line": 454,
+              "line": 458,
               "column": 5
             }
           },
@@ -16603,11 +16699,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 461,
+              "line": 465,
               "column": 4
             },
             "end": {
-              "line": 474,
+              "line": 478,
               "column": 5
             }
           },
@@ -16632,11 +16728,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 481,
+              "line": 485,
               "column": 4
             },
             "end": {
-              "line": 489,
+              "line": 493,
               "column": 5
             }
           },
@@ -16661,11 +16757,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 496,
+              "line": 500,
               "column": 4
             },
             "end": {
-              "line": 504,
+              "line": 508,
               "column": 5
             }
           },
@@ -16690,11 +16786,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 514,
+              "line": 518,
               "column": 4
             },
             "end": {
-              "line": 526,
+              "line": 530,
               "column": 5
             }
           },
@@ -16734,11 +16830,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 536,
+              "line": 540,
               "column": 4
             },
             "end": {
-              "line": 547,
+              "line": 551,
               "column": 5
             }
           },
@@ -16773,11 +16869,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 557,
+              "line": 561,
               "column": 4
             },
             "end": {
-              "line": 561,
+              "line": 565,
               "column": 5
             }
           },
@@ -16807,11 +16903,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 573,
+              "line": 577,
               "column": 4
             },
             "end": {
-              "line": 587,
+              "line": 591,
               "column": 5
             }
           },
@@ -16841,11 +16937,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 594,
+              "line": 598,
               "column": 4
             },
             "end": {
-              "line": 600,
+              "line": 604,
               "column": 5
             }
           },
@@ -16869,11 +16965,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 607,
+              "line": 611,
               "column": 4
             },
             "end": {
-              "line": 615,
+              "line": 619,
               "column": 5
             }
           },
@@ -16897,11 +16993,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 623,
+              "line": 627,
               "column": 4
             },
             "end": {
-              "line": 641,
+              "line": 648,
               "column": 5
             }
           },
@@ -16925,11 +17021,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 647,
+              "line": 654,
               "column": 4
             },
             "end": {
-              "line": 653,
+              "line": 660,
               "column": 5
             }
           },
@@ -16953,11 +17049,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 661,
+              "line": 668,
               "column": 4
             },
             "end": {
-              "line": 664,
+              "line": 671,
               "column": 5
             }
           },
@@ -16987,11 +17083,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 672,
+              "line": 679,
               "column": 4
             },
             "end": {
-              "line": 683,
+              "line": 690,
               "column": 5
             }
           },
@@ -17021,11 +17117,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 691,
+              "line": 698,
               "column": 4
             },
             "end": {
-              "line": 697,
+              "line": 704,
               "column": 5
             }
           },
@@ -17055,11 +17151,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 704,
+              "line": 711,
               "column": 4
             },
             "end": {
-              "line": 711,
+              "line": 718,
               "column": 5
             }
           },
@@ -17089,11 +17185,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 718,
+              "line": 725,
               "column": 4
             },
             "end": {
-              "line": 739,
+              "line": 746,
               "column": 5
             }
           },
@@ -17123,11 +17219,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 748,
+              "line": 755,
               "column": 4
             },
             "end": {
-              "line": 755,
+              "line": 762,
               "column": 5
             }
           },
@@ -17157,11 +17253,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 764,
+              "line": 771,
               "column": 4
             },
             "end": {
-              "line": 781,
+              "line": 788,
               "column": 5
             }
           },
@@ -17191,28 +17287,36 @@
         },
         {
           "name": "_computeReferenceType",
-          "description": "",
+          "description": "Computes a type model from a reference (library for example).",
           "privacy": "protected",
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 782,
+              "line": 795,
               "column": 4
             },
             "end": {
-              "line": 788,
+              "line": 810,
               "column": 5
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "reference"
+              "name": "reference",
+              "type": "(Object | Array)",
+              "description": "AMF model for a reference to extract the data from"
             },
             {
-              "name": "selected"
+              "name": "selected",
+              "type": "String",
+              "description": "Node ID to look for"
             }
           ],
+          "return": {
+            "type": "(Object | undefined)",
+            "desc": "Type definition or undefined if not found."
+          },
           "inheritedFrom": "ApiElements.AmfHelperMixin"
         },
         {
@@ -17222,11 +17326,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 796,
+              "line": 818,
               "column": 4
             },
             "end": {
-              "line": 801,
+              "line": 823,
               "column": 5
             }
           },
@@ -17256,11 +17360,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 809,
+              "line": 831,
               "column": 4
             },
             "end": {
-              "line": 816,
+              "line": 838,
               "column": 5
             }
           },
@@ -17290,11 +17394,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 823,
+              "line": 845,
               "column": 4
             },
             "end": {
-              "line": 872,
+              "line": 894,
               "column": 5
             }
           },
@@ -17319,11 +17423,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 874,
+              "line": 896,
               "column": 4
             },
             "end": {
-              "line": 896,
+              "line": 918,
               "column": 5
             }
           },
@@ -17345,11 +17449,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 898,
+              "line": 920,
               "column": 4
             },
             "end": {
-              "line": 917,
+              "line": 937,
               "column": 5
             }
           },
@@ -17371,11 +17475,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 919,
+              "line": 939,
               "column": 4
             },
             "end": {
-              "line": 930,
+              "line": 950,
               "column": 5
             }
           },
@@ -17397,11 +17501,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 939,
+              "line": 959,
               "column": 4
             },
             "end": {
-              "line": 952,
+              "line": 972,
               "column": 5
             }
           },
@@ -17430,11 +17534,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 959,
+              "line": 979,
               "column": 4
             },
             "end": {
-              "line": 980,
+              "line": 1000,
               "column": 5
             }
           },
@@ -17459,11 +17563,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 986,
+              "line": 1006,
               "column": 4
             },
             "end": {
-              "line": 1012,
+              "line": 1032,
               "column": 5
             }
           },
@@ -18086,11 +18190,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 128,
+              "line": 129,
               "column": 8
             },
             "end": {
-              "line": 128,
+              "line": 129,
               "column": 32
             }
           },
@@ -18104,11 +18208,11 @@
           "sourceRange": {
             "file": "../amf-helper-mixin/amf-helper-mixin.html",
             "start": {
-              "line": 132,
+              "line": 133,
               "column": 8
             },
             "end": {
-              "line": 138,
+              "line": 139,
               "column": 9
             }
           },

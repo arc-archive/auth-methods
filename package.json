@@ -5,7 +5,7 @@
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
   "devDependencies": {
     "@api-components/api-model-generator": "^0.1.8",
-    "@polymer/gen-typescript-declarations": "^1.5.1"
+    "@polymer/gen-typescript-declarations": "^1.6.1"
   },
   "private": false,
   "main": "auth-methods.html",
