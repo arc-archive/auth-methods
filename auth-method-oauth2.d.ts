@@ -5,24 +5,44 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-oauth2.js
+ *   auth-method-oauth2.html
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
-
-import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-
-import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
-
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+/// <reference path="../polymer/types/polymer-element.d.ts" />
+/// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
+/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
+/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
+/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
+/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
+/// <reference path="../paper-button/paper-button.d.ts" />
+/// <reference path="../paper-input/paper-input.d.ts" />
+/// <reference path="../arc-icons/arc-icons.d.ts" />
+/// <reference path="../paper-styles/paper-styles.d.ts" />
+/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
+/// <reference path="../iron-form/iron-form.d.ts" />
+/// <reference path="../paper-item/paper-item.d.ts" />
+/// <reference path="../paper-toast/paper-toast.d.ts" />
+/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
+/// <reference path="../paper-listbox/paper-listbox.d.ts" />
+/// <reference path="../oauth2-scope-selector/oauth2-scope-selector.d.ts" />
+/// <reference path="../paper-spinner/paper-spinner.d.ts" />
+/// <reference path="../iron-collapse/iron-collapse.d.ts" />
+/// <reference path="../paper-ripple/paper-ripple.d.ts" />
+/// <reference path="../paper-checkbox/paper-checkbox.d.ts" />
+/// <reference path="../clipboard-copy/clipboard-copy.d.ts" />
+/// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
+/// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
+/// <reference path="../marked-element/marked-element.d.ts" />
+/// <reference path="../markdown-styles/markdown-styles.d.ts" />
+/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
+/// <reference path="../iron-meta/iron-meta.d.ts" />
+/// <reference path="auth-methods-mixin.d.ts" />
+/// <reference path="auth-methods-styles.d.ts" />
+/// <reference path="auth-method-step.d.ts" />
 
 declare namespace UiElements {
 
@@ -69,7 +89,7 @@ declare namespace UiElements {
    * The `oauth2-authorization` can be set anywhere in the DOM up from this element siblings to the
    * body. See demo for example usage.
    *
-   *  ## Redirect URL
+   *      ## Redirect URL
    * Most OAuth 2 providers requires setting the redirect URL with the request. This can't be changed
    * by the user and redirect URL can be only set in the provider's settings panel. The element
    * accepts the `redirectUri` property which will be displayed to the user that (s)he has to set up
@@ -88,8 +108,7 @@ declare namespace UiElements {
    *
    * This is not yet supported in RAML. However, working together with RAML spec creators,
    * an official RAML annotation to extend OAuth 2.0 settings has been created.
-   * The annotation source can be found in the [RAML organization repository]
-   * (https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).
+   * The annotation source can be found in the [RAML organization repository](https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).
    *
    * When the annotation is applied to the `ramlSettings` property, this element renders
    * additional form inputs to support custom schemes.
@@ -227,7 +246,7 @@ declare namespace UiElements {
    * `detail.setting` object.
    */
   class AuthMethodOauth2 extends
-    EventsTargetMixin(
+    ArcBehaviors.EventsTargetBehavior(
     ArcBehaviors.AuthMethodsMixin(
     ApiElements.AmfHelperMixin(
     Object))) {
@@ -781,7 +800,7 @@ declare namespace UiElements {
      * If the panel is opened the it checks if current header updates
      * authorization.
      */
-    _headerChangedHandler(e: Event|null): void;
+    _headerChangedHandler(e: any): void;
 
     /**
      * Toggles documentartion for custom property.
@@ -815,9 +834,6 @@ declare namespace UiElements {
   }
 }
 
-declare global {
-
-  interface HTMLElementTagNameMap {
-    "auth-method-oauth2": UiElements.AuthMethodOauth2;
-  }
+interface HTMLElementTagNameMap {
+  "auth-method-oauth2": UiElements.AuthMethodOauth2;
 }

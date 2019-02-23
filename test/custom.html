@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
-    <script src="../node_modules/mocha/mocha.js"></script>
-    <script src="../node_modules/chai/chai.js"></script>
-    <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
-    
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
+    <link rel="import" href="../auth-method-custom.html">
+    <script src="amf-loader.js"></script>
   </head>
   <body>
     <test-fixture id="custom">
@@ -17,11 +16,8 @@
         <auth-method-custom></auth-method-custom>
       </template>
     </test-fixture>
-    <script type="module">
-    import {AmfLoader} from './amf-loader.js';
-    import '../auth-method-custom.js';
-    import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
-    import {tap} from '@polymer/iron-test-helpers/mock-interactions.js';
+    <script>
+    /* global AmfLoader, MockInteractions */
     suite('custom auth', () => {
       [
         ['Full data model', false],
@@ -48,7 +44,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -91,7 +87,7 @@
               sessionStorage.clear();
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -108,8 +104,7 @@
             test('Should be validated', (done) => {
               const hInput = element.shadowRoot.querySelector('[data-type="header"]');
               hInput.value = 'test';
-              const qInput = element.shadowRoot.querySelector(
-                '.query-section .param-item:nth-child(2) [data-type="query"]');
+              const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
               qInput.value = 'true';
               flush(() => {
                 assert.isTrue(element.validate());
@@ -127,7 +122,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -158,7 +153,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -174,13 +169,13 @@
 
             test('Toggles main documentation', () => {
               const button = element.shadowRoot.querySelector('.scheme-header paper-icon-button');
-              tap(button);
+              MockInteractions.tap(button);
               assert.isTrue(element.documentationOpened);
             });
 
             test('Renders item documentation', () => {
               const button = element.shadowRoot.querySelector('.header-item .help-icon');
-              tap(button);
+              MockInteractions.tap(button);
               const marked = element.shadowRoot.querySelector('.header-item .data-docs marked-element');
               assert.ok(marked);
               assert.typeOf(marked.markdown, 'string');
@@ -188,18 +183,18 @@
 
             test('Item collapse is opened', () => {
               const button = element.shadowRoot.querySelector('.header-item .help-icon');
-              tap(button);
+              MockInteractions.tap(button);
               const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
               assert.isTrue(collapse.opened);
             });
 
             test('Another click closes collapse', (done) => {
               const button = element.shadowRoot.querySelector('.header-item .help-icon');
-              tap(button);
+              MockInteractions.tap(button);
               const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
               assert.isTrue(collapse.opened);
               flush(() => {
-                tap(button);
+                MockInteractions.tap(button);
                 assert.isFalse(collapse.opened);
                 done();
               });
@@ -207,10 +202,10 @@
 
             test('Docs are cleared when scheme change', (done) => {
               const button = element.shadowRoot.querySelector('.header-item .help-icon');
-              tap(button);
+              MockInteractions.tap(button);
               flush(() => {
                 element.amfSettings = undefined;
-                afterNextRender(element, () => {
+                Polymer.RenderStatus.afterNextRender(this, () => {
                   const collapse = element.shadowRoot.querySelector('.header-item .data-docs iron-collapse');
                   assert.equal(collapse, null);
                   done();
@@ -228,7 +223,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -249,8 +244,7 @@
             test('The event has required properties', (done) => {
               const hInput = element.shadowRoot.querySelector('[data-type="header"]');
               hInput.value = 'test-y';
-              const qInput = element.shadowRoot.querySelector(
-                '.query-section .param-item:nth-child(2) [data-type="query"]');
+              const qInput = element.shadowRoot.querySelector('.query-section .param-item:nth-child(2) [data-type="query"]');
               element.addEventListener('auth-settings-changed', (e) => {
                 assert.equal(e.detail.type, 'x-custom', 'type is set');
                 assert.equal(e.detail.valid, true, 'valid is set');
@@ -271,7 +265,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -322,7 +316,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });
@@ -365,7 +359,7 @@
               element = fixture('custom');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });

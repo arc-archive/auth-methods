@@ -3,14 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
-    <script src="../node_modules/mocha/mocha.js"></script>
-    <script src="../node_modules/chai/chai.js"></script>
-    <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
-    <script src="../node_modules/sinon/pkg/sinon.js"></script>
-
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
+    <script src="amf-loader.js"></script>
+    <link rel="import" href="../auth-method-oauth2.html">
   </head>
   <body>
     <test-fixture id="implicit">
@@ -18,18 +16,13 @@
         <auth-method-oauth2 grant-type="implicit"></auth-method-oauth2>
       </template>
     </test-fixture>
-
     <test-fixture id="empty">
       <template>
         <auth-method-oauth2></auth-method-oauth2>
       </template>
     </test-fixture>
-
-    <script type="module">
-    import '../auth-method-oauth2.js';
-    import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
-    import {tap} from '@polymer/iron-test-helpers/mock-interactions.js';
-    import {AmfLoader} from './amf-loader.js';
+    <script>
+    /* global AmfLoader, MockInteractions, sinon */
     suite('Implicit grant type', () => {
       let element;
       const clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
@@ -49,7 +42,7 @@
           element = fixture('implicit');
           element.clientId = clientId;
           element.authorizationUri = authorizationUri;
-          afterNextRender(window, () => {
+          Polymer.RenderStatus.afterNextRender(this, () => {
             done();
           });
         });
@@ -70,7 +63,7 @@
           const spy = sinon.stub();
           element.addEventListener('oauth2-token-requested', spy);
           const button = element.shadowRoot.querySelector('.auth-button');
-          tap(button);
+          MockInteractions.tap(button);
           assert.isFalse(spy.calledOnce);
         });
 
@@ -80,7 +73,7 @@
             const spy = sinon.stub();
             element.addEventListener('oauth2-token-requested', spy);
             const button = element.shadowRoot.querySelector('.auth-button');
-            tap(button);
+            MockInteractions.tap(button);
             assert.isTrue(spy.calledOnce);
             done();
           });
@@ -95,7 +88,7 @@
         setup((done) => {
           clearCache();
           element = fixture('implicit');
-          afterNextRender(window, () => {
+          Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => done());
           });
         });
@@ -228,7 +221,7 @@
           element.authorizationUri = authorizationUri;
           element.redirectUri = redirectUri;
           element.scopes = ['email', 'profile'];
-          afterNextRender(window, () => {
+          Polymer.RenderStatus.afterNextRender(this, () => {
             flush(() => {
               done();
             });
@@ -242,7 +235,7 @@
             eventData = e.detail;
           });
           let button = element.shadowRoot.querySelector('.auth-button');
-          tap(button);
+          MockInteractions.tap(button);
           assert.typeOf(eventData.state, 'string');
         });
 
@@ -327,6 +320,8 @@
           assert.equal(result.deliveryName, 'authorization', 'default value is set');
         });
       });
+
+
 
       suite('Amf model', () => {
         [
@@ -421,7 +416,7 @@
               element = fixture('implicit');
               element.amfModel = amf;
               element.amfSettings = security;
-              afterNextRender(element, () => {
+              Polymer.RenderStatus.afterNextRender(this, () => {
                 flush(() => done());
               });
             });

@@ -5,24 +5,31 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-custom.js
+ *   auth-method-custom.html
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
-
-import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-
-import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
-
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+/// <reference path="../polymer/types/polymer-element.d.ts" />
+/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
+/// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
+/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
+/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
+/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
+/// <reference path="../paper-input/paper-input.d.ts" />
+/// <reference path="../arc-icons/arc-icons.d.ts" />
+/// <reference path="../iron-form/iron-form.d.ts" />
+/// <reference path="../markdown-styles/markdown-styles.d.ts" />
+/// <reference path="../iron-collapse/iron-collapse.d.ts" />
+/// <reference path="../marked-element/marked-element.d.ts" />
+/// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
+/// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
+/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
+/// <reference path="auth-methods-mixin.d.ts" />
+/// <reference path="auth-methods-styles.d.ts" />
+/// <reference path="auth-method-step.d.ts" />
 
 declare namespace UiElements {
 
@@ -65,8 +72,8 @@ declare namespace UiElements {
    * - Added scheme title and documentation to the panel.
    */
   class AuthMethodCustom extends
-    EventsTargetMixin(
-    AuthMethodsMixin(
+    ArcBehaviors.EventsTargetBehavior(
+    ArcBehaviors.AuthMethodsMixin(
     ApiElements.AmfHelperMixin(
     Object))) {
 
@@ -206,9 +213,6 @@ declare namespace UiElements {
   }
 }
 
-declare global {
-
-  interface HTMLElementTagNameMap {
-    "auth-method-custom": UiElements.AuthMethodCustom;
-  }
+interface HTMLElementTagNameMap {
+  "auth-method-custom": UiElements.AuthMethodCustom;
 }

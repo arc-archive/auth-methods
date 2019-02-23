@@ -5,20 +5,23 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-basic.js
+ *   auth-method-basic.html
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+/// <reference path="../polymer/types/polymer-element.d.ts" />
+/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
+/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
+/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
+/// <reference path="../paper-input/paper-input.d.ts" />
+/// <reference path="../arc-icons/arc-icons.d.ts" />
+/// <reference path="../iron-form/iron-form.d.ts" />
+/// <reference path="auth-methods-mixin.d.ts" />
+/// <reference path="auth-methods-styles.d.ts" />
+/// <reference path="auth-method-step.d.ts" />
 
 declare namespace UiElements {
 
@@ -57,8 +60,8 @@ declare namespace UiElements {
    * paper-toggle`'s css variables.
    */
   class AuthMethodBasic extends
-    EventsTargetMixin(
-    AuthMethodsMixin(
+    ArcBehaviors.EventsTargetBehavior(
+    ArcBehaviors.AuthMethodsMixin(
     Object)) {
 
     /**
@@ -146,26 +149,26 @@ declare namespace UiElements {
      * then the form will be updated to incomming values.
      * This helps to sync changes between elements in the same app.
      */
-    _onAuthSettings(e: Event|null): void;
+    _onAuthSettings(e: any): void;
 
     /**
      * Handler for the `request-header-changed` custom event.
      * If the panel is opened the it checks if current header updates
      * authorization.
      */
-    _headerChangedHandler(e: Event|null): void;
+    _headerChangedHandler(e: any): void;
 
     /**
      * Dispatches `request-header-changed` custom event to inform other
      * elements about authorization value change.
+     *
+     * @param settings [description]
+     * @returns [description]
      */
-    _notifyHeaderChange(settings: object|null): void;
+    _notifyHeaderChange(settings: any): any;
   }
 }
 
-declare global {
-
-  interface HTMLElementTagNameMap {
-    "auth-method-basic": UiElements.AuthMethodBasic;
-  }
+interface HTMLElementTagNameMap {
+  "auth-method-basic": UiElements.AuthMethodBasic;
 }
