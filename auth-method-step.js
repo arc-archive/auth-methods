@@ -1,11 +1,20 @@
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../polymer/lib/elements/dom-if.html">
-<link rel="import" href="../paper-ripple/paper-ripple.html">
-<link rel="import" href="../iron-collapse/iron-collapse.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<dom-module id="auth-method-step">
-  <template>
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import '@polymer/polymer/lib/elements/dom-if.js';
+import '@polymer/paper-ripple/paper-ripple.js';
+import '@polymer/iron-collapse/iron-collapse.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@polymer/iron-icon/iron-icon.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+/**
+ * An element that renders authorization steps with title and content.
+ *
+ * @customElement
+ * @polymer
+ * @memberof UiElements
+ */
+export class AuthMethodStep extends PolymerElement {
+  static get template() {
+    return html`
     <style>
     .row {
       padding: 12px 0;
@@ -150,9 +159,12 @@
         <span class="step-header" on-tap="_inactiveTap">
           <span class="step-title">
             <slot name="title"></slot>
-            <iron-icon icon="arc:edit" class="edit-icon" title="Click to make changes" hidden$="[[!inactive]]"></iron-icon>
+            <iron-icon icon="arc:edit"
+              class="edit-icon"
+              title="Click to make changes"
+              hidden\$="[[!inactive]]"></iron-icon>
           </span>
-          <span class="step-inactive-title" hidden$="[[!inactive]]">
+          <span class="step-inactive-title" hidden\$="[[!inactive]]">
             <slot name="inactive-title"></slot>
           </span>
         </span>
@@ -167,65 +179,57 @@
         </div>
       </iron-collapse>
     </div>
-
-  </template>
-  <script>
-  /**
-   * An element that renders authorization steps with title and content.
-   *
-   * @customElement
-   * @polymer
-   * @memberof UiElements
-   */
-  class AuthMethodStep extends Polymer.Element {
-    static get is() { return 'auth-method-step'; }
-    static get properties() {
-      return {
-        // base64 hash of the uid and passwd. When set it will override current username and password.
-        stepStartIndex: {
-          type: Number,
-          value: 1
-        },
-        step: Number,
-        /**
-         * If true then the auth method will not render progress bar (stepper).
-         */
-        noSteps: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        },
-        // Title of the step
-        title: String,
-        // If inactive it shows alternative summary content
-        inactive: {
-          type: Boolean,
-          reflectToAttribute: true,
-          value: false
-        }
-      };
-    }
-
-    _computeStep(stepStartIndex, currentStep) {
-      return stepStartIndex + currentStep;
-    }
-
-    _inactiveTap() {
-      if (!this.inactive) {
-        return;
-      }
-      this.dispatchEvent(new CustomEvent('inactive-tap', {
-        bubbles: false
-      }));
-    }
-
-    _computeContentOpened(inactive, noSteps) {
-      if (noSteps) {
-        return true;
-      }
-      return !inactive;
-    }
+`;
   }
-  window.customElements.define(AuthMethodStep.is, AuthMethodStep);
-  </script>
-</dom-module>
+
+  static get is() {
+    return 'auth-method-step';
+  }
+  static get properties() {
+    return {
+      // base64 hash of the uid and passwd. When set it will override current username and password.
+      stepStartIndex: {
+        type: Number,
+        value: 1
+      },
+      step: Number,
+      /**
+       * If true then the auth method will not render progress bar (stepper).
+       */
+      noSteps: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      // Title of the step
+      title: String,
+      // If inactive it shows alternative summary content
+      inactive: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
+      }
+    };
+  }
+
+  _computeStep(stepStartIndex, currentStep) {
+    return stepStartIndex + currentStep;
+  }
+
+  _inactiveTap() {
+    if (!this.inactive) {
+      return;
+    }
+    this.dispatchEvent(new CustomEvent('inactive-tap', {
+      bubbles: false
+    }));
+  }
+
+  _computeContentOpened(inactive, noSteps) {
+    if (noSteps) {
+      return true;
+    }
+    return !inactive;
+  }
+}
+window.customElements.define(AuthMethodStep.is, AuthMethodStep);

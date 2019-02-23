@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright 2018 The Advanced REST client authors
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -10,16 +10,8 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
--->
-<link rel="import" href="../polymer/lib/utils/mixin.html">
-<script>
-'use strict';
-if (!window.ArcBehaviors) {
-  /**
-   * @namespace ArcBehaviors
-   */
-  window.ArcBehaviors = {};
-}
+*/
+import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
 /**
  * Contains a common properties and methods used in the Auth methods element set.
  *
@@ -30,9 +22,8 @@ if (!window.ArcBehaviors) {
  *
  * @polymer
  * @mixinFunction
- * @memberof ArcBehaviors
  */
-ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
+export const AuthMethodsMixin = dedupingMixin((base) => {
   /**
    * @polymer
    * @mixinClass
@@ -78,6 +69,8 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
      * Gets a oauth type by the elemnt name.
      * Possible values: 'basic', 'ntlm', 'oauth1', 'oauth2', 'digest', 'custom'
      * or undefined.
+     *
+     * @return {String|undefined}
      */
     _getAuthType() {
       const name = this.nodeName.toLowerCase();
@@ -133,4 +126,3 @@ ArcBehaviors.AuthMethodsMixin = Polymer.dedupingMixin((base) => {
   }
   return AMmixin;
 });
-</script>

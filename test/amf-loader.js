@@ -1,4 +1,5 @@
-const AmfLoader = {};
+import {ns} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+export const AmfLoader = {};
 AmfLoader.load = function(endpointIndex, compact) {
   endpointIndex = endpointIndex || 0;
   const file = '/oauth2-api' + (compact ? '-compact' : '') + '.json';
@@ -15,7 +16,6 @@ AmfLoader.load = function(endpointIndex, compact) {
         reject(e);
         return;
       }
-      const ns = ApiElements.Amf.ns;
       const original = data;
       if (data instanceof Array) {
         data = data[0];

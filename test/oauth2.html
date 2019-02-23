@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../iron-test-helpers/test-helpers.js"></script>
-    <script src="../../iron-test-helpers/mock-interactions.js"></script>
-    <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
-    <link rel="import" href="../auth-method-oauth2.html">
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
+
   </head>
   <body>
 
@@ -23,8 +24,11 @@
         <auth-method-oauth2 grant-type="implicit"></auth-method-oauth2>
       </template>
     </test-fixture>
-    <script>
-    /* global fixture, assert, TestHelpers */
+
+    <script type="module">
+    import '../auth-method-oauth2.js';
+    import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
+    import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
     suite('Basic', () => {
       let element;
       setup(() => {
@@ -76,19 +80,19 @@
 
     suite('_authorizing state', () => {
       let element;
-      setup(() => {
+      setup((done) => {
         element = fixture('implicit');
         element._authorizing = true;
-        TestHelpers.forceXIfStamp(element);
+        flush(() => done());
       });
 
       test('Get token button is disabled ', () => {
-        let button = Polymer.dom(element.root).querySelector('.auth-button[data-type="get-token"]');
+        let button = dom(element.root).querySelector('.auth-button[data-type="get-token"]');
         assert.isTrue(button.disabled);
       });
 
       test('Refresh token button is disabled ', () => {
-        let button = Polymer.dom(element.root).querySelector('.auth-button[data-type="refresh-token"]');
+        let button = dom(element.root).querySelector('.auth-button[data-type="refresh-token"]');
         assert.isTrue(button.disabled);
       });
 
@@ -121,7 +125,7 @@
       let element;
       setup((done) => {
         element = fixture('basic');
-        Polymer.RenderStatus.afterNextRender(this, () => {
+        afterNextRender(window, () => {
           flush(() => done());
         });
       });
@@ -265,7 +269,7 @@
 
       test('iron-collapse is eventually opened', (done) => {
         element._createDocsElements(model, node);
-        Polymer.RenderStatus.afterNextRender(element, () => {
+        afterNextRender(element, () => {
           assert.isTrue(node.querySelector('iron-collapse').opened);
           done();
         });

@@ -3,11 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../cryptojslib/rollups/md5.js"></script>
-  <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
-  <link rel="import" href="../auth-methods.html">
+
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+  <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
+
+  <script src="../../../cryptojslib/rollups/md5.js"></script>
 </head>
 
 <body>
@@ -16,7 +19,8 @@
       <auth-method-digest request-url="https://api.domain.com/path/to/resource?parm=value" http-method="GET" full-form realm="realm@domain.com" nonce="1234abcd" cnonce="19ed03580cf7125"></auth-method-digest>
     </template>
   </test-fixture>
-  <script>
+  <script type="module">
+  import '../auth-method-digest.js';
   suite('Validation', () => {
     let element;
     setup(() => {

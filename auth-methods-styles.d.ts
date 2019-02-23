@@ -5,12 +5,11 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-methods-styles.html
+ *   auth-methods-styles.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 
-/// <reference path="../polymer/types/polymer.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
 
+export {};

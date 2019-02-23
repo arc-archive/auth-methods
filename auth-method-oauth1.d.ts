@@ -5,31 +5,22 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-oauth1.html
+ *   auth-method-oauth1.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-button/paper-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../paper-styles/paper-styles.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="../paper-toast/paper-toast.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../paper-spinner/paper-spinner.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
-/// <reference path="auth-methods-mixin.d.ts" />
-/// <reference path="auth-methods-styles.d.ts" />
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+
+import {AuthMethodsMixin} from './auth-methods-mixin.js';
+
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
 declare namespace UiElements {
 
@@ -102,14 +93,14 @@ declare namespace UiElements {
    * Use `advanced-rest-client/cryptojs-lib` component to include the library if your project doesn't use crypto libraries already.
    */
   class AuthMethodOauth1 extends
-    ArcBehaviors.EventsTargetBehavior(
+    EventsTargetMixin(
     ArcBehaviors.AuthMethodsMixin(
     ApiElements.AmfHelperMixin(
     Object))) {
 
     /**
      * Returns default list of signature methods for OAuth1
-     *      
+     *    
      */
     readonly defaultSignatureMethods: any;
 
@@ -159,19 +150,19 @@ declare namespace UiElements {
     _authorizing: boolean|null|undefined;
 
     /**
-     * Authorization callback URL
+     * Authorization callback URI
      */
-    redirectUrl: string|null|undefined;
+    redirectUri: string|null|undefined;
 
     /**
      * OAuth1 endpoint to obtain request token to request user authorization.
      */
-    requestTokenUrl: string|null|undefined;
+    requestTokenUri: string|null|undefined;
 
     /**
      * Endpoint to authorize the token.
      */
-    accessTokenUrl: string|null|undefined;
+    accessTokenUri: string|null|undefined;
 
     /**
      * HTTP method to obtain authorization header.
@@ -187,10 +178,10 @@ declare namespace UiElements {
     authParamsLocation: string|null|undefined;
 
     /**
-     * An URL to authentication endpoint where the user should be redirected
+     * An URI to authentication endpoint where the user should be redirected
      * to auththorize the app.
      */
-    authorizationUrl: string|null|undefined;
+    authorizationUri: string|null|undefined;
 
     /**
      * RAML `securedBy` obejct definition.
@@ -277,6 +268,9 @@ declare namespace UiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-oauth1": UiElements.AuthMethodOauth1;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-oauth1": UiElements.AuthMethodOauth1;
+  }
 }

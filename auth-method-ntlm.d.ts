@@ -5,23 +5,20 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-ntlm.html
+ *   auth-method-ntlm.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="auth-methods-mixin.d.ts" />
-/// <reference path="auth-methods-styles.d.ts" />
-/// <reference path="auth-method-step.d.ts" />
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+
+import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
+
+import {AuthMethodsMixin} from './auth-methods-mixin.js';
 
 declare namespace UiElements {
 
@@ -54,8 +51,8 @@ declare namespace UiElements {
    * paper-toggle`'s css variables.
    */
   class AuthMethodNtlm extends
-    ArcBehaviors.EventsTargetBehavior(
-    ArcBehaviors.AuthMethodsMixin(
+    EventsTargetMixin(
+    AuthMethodsMixin(
     Object)) {
 
     /**
@@ -107,10 +104,13 @@ declare namespace UiElements {
      * If the event was fired by other element with the same method ttype
      * then the form will be updated to incomming values.
      */
-    _onAuthSettings(e: any): void;
+    _onAuthSettings(e: Event|null): void;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-ntlm": UiElements.AuthMethodNtlm;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-ntlm": UiElements.AuthMethodNtlm;
+  }
 }

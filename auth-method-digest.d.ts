@@ -5,28 +5,20 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-digest.html
+ *   auth-method-digest.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-checkbox/paper-checkbox.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../iron-collapse/iron-collapse.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="auth-methods-mixin.d.ts" />
-/// <reference path="auth-methods-styles.d.ts" />
-/// <reference path="auth-method-step.d.ts" />
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
+
+import {AuthMethodsMixin} from './auth-methods-mixin.js';
+
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
 declare namespace UiElements {
 
@@ -93,8 +85,8 @@ declare namespace UiElements {
    * paper-toggle`'s css variables.
    */
   class AuthMethodDigest extends
-    ArcBehaviors.EventsTargetBehavior(
-    ArcBehaviors.AuthMethodsMixin(
+    EventsTargetMixin(
+    AuthMethodsMixin(
     Object)) {
 
     /**
@@ -253,6 +245,9 @@ declare namespace UiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-digest": UiElements.AuthMethodDigest;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-digest": UiElements.AuthMethodDigest;
+  }
 }

@@ -5,26 +5,25 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-step.html
+ *   auth-method-step.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../paper-ripple/paper-ripple.d.ts" />
-/// <reference path="../iron-collapse/iron-collapse.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../iron-icon/iron-icon.d.ts" />
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+
+export {AuthMethodStep};
 
 declare namespace UiElements {
 
   /**
    * An element that renders authorization steps with title and content.
    */
-  class AuthMethodStep extends Polymer.Element {
+  class AuthMethodStep extends PolymerElement {
 
     /**
      * base64 hash of the uid and passwd. When set it will override current username and password.
@@ -52,6 +51,9 @@ declare namespace UiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-step": UiElements.AuthMethodStep;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-step": UiElements.AuthMethodStep;
+  }
 }
