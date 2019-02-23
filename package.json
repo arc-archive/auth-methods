@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git://github.com/advanced-rest-client/auth-methods.git"
   },
-  "name": "@api-components/auth-methods",
+  "name": "@advanced-rest-client/auth-methods",
   "version": "3.0.0-preview.1",
   "license": "Apache-2.0",
   "devDependencies": {
