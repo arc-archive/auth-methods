@@ -839,3 +839,43 @@
 
 
 
+## [3.0.7](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...3.0.7) (2019-02-23)
+
+
+### Breaking
+
+* Updated component to work with stable AMF model ([99eaad33e9db8f3c50b5cd45035161ab3c7f8b99](https://github.com/advanced-rest-client/auth-methods/commit/99eaad33e9db8f3c50b5cd45035161ab3c7f8b99))
+* Upgrading component to Polymer 3 ([2ef45645bac21ff41b789ae8365c71812babb4d2](https://github.com/advanced-rest-client/auth-methods/commit/2ef45645bac21ff41b789ae8365c71812babb4d2))
+
+### Docs
+
+* Updating docs ([bd1b42e65f26f854ed6ef69146934cc0898d22f0](https://github.com/advanced-rest-client/auth-methods/commit/bd1b42e65f26f854ed6ef69146934cc0898d22f0))
+* Updating docs ([ba36f1bc611ecb35bfcd7291f94d82f21c89a429](https://github.com/advanced-rest-client/auth-methods/commit/ba36f1bc611ecb35bfcd7291f94d82f21c89a429))
+* Updating documentation ([80a048bda0ac71b2d094d45f10acc14e8090f363](https://github.com/advanced-rest-client/auth-methods/commit/80a048bda0ac71b2d094d45f10acc14e8090f363))
+* Updating documentation. ([d678d68ac2eb44273ce082a748250d000078904d](https://github.com/advanced-rest-client/auth-methods/commit/d678d68ac2eb44273ce082a748250d000078904d))
+
+### Fix
+
+* Fixed custom scheme recognition. ([c62847e7a83860c68c318ec3c48c12b5753ac040](https://github.com/advanced-rest-client/auth-methods/commit/c62847e7a83860c68c318ec3c48c12b5753ac040))
+* Restoring right amf model rederence in demo page ([e633f08fda93ab7539c735f3fcc1531b3c485857](https://github.com/advanced-rest-client/auth-methods/commit/e633f08fda93ab7539c735f3fcc1531b3c485857))
+
+### New
+
+* Adding `noDocs` property ([37942f86f7c52a001f34581b7cb06431a996c318](https://github.com/advanced-rest-client/auth-methods/commit/37942f86f7c52a001f34581b7cb06431a996c318))
+* Adding option to set client ID and Client Secret in `iron-meta`, outside RAML configuration ([cdef0ed2c57a5628a0e805d63e40fae5bf4ca990](https://github.com/advanced-rest-client/auth-methods/commit/cdef0ed2c57a5628a0e805d63e40fae5bf4ca990))
+* Adding support for compact json-ld data model ([3feea650bb75caf90e4ba7063d90052a899ec41a](https://github.com/advanced-rest-client/auth-methods/commit/3feea650bb75caf90e4ba7063d90052a899ec41a))
+* Adding tests coverage ([22fabd4e14bbe9588af54ae2e03b6bcd9f358f39](https://github.com/advanced-rest-client/auth-methods/commit/22fabd4e14bbe9588af54ae2e03b6bcd9f358f39))
+
+### Update
+
+* `authorize` function now returns a value ([ec6a37f66113b272b396dc135a7f20816bbbaf0a](https://github.com/advanced-rest-client/auth-methods/commit/ec6a37f66113b272b396dc135a7f20816bbbaf0a))
+* Adding null check for shadowRoot ([c7d8f512385b1e29814f2f52df5a5118522833ff](https://github.com/advanced-rest-client/auth-methods/commit/c7d8f512385b1e29814f2f52df5a5118522833ff))
+* Pre-selecting token type if single possible option left ([61aa2ba85c27d2d6cda0749de614f173e8d9d929](https://github.com/advanced-rest-client/auth-methods/commit/61aa2ba85c27d2d6cda0749de614f173e8d9d929))
+* Removing old CI files ([15e48efdbc0b7d3b587f1fd10e0f1ea2aac2c8ee](https://github.com/advanced-rest-client/auth-methods/commit/15e48efdbc0b7d3b587f1fd10e0f1ea2aac2c8ee))
+* Updating AMF generator and models ([139b7df40314acfd8e056a486ec0c7202b7d85cf](https://github.com/advanced-rest-client/auth-methods/commit/139b7df40314acfd8e056a486ec0c7202b7d85cf))
+* Updating AMF version and models ([9374bc84755bf1b4bd4ad5edd01fbe694d54cc65](https://github.com/advanced-rest-client/auth-methods/commit/9374bc84755bf1b4bd4ad5edd01fbe694d54cc65))
+* Updating Polymer docs ([912a48b3233d8e7a73467d38b29bf78f822d1bd7](https://github.com/advanced-rest-client/auth-methods/commit/912a48b3233d8e7a73467d38b29bf78f822d1bd7))
+* Updating tests, restoring OAuth2 annotations test ([14014229f87dbc3522094c0cba868457e21b8526](https://github.com/advanced-rest-client/auth-methods/commit/14014229f87dbc3522094c0cba868457e21b8526))
+
+
+
