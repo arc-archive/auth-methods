@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@advanced-rest-client/arc-icons": "^3.0.0-preview.2",
+    "@advanced-rest-client/clipboard-copy": "^3.0.0-preview.1",
     "@advanced-rest-client/events-target-mixin": "^3.0.0-preview.2",
     "@advanced-rest-client/markdown-styles": "^3.0.0-preview.1",
     "@advanced-rest-client/oauth2-scope-selector": "^3.0.0-preview.3",
@@ -60,7 +61,6 @@
     "@api-components/amf-helper-mixin": "^3.0.0-preview.1",
     "@api-components/api-property-form-item": "^3.0.0-preview.1",
     "@api-components/api-view-model-transformer": "^3.0.0-preview.1",
-    "@api-components/clipboard-copy": "^3.0.0-preview.1",
     "@polymer/iron-collapse": "^3.0.0",
     "@polymer/iron-flex-layout": "^3.0.0",
     "@polymer/iron-form": "^3.0.0",

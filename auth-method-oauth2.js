@@ -35,7 +35,7 @@ import '@polymer/paper-spinner/paper-spinner.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import '@polymer/paper-ripple/paper-ripple.js';
 import '@polymer/paper-checkbox/paper-checkbox.js';
-import '@api-components/clipboard-copy/clipboard-copy.js';
+import '@advanced-rest-client/clipboard-copy/clipboard-copy.js';
 import '@api-components/api-view-model-transformer/api-view-model-transformer.js';
 import '@api-components/api-property-form-item/api-property-form-item.js';
 import '@polymer/marked-element/marked-element.js';
