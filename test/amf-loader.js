@@ -1,4 +1,4 @@
-import {ns} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import {ns} from '../../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
 export const AmfLoader = {};
 AmfLoader.load = function(endpointIndex, compact) {
   endpointIndex = endpointIndex || 0;

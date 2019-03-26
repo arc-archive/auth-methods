@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import {dedupingMixin} from '../../@polymer/polymer/lib/utils/mixin.js';
 /**
  * Contains a common properties and methods used in the Auth methods element set.
  *

@@ -1,10 +1,10 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '@polymer/polymer/lib/elements/dom-if.js';
-import '@polymer/paper-ripple/paper-ripple.js';
-import '@polymer/iron-collapse/iron-collapse.js';
-import '@advanced-rest-client/arc-icons/arc-icons.js';
-import '@polymer/iron-icon/iron-icon.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
+import '../../@polymer/polymer/lib/elements/dom-if.js';
+import '../../@polymer/paper-ripple/paper-ripple.js';
+import '../../@polymer/iron-collapse/iron-collapse.js';
+import '../../@advanced-rest-client/arc-icons/arc-icons.js';
+import '../../@polymer/iron-icon/iron-icon.js';
 /**
  * An element that renders authorization steps with title and content.
  *

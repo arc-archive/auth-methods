@@ -1,5 +1,5 @@
-import '@polymer/polymer/polymer-legacy.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '../../@polymer/polymer/polymer-legacy.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
 const $_documentContainer = document.createElement('template');
 $_documentContainer.innerHTML = `<dom-module id="auth-methods-styles">
   <template>

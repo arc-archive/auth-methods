@@ -11,23 +11,23 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
-import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import {afterNextRender} from '../../@polymer/polymer/lib/utils/render-status.js';
+import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
+import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
 import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-import '@polymer/polymer/lib/elements/dom-if.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/paper-input/paper-input.js';
-import '@advanced-rest-client/arc-icons/arc-icons.js';
-import '@polymer/iron-form/iron-form.js';
-import '@advanced-rest-client/markdown-styles/markdown-styles.js';
-import '@polymer/iron-collapse/iron-collapse.js';
-import '@polymer/marked-element/marked-element.js';
-import '@api-components/api-view-model-transformer/api-view-model-transformer.js';
-import '@api-components/api-property-form-item/api-property-form-item.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
+import '../../@polymer/polymer/lib/elements/dom-if.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
+import '../../@polymer/paper-icon-button/paper-icon-button.js';
+import '../../@polymer/paper-input/paper-input.js';
+import '../../@advanced-rest-client/arc-icons/arc-icons.js';
+import '../../@polymer/iron-form/iron-form.js';
+import '../../@advanced-rest-client/markdown-styles/markdown-styles.js';
+import '../../@polymer/iron-collapse/iron-collapse.js';
+import '../../@polymer/marked-element/marked-element.js';
+import '../../@api-components/api-view-model-transformer/api-view-model-transformer.js';
+import '../../@api-components/api-property-form-item/api-property-form-item.js';
 import './auth-methods-styles.js';
 import './auth-method-step.js';
 /**

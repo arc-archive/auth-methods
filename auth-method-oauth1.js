@@ -11,24 +11,24 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
+import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
 import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-import '@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/paper-button/paper-button.js';
-import '@polymer/paper-input/paper-input.js';
-import '@advanced-rest-client/arc-icons/arc-icons.js';
-import '@polymer/paper-styles/paper-styles.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import '@polymer/iron-form/iron-form.js';
-import '@polymer/paper-item/paper-item.js';
-import '@polymer/paper-toast/paper-toast.js';
-import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-import '@polymer/paper-listbox/paper-listbox.js';
-import '@polymer/paper-spinner/paper-spinner.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
+import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
+import '../../@polymer/paper-icon-button/paper-icon-button.js';
+import '../../@polymer/paper-button/paper-button.js';
+import '../../@polymer/paper-input/paper-input.js';
+import '../../@advanced-rest-client/arc-icons/arc-icons.js';
+import '../../@polymer/paper-styles/paper-styles.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
+import '../../@polymer/iron-form/iron-form.js';
+import '../../@polymer/paper-item/paper-item.js';
+import '../../@polymer/paper-toast/paper-toast.js';
+import '../../@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import '../../@polymer/paper-listbox/paper-listbox.js';
+import '../../@polymer/paper-spinner/paper-spinner.js';
 import './auth-methods-styles.js';
 /**
  * The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a settings.
