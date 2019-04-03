@@ -261,7 +261,7 @@
       let element;
       setup((done) => {
         element = fixture('basic');
-        Polymer.RenderStatus.afterNextRender(this, () => {
+        Polymer.RenderStatus.afterNextRender(element, () => {
           flush(() => done());
         });
       });
@@ -269,8 +269,8 @@
       test('request-header-changed is dispatched', (done) => {
         element.username = 'test';
         element.addEventListener('request-header-changed', (e) => {
-          assert.equal(e.detail.name, 'authorization', 'name is set');
-          assert.equal(e.detail.value, 'basic dGVzdDp0ZXN0', 'value is set');
+          assert.equal(e.detail.name, 'Authorization', 'name is set');
+          assert.equal(e.detail.value, 'Basic dGVzdDp0ZXN0', 'value is set');
           done();
         });
         element.password = 'test';
