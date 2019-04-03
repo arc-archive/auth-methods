@@ -35,7 +35,7 @@
     "cryptojslib": "^3.1.2",
     "jsrsasign": "^8.0.12",
     "mocha": "^5.2.0",
-    "sinon": "^7.3.0",
+    "sinon": "^7.3.1",
     "wct-mocha": "^1.0.0",
     "web-animations-js": "^2.3.1"
   },
