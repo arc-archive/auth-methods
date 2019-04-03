@@ -16,7 +16,7 @@
     "url": "git://github.com/advanced-rest-client/auth-methods.git"
   },
   "name": "@advanced-rest-client/auth-methods",
-  "version": "4.0.0-preview.3",
+  "version": "4.0.0-preview.4",
   "license": "Apache-2.0",
   "devDependencies": {
     "@advanced-rest-client/arc-electron-default-theme": "^3.0.0-preview.2",
