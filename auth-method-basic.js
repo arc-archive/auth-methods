@@ -324,10 +324,10 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
     if (this.__cancelHeaderEvent) {
       return;
     }
-    const value = (settings && settings.hash) ? 'basic ' + settings.hash : 'Basic ';
+    const value = (settings && settings.hash) ? 'Basic ' + settings.hash : 'Basic ';
     this.dispatchEvent(new CustomEvent('request-header-changed', {
       detail: {
-        name: 'authorization',
+        name: 'Authorization',
         value: value
       },
       bubbles: true,
