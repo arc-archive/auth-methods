@@ -279,6 +279,10 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
+    }
     return form.validate();
   }
 

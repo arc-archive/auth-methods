@@ -12137,9 +12137,6 @@
 ],
 "security:signature": [
 {
-"@value": "PLAINTEXT"
-},
-{
 "@value": "RSA-SHA1"
 },
 {
@@ -14892,9 +14889,6 @@
 }
 ],
 "security:signature": [
-{
-"@value": "PLAINTEXT"
-},
 {
 "@value": "RSA-SHA1"
 },
@@ -17709,9 +17703,6 @@
 }
 ],
 "security:signature": [
-{
-"@value": "PLAINTEXT"
-},
 {
 "@value": "RSA-SHA1"
 },
@@ -25709,9 +25700,6 @@
 }
 ],
 "security:signature": [
-{
-"@value": "PLAINTEXT"
-},
 {
 "@value": "RSA-SHA1"
 },

@@ -11,25 +11,22 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-button/paper-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/paper-styles/paper-styles.js';
-import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../../@polymer/iron-form/iron-form.js';
-import '../../@polymer/paper-item/paper-item.js';
-import '../../@polymer/paper-toast/paper-toast.js';
-import '../../@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-import '../../@polymer/paper-listbox/paper-listbox.js';
-import '../../@polymer/paper-spinner/paper-spinner.js';
-import './auth-methods-styles.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import authStyles from './auth-methods-styles.js';
+import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+import '@anypoint-web-components/anypoint-button/anypoint-button.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
+import '@polymer/iron-form/iron-form.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@anypoint-web-components/anypoint-dropdown-menu/anypoint-dropdown-menu.js';
+import '@anypoint-web-components/anypoint-listbox/anypoint-listbox.js';
+import '@anypoint-web-components/anypoint-item/anypoint-item.js';
+import '@polymer/paper-toast/paper-toast.js';
+import '@polymer/paper-spinner/paper-spinner.js';
 /**
  * The `<auth-method-oauth1>` element displays a form to provide the OAuth 1a settings.
  *
@@ -72,253 +69,373 @@ import './auth-methods-styles.js';
  *
  * See description for `oauth-authorization/oauth1-authorization.html` element.
  *
- * ### Styling
- *
- * `<auth-methods>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-oauth1` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- *
- * ### Theming
- *
- * Use this mixins as a theming option across all ARC elements.
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
- * `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
- * `--input-line-color` | Mixin applied to the input underline | `{}`
- * `--auth-button` | Mixin applied to authorization and next buttons` | `{}`
- * `--auth-button-hover` | Mixin for :hover state for authorization and next buttons` | `{}`
- * `--auth-button-disabled` | Mixin for disabled state for authorization and next buttons` | `{}`
- *
- * ## Changes in version 2
- * - Crypto library is no linger included into the element.
- * Use `advanced-rest-client/cryptojs-lib` component to include the library if your project doesn't use crypto libraries already.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin ArcBehaviors.AuthMethodsMixin
  * @appliesMixin ApiElements.AmfHelperMixin
  * @demo demo/oauth1.html
+ * @extends AuthMethodBase
  */
-class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin(PolymerElement))) {
-  static get template() {
+class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
+  static get styles() {
+    return [
+      authStyles,
+      css`
+      :host {
+        display: block;
+      }
+
+      .form {
+        max-width: 700px;
+      }
+
+      .grant-dropdown {
+        width: 320px;
+      }
+
+      .authorize-actions {
+        margin-top: 12px;
+      }`
+    ];
+  }
+
+  render() {
+    const {
+      authTokenMethod,
+      authParamsLocation,
+      consumerKey,
+      consumerSecret,
+      token,
+      tokenSecret,
+      requestTokenUri,
+      accessTokenUri,
+      authorizationUri,
+      redirectUri,
+      timestamp,
+      nonce,
+      realm,
+      signatureMethod,
+      signatureMethods,
+      _authorizing,
+      outlined,
+      legacy,
+      readOnly,
+      disabled
+    } = this;
+    const hasSignatureMethods = !!(signatureMethods && signatureMethods.length);
     return html`
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --auth-method-panel;
-      @apply --auth-method-oauth1;
-    }
-
-    .form {
-      max-width: 700px;
-    }
-
-    .grant-dropdown {
-      width: 320px;
-    }
-
-    .auth-button {
-      background-color: var(--primary-color);
-      color: rgba(255, 255, 255, 0.87);
-      @apply --auth-button;
-    }
-
-    .auth-button:hover {
-      @apply --auth-button-hover;
-    }
-
-    .auth-button[disabled] {
-      background-color: rgba(0, 0, 0, 0.24);
-      color: rgba(0, 0, 0, 0.54);
-      @apply --auth-button-disabled;
-    }
-
-    .authorize-actions {
-      margin-top: 12px;
-      @apply --layout-horizontal;
-      @apply --layout-center;
-    }
-
-    paper-item:hover {
-      @apply --paper-item-hover;
-    }
-    </style>
     <div class="form">
       <iron-form>
         <form autocomplete="on">
-          <paper-dropdown-menu label="Authorization token method" class="auth-token-method" required="" auto-validate="">
-            <paper-listbox slot="dropdown-content" selected="{{authTokenMethod}}" attr-for-selected="data-type">
-              <paper-item data-type="GET">GET</paper-item>
-              <paper-item data-type="POST">POST</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <paper-dropdown-menu label="Oauth parameters location" class="auth-params-location" required="" auto-validate="">
-            <paper-listbox slot="dropdown-content" selected="{{authParamsLocation}}" attr-for-selected="data-type">
-              <paper-item data-type="querystring">Query string</paper-item>
-              <paper-item data-type="authorization">Authorization header</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <paper-masked-input auto-validate="" required="" label="Consumer key" value="{{consumerKey}}" data-field="consumerKey" autocomplete="on"></paper-masked-input>
-          <paper-masked-input label="Consumer secret" value="{{consumerSecret}}" data-field="consumerSecret" autocomplete="on"></paper-masked-input>
-          <paper-masked-input auto-validate="" label="Token" value="{{token}}" data-field="token" autocomplete="on"></paper-masked-input>
-          <paper-masked-input label="Token secret" value="{{tokenSecret}}" data-field="tokenSecret" autocomplete="on"></paper-masked-input>
-          <paper-input label="Request token URL" value="{{requestTokenUri}}"></paper-input>
-          <paper-input label="Token Authorization URL" value="{{accessTokenUri}}"></paper-input>
-          <paper-input label="User authorization dialog URL" value="{{authorizationUri}}"></paper-input>
-          <paper-input label="Redirect URL" value="{{redirectUri}}"></paper-input>
-          <paper-input auto-validate="" required="" label="Timestamp" value="{{timestamp}}" type="text" data-field="timestamp" autocomplete="on">
-            <paper-icon-button slot="suffix" class="action-icon" on-tap="_genTimestamp" icon="arc:cached" alt="Regenerate input icon" title="Regenerate timestamp"></paper-icon-button>
-            <paper-icon-button slot="suffix" class="action-icon" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-          <paper-input auto-validate="" required="" label="Nonce" value="{{nonce}}" type="text" data-field="nonce" autocomplete="on">
-            <paper-icon-button slot="suffix" class="action-icon" on-tap="_genNonce" icon="arc:cached" alt="Regenerate input icon" title="Regenerate nonce"></paper-icon-button>
-            <paper-icon-button slot="suffix" class="action-icon" on-tap="_clearField" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-          <paper-input label="Realm" value="{{realm}}" type="text" data-field="realm" autocomplete="on"></paper-input>
-          <paper-dropdown-menu label="Signature method" class="grant-dropdown" required="" auto-validate="">
-            <paper-listbox slot="dropdown-content" selected="{{signatureMethod}}" attr-for-selected="data-type">
-              <template is="dom-repeat" items="[[signatureMethods]]">
-                <paper-item data-type\$="[[item]]">[[item]]</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
+          <anypoint-dropdown-menu
+            name="authTokenMethod"
+            required
+            autovalidate
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}"
+          >
+            <label slot="label">Authorization token method</label>
+            <anypoint-listbox
+              slot="dropdown-content"
+              .selected="${authTokenMethod}"
+              @selected-changed="${this._selectionHandler}"
+              data-name="authTokenMethod"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${disabled}"
+              attrforselected="data-value">
+              <anypoint-item .legacy="${legacy}" data-value="GET">GET</anypoint-item>
+              <anypoint-item .legacy="${legacy}" data-value="POST">POST</anypoint-item>
+            </anypoint-listbox>
+          </anypoint-dropdown-menu>
+
+          <anypoint-dropdown-menu
+            required
+            autovalidate
+            name="authParamsLocation"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}"
+          >
+            <label slot="label">Oauth parameters location</label>
+            <anypoint-listbox
+              slot="dropdown-content"
+              .selected="${authParamsLocation}"
+              @selected-changed="${this._selectionHandler}"
+              data-name="authParamsLocation"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${disabled}"
+              attrforselected="data-value">
+              <anypoint-item .legacy="${legacy}" data-value="querystring">Query string</anypoint-item>
+              <anypoint-item .legacy="${legacy}" data-value="authorization">Authorization header</anypoint-item>
+            </anypoint-listbox>
+          </anypoint-dropdown-menu>
+
+          <anypoint-masked-input
+            required
+            autovalidate
+            name="consumerKey"
+            .value="${consumerKey}"
+            @input="${this._valueHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Consumer key</label>
+          </anypoint-masked-input>
+
+          <anypoint-masked-input
+            name="consumerSecret"
+            .value="${consumerSecret}"
+            @input="${this._valueHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Consumer secret</label>
+          </anypoint-masked-input>
+
+          <anypoint-masked-input
+            name="token"
+            .value="${token}"
+            @input="${this._valueHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Token</label>
+          </anypoint-masked-input>
+
+          <anypoint-masked-input
+            name="tokenSecret"
+            .value="${tokenSecret}"
+            @input="${this._valueHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Token secret</label>
+          </anypoint-masked-input>
+
+          <anypoint-input
+            name="requestTokenUri"
+            .value="${requestTokenUri}"
+            @input="${this._valueHandler}"
+            type="text"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Request token URL</label>
+          </anypoint-input>
+
+          <anypoint-input
+            name="accessTokenUri"
+            .value="${accessTokenUri}"
+            @input="${this._valueHandler}"
+            type="url"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Token Authorization URL</label>
+          </anypoint-input>
+
+          <anypoint-input
+            name="authorizationUri"
+            .value="${authorizationUri}"
+            @input="${this._valueHandler}"
+            type="url"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">User authorization dialog URL</label>
+          </anypoint-input>
+
+          <anypoint-input
+            name="redirectUri"
+            .value="${redirectUri}"
+            @input="${this._valueHandler}"
+            type="url"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Redirect URL</label>
+          </anypoint-input>
+
+          <anypoint-input
+            required
+            autovalidate
+            name="timestamp"
+            .value="${timestamp}"
+            @input="${this._valueHandler}"
+            type="number"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Timestamp</label>
+            <anypoint-icon-button
+              slot="suffix"
+              title="Regenerate timestamp"
+              aria-label="Press to regenerate timestamp"
+              @click="${this._genTimestamp}">
+              <iron-icon alt="Regenerate input icon" icon="arc:help"></iron-icon>
+            </anypoint-icon-button>
+          </anypoint-input>
+
+          <anypoint-input
+            required
+            autovalidate
+            name="nonce"
+            .value="${nonce}"
+            @input="${this._valueHandler}"
+            type="text"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Nonce</label>
+            <anypoint-icon-button
+              slot="suffix"
+              title="Regenerate nonce"
+              aria-label="Press to regenerate nonce"
+              @click="${this._genNonce}">
+              <iron-icon alt="Regenerate input icon" icon="arc:help"></iron-icon>
+            </anypoint-icon-button>
+          </anypoint-input>
+
+          <anypoint-input
+            name="realm"
+            .value="${realm}"
+            @input="${this._valueHandler}"
+            type="text"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Realm</label>
+          </anypoint-input>
+
+          ${hasSignatureMethods ?
+            html`<anypoint-dropdown-menu
+              required
+              autovalidate
+              name="signatureMethod"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${disabled}"
+            >
+              <label slot="label">Signature method</label>
+              <anypoint-listbox
+                slot="dropdown-content"
+                .selected="${signatureMethod}"
+                @selected-changed="${this._selectionHandler}"
+                data-name="signatureMethod"
+                .outlined="${outlined}"
+                .legacy="${legacy}"
+                .readOnly="${readOnly}"
+                .disabled="${disabled}"
+                attrforselected="data-value">
+                ${signatureMethods.map((item) =>
+              html`<anypoint-item .legacy="${legacy}" data-value="${item}">${item}</anypoint-item>`)}
+              </anypoint-listbox>
+            </anypoint-dropdown-menu>` :
+            ''}
+
           <div class="authorize-actions">
-            <paper-button disabled\$="[[_authorizing]]" class="auth-button" on-tap="authorize">Authorize</paper-button>
-            <paper-spinner active="[[_authorizing]]"></paper-spinner>
+            <anypoint-button
+              ?disabled="${_authorizing}"
+              class="auth-button"
+              @click="${this.authorize}">Authorize</anypoint-button>
+            <paper-spinner .active="${_authorizing}"></paper-spinner>
           </div>
         </form>
       </iron-form>
     </div>
-    <paper-toast text="" duration="5000"></paper-toast>
-`;
+    <paper-toast text="" duration="5000"></paper-toast>`;
   }
 
-  static get is() {
-    return 'auth-method-oauth1';
-  }
   static get properties() {
     return {
       // Client ID aka consumer key
-      consumerKey: {
-        type: String,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      consumerKey: { type: String },
       // The client secret aka consumer secret
-      consumerSecret: {
-        type: String,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      consumerSecret: { type: String },
       // Oauth 1 token (from the oauth console)
-      token: {
-        type: String,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      token: { type: String },
       // Oauth 1 token secret (from the oauth console)
-      tokenSecret: {
-        type: String,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      tokenSecret: { type: String },
       // Timestamp
-      timestamp: {
-        type: Number,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      timestamp: { type: Number },
       // The nonce generated for this request
-      nonce: {
-        type: String,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      nonce: { type: String },
       // Optional realm
-      realm: {
-        type: String,
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      realm: { type: String },
       /**
        * Signature method. Enum {`HMAC-SHA256`, `HMAC-SHA1`, `PLAINTEXT`}
        */
-      signatureMethod: {
-        type: String,
-        value: 'HMAC-SHA1',
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      signatureMethod: { type: String },
+
       // True when currently authorizing the user.
-      _authorizing: Boolean,
+      _authorizing: { type: Boolean },
       /**
        * Authorization callback URI
        */
-      redirectUri: {
-        type: String,
-        observer: '_settingsChanged'
-      },
+      redirectUri: { type: String },
       /**
        * OAuth1 endpoint to obtain request token to request user authorization.
        */
-      requestTokenUri: {
-        type: String,
-        observer: '_settingsChanged'
-      },
+      requestTokenUri: { type: String },
       /**
        * Endpoint to authorize the token.
        */
-      accessTokenUri: {
-        type: String,
-        observer: '_settingsChanged'
-      },
+      accessTokenUri: { type: String },
       /**
        * HTTP method to obtain authorization header.
        * Spec recommends POST
        */
-      authTokenMethod: {
-        type: String,
-        value: 'POST',
-        observer: '_settingsChanged'
-      },
+      authTokenMethod: { type: String },
       /**
        * A location of the OAuth 1 authorization parameters.
        * It can be either in the URL as a query string (`querystring` value)
        * or in the authorization header (`authorization`) value.
        */
-      authParamsLocation: {
-        type: String,
-        value: 'authorization',
-        observer: '_settingsChanged'
-      },
+      authParamsLocation: { type: String },
       /**
        * An URI to authentication endpoint where the user should be redirected
        * to auththorize the app.
        */
-      authorizationUri: {
-        type: String,
-        observer: '_settingsChanged'
-      },
+      authorizationUri: { type: String },
       /**
        * RAML `securedBy` obejct definition.
        * If set, it will prefill the settings in the auth panel.
        */
-      amfSettings: {
-        type: Object,
-        observer: '_amfSettingsChanged'
-      },
+      amfSettings: { type: Object },
       /**
        * List of currently support signature methods.
        * This can be updated when `amfSettings` property is set.
        */
-      signatureMethods: Array
+      signatureMethods: { type: Array }
     };
   }
   /**
@@ -328,14 +445,41 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     return ['HMAC-SHA1', 'RSA-SHA1', 'PLAINTEXT'];
   }
 
+  get amfSettings() {
+    return this._amfSettings;
+  }
+
+  set amfSettings(value) {
+    /* istanbul ignore else */
+    if (this._sop('amfSettings', value)) {
+      this._amfSettingsChanged(value);
+    }
+  }
+
   constructor() {
-    super();
+    super('oauth1');
     this._oauth1ErrorHandler = this._oauth1ErrorHandler.bind(this);
     this._tokenResponseHandler = this._tokenResponseHandler.bind(this);
+
+    this.signatureMethod = 'HMAC-SHA1';
+    this.authTokenMethod = 'POST';
+    this.authParamsLocation = 'authorization';
+    this._genTimestamp();
+    this._genNonce();
+  }
+
+  connectedCallback() {
+    /* istanbul ignore else */
+    if (super.connectedCallback) {
+      super.connectedCallback();
+    }
+    if (!this.signatureMethods) {
+      this.signatureMethods = this.defaultSignatureMethods;
+    }
   }
 
   _attachListeners() {
-    window.addEventListener('oauth1-error', this._onAuthSettings);
+    window.addEventListener('oauth1-error', this._oauth1ErrorHandler);
     window.addEventListener('oauth1-token-response', this._tokenResponseHandler);
   }
 
@@ -344,13 +488,8 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     window.removeEventListener('oauth1-token-response', this._tokenResponseHandler);
   }
 
-  ready() {
-    super.ready();
-    this._genTimestamp();
-    this._genNonce();
-    if (!this.signatureMethods) {
-      this.signatureMethods = this.defaultSignatureMethods;
-    }
+  updated() {
+    this._settingsChanged();
   }
 
   /**
@@ -360,18 +499,14 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
+    }
     return form.validate();
   }
-  /**
-   * Called each time when any of the settings change. It informs application
-   * that the user updated the form.
-   * It fires `auth-settings-changed` custom event even if the form is invalid
-   * (missing some info).
-   *
-   * The `valid` property is always if `settings.token` amd
-   * `settings.tokenSecret` is not set.
-   */
-  _settingsChanged() {
+
+  _createModel(type) {
     let validationResult = this.validate();
     const settings = this.getSettings();
     if (validationResult) {
@@ -379,16 +514,11 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
         validationResult = false;
       }
     }
-    const detail = {
-      settings: settings,
-      type: 'oauth1',
+    return {
+      settings,
+      type,
       valid: validationResult
     };
-    this.dispatchEvent(new CustomEvent('auth-settings-changed', {
-      detail: detail,
-      bubbles: true,
-      composed: true
-    }));
   }
 
   getSettings() {
@@ -432,22 +562,6 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     this.authParamsLocation = settings.authParamsLocation;
     this.authorizationUri = settings.authorizationUri;
   }
-
-  // Removes a value from the (paper-)input going up through path of the event.
-  _clearField(e) {
-    const path = e.target.path;
-    let inputTarget;
-    while ((inputTarget = path.shift())) {
-      if (inputTarget.nodeName === 'INPUT' || inputTarget.nodeName === 'PAPER-INPUT') {
-        break;
-      }
-    }
-    if (!inputTarget) {
-      return;
-    }
-    inputTarget.value = '';
-  }
-
   /**
    * Sends the `oauth2-token-requested` event.
    * @return {Boolean} True if event was sent. Can be false if event is not
@@ -468,15 +582,18 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     if (this.tokenSecret) {
       detail.tokenSecret = this.tokenSecret;
     }
+    /* istanbul ignore else */
     if (this.timestamp) {
       detail.timestamp = this.timestamp;
     }
+    /* istanbul ignore else */
     if (this.nonce) {
       detail.nonce = this.nonce;
     }
     if (this.realm) {
       detail.realm = this.realm;
     }
+    /* istanbul ignore else */
     if (this.signatureMethod) {
       detail.signatureMethod = this.signatureMethod;
     }
@@ -489,9 +606,11 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     if (this.redirectUri) {
       detail.redirectUri = this.redirectUri;
     }
+    /* istanbul ignore else */
     if (this.authParamsLocation) {
       detail.authParamsLocation = this.authParamsLocation;
     }
+    /* istanbul ignore else */
     if (this.authTokenMethod) {
       detail.authTokenMethod = this.authTokenMethod;
     }
@@ -500,52 +619,50 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     }
     detail.type = 'oauth1';
     this.dispatchEvent(new CustomEvent('oauth1-token-requested', {
-      detail: detail,
+      detail,
       bubbles: true,
-      composed: true
+      composed: true,
+      camcelable: true
     }));
     return true;
   }
   /**
    * Handles OAuth1 authorization errors.
+   *
+   * @param {CustomEvent} e
    */
-  _oauth1ErrorHandler(e, detail) {
+  _oauth1ErrorHandler(e) {
     this._authorizing = false;
-    const toast = this.shadowRoot.querySelecrtor('paper-toast');
-    toast.text = detail.message;
+    const toast = this.shadowRoot.querySelector('paper-toast');
+    toast.text = e.detail.message;
     toast.opened = true;
   }
-
-  // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-  // jscs:disable requireDotNotation
 
   /**
    * Handler for the `oauth1-token-response` custom event.
    * Sets `token` and `tokenSecret` properties from the event.
+   *
+   * @param {CustomEvent} e
    */
   _tokenResponseHandler(e) {
     this._authorizing = false;
     this.token = e.detail.oauth_token;
     this.tokenSecret = e.detail.oauth_token_secret;
   }
-  // Returns current timestamp in seconds
+  // Sets timestamp in seconds
   _genTimestamp() {
     const t = Math.floor(Date.now() / 1000);
     this.timestamp = t;
   }
   /**
-   * Returns autogenerated nocne
+   * Sets autogenerated nocne
    * @param {?Number} length Optional, size of generated string. Default to 32.
-   * @return {String} Generated nonce string.
    */
-  _genNonce(length) {
+  _genNonce() {
     const result = [];
     const chrs = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const chrsLength = chrs.length;
-    length = Number(length || 32);
-    if (length !== length) {
-      length = 32;
-    }
+    const length = 32;
     for (let i = 0; i < length; i++) {
       result[result.length] = (chrs[Math.floor(Math.random() * chrsLength)]);
     }
@@ -553,6 +670,8 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
   }
   /**
    * Called when the AMF object change
+   *
+   * @param {Object} model AMF model for authorization settings.
    */
   _amfSettingsChanged(model) {
     if (!model) {
@@ -592,6 +711,17 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
       this.signatureMethods = signaturtes;
     }
   }
+
+  _selectionHandler(e) {
+    const { value } = e.detail;
+    const { name } = e.target.parentElement;
+    this._setSettingsInputValue(name, value);
+  }
+
+  _valueHandler(e) {
+    const { name, value } = e.target;
+    this._setSettingsInputValue(name, value);
+  }
   /**
    * Fired when user requested to perform an authorization.
    * The details object vary depends on the `grantType` property.
@@ -620,4 +750,4 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {String} type The authorization type - oauth1
    */
 }
-window.customElements.define(AuthMethodOauth1.is, AuthMethodOauth1);
+window.customElements.define('auth-method-oauth1', AuthMethodOauth1);

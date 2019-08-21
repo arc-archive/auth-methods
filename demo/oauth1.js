@@ -6,7 +6,8 @@ import '@anypoint-web-components/anypoint-checkbox/anypoint-checkbox.js';
 import '@advanced-rest-client/arc-demo-helper/arc-demo-helper.js';
 import '@advanced-rest-client/arc-demo-helper/arc-interactive-demo.js';
 import '@api-components/api-navigation/api-navigation.js';
-import '../auth-method-custom.js';
+import '@advanced-rest-client/oauth-authorization/oauth1-authorization.js';
+import '../auth-method-oauth1.js';
 
 class DemoElement extends AmfHelperMixin(LitElement) {}
 window.customElements.define('demo-element', DemoElement);
@@ -14,7 +15,7 @@ window.customElements.define('demo-element', DemoElement);
 class ComponentDemo extends ApiDemoPageBase {
   constructor() {
     super();
-    this._componentName = 'auth-method-custom';
+    this._componentName = 'auth-method-oauth1';
 
     this.initObservableProperties([
       'outlined',
@@ -96,7 +97,7 @@ class ComponentDemo extends ApiDemoPageBase {
         scheme = scheme[0];
       }
       const modelType = helper._getValue(scheme, secPrefix + 'type');
-      if (modelType && modelType.indexOf('x-') === 0) {
+      if (modelType === 'OAuth 1.0') {
         oauth = item;
         break;
       }
@@ -104,10 +105,24 @@ class ComponentDemo extends ApiDemoPageBase {
     this.security = oauth;
   }
 
+  _tokenRequested(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setTimeout(() => {
+      document.body.dispatchEvent(new CustomEvent('oauth1-token-response', {
+        bubbles: true,
+        detail: {
+          oauth_token: 'mocked-token',
+          oauth_token_secret: 'mocked-token-secret',
+        }
+      }));
+    }, 1000);
+  }
+
   _apiListTemplate() {
     return html`
-    <paper-item data-src="custom-schemes-api.json">Demo api</paper-item>
-    <paper-item data-src="custom-schemes-api-compact.json">Demo api - compact model</paper-item>`;
+    <paper-item data-src="oauth1-api.json">Demo api</paper-item>
+    <paper-item data-src="oauth1-api-compact.json">Demo api - compact model</paper-item>`;
   }
 
   _demoTemplate() {
@@ -121,6 +136,7 @@ class ComponentDemo extends ApiDemoPageBase {
       amf,
       security
     } = this;
+    const redirect = 'http://localhost:8001/node_modules/@advanced-rest-client/oauth-authorization/oauth-popup.html';
     return html `
     <section class="documentation-section">
       <h3>Interactive demo</h3>
@@ -139,7 +155,7 @@ class ComponentDemo extends ApiDemoPageBase {
             ?dark="${darkThemeActive}"
           >
 
-            <auth-method-custom
+            <auth-method-oauth1
               slot="content"
               .amf="${amf}"
               .amfSettings="${security}"
@@ -147,9 +163,15 @@ class ComponentDemo extends ApiDemoPageBase {
               ?legacy="${legacy}"
               ?readOnly="${readOnly}"
               ?disabled="${disabled}"
-              username="test"
-              password="test"
-              @auth-settings-changed="${this._authSettingsChanged}"></auth-method-custom>
+              consumerkey="key"
+              consumersecret="secret"
+              redirecturi="${redirect}"
+              requesttokenuri="http://term.ie/oauth/example/request_token.php"
+              accesstokenuri="http://term.ie/oauth/example/access_token.php"
+              authtokenmethod="GET"
+              authparamslocation="querystring"
+              @auth-settings-changed="${this._authSettingsChanged}"
+              @oauth1-token-requested="${this._tokenRequested}"></auth-method-oauth1>
 
             <label slot="options" id="mainOptionsLabel">Options</label>
             <anypoint-checkbox
@@ -214,6 +236,7 @@ class ComponentDemo extends ApiDemoPageBase {
       ${this.headerTemplate()}
 
       <demo-element id="helper" .amf="${amf}"></demo-element>
+      <oauth1-authorization></oauth1-authorization>
 
         ${this._demoTemplate()}
         ${this._introductionTemplate()}

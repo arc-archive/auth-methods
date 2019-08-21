@@ -1,0 +1,14 @@
+#%RAML 1.0
+title: Oauth 2.0 example
+version: v1
+baseUri: http://api.domain.com/{version}/
+
+securitySchemes:
+  custom1: !include x-custom.raml
+  oauth1: !include oauth_1_0.raml
+/oauth1:
+  get:
+    securedBy: [oauth1]
+/custom:
+  get:
+    securedBy: [custom1]

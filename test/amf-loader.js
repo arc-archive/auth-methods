@@ -9,10 +9,10 @@ window.customElements.define('helper-element', HelperElement);
 
 const helper = new HelperElement();
 
-AmfLoader.load = async function(compact) {
-  const file = '/custom-schemes-api' + (compact ? '-compact' : '') + '.json';
+AmfLoader.load = async function(fileName, compact) {
+  compact = compact ? '-compact' : '';
+  const file = `${fileName}${compact}.json`;
   const url = location.protocol + '//' + location.host + '/base/demo/' + file;
-
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', (e) => {

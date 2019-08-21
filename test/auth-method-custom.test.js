@@ -14,6 +14,8 @@ describe('<auth-method-custom>', function() {
     return (await fixture(html`<auth-method-custom .amf="${amf}" .amfSettings="${security}"></auth-method-custom>`));
   }
 
+  const apiFile = 'custom-schemes-api';
+
   [
     ['Full model', false],
     ['Compact model', true]
@@ -24,7 +26,7 @@ describe('<auth-method-custom>', function() {
         let factory;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -75,7 +77,7 @@ describe('<auth-method-custom>', function() {
         let factory;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -134,7 +136,7 @@ describe('<auth-method-custom>', function() {
         let element;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -171,7 +173,7 @@ describe('<auth-method-custom>', function() {
         let factory;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -213,7 +215,7 @@ describe('<auth-method-custom>', function() {
         let element;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -288,7 +290,7 @@ describe('<auth-method-custom>', function() {
         let element;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -333,7 +335,7 @@ describe('<auth-method-custom>', function() {
         let element;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
@@ -392,7 +394,7 @@ describe('<auth-method-custom>', function() {
         let element;
 
         before(async () => {
-          amf = await AmfLoader.load(compact);
+          amf = await AmfLoader.load(apiFile, compact);
           factory = document.createElement('api-view-model-transformer');
         });
 
