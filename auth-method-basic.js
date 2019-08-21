@@ -11,17 +11,14 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/iron-form/iron-form.js';
-import './auth-methods-styles.js';
-import './auth-method-step.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
+import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@polymer/iron-form/iron-form.js';
+import authStyles from './auth-methods-styles.js';
 /**
  * The `<auth-method-basic>` element displays a form to provide the Basic
  * auth credentials.
@@ -39,86 +36,111 @@ import './auth-method-step.js';
  * This example will produce a form with prefilled username and passowrd with
  * value "test".
  *
- * ## Changes in version 2.0
- *
- * - Removed `OpendablePanelBehavior`. The element will always react to headers
- * change event
- *
- * ### Styling
- *
- * `<auth-methods>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-basic` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- *
- * This is very basic element. Style inputs using `paper-input`'s or `
- * paper-toggle`'s css variables.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin AuthMethodsMixin
  * @demo demo/basic.html
+ * @extends AuthMethodBase
  */
-class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)) {
-  static get template() {
-    return html`
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --auth-method-panel;
-      @apply --auth-method-basic;
-    }
-    </style>
-    <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
-      <span slot="title">Set authorization data</span>
-      <iron-form>
-        <form autocomplete="on">
-          <paper-input label="User name" value="{{username}}" name="username" type="text"
-            required="" auto-validate="" autocomplete="on">
-            <paper-icon-button slot="suffix" class="action-icon" on-click="clearUsername"
-              icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-          <paper-masked-input label="Password" name="password" value="{{password}}"
-            autocomplete="on"></paper-masked-input>
-        </form>
-      </iron-form>
-    </auth-method-step>
-`;
+class AuthMethodBasic extends AuthMethodBase {
+  static get styles() {
+    return [
+      authStyles,
+      css`
+      :host {
+        display: block;
+      }`
+    ];
   }
 
-  static get is() {
-    return 'auth-method-basic';
+  render() {
+    const {
+      username,
+      password,
+      outlined,
+      legacy,
+      readOnly,
+      disabled
+    } = this;
+    return html`
+      <div class="form-title">Set authorization data</div>
+      <iron-form>
+        <form autocomplete="on">
+          <anypoint-input
+            .value="${username}"
+            @value-changed="${this._usernameHandler}"
+            name="username"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">User name</label>
+          </anypoint-input>
+          <anypoint-masked-input
+            name="password"
+            .value="${password}"
+            @value-changed="${this._passwordHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Password</label>
+          </anypoint-masked-input>
+        </form>
+      </iron-form>`;
   }
+
+
   static get properties() {
     return {
-      // base64 hash of the uid and passwd. When set it will override current username and password.
-      hash: {
-        type: String,
-        notify: true
-      },
+      /**
+       * base64 hash of the uid and passwd. When set it will override
+       * current username and password.
+       */
+      hash: { type: String },
       // The password.
-      password: {
-        type: String,
-        notify: true
-      },
+      password: { type: String },
       // The username.
-      username: {
-        type: String,
-        notify: true
-      }
+      username: { type: String }
     };
   }
 
-  static get observers() {
-    return [
-      '_hashChanged(hash)',
-      '_userInputChanged(username, password)',
-      '_settingsChanged(hash)'
-    ];
+  get username() {
+    return this._username;
+  }
+
+  set username(value) {
+    if (this._sop('username', value)) {
+      this._userInputChanged(value, this.password);
+      this._notifyChanged('username', value);
+    }
+  }
+
+  get password() {
+    return this._password;
+  }
+
+  set password(value) {
+    if (this._sop('password', value)) {
+      this._userInputChanged(this.username, value);
+      this._notifyChanged('password', value);
+    }
+  }
+
+  get hash() {
+    return this._hash;
+  }
+
+  set hash(value) {
+    if (this._sop('hash', value)) {
+      this._hashChanged(value);
+      this._settingsChanged(value);
+      this._notifyChanged('hash', value);
+    }
   }
 
   constructor() {
@@ -140,9 +162,9 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    * Resets state of the form.
    */
   reset() {
-    this.set('hash', '');
-    this.set('username', '');
-    this.set('password', '');
+    this.hash = '';
+    this.username = '';
+    this.password = '';
   }
   /**
    * Validates the form.
@@ -151,13 +173,16 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    if (!form) {
+      return true;
+    }
     return form.validate();
   }
   /**
    * Dispatches `auth-settings-changed` custom event.
    */
   _settingsChanged() {
-    if (!this.shadowRoot || this.__cancelChangeEvent) {
+    if (this.__cancelChangeEvent) {
       return;
     }
     const e = this._notifySettingsChange('basic');
@@ -209,12 +234,10 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
         this._internalHashChange = false;
       }
     } catch (e) {
-      console.warn(e);
       this.dispatchEvent(new CustomEvent('error', {
         detail: {
           error: e
-        },
-        bubbles: false
+        }
       }));
     }
   }
@@ -251,16 +274,9 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    */
   _userInputChanged(uid, passwd) {
     this._internalHashChange = true;
-    this.set('hash', this.hashData(uid, passwd));
+    this.hash = this.hashData(uid, passwd);
     this._internalHashChange = false;
   }
-  /**
-   * Clears username input.
-   */
-  clearUsername() {
-    this.username = '';
-  }
-
   /**
    * Handler to the `auth-settings-changed` event (fired by all auth panels).
    * If the event was fired by other element with the same method ttype
@@ -302,7 +318,7 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
       }
       return;
     }
-    let lowerValue = value.toLowerCase();
+    const lowerValue = value.toLowerCase();
     if (lowerValue.indexOf('basic') !== 0) {
       if (this.hash) {
         this.reset();
@@ -311,7 +327,7 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
     }
     value = value.substr(6);
     this.__cancelHeaderEvent = true;
-    this.set('hash', value);
+    this.hash = value;
     this.__cancelHeaderEvent = false;
   }
   /**
@@ -333,6 +349,14 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
       bubbles: true,
       composed: true
     }));
+  }
+
+  _usernameHandler(e) {
+    this.username = e.detail.value;
+  }
+
+  _passwordHandler(e) {
+    this.password = e.detail.value;
   }
   /**
    * Fired when error occured when decoding hash.
@@ -360,4 +384,4 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    * @param {String} value Value of the header
    */
 }
-window.customElements.define(AuthMethodBasic.is, AuthMethodBasic);
+window.customElements.define('auth-method-basic', AuthMethodBasic);
