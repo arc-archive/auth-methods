@@ -414,14 +414,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     if (!model || !model.length) {
       return;
     }
-    let target;
-    if (e.composedPath) {
-      target = e.composedPath()[0];
-    } else if (e.path) {
-      target = e.path[0];
-    } else {
-      target = e.target;
-    }
+    const target = this._getEventTarget(e);
     if (target === this || e.defaultPrevented) {
       return;
     }
