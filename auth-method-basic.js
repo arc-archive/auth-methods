@@ -129,6 +129,7 @@ class AuthMethodBasic extends AuthMethodBase {
   }
 
   set username(value) {
+    /* istanbul ignore else */
     if (this._sop('username', value)) {
       this._valueChanged();
       this._notifyChanged('username', value);
@@ -140,6 +141,7 @@ class AuthMethodBasic extends AuthMethodBase {
   }
 
   set password(value) {
+    /* istanbul ignore else */
     if (this._sop('password', value)) {
       this._valueChanged();
       this._notifyChanged('password', value);
@@ -180,6 +182,7 @@ class AuthMethodBasic extends AuthMethodBase {
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    /* istanbul ignore if */
     if (!form) {
       return true;
     }

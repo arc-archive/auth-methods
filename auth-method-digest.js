@@ -20,6 +20,7 @@ import '@advanced-rest-client/arc-icons/arc-icons.js';
 import '@anypoint-web-components/anypoint-input/anypoint-input.js';
 import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
 import '@polymer/iron-form/iron-form.js';
+import '@polymer/iron-icon/iron-icon.js';
 import '@anypoint-web-components/anypoint-dropdown-menu/anypoint-dropdown-menu.js';
 import '@anypoint-web-components/anypoint-listbox/anypoint-listbox.js';
 import '@anypoint-web-components/anypoint-item/anypoint-item.js';
