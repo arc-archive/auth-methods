@@ -154,6 +154,18 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
     }
   }
 
+  _getEventTarget(e) {
+    let target;
+    if (e.composedPath) {
+      target = e.composedPath()[0];
+    } else if (e.path) {
+      target = e.path[0];
+    } else {
+      target = e.target;
+    }
+    return target;
+  }
+
   _authPanelTitle() {
     return html`<div class="form-title">Set authorization data</div>`;
   }

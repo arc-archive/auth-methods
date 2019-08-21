@@ -127,7 +127,8 @@ class AuthMethodDigest extends AuthMethodBase {
             class="adv-settings-input"
             .checked="${fullForm}"
             @change="${this._advHandler}"
-            .readOnly="${readOnly}">Advanced settings</anypoint-checkbox>
+            .disabled="${disabled || readOnly}"
+          >Advanced settings</anypoint-checkbox>
         </div>
 
         ${fullForm ? html`<div class="extended-form">
@@ -283,14 +284,31 @@ class AuthMethodDigest extends AuthMethodBase {
       httpMethod: { type: String },
       // Current request URL.
       requestUrl: { type: String },
+
+      _requestUri: { type: String },
       // Current request body.
       requestBody: { type: String }
     };
   }
 
+  get requestUrl() {
+    return this._requestUrl;
+  }
+
+  set requestUrl(value) {
+    const old = this._requestUrl;
+    /* istanbul ignore if */
+    if (old === value) {
+      return;
+    }
+    this._requestUrl = value;
+    this._processRequestUrl(value);
+  }
+
   constructor() {
     super('digest');
     this.nc = 1;
+    this.algorithm = 'MD5';
     this._onUrlChanged = this._onUrlChanged.bind(this);
     this._onHttpMethodChanged = this._onHttpMethodChanged.bind(this);
     this._onBodyChanged = this._onBodyChanged.bind(this);
@@ -309,6 +327,13 @@ class AuthMethodDigest extends AuthMethodBase {
     node.removeEventListener('http-method-changed', this._onHttpMethodChanged);
     node.removeEventListener('body-value-changed', this._onBodyChanged);
     node.removeEventListener('auth-settings-changed', this._onAuthSettings);
+  }
+
+  firstUpdated() {
+    const { username, password } = this;
+    if (username || password) {
+      this._settingsChanged();
+    }
   }
   /**
    * Validates the form.
@@ -337,14 +362,16 @@ class AuthMethodDigest extends AuthMethodBase {
     this.response = this.generateResponse();
     const settings = {};
     settings.username = this.username || '';
+    settings.password = this.password || '';
     settings.realm = this.realm;
     settings.nonce = this.nonce;
-    settings.uri = this.requestUrl;
+    settings.uri = this._requestUri;
     settings.response = this.response;
     settings.opaque = this.opaque;
     settings.qop = this.qop;
     settings.nc = ('00000000' + this.nc).slice(-8);
     settings.cnonce = this.cnonce;
+    settings.algorithm = this.algorithm;
     return settings;
   }
 
@@ -360,10 +387,9 @@ class AuthMethodDigest extends AuthMethodBase {
     this.nonce = settings.nonce;
     this.opaque = settings.opaque;
     this.qop = settings.qop;
-    this.nc = settings.nc;
     this.cnonce = settings.cnonce;
     if (settings.uri) {
-      this.requestUrl = settings.uri;
+      this._requestUri = settings.uri;
     }
     if (settings.nc) {
       this.nc = Number(settings.nc.replace(/0+/, ''));
@@ -371,9 +397,6 @@ class AuthMethodDigest extends AuthMethodBase {
   }
 
   _processInput() {
-    if (this.__cancelChangeEvent) {
-      return;
-    }
     if (this.fullForm) {
       if (!this.nc) {
         this.nc = 1;
@@ -384,13 +407,6 @@ class AuthMethodDigest extends AuthMethodBase {
         return;
       }
     }
-    this._notifySettingsChange('digest');
-  }
-  /**
-   * Clears usernamr field
-   */
-  clearUsername() {
-    this.username = '';
   }
   /**
    * Generates client nonce.
@@ -440,7 +456,7 @@ class AuthMethodDigest extends AuthMethodBase {
   }
   // Generates HA2 as defined in Digest spec.
   _getHA2() {
-    let HA2param = this.httpMethod + ':' + this.requestUrl;
+    let HA2param = this.httpMethod + ':' + this._requestUri;
     if (this.qop === 'auth-int') {
       HA2param += ':' + CryptoJS.MD5(this.requestBody).toString();
     }
@@ -453,7 +469,6 @@ class AuthMethodDigest extends AuthMethodBase {
    */
   _onUrlChanged(e) {
     this.requestUrl = e.detail.value;
-    this._processInput();
   }
   /**
    * Handler to the `http-method-changed` event. When the element handle this
@@ -463,6 +478,7 @@ class AuthMethodDigest extends AuthMethodBase {
   _onHttpMethodChanged(e) {
     this.httpMethod = e.detail.value;
     this._processInput();
+    this._settingsChanged();
   }
   /**
    * Handler to the `body-value-changed` event. When the element handle this
@@ -472,6 +488,7 @@ class AuthMethodDigest extends AuthMethodBase {
   _onBodyChanged(e) {
     this.requestBody = e.detail.value;
     this._processInput();
+    this._settingsChanged();
   }
   /**
    * Handler to the `auth-settings-changed` event (fired by all auth panels).
@@ -489,24 +506,42 @@ class AuthMethodDigest extends AuthMethodBase {
   }
 
   _advHandler(e) {
-    this.fullForm = e.detail.value;
     this._processInput();
+    this._setSettingsInputValue('fullForm', e.target.checked);
   }
 
   _qopHandler(e) {
-    this.qop = e.detail.value;
     this._processInput();
+    this._setSettingsInputValue('qop', e.detail.value);
   }
 
   _algorithmHandler(e) {
-    this.algorithm = e.detail.value;
     this._processInput();
+    this._setSettingsInputValue('algorithm', e.detail.value);
   }
 
   _valueHandler(e) {
     const { name, value } = e.target;
-    this[name] = value;
     this._processInput();
+    this._setSettingsInputValue(name, value);
+  }
+
+  _processRequestUrl(value) {
+    if (!value || typeof value !== 'string') {
+      this._requestUri = undefined;
+      this._processInput();
+      this._settingsChanged();
+      return;
+    }
+    try {
+      const url = new URL(value);
+      value = url.pathname;
+    } catch (_) {
+      value = value.trum();
+    }
+    this._requestUri = value;
+    this._processInput();
+    this._settingsChanged();
   }
   /**
    * Fired when error occured when decoding hash.

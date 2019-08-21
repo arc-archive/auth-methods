@@ -14,6 +14,10 @@ module.exports = (config) => {
           {
             pattern: config.grep ? config.grep : 'test/**/*.test.js',
             type: 'module'
+          },
+          {
+            pattern: 'node_modules/cryptojslib/rollups/md5.js',
+            type: 'js'
           }
         ],
 

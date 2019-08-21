@@ -215,7 +215,7 @@ class AuthMethodBasic extends AuthMethodBase {
    * @param {Event} e
    */
   _onAuthSettings(e) {
-    if (e.target === this || e.detail.type !== 'basic') {
+    if (this._getEventTarget(e) === this || e.detail.type !== 'basic') {
       return;
     }
     this.restore(e.detail.settings);
@@ -252,18 +252,6 @@ class AuthMethodBasic extends AuthMethodBase {
       return;
     }
     this._settingsChanged();
-  }
-
-  _getEventTarget(e) {
-    let target;
-    if (e.composedPath) {
-      target = e.composedPath()[0];
-    } else if (e.path) {
-      target = e.path[0];
-    } else {
-      target = e.target;
-    }
-    return target;
   }
   /**
    * Fired when error occured when decoding hash.
