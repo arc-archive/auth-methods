@@ -13,12 +13,12 @@ the License.
 */
 import { html, css } from 'lit-element';
 import { AuthMethodBase } from './auth-method-base.js';
+import authStyles from './auth-methods-styles.js';
 import '@anypoint-web-components/anypoint-input/anypoint-input.js';
 import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
 import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
 import '@advanced-rest-client/arc-icons/arc-icons.js';
 import '@polymer/iron-form/iron-form.js';
-import authStyles from './auth-methods-styles.js';
 /**
  * The `<auth-method-basic>` element displays a form to provide the Basic
  * auth credentials.
@@ -62,12 +62,12 @@ class AuthMethodBasic extends AuthMethodBase {
       disabled
     } = this;
     return html`
-      <div class="form-title">Set authorization data</div>
+      ${this._authPanelTitle()}
       <iron-form>
         <form autocomplete="on">
           <anypoint-input
             .value="${username}"
-            @value-changed="${this._usernameHandler}"
+            @input="${this._usernameHandler}"
             name="username"
             type="text"
             required
@@ -82,7 +82,7 @@ class AuthMethodBasic extends AuthMethodBase {
           <anypoint-masked-input
             name="password"
             .value="${password}"
-            @value-changed="${this._passwordHandler}"
+            @input="${this._passwordHandler}"
             autocomplete="on"
             .outlined="${outlined}"
             .legacy="${legacy}"
@@ -94,75 +94,82 @@ class AuthMethodBasic extends AuthMethodBase {
       </iron-form>`;
   }
 
-
   static get properties() {
     return {
-      /**
-       * base64 hash of the uid and passwd. When set it will override
-       * current username and password.
-       */
-      hash: { type: String },
       // The password.
       password: { type: String },
       // The username.
       username: { type: String }
     };
   }
+  /**
+   * @return {String} base64 hash of the uid and passwd. When set it will override
+   * current username and password.
+   */
+  get hash() {
+    let { username, password } = this;
+    if (!username) {
+      username = '';
+    }
+    if (!password) {
+      password = '';
+    }
+    let hash;
+    if (username || password) {
+      const enc = `${username}:${password}`;
+      hash = btoa(enc);
+    } else {
+      hash = '';
+    }
+    return hash;
+  }
 
   get username() {
-    return this._username;
+    return this._username || '';
   }
 
   set username(value) {
     if (this._sop('username', value)) {
-      this._userInputChanged(value, this.password);
+      this._valueChanged();
       this._notifyChanged('username', value);
     }
   }
 
   get password() {
-    return this._password;
+    return this._password || '';
   }
 
   set password(value) {
     if (this._sop('password', value)) {
-      this._userInputChanged(this.username, value);
+      this._valueChanged();
       this._notifyChanged('password', value);
     }
   }
 
-  get hash() {
-    return this._hash;
-  }
-
-  set hash(value) {
-    if (this._sop('hash', value)) {
-      this._hashChanged(value);
-      this._settingsChanged(value);
-      this._notifyChanged('hash', value);
-    }
-  }
-
   constructor() {
-    super();
+    super('basic');
     this._onAuthSettings = this._onAuthSettings.bind(this);
-    this._headerChangedHandler = this._headerChangedHandler.bind(this);
   }
 
   _attachListeners(node) {
     node.addEventListener('auth-settings-changed', this._onAuthSettings);
-    node.addEventListener('request-header-changed', this._headerChangedHandler);
   }
 
   _detachListeners(node) {
     node.removeEventListener('auth-settings-changed', this._onAuthSettings);
-    node.removeEventListener('request-header-changed', this._headerChangedHandler);
   }
+
+  firstUpdated() {
+    const { username, password } = this;
+    if (username || password) {
+      this._valueChanged();
+    }
+  }
+
   /**
    * Resets state of the form.
    */
   reset() {
-    this.hash = '';
     this.username = '';
     this.password = '';
   }
@@ -179,23 +186,13 @@ class AuthMethodBasic extends AuthMethodBase {
     return form.validate();
   }
   /**
-   * Dispatches `auth-settings-changed` custom event.
-   */
-  _settingsChanged() {
-    if (this.__cancelChangeEvent) {
-      return;
-    }
-    const e = this._notifySettingsChange('basic');
-    this._notifyHeaderChange(e.detail.settings);
-  }
-  /**
    * Creates a settings object with user provided data.
    *
    * @return {Object} User provided data
    */
   getSettings() {
     return {
-      hash: this.hash || '',
+      hash: this.hash,
       password: this.password || '',
       username: this.username || ''
     };
@@ -206,76 +203,8 @@ class AuthMethodBasic extends AuthMethodBase {
    * @param {Object} settings Object returned by `_getSettings()`
    */
   restore(settings) {
-    if (settings.hash) {
-      this.hash = settings.hash;
-    } else {
-      this.password = settings.password;
-      this.username = settings.username;
-    }
-  }
-  /**
-   * Decodes hash value on change from the external source.
-   *
-   * @param {String} hash Hash value
-   */
-  _hashChanged(hash) {
-    if (this._internalHashChange || !hash) {
-      return;
-    }
-    try {
-      const encoded = atob(hash);
-      const parts = encoded.split(':');
-      if (parts.length) {
-        this._internalHashChange = true;
-        this.username = parts[0];
-        if (parts[1]) {
-          this.password = parts[1];
-        }
-        this._internalHashChange = false;
-      }
-    } catch (e) {
-      this.dispatchEvent(new CustomEvent('error', {
-        detail: {
-          error: e
-        }
-      }));
-    }
-  }
-  /**
-   * Computes hash value for given username or password.
-   * It computes value if at least one value for username and password is
-   * provided. Otherwise it sets hash to empty string.
-   *
-   * @param {String} uid Username
-   * @param {String} passwd Password
-   * @return {String} Computed hash.
-   */
-  hashData(uid, passwd) {
-    if (!uid) {
-      uid = '';
-    }
-    if (!passwd) {
-      passwd = '';
-    }
-    let hash;
-    if (uid || passwd) {
-      const enc = uid + ':' + passwd;
-      hash = btoa(enc);
-    } else {
-      hash = '';
-    }
-    return hash;
-  }
-  /**
-   * Sets the hash value for current username and password.
-   *
-   * @param {String} uid Username
-   * @param {String} passwd Password
-   */
-  _userInputChanged(uid, passwd) {
-    this._internalHashChange = true;
-    this.hash = this.hashData(uid, passwd);
-    this._internalHashChange = false;
+    this.password = settings.password;
+    this.username = settings.username;
   }
   /**
    * Handler to the `auth-settings-changed` event (fired by all auth panels).
@@ -289,46 +218,7 @@ class AuthMethodBasic extends AuthMethodBase {
     if (e.target === this || e.detail.type !== 'basic') {
       return;
     }
-    this.__cancelChangeEvent = true;
     this.restore(e.detail.settings);
-    this.__cancelChangeEvent = false;
-  }
-  /**
-   * Handler for the `request-header-changed` custom event.
-   * If the panel is opened the it checks if current header updates
-   * authorization.
-   * @param {Event} e
-   */
-  _headerChangedHandler(e) {
-    if (e.defaultPrevented || e.target === this) {
-      return;
-    }
-    let name = e.detail.name;
-    if (!name) {
-      return;
-    }
-    name = name.toLowerCase();
-    if (name !== 'authorization') {
-      return;
-    }
-    let value = e.detail.value;
-    if (!value) {
-      if (this.hash) {
-        this.reset();
-      }
-      return;
-    }
-    const lowerValue = value.toLowerCase();
-    if (lowerValue.indexOf('basic') !== 0) {
-      if (this.hash) {
-        this.reset();
-      }
-      return;
-    }
-    value = value.substr(6);
-    this.__cancelHeaderEvent = true;
-    this.hash = value;
-    this.__cancelHeaderEvent = false;
   }
   /**
    * Dispatches `request-header-changed` custom event to inform other
@@ -337,14 +227,12 @@ class AuthMethodBasic extends AuthMethodBase {
    * @param {Object} settings
    */
   _notifyHeaderChange(settings) {
-    if (this.__cancelHeaderEvent) {
-      return;
-    }
-    const value = (settings && settings.hash) ? 'Basic ' + settings.hash : 'Basic ';
+    const hash = settings && settings.hash || '';
+    const value = `Basic ${hash}`;
     this.dispatchEvent(new CustomEvent('request-header-changed', {
       detail: {
         name: 'Authorization',
-        value: value
+        value
       },
       bubbles: true,
       composed: true
@@ -352,11 +240,18 @@ class AuthMethodBasic extends AuthMethodBase {
   }
 
   _usernameHandler(e) {
-    this.username = e.detail.value;
+    this._setSettingsInputValue('username', e.target.value);
   }
 
   _passwordHandler(e) {
-    this.password = e.detail.value;
+    this._setSettingsInputValue('password', e.target.value);
+  }
+
+  _valueChanged() {
+    if (this.__isInputEvent) {
+      return;
+    }
+    this._settingsChanged();
   }
   /**
    * Fired when error occured when decoding hash.

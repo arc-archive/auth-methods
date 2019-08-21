@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import { LitElement } from 'lit-element';
+import { LitElement, html } from 'lit-element';
 import { EventsTargetMixin } from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
 /**
  * Base class for all authorization methods
@@ -45,6 +45,22 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
       outlined: { type: Boolean }
     };
   }
+
+  constructor(type) {
+    super();
+    this.type = type;
+  }
+  /**
+   * Restores settings from stored value.
+   * Abstract to be overriten.
+   * @abstract
+   */
+  restore() {}
+  /**
+   * Resets settings to default state
+   * @abstract
+   */
+  reset() {}
   /**
    * Sets Observable Property.
    * @param {String} prop Property name to set
@@ -71,18 +87,26 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
     }));
   }
   /**
-   * Gathers data by calling `validate()` and `getSettings()` function and
-   * dispatches `auth-settings-changed` custom event
+   * Generates auth data model by calling `validate()` and `getSettings()` functions.
+   *
+   * @param {String} type Auth form type.
+   * @return {Object} Gnerated data model
+   */
+  _createModel(type) {
+    return {
+      settings: this.getSettings(),
+      type,
+      valid: this.validate()
+    };
+  }
+  /**
+   * Generates data model and disaptches `auth-settings-changed` custom event.
    *
    * @param {String} type Auth form type.
    * @return {CustomEvent} Dispatched event
    */
   _notifySettingsChange(type) {
-    const detail = {
-      settings: this.getSettings(),
-      type,
-      valid: this.validate()
-    };
+    const detail = this._createModel(type);
     const e = new CustomEvent('auth-settings-changed', {
       detail: detail,
       bubbles: true,
@@ -92,18 +116,45 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
     return e;
   }
   /**
-   * Computes value for conditions containg documentation block.
-   * It always returns false if `noDocs` is true. Otherwise it returns
-   * boolean value of the `value` argument
+   * A coniniet method to set a property value and call the settings changed function.
    *
-   * @param {Boolean} noDocs Value of the `noDocs` property
-   * @param {Boolean|String} value Docs value
-   * @return {Boolean}
+   * Note, this function is to be called from user input only. Calling this function
+   * from a property change will cause invalid validation report.
+   *
+   * @param {String} prop Name of the property to set
+   * @param {any} value A value to set.
    */
-  _computeHasDoc(noDocs, value) {
-    if (noDocs) {
-      return false;
+  _setSettingsInputValue(prop, value) {
+    this.__isInputEvent = true;
+    this[prop] = value;
+    this._settingsChanged();
+    this.__isInputEvent = false;
+  }
+
+  /**
+   * Dispatches `auth-settings-changed` custom event asynchronously or, if
+   * `__isInputEvent` flag is set, synchronously.
+   */
+  _settingsChanged() {
+    if (this.__isInputEvent) {
+      this.__notifyChanged();
+    } else {
+      if (this.__settingsDebouncer) {
+        clearTimeout(this.__settingsDebouncer);
+      }
+      this.__settingsDebouncer = setTimeout(() => this.__notifyChanged());
     }
-    return !!value;
+  }
+
+  __notifyChanged() {
+    this.__settingsDebouncer = null;
+    const e = this._notifySettingsChange(this.type);
+    if (this._notifyHeaderChange) {
+      this._notifyHeaderChange(e.detail.settings);
+    }
+  }
+
+  _authPanelTitle() {
+    return html`<div class="form-title">Set authorization data</div>`;
   }
 }

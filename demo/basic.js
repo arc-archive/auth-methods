@@ -37,7 +37,10 @@ class ComponentDemo extends DemoBase {
         ?outlined="${outlined}"
         ?legacy="${legacy}"
         ?readOnly="${readOnly}"
-        ?disabled="${disabled}"></auth-method-basic>
+        ?disabled="${disabled}"
+        username="test"
+        password="test"
+        @auth-settings-changed="${this._authSettingsChanged}"></auth-method-basic>
 
       ${this._baseMainOptions()}
     </arc-interactive-demo>
@@ -71,18 +74,28 @@ class ComponentDemo extends DemoBase {
           </li>
         </ul>
 
+        <h3>Settings data model</h3>
+        <p>
+          After updating a value in the editor it produces a data model:
+        </p>
+
+        <output>
+${this.authSettingsValue ? this.authSettingsValue : 'Model not ready'}
+        </output>
+
         <h3>Working with headers editor</h3>
 
         <p>
           The element communicates with the headers editor to update value on
-          both editors.
+          headers editor. Note, the communication is from the authorization method
+          to the headers editor only. Changing state on headers panel won't change
+          authorization values.
         </p>
 
         <api-headers-editor
           allowdisableparams
           allowcustom
-          allowhideoptional
-          value="Authorization: Basic ZGVtbzp2YWx1ZXM="></api-headers-editor>
+          allowhideoptional></api-headers-editor>
       </section>`;
   }
 

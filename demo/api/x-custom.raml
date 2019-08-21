@@ -12,17 +12,17 @@ description: |
 type: x-my-custom
 describedBy:
   headers:
-    SpecialToken:
+    SpecialTokenHeader:
       description: |
         Used to send a custom token.
       type: string
   queryParameters:
-    debugToken:
+    debugTokenParam:
       description: Select one of available values to run the request in the debug mode with selected level.
       enum: [Info, Log, Warning, Error, Critical]
       type: string
       required: false
-    booleanToken:
+    booleanTokenParam:
       description: Just to test boolean values.
       type: boolean
       default: true

@@ -3,6 +3,8 @@ export default css `
 anypoint-input,
 anypoint-masked-input {
   max-width: 560px;
+  width: auto;
+  display: block;
 }
 
 .edit-icon {
@@ -38,5 +40,17 @@ arc-marked {
 .markdown-body p:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.form-title {
+  font-size: 1.25rem;
+  margin: 12px 8px;
+}
+
+.subtitle {
+  font-size: var(--arc-font-subhead-font-size);
+  font-weight: var(--arc-font-subhead-font-weight);
+  line-height: var(--arc-font-subhead-line-height);
+  margin: 12px 8px;
 }
 `;

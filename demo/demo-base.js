@@ -11,11 +11,14 @@ export class DemoBase extends ArcDemoPage {
       'outlined',
       'legacy',
       'readOnly',
-      'disabled'
+      'disabled',
+      'authSettings',
+      'authSettingsValue'
     ]);
     this.demoStates = ['Filled', 'Outlined', 'Legacy'];
     this._demoStateHandler = this._demoStateHandler.bind(this);
     this._toggleMainOption = this._toggleMainOption.bind(this);
+    this._authSettingsChanged = this._authSettingsChanged.bind(this);
   }
 
   _demoStateHandler(e) {
@@ -58,5 +61,11 @@ export class DemoBase extends ArcDemoPage {
       @change="${this._toggleMainOption}"
       >Disabled</anypoint-checkbox
     >`;
+  }
+
+  _authSettingsChanged(e) {
+    const value = e.detail;
+    this.authSettings = value;
+    this.authSettingsValue = value ? JSON.stringify(value, null, 2) : '';
   }
 }
