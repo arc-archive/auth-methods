@@ -929,3 +929,13 @@
 
 
 
+## [4.0.1](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...4.0.1) (2019-08-22)
+
+
+### Bug Fixes
+
+* adding missing dependency ([d90c15e](https://github.com/advanced-rest-client/auth-methods/commit/d90c15e))
+* fixes [#16](https://github.com/advanced-rest-client/auth-methods/issues/16) - client id and secret is not available for poassword ([a1131e4](https://github.com/advanced-rest-client/auth-methods/commit/a1131e4))
+
+
+
