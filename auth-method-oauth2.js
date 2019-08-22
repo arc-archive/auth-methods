@@ -575,7 +575,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   }
 
   constructor() {
-    super();
+    super('oauth2');
     this._oauth2ErrorHandler = this._oauth2ErrorHandler.bind(this);
     this._tokenSuccessHandler = this._tokenSuccessHandler.bind(this);
     this._headerChangedHandler = this._headerChangedHandler.bind(this);
