@@ -16,7 +16,27 @@ module.exports = (config) => {
             type: 'module'
           },
           {
+            pattern: 'node_modules/cryptojslib/components/core.js',
+            type: 'js'
+          },
+          {
+            pattern: 'node_modules/cryptojslib/rollups/sha1.js',
+            type: 'js'
+          },
+          {
+            pattern: 'node_modules/cryptojslib/components/enc-base64-min.js',
+            type: 'js'
+          },
+          {
             pattern: 'node_modules/cryptojslib/rollups/md5.js',
+            type: 'js'
+          },
+          {
+            pattern: 'node_modules/cryptojslib/rollups/hmac-sha1.js',
+            type: 'js'
+          },
+          {
+            pattern: 'node_modules/cryptojslib/jsrsasign/lib/jsrsasign-rsa-min.js',
             type: 'js'
           }
         ],

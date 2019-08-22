@@ -1,4 +1,4 @@
-import { fixture, assert, aTimeout, nextFrame, html } from '@open-wc/testing';
+import { fixture, assert, aTimeout, html } from '@open-wc/testing';
 import { AmfLoader } from './amf-loader.js';
 import sinon from 'sinon/pkg/sinon-esm.js';
 import '../auth-method-oauth2.js';
@@ -153,8 +153,8 @@ describe('<auth-method-oauth2>', function() {
             input.value = value;
             const spy = sinon.stub();
             element.addEventListener('auth-settings-changed', spy);
-            await nextFrame();
-            await nextFrame();
+            await aTimeout();
+            await aTimeout();
             const result = spy.args[0][0].detail.settings;
             assert.equal(result.customData.auth.parameters[0].value, value);
           });
@@ -164,8 +164,8 @@ describe('<auth-method-oauth2>', function() {
             input.value = value;
             const spy = sinon.stub();
             element.addEventListener('auth-settings-changed', spy);
-            await nextFrame();
-            await nextFrame();
+            await aTimeout();
+            await aTimeout();
             const result = spy.args[0][0].detail.settings;
             assert.equal(result.customData.token.parameters[0].value, value);
           });
@@ -175,8 +175,8 @@ describe('<auth-method-oauth2>', function() {
             input.value = value;
             const spy = sinon.stub();
             element.addEventListener('auth-settings-changed', spy);
-            await nextFrame();
-            await nextFrame();
+            await aTimeout();
+            await aTimeout();
             const result = spy.args[0][0].detail.settings;
             assert.equal(result.customData.token.headers[0].value, value);
           });
@@ -186,8 +186,8 @@ describe('<auth-method-oauth2>', function() {
             input.value = value;
             const spy = sinon.stub();
             element.addEventListener('auth-settings-changed', spy);
-            await nextFrame();
-            await nextFrame();
+            await aTimeout();
+            await aTimeout();
             const result = spy.args[0][0].detail.settings;
             assert.equal(result.customData.token.body[1].value, value);
           });
