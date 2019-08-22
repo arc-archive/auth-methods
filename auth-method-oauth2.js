@@ -224,6 +224,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         display: flex;
         flex-direction: row;
         flex: 1;
+        align-items: center;
       }
 
       .authorize-actions > anypoint-button {
@@ -477,6 +478,12 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   set grantType(value) {
     if (this._sop('grantType', value)) {
       this.isCustomGrant = this._computeIsCustomGrant(value);
+      if (value === 'password') {
+        this.advancedOpened = true;
+        this.isAdvanced = false;
+      } else if (!this.isAdvanced) {
+        this._autoHide();
+      }
     }
   }
 
@@ -621,7 +628,9 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       this.advancedOpened = true;
       return;
     }
-    if (this.authorizationUri && this.accessTokenUri && !!(this.scopes && this.scopes.length)) {
+    if (this.grantType === 'password') {
+      this.advancedOpened = true;
+    } else if (this.authorizationUri && this.accessTokenUri && !!(this.scopes && this.scopes.length)) {
       this.isAdvanced = true;
       this.advancedOpened = false;
     } else {
@@ -804,7 +813,6 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         break;
       case 'client_credentials':
         // The server flow.
-        detail.clientSecret = this.clientSecret;
         detail.accessTokenUri = this.accessTokenUri;
         this._computeTokenCustomData(detail);
         delete detail.customData.auth;
@@ -1818,6 +1826,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     } = this;
 
     const customGrantRequired = !isCustomGrant;
+    const clientIdRequired = ['client_credentials', 'password'].indexOf(grantType) !== -1 ? false : customGrantRequired;
     const secretDisabled = disabled ||
       this._isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code');
     const hasAccessToken = !!accessToken;
@@ -1828,13 +1837,15 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
           ${this._authPanelTitle()}
           <section>
             <anypoint-masked-input
-              ?required="${customGrantRequired}"
+              ?required="${clientIdRequired}"
               autovalidate
               name="clientId"
               .value="${clientId}"
               @input="${this._valueHandler}"
               autocomplete="on"
               data-persistent="true"
+              hiddable
+              data-visible="implicit authorization_code"
               .outlined="${outlined}"
               .legacy="${legacy}"
               .readOnly="${readOnly}"
@@ -1844,7 +1855,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
             </anypoint-masked-input>
 
             <anypoint-masked-input
-              ?required="${customGrantRequired}"
+              ?required="${clientIdRequired}"
               autovalidate
               name="clientSecret"
               .value="${clientSecret}"
@@ -1852,7 +1863,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               autocomplete="on"
               hiddable
               data-persistent="true"
-              data-visible="client_credentials authorization_code"
+              data-visible="authorization_code"
               .outlined="${outlined}"
               .legacy="${legacy}"
               .readOnly="${readOnly}"

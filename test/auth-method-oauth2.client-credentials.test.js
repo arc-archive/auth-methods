@@ -7,7 +7,6 @@ import '../auth-method-oauth2.js';
 describe('<auth-method-oauth2>', function() {
   const clientId = '821776164331-rserncqpdsq32lmbf5cfeolgcoujb6fm.apps.googleusercontent.com';
   const accessTokenUri = 'https://accounts.google.com/o/oauth2/v2/auth';
-  const clientSecret = 'test-secret';
   const scopes = ['email', 'profile'];
 
   async function basicFixture() {
@@ -19,7 +18,6 @@ describe('<auth-method-oauth2>', function() {
       granttype="client_credentials"
       clientid="${clientId}"
       .accessTokenUri="${accessTokenUri}"
-      .clientSecret="${clientSecret}"
       .scopes="${scopes}"></auth-method-oauth2>`));
   }
 
@@ -52,7 +50,7 @@ describe('<auth-method-oauth2>', function() {
       });
 
       it('Should not be validated', async () => {
-        element.clientSecret = '';
+        element.accessTokenUri = '';
         await nextFrame();
         assert.isFalse(element.validate());
       });
@@ -88,14 +86,14 @@ describe('<auth-method-oauth2>', function() {
         await aTimeout();
       });
 
-      it('Client id is required', () => {
+      it('Client id is not required', () => {
         const node = element.shadowRoot.querySelector('[name="clientId"]');
-        assert.isTrue(node.required);
+        assert.notEqual(node.required, true);
       });
 
-      it('Client secret is required', () => {
+      it('Client secret is not required', () => {
         const node = element.shadowRoot.querySelector('[name="clientSecret"]');
-        assert.isTrue(node.required);
+        assert.notEqual(node.required, true);
       });
 
       it('Client secret is not disabled', () => {
@@ -103,10 +101,10 @@ describe('<auth-method-oauth2>', function() {
         assert.isFalse(node.disabled);
       });
 
-      it('Client secret is not hidden', () => {
+      it('Client secret is hidden', () => {
         const node = element.shadowRoot.querySelector('[name="clientSecret"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'none');
       });
 
       it('Advanced settings checkbox is not rendered', () => {
@@ -221,7 +219,6 @@ describe('<auth-method-oauth2>', function() {
           assert.equal(e.detail.type, 'client_credentials', 'type is set');
           assert.equal(e.detail.accessTokenUri, accessTokenUri, 'accessTokenUri is set');
           assert.equal(e.detail.clientId, clientId, 'clientId is set');
-          assert.equal(e.detail.clientSecret, clientSecret, 'clientSecret is set');
           assert.typeOf(e.detail.customData, 'object', 'customData is set');
           done();
         });
@@ -264,11 +261,6 @@ describe('<auth-method-oauth2>', function() {
       it('scopes is set', () => {
         const result = element.getSettings();
         assert.isTrue(result.scopes === scopes);
-      });
-
-      it('clientSecret is set', () => {
-        const result = element.getSettings();
-        assert.equal(result.clientSecret, clientSecret);
       });
 
       it('accessTokenUri is set', () => {
