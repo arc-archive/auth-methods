@@ -11,17 +11,14 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/iron-form/iron-form.js';
-import './auth-methods-styles.js';
-import './auth-method-step.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import authStyles from './auth-methods-styles.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
+import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@polymer/iron-form/iron-form.js';
 /**
  * The `<auth-method-basic>` element displays a form to provide the Basic
  * auth credentials.
@@ -39,110 +36,144 @@ import './auth-method-step.js';
  * This example will produce a form with prefilled username and passowrd with
  * value "test".
  *
- * ## Changes in version 2.0
- *
- * - Removed `OpendablePanelBehavior`. The element will always react to headers
- * change event
- *
- * ### Styling
- *
- * `<auth-methods>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-basic` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- *
- * This is very basic element. Style inputs using `paper-input`'s or `
- * paper-toggle`'s css variables.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin AuthMethodsMixin
  * @demo demo/basic.html
+ * @extends AuthMethodBase
  */
-class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)) {
-  static get template() {
-    return html`
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --auth-method-panel;
-      @apply --auth-method-basic;
-    }
-    </style>
-    <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
-      <span slot="title">Set authorization data</span>
-      <iron-form>
-        <form autocomplete="on">
-          <paper-input label="User name" value="{{username}}" name="username" type="text"
-            required="" auto-validate="" autocomplete="on">
-            <paper-icon-button slot="suffix" class="action-icon" on-click="clearUsername"
-              icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-          <paper-masked-input label="Password" name="password" value="{{password}}"
-            autocomplete="on"></paper-masked-input>
-        </form>
-      </iron-form>
-    </auth-method-step>
-`;
-  }
-
-  static get is() {
-    return 'auth-method-basic';
-  }
-  static get properties() {
-    return {
-      // base64 hash of the uid and passwd. When set it will override current username and password.
-      hash: {
-        type: String,
-        notify: true
-      },
-      // The password.
-      password: {
-        type: String,
-        notify: true
-      },
-      // The username.
-      username: {
-        type: String,
-        notify: true
-      }
-    };
-  }
-
-  static get observers() {
+class AuthMethodBasic extends AuthMethodBase {
+  static get styles() {
     return [
-      '_hashChanged(hash)',
-      '_userInputChanged(username, password)',
-      '_settingsChanged(hash)'
+      authStyles,
+      css`
+      :host {
+        display: block;
+      }`
     ];
   }
 
+  render() {
+    const {
+      username,
+      password,
+      outlined,
+      legacy,
+      readOnly,
+      disabled
+    } = this;
+    return html`
+      ${this._authPanelTitle()}
+      <iron-form>
+        <form autocomplete="on">
+          <anypoint-input
+            .value="${username}"
+            @input="${this._usernameHandler}"
+            name="username"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">User name</label>
+          </anypoint-input>
+          <anypoint-masked-input
+            name="password"
+            .value="${password}"
+            @input="${this._passwordHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Password</label>
+          </anypoint-masked-input>
+        </form>
+      </iron-form>`;
+  }
+
+  static get properties() {
+    return {
+      // The password.
+      password: { type: String },
+      // The username.
+      username: { type: String }
+    };
+  }
+  /**
+   * @return {String} base64 hash of the uid and passwd. When set it will override
+   * current username and password.
+   */
+  get hash() {
+    let { username, password } = this;
+    if (!username) {
+      username = '';
+    }
+    if (!password) {
+      password = '';
+    }
+    let hash;
+    if (username || password) {
+      const enc = `${username}:${password}`;
+      hash = btoa(enc);
+    } else {
+      hash = '';
+    }
+    return hash;
+  }
+
+  get username() {
+    return this._username || '';
+  }
+
+  set username(value) {
+    /* istanbul ignore else */
+    if (this._sop('username', value)) {
+      this._valueChanged();
+      this._notifyChanged('username', value);
+    }
+  }
+
+  get password() {
+    return this._password || '';
+  }
+
+  set password(value) {
+    /* istanbul ignore else */
+    if (this._sop('password', value)) {
+      this._valueChanged();
+      this._notifyChanged('password', value);
+    }
+  }
+
   constructor() {
-    super();
+    super('basic');
     this._onAuthSettings = this._onAuthSettings.bind(this);
-    this._headerChangedHandler = this._headerChangedHandler.bind(this);
   }
 
   _attachListeners(node) {
     node.addEventListener('auth-settings-changed', this._onAuthSettings);
-    node.addEventListener('request-header-changed', this._headerChangedHandler);
   }
 
   _detachListeners(node) {
     node.removeEventListener('auth-settings-changed', this._onAuthSettings);
-    node.removeEventListener('request-header-changed', this._headerChangedHandler);
   }
+
+  firstUpdated() {
+    const { username, password } = this;
+    if (username || password) {
+      this._valueChanged();
+    }
+  }
+
   /**
    * Resets state of the form.
    */
   reset() {
-    this.set('hash', '');
-    this.set('username', '');
-    this.set('password', '');
+    this.username = '';
+    this.password = '';
   }
   /**
    * Validates the form.
@@ -151,17 +182,11 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
-    return form.validate();
-  }
-  /**
-   * Dispatches `auth-settings-changed` custom event.
-   */
-  _settingsChanged() {
-    if (!this.shadowRoot || this.__cancelChangeEvent) {
-      return;
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
     }
-    const e = this._notifySettingsChange('basic');
-    this._notifyHeaderChange(e.detail.settings);
+    return form.validate();
   }
   /**
    * Creates a settings object with user provided data.
@@ -170,7 +195,7 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    */
   getSettings() {
     return {
-      hash: this.hash || '',
+      hash: this.hash,
       password: this.password || '',
       username: this.username || ''
     };
@@ -181,86 +206,9 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    * @param {Object} settings Object returned by `_getSettings()`
    */
   restore(settings) {
-    if (settings.hash) {
-      this.hash = settings.hash;
-    } else {
-      this.password = settings.password;
-      this.username = settings.username;
-    }
+    this.password = settings.password;
+    this.username = settings.username;
   }
-  /**
-   * Decodes hash value on change from the external source.
-   *
-   * @param {String} hash Hash value
-   */
-  _hashChanged(hash) {
-    if (this._internalHashChange || !hash) {
-      return;
-    }
-    try {
-      const encoded = atob(hash);
-      const parts = encoded.split(':');
-      if (parts.length) {
-        this._internalHashChange = true;
-        this.username = parts[0];
-        if (parts[1]) {
-          this.password = parts[1];
-        }
-        this._internalHashChange = false;
-      }
-    } catch (e) {
-      console.warn(e);
-      this.dispatchEvent(new CustomEvent('error', {
-        detail: {
-          error: e
-        },
-        bubbles: false
-      }));
-    }
-  }
-  /**
-   * Computes hash value for given username or password.
-   * It computes value if at least one value for username and password is
-   * provided. Otherwise it sets hash to empty string.
-   *
-   * @param {String} uid Username
-   * @param {String} passwd Password
-   * @return {String} Computed hash.
-   */
-  hashData(uid, passwd) {
-    if (!uid) {
-      uid = '';
-    }
-    if (!passwd) {
-      passwd = '';
-    }
-    let hash;
-    if (uid || passwd) {
-      const enc = uid + ':' + passwd;
-      hash = btoa(enc);
-    } else {
-      hash = '';
-    }
-    return hash;
-  }
-  /**
-   * Sets the hash value for current username and password.
-   *
-   * @param {String} uid Username
-   * @param {String} passwd Password
-   */
-  _userInputChanged(uid, passwd) {
-    this._internalHashChange = true;
-    this.set('hash', this.hashData(uid, passwd));
-    this._internalHashChange = false;
-  }
-  /**
-   * Clears username input.
-   */
-  clearUsername() {
-    this.username = '';
-  }
-
   /**
    * Handler to the `auth-settings-changed` event (fired by all auth panels).
    * If the event was fired by other element with the same method ttype
@@ -270,49 +218,10 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    * @param {Event} e
    */
   _onAuthSettings(e) {
-    if (e.target === this || e.detail.type !== 'basic') {
+    if (this._getEventTarget(e) === this || e.detail.type !== 'basic') {
       return;
     }
-    this.__cancelChangeEvent = true;
     this.restore(e.detail.settings);
-    this.__cancelChangeEvent = false;
-  }
-  /**
-   * Handler for the `request-header-changed` custom event.
-   * If the panel is opened the it checks if current header updates
-   * authorization.
-   * @param {Event} e
-   */
-  _headerChangedHandler(e) {
-    if (e.defaultPrevented || e.target === this) {
-      return;
-    }
-    let name = e.detail.name;
-    if (!name) {
-      return;
-    }
-    name = name.toLowerCase();
-    if (name !== 'authorization') {
-      return;
-    }
-    let value = e.detail.value;
-    if (!value) {
-      if (this.hash) {
-        this.reset();
-      }
-      return;
-    }
-    let lowerValue = value.toLowerCase();
-    if (lowerValue.indexOf('basic') !== 0) {
-      if (this.hash) {
-        this.reset();
-      }
-      return;
-    }
-    value = value.substr(6);
-    this.__cancelHeaderEvent = true;
-    this.set('hash', value);
-    this.__cancelHeaderEvent = false;
   }
   /**
    * Dispatches `request-header-changed` custom event to inform other
@@ -321,18 +230,31 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    * @param {Object} settings
    */
   _notifyHeaderChange(settings) {
-    if (this.__cancelHeaderEvent) {
-      return;
-    }
-    const value = (settings && settings.hash) ? 'basic ' + settings.hash : 'Basic ';
+    const hash = settings && settings.hash || '';
+    const value = `Basic ${hash}`;
     this.dispatchEvent(new CustomEvent('request-header-changed', {
       detail: {
-        name: 'authorization',
-        value: value
+        name: 'Authorization',
+        value
       },
       bubbles: true,
       composed: true
     }));
+  }
+
+  _usernameHandler(e) {
+    this._setSettingsInputValue('username', e.target.value);
+  }
+
+  _passwordHandler(e) {
+    this._setSettingsInputValue('password', e.target.value);
+  }
+
+  _valueChanged() {
+    if (this.__isInputEvent) {
+      return;
+    }
+    this._settingsChanged();
   }
   /**
    * Fired when error occured when decoding hash.
@@ -360,4 +282,4 @@ class AuthMethodBasic extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)
    * @param {String} value Value of the header
    */
 }
-window.customElements.define(AuthMethodBasic.is, AuthMethodBasic);
+window.customElements.define('auth-method-basic', AuthMethodBasic);

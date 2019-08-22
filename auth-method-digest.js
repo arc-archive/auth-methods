@@ -11,22 +11,19 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@polymer/paper-checkbox/paper-checkbox.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@polymer/iron-collapse/iron-collapse.js';
-import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/iron-form/iron-form.js';
-import '../../@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-import '../../@polymer/paper-listbox/paper-listbox.js';
-import '../../@polymer/paper-item/paper-item.js';
-import './auth-methods-styles.js';
-import './auth-method-step.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import authStyles from './auth-methods-styles.js';
+import '@anypoint-web-components/anypoint-checkbox/anypoint-checkbox.js';
+import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
+import '@polymer/iron-form/iron-form.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@anypoint-web-components/anypoint-dropdown-menu/anypoint-dropdown-menu.js';
+import '@anypoint-web-components/anypoint-listbox/anypoint-listbox.js';
+import '@anypoint-web-components/anypoint-item/anypoint-item.js';
 /**
  * The `<auth-method-digest>` element displays a form for digest authentication.
  * The user have to choose is he want to provide username and password only or
@@ -70,168 +67,249 @@ import './auth-method-step.js';
  * it will set up corresponding properties.
  * All this events must have a `value` property set on event's detail object.
  *
- *
- * ## Changes in version 2.0
- *
- * - `CryptoJS` library is not included by default. Use
- * `advanced-rest-client/cryptojs-lib` component to include the library if
- * your project doesn't use crypto libraries already.
- *
- * ### Styling
- *
- * `<auth-methods>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-digest` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- *
- * This is very basic element. Style inputs using `paper-input`'s or `
- * paper-toggle`'s css variables.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin AuthMethodsMixin
  * @demo demo/digest.html
+ * @extends AuthMethodBase
  */
-class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)) {
-  static get template() {
-    return html`
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --auth-method-panel;
-      @apply --auth-method-digest;
-    }
-
-    paper-item:hover {
-      @apply --paper-item-hover;
-    }
-    </style>
-    <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
-      <span slot="title">Set authorization data</span>
-      <iron-form>
-        <form autocomplete="on">
-          <paper-input label="User name" value="{{username}}" type="text" required="" auto-validate="" autocomplete="on">
-            <paper-icon-button class="action-icon" slot="suffix" on-tap="clearUsername" icon="arc:clear" alt="Clear input icon" title="Clear input"></paper-icon-button>
-          </paper-input>
-          <paper-masked-input label="Password" value="{{password}}" required="" auto-validate="" autocomplete="on"></paper-masked-input>
-          <div class="adv-toggle">
-            <paper-checkbox class="adv-settings-input" checked="{{fullForm}}">Advanced settings</paper-checkbox>
-          </div>
-          <iron-collapse opened="[[fullForm]]">
-            <div class="extended-form">
-              <paper-input label="Server issued realm" value="{{realm}}" type="text" required="[[fullForm]]" auto-validate="" autocomplete="on"></paper-input>
-              <paper-input label="Server issued nonce" value="{{nonce}}" type="text" required="[[fullForm]]" auto-validate="" autocomplete="on"></paper-input>
-              <paper-dropdown-menu label="Quality of protection">
-                <paper-listbox slot="dropdown-content" selected="{{qop}}" attr-for-selected="data-qop">
-                  <paper-item data-qop="auth">auth</paper-item>
-                  <paper-item data-qop="auth-int">auth-int</paper-item>
-                </paper-listbox>
-              </paper-dropdown-menu>
-              <paper-input label="Nounce count" value="{{nc}}" type="number" required="[[fullForm]]" auto-validate="" autocomplete="on"></paper-input>
-              <paper-dropdown-menu label="Hash algorithm">
-                <paper-listbox slot="dropdown-content" selected="{{algorithm}}" attr-for-selected="data-algorithm">
-                  <paper-item data-algorithm="MD5">MD5</paper-item>
-                  <paper-item data-algorithm="MD5-sess">MD5-sess</paper-item>
-                </paper-listbox>
-              </paper-dropdown-menu>
-              <paper-input label="Server issued opaque string" value="{{opaque}}" type="string" autocomplete="on"></paper-input>
-              <paper-input label="Client nounce" value="{{cnonce}}" type="string" autocomplete="on"></paper-input>
-            </div>
-          </iron-collapse>
-        </form>
-      </iron-form>
-    </auth-method-step>
-`;
+class AuthMethodDigest extends AuthMethodBase {
+  static get styles() {
+    return [
+      authStyles,
+      css`
+      :host {
+        display: block;
+      }`
+    ];
   }
 
-  static get is() { return 'auth-method-digest'; }
+  render() {
+    const {
+      username,
+      password,
+      outlined,
+      legacy,
+      readOnly,
+      disabled,
+      fullForm
+    } = this;
+    return html`
+    ${this._authPanelTitle()}
+    <iron-form>
+      <form autocomplete="on">
+        <anypoint-input
+          .value="${username}"
+          @input="${this._valueHandler}"
+          name="username"
+          type="text"
+          required
+          autovalidate
+          autocomplete="on"
+          .outlined="${outlined}"
+          .legacy="${legacy}"
+          .readOnly="${readOnly}"
+          .disabled="${disabled}">
+          <label slot="label">User name</label>
+        </anypoint-input>
+        <anypoint-masked-input
+          name="password"
+          .value="${password}"
+          @input="${this._valueHandler}"
+          autocomplete="on"
+          .outlined="${outlined}"
+          .legacy="${legacy}"
+          .readOnly="${readOnly}"
+          .disabled="${disabled}">
+          <label slot="label">Password</label>
+        </anypoint-masked-input>
+
+        <div class="adv-toggle">
+          <anypoint-checkbox
+            class="adv-settings-input"
+            .checked="${fullForm}"
+            @change="${this._advHandler}"
+            .disabled="${disabled || readOnly}"
+          >Advanced settings</anypoint-checkbox>
+        </div>
+
+        ${fullForm ? html`<div class="extended-form">
+          <anypoint-input
+            .value="${this.realm}"
+            @input="${this._valueHandler}"
+            name="realm"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Server issued realm</label>
+          </anypoint-input>
+
+          <anypoint-input
+            .value="${this.nonce}"
+            @input="${this._valueHandler}"
+            name="nonce"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Server issued nonce</label>
+          </anypoint-input>
+
+          <anypoint-dropdown-menu
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}"
+          >
+            <label slot="label">Quality of protection</label>
+            <anypoint-listbox
+              slot="dropdown-content"
+              .selected="${this.qop}"
+              @selected-changed="${this._qopHandler}"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${disabled}"
+              attrforselected="data-qop">
+              <anypoint-item .legacy="${legacy}" data-qop="auth">auth</anypoint-item>
+              <anypoint-item .legacy="${legacy}" data-qop="auth-int">auth-int</anypoint-item>
+            </anypoint-listbox>
+          </anypoint-dropdown-menu>
+
+          <anypoint-input
+            .value="${this.nc}"
+            @input="${this._valueHandler}"
+            name="nc"
+            type="number"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Nounce count</label>
+          </anypoint-input>
+
+          <anypoint-dropdown-menu
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}"
+          >
+            <label slot="label">Hash algorithm</label>
+            <anypoint-listbox
+              slot="dropdown-content"
+              .selected="${this.algorithm}"
+              @selected-changed="${this._algorithmHandler}"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${disabled}"
+              attrforselected="data-algorithm">
+              <anypoint-item .legacy="${legacy}" data-algorithm="MD5">MD5</anypoint-item>
+              <anypoint-item .legacy="${legacy}" data-algorithm="MD5-sess">MD5-sess</anypoint-item>
+            </anypoint-listbox>
+          </anypoint-dropdown-menu>
+
+          <anypoint-input
+            .value="${this.opaque}"
+            @input="${this._valueHandler}"
+            name="opaque"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Server issued opaque string</label>
+          </anypoint-input>
+
+          <anypoint-input
+            .value="${this.cnonce}"
+            @input="${this._valueHandler}"
+            name="cnonce"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Client nounce</label>
+          </anypoint-input>
+        </div>` : ''}
+      </form>
+    </iron-form>`;
+  }
+
   static get properties() {
     return {
       // The password.
-      password: {
-        type: String,
-        notify: true,
-        observer: '_processInput'
-      },
+      password: { type: String },
       // The username.
-      username: {
-        type: String,
-        notify: true,
-        observer: '_processInput'
-      },
+      username: { type: String },
       // If set then it will display all form fields.
-      fullForm: {
-        type: Boolean,
-        value: false,
-        observer: '_processInput'
-      },
+      fullForm: { type: Boolean },
       // Server issued realm.
-      realm: {
-        type: String,
-        observer: '_processInput'
-      },
+      realm: { type: String },
       // Server issued nonce.
-      nonce: {
-        type: String,
-        observer: '_processInput'
-      },
+      nonce: { type: String },
       // The realm value for the digest response.
-      algorithm: {
-        type: String,
-        observer: '_processInput'
-      },
+      algorithm: { type: String },
       /**
        * The quality of protection value for the digest response.
        * Either '', 'auth' or 'auth-int'
        */
-      qop: {
-        type: String,
-        observer: '_processInput'
-      },
+      qop: { type: String },
       // Nonce count - increments with each request used with the same nonce
-      nc: {
-        type: Number,
-        value: 1,
-        observer: '_processInput'
-      },
+      nc: { type: Number },
       // Client nonce
-      cnonce: {
-        type: String,
-        observer: '_processInput'
-      },
+      cnonce: { type: String },
       // A string of data specified by the server
-      opaque: {
-        type: String,
-        observer: '_processInput'
-      },
+      opaque: { type: String },
       // Hashed response to server challenge
-      response: {
-        type: String
-      },
+      response: { type: String },
       // Request HTTP method
-      httpMethod: {
-        type: String,
-        observer: '_processInput'
-      },
+      httpMethod: { type: String },
       // Current request URL.
-      requestUrl: {
-        type: String,
-        observer: '_processInput'
-      },
+      requestUrl: { type: String },
+
+      _requestUri: { type: String },
       // Current request body.
-      requestBody: {
-        type: String,
-        observer: '_processInput'
-      }
+      requestBody: { type: String }
     };
   }
 
+  get requestUrl() {
+    return this._requestUrl;
+  }
+
+  set requestUrl(value) {
+    const old = this._requestUrl;
+    /* istanbul ignore if */
+    if (old === value) {
+      return;
+    }
+    this._requestUrl = value;
+    this._processRequestUrl(value);
+  }
+
   constructor() {
-    super();
+    super('digest');
+    this.nc = 1;
+    this.algorithm = 'MD5';
     this._onUrlChanged = this._onUrlChanged.bind(this);
     this._onHttpMethodChanged = this._onHttpMethodChanged.bind(this);
     this._onBodyChanged = this._onBodyChanged.bind(this);
@@ -251,6 +329,13 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
     node.removeEventListener('body-value-changed', this._onBodyChanged);
     node.removeEventListener('auth-settings-changed', this._onAuthSettings);
   }
+
+  firstUpdated() {
+    const { username, password } = this;
+    if (username || password) {
+      this._settingsChanged();
+    }
+  }
   /**
    * Validates the form.
    *
@@ -258,7 +343,7 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
-    return form.validate();
+    return form ? form.validate() : true;
   }
   /**
    * Returns current settings. Object's structure depends on `fullForm`
@@ -275,17 +360,19 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
         username: this.username || ''
       };
     }
-    this.response =  this.generateResponse();
-    var settings = {};
+    this.response = this.generateResponse();
+    const settings = {};
     settings.username = this.username || '';
+    settings.password = this.password || '';
     settings.realm = this.realm;
     settings.nonce = this.nonce;
-    settings.uri = this.requestUrl;
+    settings.uri = this._requestUri;
     settings.response = this.response;
     settings.opaque = this.opaque;
     settings.qop = this.qop;
     settings.nc = ('00000000' + this.nc).slice(-8);
     settings.cnonce = this.cnonce;
+    settings.algorithm = this.algorithm;
     return settings;
   }
 
@@ -301,10 +388,9 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
     this.nonce = settings.nonce;
     this.opaque = settings.opaque;
     this.qop = settings.qop;
-    this.nc = settings.nc;
     this.cnonce = settings.cnonce;
     if (settings.uri) {
-      this.requestUrl = settings.uri;
+      this._requestUri = settings.uri;
     }
     if (settings.nc) {
       this.nc = Number(settings.nc.replace(/0+/, ''));
@@ -312,38 +398,27 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
   }
 
   _processInput() {
-    if (!this.shadowRoot || this.__cancelChangeEvent) {
-      return;
-    }
     if (this.fullForm) {
       if (!this.nc) {
-        this.set('nc', 1);
+        this.nc = 1;
         return;
       }
       if (!this.cnonce) {
-        this.set('cnonce', this.generateCnonce());
+        this.cnonce = this.generateCnonce();
         return;
       }
     }
-    this._notifySettingsChange('digest');
   }
-  /**
-   * Clears usernamr field
-   */
-  clearUsername() {
-    this.username = '';
-  }
-
   /**
    * Generates client nonce.
    *
-   * @return Generated client nonce.
+   * @return {String} Generated client nonce.
    */
   generateCnonce() {
-    var characters = 'abcdef0123456789';
-    var token = '';
-    for (var i = 0; i < 16; i++) {
-      var randNum = Math.round(Math.random() * characters.length);
+    const characters = 'abcdef0123456789';
+    let token = '';
+    for (let i = 0; i < 16; i++) {
+      const randNum = Math.round(Math.random() * characters.length);
       token += characters.substr(randNum, 1);
     }
     return token;
@@ -358,10 +433,10 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
    */
   generateResponse() {
     /* global CryptoJS */
-    var HA1 = this._getHA1();
-    var HA2 = this._getHA2();
-    var ncString = ('00000000' + this.nc).slice(-8);
-    var responseStr = HA1 + ':' + this.nonce;
+    const HA1 = this._getHA1();
+    const HA2 = this._getHA2();
+    const ncString = ('00000000' + this.nc).slice(-8);
+    let responseStr = HA1 + ':' + this.nonce;
     if (!this.qop) {
       responseStr += ':' + HA2;
     } else {
@@ -371,8 +446,8 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
   }
   // Generates HA1 as defined in Digest spec.
   _getHA1() {
-    var HA1param = this.username + ':' + this.realm + ':' + this.password;
-    var HA1 = CryptoJS.MD5(HA1param).toString();
+    let HA1param = this.username + ':' + this.realm + ':' + this.password;
+    let HA1 = CryptoJS.MD5(HA1param).toString();
 
     if (this.algorithm === 'MD5-sess') {
       HA1param = HA1 + ':' + this.nonce + ':' + this.cnonce;
@@ -382,7 +457,7 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
   }
   // Generates HA2 as defined in Digest spec.
   _getHA2() {
-    var HA2param = this.httpMethod + ':' + this.requestUrl;
+    let HA2param = this.httpMethod + ':' + this._requestUri;
     if (this.qop === 'auth-int') {
       HA2param += ':' + CryptoJS.MD5(this.requestBody).toString();
     }
@@ -391,6 +466,7 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
   /**
    * Handler to the `url-value-changed` event. When the element handle this
    * event it will update the `requestUrl` property.
+   * @param {CustomEvent} e
    */
   _onUrlChanged(e) {
     this.requestUrl = e.detail.value;
@@ -398,30 +474,75 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
   /**
    * Handler to the `http-method-changed` event. When the element handle this
    * event it will update the `httpMethod` property.
+   * @param {CustomEvent} e
    */
   _onHttpMethodChanged(e) {
     this.httpMethod = e.detail.value;
+    this._processInput();
+    this._settingsChanged();
   }
   /**
    * Handler to the `body-value-changed` event. When the element handle this
    * event it will update the `requestBody` property.
+   * @param {CustomEvent} e
    */
   _onBodyChanged(e) {
     this.requestBody = e.detail.value;
+    this._processInput();
+    this._settingsChanged();
   }
-
   /**
    * Handler to the `auth-settings-changed` event (fired by all auth panels).
    * If the event was fired by other element with the same method ttype
    * then the form will be updated to incomming values.
    * This helps to sync changes between elements in the same app.
+   * @param {CustomEvent} e
    */
   _onAuthSettings(e) {
-    if (e.target === this || e.detail.type !== 'digest') {
+    const target = this._getEventTarget(e);
+    if (target === this || e.detail.type !== 'digest') {
       return;
     }
     this.restore(e.detail.settings);
+  }
 
+  _advHandler(e) {
+    this._processInput();
+    this._setSettingsInputValue('fullForm', e.target.checked);
+  }
+
+  _qopHandler(e) {
+    this._processInput();
+    this._setSettingsInputValue('qop', e.detail.value);
+  }
+
+  _algorithmHandler(e) {
+    this._processInput();
+    this._setSettingsInputValue('algorithm', e.detail.value);
+  }
+
+  _valueHandler(e) {
+    const { name, value } = e.target;
+    this._processInput();
+    this._setSettingsInputValue(name, value);
+  }
+
+  _processRequestUrl(value) {
+    if (!value || typeof value !== 'string') {
+      this._requestUri = undefined;
+      this._processInput();
+      this._settingsChanged();
+      return;
+    }
+    try {
+      const url = new URL(value);
+      value = url.pathname;
+    } catch (_) {
+      value = value.trum();
+    }
+    this._requestUri = value;
+    this._processInput();
+    this._settingsChanged();
   }
   /**
    * Fired when error occured when decoding hash.
@@ -441,4 +562,4 @@ class AuthMethodDigest extends AuthMethodsMixin(EventsTargetMixin(PolymerElement
    * @param {Boolean} valid True if the form has been validated.
    */
 }
-window.customElements.define(AuthMethodDigest.is, AuthMethodDigest);
+window.customElements.define('auth-method-digest', AuthMethodDigest);

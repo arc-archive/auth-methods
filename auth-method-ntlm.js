@@ -11,17 +11,12 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/iron-form/iron-form.js';
-import './auth-methods-styles.js';
-import './auth-method-step.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import authStyles from './auth-methods-styles.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
+import '@polymer/iron-form/iron-form.js';
 /**
  * The `<auth-method-ntlm>` element displays a form to provide the NTLM auth
  * credentials.
@@ -38,89 +33,131 @@ import './auth-method-step.js';
  * <auth-method-ntlm username="john" password="doe" domain="my-nt-domain"></auth-method-ntlm>
  * ```
  *
- * ### Styling
- *
- * `<auth-methods>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-ntlm` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- *
- * This is very basic element. Style inputs using `paper-input`'s or `
- * paper-toggle`'s css variables.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin AuthMethodsMixin
  * @demo demo/ntlm.html
+ * @extends AuthMethodBase
  */
-class AuthMethodNtlm extends AuthMethodsMixin(EventsTargetMixin(PolymerElement)) {
-  static get template() {
-    return html`
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --auth-method-panel;
-      @apply --auth-method-ntlm;
-    }
-    </style>
-    <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
-      <span slot="title">Set authorization data</span>
-      <iron-form>
-        <form autocomplete="on">
-          <paper-input required="" auto-validate="" label="User name" value="{{username}}"
-            type="text" autocomplete="on">
-            <paper-icon-button class="action-icon" slot="suffix" on-click="_clearField" icon="arc:clear"
-              alt="Clear input icon" title="Clear username"></paper-icon-button>
-          </paper-input>
-          <paper-masked-input required="" auto-validate="" label="Password" value="{{password}}"
-            autocomplete="on"></paper-masked-input>
-          <paper-input label="NT domain" value="{{domain}}" type="text">
-            <paper-icon-button class="action-icon"
-              slot="suffix" on-click="_clearField" icon="arc:clear"
-              alt="Clear input icon" title="Clear domain"></paper-icon-button>
-          </paper-input>
-        </form>
-      </iron-form>
-    </auth-method-step>
-`;
-  }
-
-  static get is() {
-    return 'auth-method-ntlm';
-  }
-  static get properties() {
-    return {
-      // The domain parameter for the request.
-      domain: {
-        type: String,
-        notify: true
-      },
-      // The password.
-      password: {
-        type: String,
-        notify: true
-      },
-      // The username.
-      username: {
-        type: String,
-        notify: true
-      }
-    };
-  }
-
-  static get observers() {
+class AuthMethodNtlm extends AuthMethodBase {
+  static get styles() {
     return [
-      '_settingsChanged(username, password, domain)'
+      authStyles,
+      css`
+      :host {
+        display: block;
+      }`
     ];
   }
 
+  render() {
+    const {
+      username,
+      password,
+      domain,
+      outlined,
+      legacy,
+      readOnly,
+      disabled
+    } = this;
+    return html`
+      ${this._authPanelTitle()}
+      <iron-form>
+        <form autocomplete="on">
+          <anypoint-input
+            .value="${username}"
+            @input="${this._valueHandler}"
+            name="username"
+            type="text"
+            required
+            autovalidate
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">User name</label>
+          </anypoint-input>
+          <anypoint-masked-input
+            name="password"
+            .value="${password}"
+            @input="${this._valueHandler}"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">Password</label>
+          </anypoint-masked-input>
+          <anypoint-input
+            .value="${domain}"
+            @input="${this._valueHandler}"
+            name="domain"
+            type="text"
+            autocomplete="on"
+            .outlined="${outlined}"
+            .legacy="${legacy}"
+            .readOnly="${readOnly}"
+            .disabled="${disabled}">
+            <label slot="label">NT domain</label>
+          </anypoint-input>
+        </form>
+      </iron-form>`;
+  }
+
+  static get properties() {
+    return {
+      // The domain parameter for the request.
+      domain: { type: String },
+      // The password.
+      password: { type: String },
+      // The username.
+      username: { type: String }
+    };
+  }
+
+  get username() {
+    return this._username || '';
+  }
+
+  set username(value) {
+    /* istanbul ignore else */
+    if (this._sop('username', value)) {
+      this._valueChanged();
+    }
+  }
+
+  get password() {
+    return this._password || '';
+  }
+
+  set password(value) {
+    /* istanbul ignore else */
+    if (this._sop('password', value)) {
+      this._valueChanged();
+    }
+  }
+
+  get domain() {
+    return this._domain || '';
+  }
+
+  set domain(value) {
+    /* istanbul ignore else */
+    if (this._sop('domain', value)) {
+      this._valueChanged();
+    }
+  }
+
   constructor() {
-    super();
+    super('ntlm');
     this._onAuthSettings = this._onAuthSettings.bind(this);
+  }
+
+  firstUpdated() {
+    const { username, password, domain } = this;
+    if (username || password || domain) {
+      this._settingsChanged();
+    }
   }
 
   _attachListeners(node) {
@@ -137,14 +174,11 @@ class AuthMethodNtlm extends AuthMethodsMixin(EventsTargetMixin(PolymerElement))
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
-    return form.validate();
-  }
-
-  _settingsChanged() {
-    if (!this.shadowRoot || this.__cancelChangeEvent) {
-      return;
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
     }
-    this._notifySettingsChange('ntlm');
+    return form.validate();
   }
   /**
    * Creates a settings object with user provided data.
@@ -170,21 +204,11 @@ class AuthMethodNtlm extends AuthMethodsMixin(EventsTargetMixin(PolymerElement))
     this.username = settings.username;
   }
 
-  // Removes a value from the (paper-)input going up through path of the event.
-  _clearField(e) {
-    const path = e.composedPath();
-    let inputTarget;
-    while ((inputTarget = path.shift())) {
-      if (inputTarget.nodeName === 'INPUT' || inputTarget.nodeName === 'PAPER-INPUT') {
-        break;
-      }
-    }
-    if (!inputTarget) {
-      return;
-    }
-    inputTarget.value = '';
+  reset() {
+    this.domain = '';
+    this.password = '';
+    this.username = '';
   }
-
   /**
    * Handler for the `auth-settings-changed` event (fired by all auth panels).
    * If the event was fired by other element with the same method ttype
@@ -193,12 +217,22 @@ class AuthMethodNtlm extends AuthMethodsMixin(EventsTargetMixin(PolymerElement))
    * @param {Event} e
    */
   _onAuthSettings(e) {
-    if (e.target === this || e.detail.type !== 'ntlm') {
+    if (this._getEventTarget(e) === this || e.detail.type !== 'ntlm') {
       return;
     }
-    this.__cancelChangeEvent = true;
     this.restore(e.detail.settings);
-    this.__cancelChangeEvent = false;
+  }
+
+  _valueHandler(e) {
+    const { name, value } = e.target;
+    this._setSettingsInputValue(name, value);
+  }
+
+  _valueChanged() {
+    if (this.__isInputEvent) {
+      return;
+    }
+    this._settingsChanged();
   }
   /**
    * Fired when error occured when decoding hash.
@@ -221,4 +255,4 @@ class AuthMethodNtlm extends AuthMethodsMixin(EventsTargetMixin(PolymerElement))
    * @param {Boolean} valid True if the form has been validated.
    */
 }
-window.customElements.define(AuthMethodNtlm.is, AuthMethodNtlm);
+window.customElements.define('auth-method-ntlm', AuthMethodNtlm);

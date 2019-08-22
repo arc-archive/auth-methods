@@ -45,7 +45,6 @@ securitySchemes:
               pattern: "[a-zA-Z]+"
               maxLength: 12
               minLength: 3
-              required: true
             numericParam:
               type: number
               minimum: 10
@@ -84,52 +83,20 @@ securitySchemes:
               default: true
       accessTokenUri: https://token.com
       authorizationUri: https://auth.com
-      authorizationGrants: [implicit, authorization_code]
+      authorizationGrants: [authorization_code, password, client_credentials, implicit]
       scopes: [profile, email]
     describedBy:
       queryParameters:
         access_token:
           type: string
           description: Apply access token here.
-  basic:
-    type: Basic Authentication
-  digest:
-    type: Digest Authentication
-  pass:
-    type: Pass Through
-  oauth1: !include oauth_1_0.raml
-  custom1: !include x-custom.raml
-  custom2: !include x-other.raml
+
 /oauth2:
+  post:
+    securedBy: [oauth2Normal]
+/with-annotations:
   get:
     securedBy: [oauth2]
-  post:
-    securedBy: [oauth2Normal, oauth2]
+/optional-scheme:
   put:
     securedBy: [null, oauth2]
-/basic:
-  get:
-    securedBy: [basic]
-/digest:
-  get:
-    securedBy: [digest]
-/pass:
-  get:
-    securedBy: [pass]
-    queryParameters:
-      exampleTest:
-        examples:
-          example1: hello example
-          example2: Other example
-/oauth1:
-  get:
-    securedBy: [oauth1]
-/custom1:
-  get:
-    securedBy: [custom1]
-/custom2:
-  get:
-    securedBy: [custom2]
-/combo:
-  get:
-    securedBy: [null, basic, digest, pass, oauth1, oauth2Normal, custom1, custom2]

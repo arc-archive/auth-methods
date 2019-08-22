@@ -11,25 +11,19 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {afterNextRender} from '../../@polymer/polymer/lib/utils/render-status.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@polymer/polymer/lib/elements/dom-if.js';
-import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/iron-form/iron-form.js';
-import '../../@advanced-rest-client/markdown-styles/markdown-styles.js';
-import '../../@polymer/iron-collapse/iron-collapse.js';
-import '../../@polymer/marked-element/marked-element.js';
-import '../../@api-components/api-view-model-transformer/api-view-model-transformer.js';
-import '../../@api-components/api-property-form-item/api-property-form-item.js';
-import './auth-methods-styles.js';
-import './auth-method-step.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import markdownStyles from '@advanced-rest-client/markdown-styles/markdown-styles.js';
+import formStyles from '@api-components/api-form-mixin/api-form-styles.js';
+import authStyles from './auth-methods-styles.js';
+import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@polymer/iron-form/iron-form.js';
+import '@advanced-rest-client/arc-marked/arc-marked.js';
+import '@api-components/api-view-model-transformer/api-view-model-transformer.js';
+import '@api-components/api-property-form-item/api-property-form-item.js';
 /**
  * The `<auth-method-custom>` element displays a form to provide the
  * authorization details for RAML's custom security scheme.
@@ -46,202 +40,170 @@ import './auth-method-step.js';
  * ### Example
  *
  * ```html
- * <auth-method-custom security-scheme="{...}"></auth-method-custom>
+ * <auth-method-custom securityscheme="{...}"></auth-method-custom>
  * ```
  *
- * ### Styling
- * `<auth-methods>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-custom` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- * `--inline-help-icon-color` | Color of the icon button to display help | `rgba(0, 0, 0, 0.74)`
- * `--inline-help-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.88)`
- * `--raml-headers-form-input-label-color` | Color of the lable of the `paper-input` element. | `rgba(0, 0, 0, 0.48)`
- * `raml-headers-form-input-label-color-required` | Color of the lable of the `paper-input` element when it's required. | `rgba(0, 0, 0, 0.72)`
- *
- * ## Changes in version 2
- *
- * - The element now works with AMF json/ld data model. RAML json parser output
- * is no longer supported.
- * - `ramlSettings` has been renamed to `amfSettings`
- * - Added scheme title and documentation to the panel.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin AuthMethodsMixin
- * @appliesMixin ApiElements.AmfHelperMixin
+ * @appliesMixin AmfHelperMixin
  * @demo demo/custom.html
+ * @extends AuthMethodBase
  */
-class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin(PolymerElement))) {
-  static get template() {
-    return html`<style include="markdown-styles"></style>
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --auth-method-panel;
-      @apply --auth-method-custom;
-    }
+class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
+  static get styles() {
+    return [
+      markdownStyles,
+      formStyles,
+      authStyles,
+      css`
+      :host {
+        display: block;
+      }
 
-    .field-value {
-      @apply --layout-horizontal;
-      @apply --layout-flex;
-    }
+      .field-value {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+      }
 
-    api-property-form-item {
-      @apply --layout-flex;
-    }
+      api-property-form-item {
+        flex: 1;
+      }
 
-    .header-item,
-    .param-item {
-      width: 100%;
-    }
+      .subtitle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }`
+    ];
+  }
 
-    .help-icon {
-      margin-top: var(--auth-method-custom-help-icon-margin-top, 16px);
-    }
-
-    h3 {
-      @apply --arc-font-subhead;
-      @apply --auth-method-custom-subheader;
-    }
-
-    .scheme-header h3 {
-      @apply --layout-horizontal;
-      @apply --layout-center;
-      margin: 0;
-    }
-    </style>
-    <auth-method-step step-start-index="[[stepStartIndex]]" step="1" no-steps="[[noSteps]]">
-      <span slot="title">Set authorization data</span>
+  render() {
+    const {
+      _schemeName,
+      _schemeDescription,
+      _hasSchemeDescription,
+      outlined,
+      legacy,
+      documentationOpened
+    } = this;
+    return html`
+      ${this._authPanelTitle()}
       <section>
-        <template is="dom-if" if="[[schemeName]]">
-          <div class="scheme-header">
-            <h3>
-              <span>Scheme: [[schemeName]]</span>
-              <template is="dom-if" if="[[_computeHasDoc(noDocs, schemeDescription)]]">
-                <paper-icon-button class="hint-icon" icon="arc:help" on-click="toggleSchemeDocumentation" title="Display scheme description"></paper-icon-button>
-              </template>
-            </h3>
-            <template is="dom-if" if="[[_computeHasDoc(noDocs, schemeDescription)]]">
-              <div class="docs-container">
-                <iron-collapse opened="[[documentationOpened]]">
-                  <marked-element markdown="[[schemeDescription]]" main-docs="">
-                    <div slot="markdown-html" class="markdown-body"></div>
-                  </marked-element>
-                </iron-collapse>
-              </div>
-            </template>
+        ${_schemeName ? html`<div class="scheme-header">
+          <div class="subtitle">
+            <span>Scheme: ${_schemeName}</span>
+            ${_hasSchemeDescription ? html`<anypoint-icon-button
+              class="hint-icon"
+              title="Toggle description"
+              aria-label="Press to toggle schema description"
+              ?outlined="${outlined}"
+              ?legacy="${legacy}"
+              @click="${this.toggleSchemeDocumentation}">
+              <iron-icon icon="arc:help"></iron-icon>
+            </anypoint-icon-button>` : ''}
           </div>
-        </template>
+          ${_hasSchemeDescription && documentationOpened ? html`<div class="docs-container">
+            <arc-marked .markdown="${_schemeDescription}" main-docs>
+              <div slot="markdown-html" class="markdown-body"></div>
+            </arc-marked>
+          </div>` : ''}
+        </div>` : ''}
+
         <iron-form>
           <form autocomplete="on">
-            <template is="dom-if" if="[[hasHeaders]]">
-              <section class="headers-section">
-                <template is="dom-repeat" items="{{headers}}" data-repeater="header">
-                  <div class="header-item">
-                    <div class="field-value">
-                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_headerValueChanged" data-type="header"></api-property-form-item>
-                      <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                        <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="header" title="Display documentation" noink="[[noink]]"></paper-icon-button>
-                      </template>
-                    </div>
-                    <div class="data-docs docs-container" data-source="header" data-key\$="[[item.name]]"></div>
-                  </div>
-                </template>
-              </section>
-            </template>
-            <template is="dom-if" if="[[hasQueryParameters]]">
-              <section class="query-section">
-                <template is="dom-repeat" items="{{queryParameters}}" data-repeater="query">
-                  <div class="param-item">
-                    <div class="field-value">
-                      <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" on-value-changed="_queryValueChanged" data-type="query"></api-property-form-item>
-                      <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                        <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
-                      </template>
-                    </div>
-                    <div class="data-docs docs-container" data-source="query" data-key\$="[[item.name]]"></div>
-                  </div>
-                </template>
-              </section>
-            </template>
+            ${this._getHeadersTemplate()}
+            ${this._getQueryTemplate()}
           </form>
         </iron-form>
-      </section>
-    </auth-method-step>`;
+      </section>`;
   }
-  static get is() {
-    return 'auth-method-custom';
-  }
+
   static get properties() {
     return {
       /**
        * AMF security scheme model.
        */
-      amfSettings: {
-        type: Object
-      },
+      amfSettings: { type: Object },
       /**
        * Computed list of headers to render in the form.
        */
-      headers: {
-        type: Array,
-        readOnly: true
-      },
+      _headers: { type: Array },
       /**
        * Computed list of query parameters to render.
        */
-      queryParameters: {
-        type: Array,
-        readOnly: true
-      },
-      // Computed value, true if headers are defined in RAML settings.
-      hasHeaders: {
-        type: Boolean,
-        computed: '_computeHasData(headers)'
-      },
-      // Computed value, true if query parameters are defined in RAML settings.
-      hasQueryParameters: {
-        type: Boolean,
-        computed: '_computeHasData(queryParameters)'
-      },
+      _queryParameters: { type: Array },
       /**
        * Name of the security scheme
        */
-      schemeName: {
-        type: String,
-        readOnly: true
-      },
+      _schemeName: { type: String },
       /**
        * Security scheme description
        */
-      schemeDescription: {
-        type: String,
-        readOnly: true
-      },
+      _schemeDescription: { type: String },
       /**
        * True to opend scheme descripyion, if available.
        */
-      documentationOpened: Boolean
+      documentationOpened: { type: Boolean }
     };
   }
 
-  static get observers() {
-    return [
-      '_settingsChanged(headers.*)',
-      '_settingsChanged(queryParameters.*)',
-      '_schemeChanged(amfSettings, amfModel)'
-    ];
+  get _hasSchemeDescription() {
+    if (this.noDocs) {
+      return false;
+    }
+    return !!this._schemeDescription;
+  }
+
+  get amf() {
+    return this._amf;
+  }
+
+  set amf(value) {
+    /* istanbul ignore else */
+    if (this._sop('amf', value)) {
+      this._schemeChanged();
+    }
+  }
+
+  get amfSettings() {
+    return this._amfSettings;
+  }
+
+  set amfSettings(value) {
+    /* istanbul ignore else */
+    if (this._sop('amfSettings', value)) {
+      this._schemeChanged();
+    }
+  }
+
+  get _transformer() {
+    if (!this.__transformer) {
+      this.__transformer = document.createElement('api-view-model-transformer');
+    }
+    return this.__transformer;
   }
 
   constructor() {
-    super();
+    super('x-custom');
     this._headerChangedHandler = this._headerChangedHandler.bind(this);
     this._parameterChangedHandler = this._parameterChangedHandler.bind(this);
+  }
+
+  disconnectedCallback() {
+    /* istanbul ignore else */
+    if (super.disconnectedCallback) {
+      super.disconnectedCallback();
+    }
+    this.__transformer = null;
+  }
+
+  firstUpdated() {
+    const { _queryParameters, _headers } = this;
+    if (_queryParameters || _headers) {
+      this._settingsChanged();
+    }
   }
 
   _attachListeners(node) {
@@ -254,12 +216,62 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     node.removeEventListener('query-parameter-changed', this._parameterChangedHandler);
   }
 
-  ready() {
-    super.ready();
-    afterNextRender(this, () => {
-      this._initialized = true;
-    });
+  _getHeadersTemplate() {
+    return this._formListTemplate(this._headers, 'header');
   }
+
+  _getQueryTemplate() {
+    return this._formListTemplate(this._queryParameters, 'query');
+  }
+
+  _formListTemplate(items, type) {
+    if (!items || !items.length) {
+      return '';
+    }
+    const {
+      outlined,
+      legacy,
+      readOnly,
+      disabled,
+      noDocs
+    } = this;
+    return html`<section>
+    ${items.map((item, index) =>
+    this._formItemTemplate(item, index, outlined, legacy, readOnly, disabled, noDocs, type))}
+    </section>`;
+  }
+
+  _formItemTemplate(item, index, outlined, legacy, readOnly, disabled, noDocs, type) {
+    return html`<div class="field-value">
+      <api-property-form-item
+        .model="${item}"
+        .value="${item.value}"
+        name="${item.name}"
+        ?readonly="${readOnly}"
+        ?outlined="${outlined}"
+        ?legacy="${legacy}"
+        ?disabled="${disabled}"
+        data-type="${type}"
+        data-index="${index}"
+        @value-changed="${this._inputValueChanged}"
+        @input="${this._inputHandler}"></api-property-form-item>
+        ${item.hasDescription && !noDocs ? html`<anypoint-icon-button
+          class="hint-icon"
+          title="Toggle description"
+          aria-label="Press to toggle description"
+          data-type="${type}"
+          data-index="${index}"
+          @click="${this._toggleDocumentation}">
+          <iron-icon icon="arc:help"></iron-icon>
+        </anypoint-icon-button>` : undefined}
+    </div>
+    ${item.hasDescription && !noDocs && item.docsOpened ? html`<div class="docs-container">
+      <arc-marked .markdown="${item.description}">
+        <div slot="markdown-html" class="markdown-body"></div>
+      </arc-marked>
+    </div>` : ''}`;
+  }
+
   /**
    * Validates the form.
    *
@@ -267,6 +279,10 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
+    }
     return form.validate();
   }
 
@@ -275,17 +291,17 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
       return;
     }
     this.__schemeChangeDebouncer = true;
-    afterNextRender(this, () => {
+    setTimeout(() => {
       this.__schemeChangeDebouncer = false;
       this.__schemeChanged(this.amfSettings);
     });
   }
 
-  __schemeChanged(model) {
+  __schemeChanged() {
+    const model = this.amfSettings;
     const prefix = this.ns.raml.vocabularies.security;
-    this.headers = undefined;
-    this.queryParameters = undefined;
-    this._clearDocs();
+    this._headers = undefined;
+    this._queryParameters = undefined;
     if (!this._hasType(model, this.ns.raml.vocabularies.security + 'ParametrizedSecurityScheme')) {
       return;
     }
@@ -298,7 +314,6 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
       }
       type = this._getValue(scheme, prefix + 'type');
     }
-
     if (!type || type.indexOf('x-') !== 0) {
       return;
     }
@@ -306,59 +321,30 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     const pKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'parameter');
     this._createViewModel('header', this._ensureArray(scheme[hKey]));
     this._createViewModel('parameter', this._ensureArray(scheme[pKey]));
-    this._setSchemeName(this._getValue(model, prefix + 'name'));
-    this._setSchemeDescription(this._getValue(scheme, this.ns.schema.desc));
+    this._schemeName = this._getValue(model, prefix + 'name');
+    this._schemeDescription = this._getValue(scheme, this.ns.schema.desc);
+    this._settingsChanged();
   }
   /**
    * Generates view model using the tranformer.
    *
    * @param {String} type Param type. Either `header` or `parameter`.
    * @param {Array} model
-   * @return {Promise}
    */
   _createViewModel(type, model) {
     if (!model) {
       return;
     }
-    const factory = document.createElement('api-view-model-transformer');
-    factory.amfModel = this.amfModel;
+    const factory = this._transformer;
+    factory.amf = this.amf;
     const data = factory.computeViewModel(model);
     if (!data) {
       return;
     }
     if (type === 'header') {
-      this._setHeaders(data);
+      this._headers = data;
     } else if (type === 'parameter') {
-      this._setQueryParameters(data);
-    }
-  }
-
-  _computeHasData(data) {
-    return !!(data && data.length);
-  }
-
-  _settingsChanged(record) {
-    if (!this.shadowRoot || this.__cancelChangeEvent || !this._initialized) {
-      return;
-    }
-    if (!record || !record.path) {
-      this._debounceNotify();
-      return;
-    }
-    const path = record.path;
-    switch (path) {
-      case 'headers':
-      case 'headers.splices':
-      case 'headers.length':
-      case 'queryParameters':
-      case 'queryParameters.splices':
-      case 'queryParameters.length':
-        return this._debounceNotify();
-      default:
-        if (/[headers|queryParameters]\.\d+\.[name|value]/.test(path)) {
-          this._debounceNotify();
-          return;
-        }
+      this._queryParameters = data;
     }
   }
   /**
@@ -367,117 +353,11 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @return {Object} Current OAuth2 configuration.
    */
   getSettings() {
-    if (!this.shadowRoot) {
+    const form = this.shadowRoot.querySelector('iron-form');
+    if (!form) {
       return {};
     }
-    const form = this.shadowRoot.querySelector('iron-form');
     return form.serializeForm();
-  }
-  /**
-   * Restores settings from stored value.
-   * For custom methods this is dummy function.
-   */
-  restore() {}
-
-  _debounceNotify() {
-    if (this.__notifyingChange) {
-      return;
-    }
-    this.__notifyingChange = true;
-    setTimeout(() => {
-      this._notifySettingsChanged();
-      this.__notifyingChange = false;
-    }, 25);
-  }
-  /**
-   * Notifies about settings change.
-   */
-  _notifySettingsChanged() {
-    const detail = {
-      settings: this.getSettings(),
-      type: 'x-custom',
-      name: this.schemeName,
-      valid: this.validate()
-    };
-    this.dispatchEvent(new CustomEvent('auth-settings-changed', {
-      detail: detail,
-      bubbles: true,
-      composed: true
-    }));
-  }
-
-  /**
-   * Dispatches headers change event on user input.
-   */
-  _headerValueChanged(e) {
-    this._propertyValueChanged('header', e);
-  }
-  /**
-   * Dispatches query parameter change event on user input.
-   */
-  _queryValueChanged(e) {
-    this._propertyValueChanged('parameter', e);
-  }
-  /**
-   * Dispatches change event for headers and query parameters.
-   *
-   * @param {String} type Change type. `header` or `parameter`.
-   * @param {CustomEvent} e Custom event dispatched by the form control.
-   */
-  _propertyValueChanged(type, e) {
-    const model = e.model.get('item');
-    const eventType = type === 'header' ? 'request-header-changed' : 'query-parameter-changed';
-    this.dispatchEvent(new CustomEvent(eventType, {
-      detail: {
-        name: model.name,
-        value: e.detail.value
-      },
-      bubbles: true,
-      composed: true
-    }));
-  }
-  /**
-   * Handler for the `request-header-changed` event.
-   * It updates value for a single header if this header is already on the list.
-   */
-  _headerChangedHandler(e) {
-    this._updateEventValue('headers', e);
-  }
-  /**
-   * Handler for the `query-parameter-changed` event.
-   * It updates value for a single parameter if this parameter is already on the list.
-   */
-  _parameterChangedHandler(e) {
-    this._updateEventValue('queryParameters', e);
-  }
-  /**
-   * Update array value for given type (`headers` or `queryParameters`) for given event.
-   */
-  _updateEventValue(target, e) {
-    if (e.target === this || e.defaultPrevented) {
-      return;
-    }
-    let name = e.detail.name;
-    if (!name) {
-      return;
-    }
-    // Headers are case insensitive.
-    name = target === 'headers' ? name.toLowerCase() : name;
-    const parameters = this[target];
-    if (!parameters || !parameters.length) {
-      return;
-    }
-    for (let i = 0, len = parameters.length; i < len; i++) {
-      let pName = parameters[i].name;
-      if (!pName) {
-        continue;
-      }
-      pName = target === 'headers' ? pName.toLowerCase() : pName;
-      if (pName === name) {
-        this.set([target, i, 'value'], e.detail.value);
-        return;
-      }
-    }
   }
   /**
    * Toggles documentartion for custom property.
@@ -485,63 +365,106 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {CustomEvent} e
    */
   _toggleDocumentation(e) {
-    const target = e.target;
-    const source = target.dataset.source;
-    if (!source) {
-      throw new Error('Could not find source of the event.');
-    }
-    const repeater = this.shadowRoot.querySelector('[data-repeater="' + source + '"]');
-    if (!repeater) {
-      throw new Error('Could not find repeater for the item.');
-    }
-    const model = repeater.modelForElement(target).get('item');
-    let selector = '.data-docs[data-source="' + source + '"]';
-    selector += '[data-key="' + model.name + '"]';
-    const docsContainer = this.shadowRoot.querySelector(selector);
-    if (!docsContainer) {
-      throw new Error('Could not find documentation container.');
-    }
-    if (!docsContainer.children[0]) {
-      this._createDocsElements(model, docsContainer);
-    } else {
-      docsContainer.children[0].opened = !docsContainer.children[0].opened;
-    }
-  }
-  /**
-   * Creates a documentation element.
-   *
-   * @param {Object} model
-   * @param {Object} appendTo
-   */
-  _createDocsElements(model, appendTo) {
-    const collapse = document.createElement('iron-collapse');
-    const marked = document.createElement('marked-element');
-    const wrapper = document.createElement('div');
-
-    collapse.dataset.docsCollapse = true;
-    wrapper.className = 'markdown-html markdown-body';
-    marked.appendChild(wrapper);
-    collapse.appendChild(marked);
-    appendTo.appendChild(collapse);
-
-    marked.markdown = model.description;
-    collapse.opened = true;
-  }
-  /**
-   * Clears all custom data documention nodes.
-   */
-  _clearDocs() {
-    const nodes = this.shadowRoot.querySelectorAll('[data-docs-collapse="true"]');
-    if (!nodes || !nodes.length) {
+    const index = Number(e.currentTarget.dataset.index);
+    const type = e.currentTarget.dataset.type;
+    if (index !== index || !type) {
       return;
     }
-    nodes.forEach((node) => node.parentNode.removeChild(node));
+    const model = type === 'query' ? this._queryParameters : this._headers;
+    model[index].docsOpened = !model[index].docsOpened;
+    this.requestUpdate();
   }
   /**
    * Toggles docs opened state
    */
   toggleSchemeDocumentation() {
     this.documentationOpened = !this.documentationOpened;
+  }
+
+  _inputHandler(e) {
+    const index = Number(e.target.dataset.index);
+    const type = e.target.dataset.type;
+    if (index !== index || !type) {
+      return;
+    }
+    const model = type === 'query' ? this._queryParameters : this._headers;
+    model[index].value = e.target.value;
+    this.__isInputEvent = true;
+    this._settingsChanged();
+    this.__isInputEvent = false;
+  }
+  /**
+   * Handler for the `request-header-changed` event.
+   * It updates value for a single header if this header is already on the list.
+   * @param {CustomEvent} e
+   */
+  _headerChangedHandler(e) {
+    this._updateEventValue(e, this._headers);
+  }
+  /**
+   * Handler for the `query-parameter-changed` event.
+   * It updates value for a single parameter if this parameter is already on the list.
+   * @param {CustomEvent} e
+   */
+  _parameterChangedHandler(e) {
+    this._updateEventValue(e, this._queryParameters);
+  }
+  /**
+   * Update array value for given type (`headers` or `queryParameters`) for given event.
+   * @param {CustomEvent} e
+   * @param {Array} model Model to use to update the value.
+   */
+  _updateEventValue(e, model) {
+    if (!model || !model.length) {
+      return;
+    }
+    const target = this._getEventTarget(e);
+    if (target === this || e.defaultPrevented) {
+      return;
+    }
+    const name = e.detail.name;
+    if (!name || typeof name !== 'string') {
+      return;
+    }
+    for (let i = 0, len = model.length; i < len; i++) {
+      const pName = model[i].name;
+      if (!pName) {
+        continue;
+      }
+      if (pName === name) {
+        model[i].value = e.detail.value;
+        this.requestUpdate();
+        this._settingsChanged();
+        return;
+      }
+    }
+  }
+  /**
+   * Handler for the `value-changed` event disaptched by input element.
+   * Dispatches 'request-header-changed' or 'query-parameter-changed'
+   * event. Other components can update their state when the value change.
+   *
+   * @param {CustomEvent} e
+   */
+  _inputValueChanged(e) {
+    const index = Number(e.target.dataset.index);
+    const type = e.target.dataset.type;
+    if (index !== index || !type) {
+      return;
+    }
+    const model = type === 'query' ? this._queryParameters : this._headers;
+    const { name } = model[index];
+    const { value } = e.detail;
+    model[index].value = value;
+    const eventType = type === 'header' ? 'request-header-changed' : 'query-parameter-changed';
+    this.dispatchEvent(new CustomEvent(eventType, {
+      detail: {
+        name,
+        value
+      },
+      bubbles: true,
+      composed: true
+    }));
   }
   /**
    * Fired when the any of the auth method settings has changed.
@@ -570,4 +493,4 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {String} value Value of the parameter
    */
 }
-window.customElements.define(AuthMethodCustom.is, AuthMethodCustom);
+window.customElements.define('auth-method-custom', AuthMethodCustom);

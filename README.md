@@ -2,23 +2,10 @@
 
 [![Build Status](https://travis-ci.org/advanced-rest-client/auth-methods.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/auth-methods)
 
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/advanced-rest-client/auth-methods)
-
 # auth-methods
 
 A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc
 
-```html
-<h2>Basic</h2>
-<auth-method-basic></auth-method-basic>
-
-<h2>OAuth 2</h2>
-<auth-method-oauth2></auth-method-oauth2>
-```
-
-### API components
-
-This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
 
 ## Usage
 
@@ -47,14 +34,19 @@ npm install --save @advanced-rest-client/auth-methods
 </html>
 ```
 
-### In a Polymer 3 element
+### In a LitElement
 
 ```js
-import {PolymerElement, html} from '@polymer/polymer';
+import { LitElement, html } from 'lit-element';
 import '@advanced-rest-client/auth-methods/auth-methods.js';
 
 class SampleElement extends PolymerElement {
-  static get template() {
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('auth-settings-changed', this._authChanged);
+  }
+
+  render() {
     return html`
     <auth-method-basic></auth-method-basic>
     <auth-method-digest></auth-method-digest>
@@ -64,39 +56,49 @@ class SampleElement extends PolymerElement {
     <auth-method-custom></auth-method-custom>
     `;
   }
+
+  _authChanged(e) {
+    console.log('current authorization settings', e.detail);
+  }
 }
 customElements.define('sample-element', SampleElement);
 ```
 
-### Installation
+### Receiving authorization data
+
+When the user changes any of the editors it dispatches bubbling `auth-settings-changed` custom event.
+The events has the following properties set on the detail object:
+
+-   `settings` - Object, depends on the panel. Each panel has it's own configuration
+-   `type` - String, name of the configuration - corresponds to authentication method
+-   `valid` - Boolean, whether or not the current values are valid for given type.
+
+
+## Development
 
 ```sh
 git clone https://github.com/advanced-rest-client/auth-methods
 cd auth-methods
 npm install
-npm install -g polymer-cli
 ```
 
 ### Running the demo locally
 
 ```sh
-polymer serve --npm
-open http://127.0.0.1:<port>/demo/
+npm start
 ```
 
 ### Running the tests
 ```sh
-polymer test --npm
+npm test
 ```
 
+### API components
+
+This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
+
+
 ## Breaking Changes in v3
-
-Due to completely different dependencies import algorithm the CodeMirror and it's dependencies has to
-be included to the web application manually, outside the component.
-
-Web Compoennts are ES6 modules and libraries like CodeMirror are not adjusted to
-new spec. Therefore importing the library inside the component won't make it work
-(no reference is created).
 
 Use the scripts below to include dependencies into the web page.
 
