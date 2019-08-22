@@ -2,7 +2,6 @@ import { css } from 'lit-element';
 export default css `
 anypoint-input,
 anypoint-masked-input {
-  max-width: 560px;
   width: auto;
   display: block;
 }

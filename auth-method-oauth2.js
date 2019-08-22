@@ -11,38 +11,31 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {afterNextRender} from '../../@polymer/polymer/lib/utils/render-status.js';
-import {EventsTargetMixin} from '../../@advanced-rest-client/events-target-mixin/events-target-mixin.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import {AuthMethodsMixin} from './auth-methods-mixin.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@polymer/polymer/lib/elements/dom-if.js';
-import '../../@advanced-rest-client/paper-masked-input/paper-masked-input.js';
-import '../../@polymer/paper-icon-button/paper-icon-button.js';
-import '../../@polymer/paper-button/paper-button.js';
-import '../../@polymer/paper-input/paper-input.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/paper-styles/paper-styles.js';
-import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../../@polymer/iron-form/iron-form.js';
-import '../../@polymer/paper-item/paper-item.js';
-import '../../@polymer/paper-toast/paper-toast.js';
-import '../../@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-import '../../@polymer/paper-listbox/paper-listbox.js';
-import '../../@advanced-rest-client/oauth2-scope-selector/oauth2-scope-selector.js';
-import '../../@polymer/paper-spinner/paper-spinner.js';
-import '../../@polymer/iron-collapse/iron-collapse.js';
-import '../../@polymer/paper-ripple/paper-ripple.js';
-import '../../@polymer/paper-checkbox/paper-checkbox.js';
-import '../../@advanced-rest-client/clipboard-copy/clipboard-copy.js';
-import '../../@api-components/api-view-model-transformer/api-view-model-transformer.js';
-import '../../@api-components/api-property-form-item/api-property-form-item.js';
-import '../../@polymer/marked-element/marked-element.js';
-import '../../@advanced-rest-client/markdown-styles/markdown-styles.js';
-import '../../@polymer/iron-meta/iron-meta.js';
-import './auth-methods-styles.js';
-import './auth-method-step.js';
+import { html, css } from 'lit-element';
+import { AuthMethodBase } from './auth-method-base.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import authStyles from './auth-methods-styles.js';
+import markdownStyles from '@advanced-rest-client/markdown-styles/markdown-styles.js';
+import formStyles from '@api-components/api-form-mixin/api-form-styles.js';
+import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+import '@anypoint-web-components/anypoint-button/anypoint-button.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@anypoint-web-components/anypoint-input/anypoint-input.js';
+import '@anypoint-web-components/anypoint-input/anypoint-masked-input.js';
+import '@polymer/iron-form/iron-form.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@anypoint-web-components/anypoint-dropdown-menu/anypoint-dropdown-menu.js';
+import '@anypoint-web-components/anypoint-listbox/anypoint-listbox.js';
+import '@anypoint-web-components/anypoint-item/anypoint-item.js';
+import '@polymer/paper-toast/paper-toast.js';
+import '@polymer/paper-spinner/paper-spinner.js';
+import '@advanced-rest-client/oauth2-scope-selector/oauth2-scope-selector.js';
+import '@anypoint-web-components/anypoint-checkbox/anypoint-checkbox.js';
+import '@advanced-rest-client/clipboard-copy/clipboard-copy.js';
+import '@api-components/api-view-model-transformer/api-view-model-transformer.js';
+import '@api-components/api-property-form-item/api-property-form-item.js';
+import '@advanced-rest-client/arc-marked/arc-marked.js';
+import '@polymer/iron-meta/iron-meta.js';
 /**
  * The `<auth-method-oauth2>` element displays a form to provide the OAuth 2.0 settings.
  *
@@ -182,7 +175,7 @@ import './auth-method-step.js';
  * `oauth2-client-id` and `oauth2-client-secret` will be used to prepopulate
  * the form if the form doesn't contain this properties already.
  *
- * Note, values changed by the user are persistant per browser session
+ * Note, values changed by the user are persistent per browser session
  * (until browser is closed). Refresing the page will restore user input
  * instead the one defined in `iron-meta` elements.
  *
@@ -193,445 +186,153 @@ import './auth-method-step.js';
  * <iron-meta key="oauth2-client-secret" value="efgh"></iron-meta>
  * ```
  *
- * ## Styling
- *
- * `<auth-method-oauth2>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--auth-method-oauth2` | Mixin applied to the element. | `{}`
- * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
- * `--auth-grant-dropdown` | Mixin applied to the authorization grants dropdown list | `{}`
- *
- * This is very basic element. Style inputs using `paper-input`'s or `
- * paper-toggle`'s css variables.
- *
- * ### Theming
- * Use this mixins as a theming option across all ARC elements.
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
- * `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
- * `--input-line-color` | Mixin applied to the input underline | `{}`
- * `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
- * `--auth-button` | Mixin applied to authorization action buttons | `{}`
- * `--auth-button-hover` | Mixin applied to authorization buttons when hovered | `{}`
- * `--auth-button-disabled` | Mixin applied to authorization buttons when disabled | `{}`
- * `--auth-button-narrow` | Mixin applied to authorization action buttons when narrow layout | `{}`
- * `--auth-button-narrow-hover` | Mixin applied to authorization buttons when hovered and narrow layout | `{}`
- * `--auth-button-narrow-disabled` | | Mixin applied to authorization buttons when disabled and narrow layout | `{}`
- * `--auth-redirect-section` | Mixin applied to the redirect uri section | `{}`
- * `--error-toast` | Mixin applied to the error toast message | `{}`
- * `--warning-primary-color` | Error toast background color | `#FF7043`
- * `--warning-contrast-color` | Error toast color | `#fff`
- *
- * ## Changes in version 2
- *
- * - Renamed properties
- *  - `authUrl` -> `authorizationUri`
- *  - `redirectUrl` -> `redirectUri`
- *  - `accessTokenUrl` -> `accessTokenUri`
- *  - `tokenValue` -> `accessToken`
- *  - `hasTokenValue` -> `hasAccessToken`
- * - Added `tokenType` to the events describing type of the token.
- * By default it's `Bearer`
- * - **The element does not support RAML js data model anymore**. It uses
- * [AMF](https://github.com/mulesoft/amf/) `json/ld` model. Use AMF to read
- * API spec file (RAML, OAS, etc) and load settings via `amfSettings`
- * property
- * - Added `deliveryMethod` and `deliveryName` properties to the
- * `detail.setting` object.
- *
  * @customElement
- * @polymer
  * @memberof UiElements
- * @appliesMixin EventsTargetMixin
- * @appliesMixin ArcBehaviors.AuthMethodsMixin
- * @appliesMixin ApiElements.AmfHelperMixin
+ * @appliesMixin AmfHelperMixin
  * @demo demo/oauth2.html
  * @demo demo/oauth2-amf.html Using AMF data model
+ * @extends AuthMethodBase
  */
-class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin(PolymerElement))) {
-  static get template() {
-    return html`<style include="markdown-styles"></style>
-    <style include="auth-methods-styles">
-    :host {
-      display: block;
-      @apply --arc-font-body1;
-      @apply --auth-method-panel;
-      @apply --auth-method-oauth2;
-
-      --paper-icon-button: {
-        color: var(--hint-trigger-color, rgba(0, 0, 0, 0.74));
-        transition: color 0.25s linear;
-        @apply --icon-button;
+class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
+  static get styles() {
+    return [
+      markdownStyles,
+      formStyles,
+      authStyles,
+      css`:host {
+        display: block;
+        font-size: var(--arc-font-body1-font-size);
+        font-weight: var(--arc-font-body1-font-weight);
+        line-height: var(--arc-font-body1-line-height);
       }
 
-      --paper-icon-button-hover: {
-        color: var(--hint-trigger-hover-color, rgba(0, 0, 0, 0.88));
-        @apply --icon-button-hover;
+      .form {
+        flex: 1;
       }
-    }
 
-    .form {
-      @apply --layout-flex;
-      max-width: 700px;
-    }
+      oauth2-scope-selector {
+        margin: 24px 0;
+        outline: none;
+      }
 
-    oauth2-scope-selector {
-      margin: 24px 0;
-      outline: none;
-    }
+      .grant-dropdown {
+        width: auto;
+        min-width: 320px;
+      }
 
-    .grant-dropdown {
-      width: 320px;
-      @apply --auth-grant-dropdown;
-    }
+      .authorize-actions {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+      }
 
-    .auth-button {
-      color: var(--secondary-color);
-      background-color: #fff;
-      @apply --auth-button;
-    }
+      .authorize-actions > anypoint-button {
+        margin: 0;
+      }
 
-    .auth-button:hover {
-      @apply --auth-button-hover;
-    }
+      .authorize-actions > anypoint-spinner {
+        margin-left: 12px;
+      }
 
-    .auth-button[disabled] {
-      background-color: rgba(0, 0, 0, 0.24);
-      color: rgba(0, 0, 0, 0.54);
-      @apply --auth-button-disabled;
-    }
+      .token-info,
+      .redirect-info {
+        margin: 12px 8px;
+        color: var(--auth-method-oauth2-redirect-info-color, rgba(0, 0, 0, 0.74));
+      }
 
-    :host([narrow]) .auth-button {
-      @apply --auth-button-narrow;
-    }
+      .code {
+        font-family: var(--arc-font-code-family);
+        flex: 1;
+        outline: none;
+        cursor: text;
+      }
 
-    :host([narrow]) .auth-button:hover {
-      @apply --auth-button-narrow-hover;
-    }
+      .token-label {
+        font-weight: 500;
+        font-size: 16px;
+        margin: 12px 8px;
+      }
 
-    :host([narrow]) .auth-button[disabled] {
-      @apply --auth-button-narrow-disabled;
-    }
+      .current-token {
+        margin-top: 12px;
+      }
 
-    .authorize-actions {
-      @apply --layout-horizontal;
-      @apply --layout-center;
-    }
+      .redirect-section,
+      oauth2-scope-selector {
+        box-sizing: border-box;
+      }
 
-    .authorize-actions > paper-button {
-      margin: 0;
-    }
+      *[hiddable] {
+        display: none;
+      }
 
-    .authorize-actions > paper-spinner {
-      margin-left: 12px;
-    }
+      *[data-grant="authorization_code"] *[data-visible~="authorization_code"],
+      *[data-grant="client_credentials"] *[data-visible~="client_credentials"],
+      *[data-grant="implicit"] *[data-visible~="implicit"],
+      *[data-grant="password"] *[data-visible~="password"] {
+        display: block;
+      }
 
-    .read-only-param-field {
-      background-color: rgba(0, 0, 0, 0.12);
-      @apply --arc-font-body1;
-      display: block;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      word-break: break-all;
-      @apply --layout-horizontal;
-    }
+      form[is-custom-grant] *[data-visible] {
+        display: block !important;
+      }
 
-    .read-only-param-field.padding {
-      padding: 12px;
-    }
+      .field-value {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+      }
 
-    label {
-      @apply --form-label;
-    }
+      api-property-form-item {
+        flex: 1;
+      }
 
-    .token-info,
-    .redirect-info {
-      @apply --arc-font-body1;
-      font-weight: 200;
-      color: var(--auth-method-oauth2-redirect-info-color, rgba(0, 0, 0, 0.74));
-    }
+      .error-toast {
+        background-color: var(--warning-primary-color, #FF7043);
+        color: var(--warning-contrast-color, #fff);
+      }
 
-    .code {
-      @apply --arc-font-code1;
-      @apply --layout-flex;
-      outline: none;
-      cursor: text;
-    }
+      api-property-form-item[is-array] {
+        margin-top: 8px;
+      }
 
-    .token-label {
-      font-weight: 500;
-      font-size: 16px;
-    }
+      .read-only-param-field {
+         background-color: rgba(0, 0, 0, 0.12);
+         display: block;
+         white-space: pre-wrap;
+         word-wrap: break-word;
+         word-break: break-all;
+         display: flex;
+         flex-direction: row;
+       }
 
-    .current-token {
-      margin-top: 12px;
-    }
-
-    .redirect-section,
-    oauth2-scope-selector {
-      max-width: 560px;
-      box-sizing: border-box;
-    }
-
-    .redirect-section {
-      @apply --auth-redirect-section;
-    }
-
-    *[hiddable] {
-      display: none;
-    }
-
-    *[data-grant="authorization_code"] *[data-visible~="authorization_code"],
-    *[data-grant="client_credentials"] *[data-visible~="client_credentials"],
-    *[data-grant="implicit"] *[data-visible~="implicit"],
-    *[data-grant="password"] *[data-visible~="password"] {
-      display: block;
-    }
-
-    form[is-custom-grant] *[data-visible] {
-      display: block !important;
-    }
-
-    .custom-data-field-value {
-      @apply --layout-horizontal;
-      @apply --layout-flex;
-    }
-
-    api-property-form-item {
-      @apply --layout-flex;
-    }
-
-    h4 {
-      @apply --arc-font-subhead;
-    }
-
-    .help-icon {
-      margin-top: 16px;
-    }
-
-    .error-toast {
-      background-color: var(--warning-primary-color, #FF7043);
-      color: var(--warning-contrast-color, #fff);
-      @apply --error-toast;
-    }
-
-    api-property-form-item[is-array] {
-      margin-top: 8px;
-    }
-
-    paper-item:hover {
-      @apply --paper-item-hover;
-    }
-
-    #redirectCopyButton {
-      @apply --secondary-button;
-    }
-
-    #redirectCopyButton:hover {
-      @apply --secondary-button-hover;
-    }
-    </style>
-    <iron-form data-grant\$="[[grantType]]">
-      <form autocomplete="on" is-custom-grant\$="[[isCustomGrant]]">
-        <auth-method-step step-start-index="[[stepStartIndex]]"
-          step="1"
-          no-steps="[[noSteps]]"
-          inactive="[[isSelectedType]]"
-          hidden\$="[[noGrantType]]"
-          on-inactive-tap="_clearTypeSelection">
-          <span slot="title">Grant type</span>
-          <span slot="inactive-title">[[_computeSelectedTypeLabel(grantType)]]</span>
-          <paper-dropdown-menu label="Grant type" class="grant-dropdown" required="" auto-validate="">
-            <paper-listbox slot="dropdown-content" selected="{{grantType}}" attr-for-selected="data-type">
-              <template is="dom-repeat" items="[[grantTypes]]">
-                <paper-item data-type\$="[[item.type]]">[[item.label]]</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
-        </auth-method-step>
-        <auth-method-step step-start-index="[[stepStartIndex]]" step="2" no-steps="[[noSteps]]">
-          <span slot="title">Authorization data</span>
-          <section>
-            <paper-masked-input auto-validate="" required\$="[[_isFieldRequired(isCustomGrant)]]" data-input="clientid" label="Client id" value="{{clientId}}" autocomplete="on" title="Your client ID registered in your OAuth provider."></paper-masked-input>
-            <paper-masked-input auto-validate="" required\$="[[_isFieldRequired(isCustomGrant)]]" data-input="clientsecret" label="Client secret" value="{{clientSecret}}" hiddable="" data-visible="client_credentials authorization_code" disabled\$="[[_isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code')]]" autocomplete="on" title="The client secret is generated by your provider unique string for your app. Check provider's console to get the code."></paper-masked-input>
-            <template is="dom-if" if="[[authQueryParameters]]" restamp="">
-              <h4>Authorization request query parameters</h4>
-              <template is="dom-repeat" items="{{authQueryParameters}}" data-repeater="auth-query">
-                <div class="custom-data-field auth-query-parameter">
-                  <div class="custom-data-field-value">
-                    <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="auth-query"></api-property-form-item>
-                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="auth-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
-                    </template>
-                  </div>
-                  <div class="custom-data-field-docs docs-container" data-source="auth-query" data-key\$="[[item.name]]"></div>
-                </div>
-              </template>
-            </template>
-            <template is="dom-if" if="[[tokenQueryParameters]]" restamp="">
-              <h4>Token request query parameters</h4>
-              <template is="dom-repeat" items="{{tokenQueryParameters}}" data-repeater="token-query">
-                <div class="custom-data-field token-query-parameter">
-                  <div class="custom-data-field-value">
-                    <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-query"></api-property-form-item>
-                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="token-query" title="Display documentation" noink="[[noink]]"></paper-icon-button>
-                    </template>
-                  </div>
-                  <div class="custom-data-field-docs docs-container" data-source="token-query" data-key\$="[[item.name]]"></div>
-                </div>
-              </template>
-            </template>
-            <template is="dom-if" if="[[tokenHeaders]]" restamp="">
-              <h4>Token request headers</h4>
-              <template is="dom-repeat" items="{{tokenHeaders}}" data-repeater="token-headers">
-                <div class="custom-data-field token-header">
-                  <div class="custom-data-field-value">
-                    <api-property-form-item model="[[item]]" name="[[item.name]]" value="{{item.value}}" data-type="token-headers"></api-property-form-item>
-                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="token-headers" title="Display documentation" noink="[[noink]]"></paper-icon-button>
-                    </template>
-                  </div>
-                  <div class="custom-data-field-docs docs-container" data-source="token-headers" data-key\$="[[item.name]]"></div>
-                </div>
-              </template>
-            </template>
-            <template is="dom-if" if="[[tokenBody]]" restamp="">
-              <h4>Token request body</h4>
-              <template is="dom-repeat" items="{{tokenBody}}" data-repeater="token-body">
-                <div class="custom-data-field body-parameter">
-                  <div class="custom-data-field-value">
-                    <api-property-form-item model="[[item]]" name\$="[[item.name]]" auto-validate="" required\$="[[item.required]]" value="{{item.value}}" data-type="token-body"></api-property-form-item>
-                    <template is="dom-if" if="[[_computeHasDoc(noDocs, item.hasDescription)]]">
-                      <paper-icon-button class="help-icon hint-icon" icon="arc:help" on-click="_toggleDocumentation" data-source="token-body" title="Display documentation" noink="[[noink]]"></paper-icon-button>
-                    </template>
-                  </div>
-                  <div class="custom-data-field-docs docs-container" data-source="token-body" data-key\$="[[item.name]]"></div>
-                </div>
-              </template>
-            </template>
-            <template is="dom-if" if="[[isAdvanced]]">
-              <div class="adv-toggle">
-                <paper-checkbox class="adv-settings-input" checked="{{advancedOpened}}">Advanced settings</paper-checkbox>
-              </div>
-            </template>
-            <iron-collapse opened="[[advancedOpened]]">
-              <paper-input auto-validate="" required\$="[[_isFieldRequired(isCustomGrant)]]" data-input="authuri" label="Authorization URI" value="{{authorizationUri}}" hiddable="" data-visible="implicit authorization_code" disabled\$="[[_isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code')]]" type="text" autocomplete="on" title="The authorization URL initializes the OAuth flow. If you don't know the authorization URL check your provider's documentation."></paper-input>
-              <paper-input auto-validate="" required\$="[[_isFieldRequired(isCustomGrant)]]" data-input="tokenuri" label="Access token URI" value="{{accessTokenUri}}" hiddable="" data-visible="client_credentials authorization_code password" disabled\$="[[_isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code', 'password')]]" type="text" autocomplete="on" title="The access token URL is used by server implementations to exchange access code for access token."></paper-input>
-              <paper-masked-input auto-validate="" required\$="[[_isFieldRequired(isCustomGrant)]]" data-input="username" label="Username" value="{{username}}" hiddable="" data-visible="password" disabled\$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on" title="The username required for this OAuth authentication."></paper-masked-input>
-              <paper-masked-input auto-validate="" required\$="[[_isFieldRequired(isCustomGrant)]]" data-input="password" label="Password" value="{{password}}" hiddable="" data-visible="password" disabled\$="[[_isFieldDisabled(isCustomGrant, grantType, 'password')]]" autocomplete="on" title="The password required for this OAuth authentication."></paper-masked-input>
-              <div>
-                <oauth2-scope-selector allowed-scopes="[[allowedScopes]]" prevent-custom-scopes="[[preventCustomScopes]]" value="{{scopes}}"></oauth2-scope-selector>
-              </div>
-            </iron-collapse>
-          </section>
-        </auth-method-step>
-        <auth-method-step step-start-index="[[stepStartIndex]]" step="3" no-steps="[[noSteps]]">
-          <span slot="title">Redirect URI</span>
-          <section>
-            <div class="redirect-section">
-              <p class="redirect-info">Set this redirect URI in OAuth 2.0 provider settings.</p>
-              <p class="read-only-param-field padding">
-                <span class="code" on-click="_clickCopyAction">[[redirectUri]]</span>
-              </p>
-            </div>
-          </section>
-        </auth-method-step>
-      </form>
-    </iron-form>
-    <div class="authorize-actions" hidden\$="[[hasAccessToken]]">
-      <paper-button disabled\$="[[_authorizing]]" class="auth-button" data-type="get-token" on-click="authorize" raised="" noink="[[noink]]">Request access token</paper-button>
-      <paper-spinner active="[[_authorizing]]"></paper-spinner>
-    </div>
-
-    <div class="current-token" hidden\$="[[!hasAccessToken]]">
-      <label class="token-label">Current token</label>
-      <p class="read-only-param-field padding">
-        <span class="code" on-click="_clickCopyAction">[[accessToken]]</span>
-      </p>
-      <div class="authorize-actions">
-        <paper-button disabled\$="[[_authorizing]]" class="auth-button" data-type="refresh-token" on-click="authorize" raised="" noink="[[noink]]">Refresh access token</paper-button>
-        <paper-spinner active="[[_authorizing]]"></paper-spinner>
-      </div>
-    </div>
-    <paper-toast text="" duration="5000"></paper-toast>
-    <paper-toast class="error-toast" text="" duration="5000"></paper-toast>
-    <paper-toast text="Value copied to clipboard" id="clipboardToast" duration="2000"></paper-toast>
-    <clipboard-copy></clipboard-copy>`;
+       .read-only-param-field.padding {
+         padding: 12px;
+       }`
+    ];
   }
-  static get is() {
-    return 'auth-method-oauth2';
-  }
+
   static get properties() {
     return {
       // Seleted authorization grand type.
-      grantType: {
-        type: String,
-        value: '',
-        notify: true,
-        observer: '_settingsChanged'
-      },
+      grantType: { type: String },
       /**
        * Computed value, true if the grant type is a cutom definition.
        */
-      isCustomGrant: {
-        type: Boolean,
-        computed: '_computeIsCustomGrant(grantType)',
-        value: false
-      },
-      // Computed value, true if the `grantType` is set.
-      isSelectedType: {
-        type: Boolean,
-        value: false,
-        computed: '_computeIsSelectedType(grantType)'
-      },
-      /**
-       * If true, OAuth flow selector will be collapsed.
-       */
-      forceHideTypeSelector: {
-        type: Boolean,
-        value: false
-      },
+      isCustomGrant: { type: Boolean },
       // The client ID for the auth token.
-      clientId: {
-        type: String,
-        notify: true,
-        observer: '_clientIdChanged'
-      },
+      clientId: { type: String },
       // The client secret. It to be used when selected server flow.
-      clientSecret: {
-        type: String,
-        notify: true,
-        observer: '_clientSecretChanged'
-      },
+      clientSecret: { type: String },
       // The authorization URL to initialize the OAuth flow.
-      authorizationUri: {
-        type: String,
-        notify: true,
-        observer: '_authorizationUriChanged'
-      },
+      authorizationUri: { type: String },
       // The access token URL to exchange code for token. It is used in server flow.
-      accessTokenUri: {
-        type: String,
-        notify: true,
-        observer: '_accessTokenUriChanged'
-      },
+      accessTokenUri: { type: String },
       // The password. To be used with the password flow.
-      password: {
-        type: String,
-        notify: true,
-        observer: '_passwordChanged'
-      },
+      password: { type: String },
       // The password. To be used with the password flow.
-      username: {
-        type: String,
-        notify: true,
-        observer: '_usernameChanged'
-      },
+      username: { type: String },
       /**
        * A callback URL to be used with this element.
        * User can't change the callback URL and it will inform the user to setup OAuth to use
@@ -639,40 +340,30 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        *
        * This is relevant when selected flow is the browser flow.
        */
-      redirectUri: {
-        type: String,
-        observer: '_settingsChanged'
-      },
+      redirectUri: { type: String },
       /**
        * List of user selected scopes.
        * It can be pre-populated with list of scopes (array of strings).
        */
-      scopes: {
-        type: Array
-      },
+      scopes: { type: Array },
       /**
        * List of pre-defined scopes to choose from. It will be passed to the `oauth2-scope-selector`
        * element.
        */
-      allowedScopes: Array,
+      allowedScopes: { type: Array },
       /**
        * If true then the `oauth2-scope-selector` will disallow to add a scope that is not
        * in the `allowedScopes` list. Has no effect if the `allowedScopes` is not set.
        */
-      preventCustomScopes: Boolean,
+      preventCustomScopes: { type: Boolean },
       // True when currently authorizing the user.
-      _authorizing: Boolean,
+      _authorizing: { type: Boolean },
       /**
        * When the user authorized the app it should be set to the token value.
        * This element do not perform authorization. Other elements must intercept
-       * `oauth2-token-requested` and perform the authorization. As a result the element
-       * performing an authorization should set back the auth token on the event target object
-       * (this element).
+       * `oauth2-token-requested` and perform the authorization.
        */
-      accessToken: {
-        type: String,
-        observer: '_accessTokenChanged'
-      },
+      accessToken: { type: String },
       /**
        * Received from the response token value.
        * By default it is "bearer" as the only one defined in OAuth 2.0
@@ -680,74 +371,41 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * If the token response contains `tokenType` property this value is
        * updated.
        */
-      tokenType: {
-        type: String,
-        value: 'Bearer',
-        observer: '_tokenTypeChanged'
-      },
-      // Computed value, true if access token is set.
-      hasAccessToken: {
-        type: Boolean,
-        value: false,
-        computed: '_computeHasToken(accessToken)',
-      },
+      tokenType: { type: String },
       /**
        * AMF json/ld mode describing security scheme.
        */
-      amfSettings: {
-        type: Object,
-        observer: '_amfChanged'
-      },
+      amfSettings: { type: Object },
 
       // Currently available grant types.
-      grantTypes: {
-        type: Array,
-        observer: '_settingsChanged'
-      },
+      grantTypes: { type: Array },
       /**
-       * `true` whem the element has been initialized.
-       * When changed it dispatches first oauth settings event with initial
-       * values.
-       */
-      _initialized: {
-        type: Boolean,
-        observer: '_settingsChanged'
-      },
-      // If true, the flow type selector will be forced to be opened
-      _typeSelectorForceOpened: {
-        type: Boolean,
-        value: false
-      },
-      /**
-       * The element will automatically hide following fileds it the element has been initialized
+       * The element automatically hides following fileds it the element has been initialized
        * with values for this fields (without user interaction):
        *
        * - autorization url
        * - token url
        * - scopes
        *
-       * If all this values are set then the element will set `isAdvanced` attribute and set
+       * If all this values are set then the element sets `isAdvanced` attribute and sets
        * `advancedOpened` to false
        *
        * Setting this property will prevent this behavior.
        */
-      noAuto: Boolean,
+      noAuto: { type: Boolean },
       /**
-       * If set it will render autorization url, token url and scopes as advanced options
-       * activated on user interaction.
+       * If set it renders autorization url, token url and scopes as advanced options
+       * which are then invisible by default. User can oen setting using the UI.
        */
-      isAdvanced: Boolean,
+      isAdvanced: { type: Boolean },
       /**
        * If true then the advanced options are opened.
        */
-      advancedOpened: Boolean,
+      advancedOpened: { type: Boolean },
       /**
        * If set, the grant typr selector will be hidden from the UI.
        */
-      noGrantType: {
-        type: Boolean,
-        observer: '_noGrantTypeChanged'
-      },
+      noGrantType: { type: Boolean },
       /**
        * List of query parameters to apply to authorization request.
        * This is allowed by the OAuth 2.0 spec as an extension of the
@@ -756,10 +414,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * and one of it is `customSettings`.
        * See https://github.com/raml-org/raml-annotations for definition.
        */
-      authQueryParameters: {
-        type: Array,
-        readOnly: true
-      },
+      _authQueryParameters: { type: Array },
       /**
        * List of query parameters to apply to token request.
        * This is allowed by the OAuth 2.0 spec as an extension of the
@@ -768,10 +423,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * and one of it is `customSettings`.
        * See https://github.com/raml-org/raml-annotations for definition.
        */
-      tokenQueryParameters: {
-        type: Array,
-        readOnly: true
-      },
+      _tokenQueryParameters: { type: Array },
       /**
        * List of headers to apply to token request.
        * This is allowed by the OAuth 2.0 spec as an extension of the
@@ -780,10 +432,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * and one of it is `customSettings`.
        * See https://github.com/raml-org/raml-annotations for definition.
        */
-      tokenHeaders: {
-        type: Array,
-        readOnly: true
-      },
+      _tokenHeaders: { type: Array },
       /**
        * List of body parameters to apply to token request.
        * This is allowed by the OAuth 2.0 spec as an extension of the
@@ -792,10 +441,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * and one of it is `customSettings`.
        * See https://github.com/raml-org/raml-annotations for definition.
        */
-      tokenBody: {
-        type: Array,
-        readOnly: true
-      },
+      _tokenBody: { type: Array },
       /**
        * Default delivery method of access token. Reported with
        * settings change event as `deliveryMethod`.
@@ -805,10 +451,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * When setting AMF model, this value may change, if AMF description
        * forces different than default placement of the token.
        */
-      oauthDeliveryMethod: {
-        type: String,
-        value: 'header'
-      },
+      oauthDeliveryMethod: { type: String },
       /**
        * Default parameter name that carries access token. Reported with
        * the settings change event as `deliveryName`.
@@ -818,30 +461,82 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
        * When setting AMF model, this value may change, if AMF description
        * forces different than default parameter name for the token.
        */
-      oauthDeliveryName: {
-        type: String,
-        value: 'authorization'
-      },
+      oauthDeliveryName: { type: String },
       /**
        * Renders slightly different view that is optymized for mobile
        * or narrow area on desktop.
        */
-      narrow: {
-        type: Boolean,
-        reflectToAttribute: true
-      }
+      narrow: { type: Boolean, reflect: true }
     };
   }
 
-  static get observers() {
-    return [
-      '_updateStepperState(noSteps)',
-      '_settingsChanged(scopes.*)',
-      '_settingsChanged(tokenBody.*)',
-      '_settingsChanged(tokenHeaders.*)',
-      '_settingsChanged(tokenQueryParameters.*)',
-      '_settingsChanged(authQueryParameters.*)'
-    ];
+  get grantType() {
+    return this._grantType || '';
+  }
+
+  set grantType(value) {
+    if (this._sop('grantType', value)) {
+      this.isCustomGrant = this._computeIsCustomGrant(value);
+    }
+  }
+
+  get grantTypes() {
+    return this._grantTypes;
+  }
+
+  set grantTypes(value) {
+    /* istanbul ignore else */
+    if (this._sop('grantTypes', value)) {
+      if (value && value.length === 1) {
+        this.noGrantType = true;
+      } else {
+        this.noGrantType = false;
+      }
+    }
+  }
+
+  get accessToken() {
+    return this._accessToken;
+  }
+
+  set accessToken(value) {
+    /* istanbul ignore else */
+    if (this._sop('accessToken', value)) {
+      this._storeSessionProperty(this.storeKeys.token, value);
+    }
+  }
+
+  get tokenType() {
+    return this._tokenType || 'Bearer';
+  }
+
+  set tokenType(value) {
+    /* istanbul ignore else */
+    if (this._sop('tokenType', value)) {
+      this._storeSessionProperty(this.storeKeys.tokenType, value);
+    }
+  }
+
+  get amf() {
+    return this._amf;
+  }
+
+  set amf(value) {
+    /* istanbul ignore else */
+    if (this._sop('amf', value)) {
+      this._amfSettingsChanged();
+    }
+  }
+
+  get amfSettings() {
+    return this._amfSettings;
+  }
+
+  set amfSettings(value) {
+    /* istanbul ignore else */
+    if (this._sop('amfSettings', value)) {
+      this._amfSettingsChanged();
+    }
   }
 
   get _queryModelOpts() {
@@ -884,18 +579,23 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     this._oauth2ErrorHandler = this._oauth2ErrorHandler.bind(this);
     this._tokenSuccessHandler = this._tokenSuccessHandler.bind(this);
     this._headerChangedHandler = this._headerChangedHandler.bind(this);
+
+    this.oauthDeliveryName = 'authorization';
+    this.oauthDeliveryMethod = 'header';
+    this.grantTypes = this._oauth2GrantTypes;
   }
 
-  ready() {
-    super.ready();
-    this._initialized = true;
-    afterNextRender(this, () => {
-      if (!this.grantTypes) {
-        this._updateGrantTypes();
-      }
-      this._autoHide();
-      this._autoRestore();
-    });
+  firstUpdated() {
+    this._isInitialized = true;
+    if (this.amfSettings) {
+      this._amfSettingsChanged();
+    }
+    this._autoHide();
+    this._autoRestore();
+  }
+
+  updated() {
+    this._settingsChanged();
   }
 
   _attachListeners(node) {
@@ -921,7 +621,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
       this.advancedOpened = true;
       return;
     }
-    if (!!this.authorizationUri && !!this.accessTokenUri && !!(this.scopes && this.scopes.length)) {
+    if (this.authorizationUri && this.accessTokenUri && !!(this.scopes && this.scopes.length)) {
       this.isAdvanced = true;
       this.advancedOpened = false;
     } else {
@@ -932,12 +632,12 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
   get storeKeys() {
     return {
       clientId: 'auth.methods.latest.client_id',
-      secret: 'auth.methods.latest.client_secret',
-      token: 'auth.methods.latest.auth_token',
-      authUri: 'auth.methods.latest.auth_uri',
-      tokenUri: 'auth.methods.latest.auth_uri',
+      clientSecret: 'auth.methods.latest.client_secret',
+      authorizationUri: 'auth.methods.latest.auth_uri',
+      accessTokenUri: 'auth.methods.latest.auth_uri',
       username: 'auth.methods.latest.username',
       password: 'auth.methods.latest.password',
+      token: 'auth.methods.latest.auth_token',
       tokenType: 'auth.methods.latest.tokenType'
     };
   }
@@ -950,9 +650,9 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     this._restoreSessionProperty(keys.clientId, 'clientId');
     this._restoreSessionProperty(keys.token, 'accessToken');
     this._restoreSessionProperty(keys.tokenType, 'tokenType');
-    this._restoreSessionProperty(keys.authUri, 'authorizationUri');
-    this._restoreSessionProperty(keys.tokenUri, 'accessTokenUri');
-    this._restoreSessionProperty(keys.secret, 'clientSecret');
+    this._restoreSessionProperty(keys.authorizationUri, 'authorizationUri');
+    this._restoreSessionProperty(keys.accessTokenUri, 'accessTokenUri');
+    this._restoreSessionProperty(keys.clientSecret, 'clientSecret');
     this._restoreSessionProperty(keys.username, 'username');
     this._restoreSessionProperty(keys.password, 'password');
     if (!this.clientId) {
@@ -961,34 +661,6 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     if (!this.clientSecret) {
       this._restoreMetaClientSecret();
     }
-  }
-  /**
-   * Restores an item from a session store and assigns it to a local
-   * property.
-   * @param {String} sessionKey Session storage key
-   * @param {String} localKey This component's property
-   */
-  _restoreSessionProperty(sessionKey, localKey) {
-    if (!this[localKey]) {
-      const value = sessionStorage.getItem(sessionKey);
-      if (value) {
-        this.set(localKey, value);
-      }
-    }
-  }
-  /**
-   * Stores a property in a session storage.
-   * @param {String} sessionKey A storage key
-   * @param {String} value Value to store
-   */
-  _storeSessionProperty(sessionKey, value) {
-    if (!value) {
-      return;
-    }
-    if (typeof value === 'object') {
-      value = JSON.stringify(value);
-    }
-    sessionStorage.setItem(sessionKey, value);
   }
   /**
    * Sets `clientId` property from `iron-meta` if created.
@@ -1019,74 +691,21 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
+    }
     return form.validate();
   }
 
-  _clientIdChanged(value) {
-    this._storeSessionProperty(this.storeKeys.clientId, value);
-    this._settingsChanged();
-  }
-
-  _clientSecretChanged(value) {
-    this._storeSessionProperty(this.storeKeys.secret, value);
-    this._settingsChanged();
-  }
-
-  _authorizationUriChanged(value) {
-    this._storeSessionProperty(this.storeKeys.authUri, value);
-    this._settingsChanged();
-  }
-
-  _accessTokenUriChanged(value) {
-    this._storeSessionProperty(this.storeKeys.tokenUri, value);
-    this._settingsChanged();
-  }
-
-  _passwordChanged(value) {
-    this._storeSessionProperty(this.storeKeys.username, value);
-    this._settingsChanged();
-  }
-
-  _usernameChanged(value) {
-    this._storeSessionProperty(this.storeKeys.username, value);
-    this._settingsChanged();
-  }
-
-  _accessTokenChanged(value) {
-    this._storeSessionProperty(this.storeKeys.token, value);
-    this._settingsChanged();
-  }
-
-  _tokenTypeChanged(value) {
-    this._storeSessionProperty(this.storeKeys.tokenType, value);
-  }
-
-  _settingsChanged() {
-    if (!this.shadowRoot || this.__cancelChangeEvent || !this._initialized) {
-      return;
-    }
-    this._notifySettingsChange('oauth2');
-  }
-
   // Checks if the HTML element should be visible in the UI for given properties.
-  _isFieldDisabled() {
-    const args = Array.from(arguments);
+  _isFieldDisabled(...args) {
     const isCustom = args.splice(0, 1)[0];
     if (isCustom) {
       return false;
     }
     const grantType = args.splice(0, 1)[0];
     return args.indexOf(grantType) === -1;
-  }
-  /**
-   * Computes the `required` attribute on input fileld.
-   * When using custom grant type all fields are not required.
-   *
-   * @param {Boolean} isCustomGrant
-   * @return {Boolean}
-   */
-  _isFieldRequired(isCustomGrant) {
-    return !isCustomGrant;
   }
   /**
    * Dispatches the `oauth2-token-requested` event.
@@ -1220,9 +839,10 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * by reference so no need for return value
    */
   _computeAuthCustomData(detail) {
-    if (this.authQueryParameters) {
+    const params = this._authQueryParameters;
+    if (params) {
       detail.customData.auth.parameters =
-      this._computeCustomParameters(this.authQueryParameters);
+      this._computeCustomParameters(params);
     }
   }
   /**
@@ -1233,17 +853,22 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * by reference so no need for return value
    */
   _computeTokenCustomData(detail) {
-    if (this.tokenQueryParameters) {
+    const {
+      _tokenQueryParameters,
+      _tokenHeaders,
+      _tokenBody
+    } = this;
+    if (_tokenQueryParameters) {
       detail.customData.token.parameters =
-        this._computeCustomParameters(this.tokenQueryParameters);
+        this._computeCustomParameters(_tokenQueryParameters);
     }
-    if (this.tokenHeaders) {
+    if (_tokenHeaders) {
       detail.customData.token.headers =
-        this._computeCustomParameters(this.tokenHeaders);
+        this._computeCustomParameters(_tokenHeaders);
     }
-    if (this.tokenBody) {
+    if (_tokenBody) {
       detail.customData.token.body =
-        this._computeCustomParameters(this.tokenBody);
+        this._computeCustomParameters(_tokenBody);
     }
   }
   /**
@@ -1321,16 +946,13 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
         this.password = settings.password;
         this.accessTokenUri = settings.accessTokenUri;
         break;
+      default:
+        this.authorizationUri = settings.authorizationUri;
+        this.clientSecret = settings.clientSecret;
+        this.accessTokenUri = settings.accessTokenUri;
+        this.username = settings.username;
+        this.password = settings.password;
     }
-  }
-
-  /**
-   * Computes value for `hasAccessToken` property
-   * @param {String} newValue Token changed value
-   * @return {Boolean}
-   */
-  _computeHasToken(newValue) {
-    return !!(newValue);
   }
   /**
    * Handler for `oauth2-error` custom event.
@@ -1373,7 +995,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
       } else if (!info.tokenType && this.tokenType !== 'Bearer') {
         this.tokenType = 'Bearer';
       }
-      this.set('accessToken', info.accessToken);
+      this.accessToken = info.accessToken;
       this.dispatchEvent(new CustomEvent('oauth2-token-ready', {
         detail: {
           token: info.accessToken,
@@ -1387,10 +1009,12 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
   }
   /**
    * Handler to set up data from the AMF model.
-   *
-   * @param {Object} model Security model of AMF
    */
-  _amfChanged(model) {
+  _amfSettingsChanged() {
+    if (!this._isInitialized) {
+      return;
+    }
+    const model = this.amfSettings;
     const prefix = this.ns.raml.vocabularies.security;
     if (!this._hasType(model, prefix + 'ParametrizedSecurityScheme')) {
       this._setupOAuthDeliveryMethod();
@@ -1418,16 +1042,10 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     if (settings instanceof Array) {
       settings = settings[0];
     }
-    this._clearDocs();
     this.__cancelChangeEvent = true;
     this._preFillAmfData(settings);
     this.__cancelChangeEvent = false;
     this._autoHide();
-    // The form is not yet ready to be validated. When it's rendered then
-    // notify settings change
-    afterNextRender(this, () => {
-      this._settingsChanged();
-    });
   }
 
   _setupOAuthDeliveryMethod(model) {
@@ -1486,7 +1104,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     return result;
   }
   /**
-   * Reads API security definition and applies itn to the view as predefined
+   * Reads API security definition and applies in to the view as predefined
    * values.
    *
    * @param {Object} model AMF model describing settings of the security
@@ -1494,11 +1112,10 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _preFillAmfData(model) {
     if (!model) {
-      throw new Error('The `settings` argument is not set.');
+      return;
     }
     const sec = this.ns.raml.vocabularies.security;
     if (!this._hasType(model, sec + 'OAuth2Settings')) {
-      console.warn('Passed model does not represent OAuth 2.0 Settings');
       return;
     }
     this.authorizationUri = this._getValue(model, sec + 'authorizationUri') || '';
@@ -1609,18 +1226,23 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {Object} annotation Annotation applied to the OAuth settings
    */
   _setupAnotationParameters(annotation) {
-    if (this.authQueryParameters) {
-      this._setAuthQueryParameters(undefined);
+    /* istanbul ignore if */
+    if (this._authQueryParameters) {
+      this._authQueryParameters = undefined;
     }
-    if (this.tokenQueryParameters) {
-      this._setTokenQueryParameters(undefined);
+    /* istanbul ignore if */
+    if (this._tokenQueryParameters) {
+      this._tokenQueryParameters = undefined;
     }
-    if (this.tokenHeaders) {
-      this._setTokenHeaders(undefined);
+    /* istanbul ignore if */
+    if (this._tokenHeaders) {
+      this._tokenHeaders = undefined;
     }
-    if (this.tokenBody) {
-      this._setTokenBody(undefined);
+    /* istanbul ignore if */
+    if (this._tokenBody) {
+      this._tokenBody = undefined;
     }
+    /* istanbul ignore if */
     if (!annotation) {
       return;
     }
@@ -1662,10 +1284,11 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _setupAuthRequestQueryParameters(params) {
     const model = this._createViewModel(params, this._queryModelOpts);
+    /* istanbul ignore if */
     if (!model) {
       return;
     }
-    this._setAuthQueryParameters(model);
+    this._authQueryParameters = model;
   }
   /**
    * Sets up query parameters to be used with token request.
@@ -1674,10 +1297,11 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _setupTokenRequestQueryParameters(params) {
     const model = this._createViewModel(params, this._queryModelOpts);
+    /* istanbul ignore if */
     if (!model) {
       return;
     }
-    this._setTokenQueryParameters(model);
+    this._tokenQueryParameters = model;
   }
   /**
    * Sets up headers to be used with token request.
@@ -1686,10 +1310,11 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _setupTokenRequestHeaders(params) {
     const model = this._createViewModel(params, this._headersModelOpts);
+    /* istanbul ignore if */
     if (!model) {
       return;
     }
-    this._setTokenHeaders(model);
+    this._tokenHeaders = model;
   }
   /**
    * Sets up body parameters to be used with token request.
@@ -1698,10 +1323,11 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _setupTokenRequestBody(params) {
     const model = this._createViewModel(params, this._queryModelOpts);
+    /* istanbul ignore if */
     if (!model) {
       return;
     }
-    this._setTokenBody(model);
+    this._tokenBody = model;
   }
   /**
    * Creats a form view model for type items.
@@ -1711,6 +1337,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @return {Array|undefined} Form view model or undefined if not set.
    */
   _createViewModel(param, modelOptions) {
+    /* istanbul ignore if */
     if (!param) {
       return;
     }
@@ -1718,7 +1345,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
       param = param[0];
     }
     const factory = document.createElement('api-view-model-transformer');
-    factory.amfModel = this.amfModel;
+    factory.amf = this.amf;
     return factory.modelForRawObject(param, modelOptions);
   }
   /**
@@ -1730,7 +1357,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _computeIsCustomGrant(grantType) {
     return ['implicit', 'authorization_code', 'client_credentials', 'password']
-      .indexOf(grantType) === -1;
+        .indexOf(grantType) === -1;
   }
   /**
    * Updates list of OAuth grant types supported by current endpoint.
@@ -1741,19 +1368,15 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    */
   _updateGrantTypes(supportedTypes) {
     const available = this._computeGrantList(supportedTypes);
-    this.set('grantTypes', available);
+    this.grantTypes = available;
     // check if current selection is still available
     const current = this.grantType;
     const hasCurrent = current ?
       available.some((item) => item.type === current) : false;
     if (!hasCurrent) {
-      if (available && available[0]) {
-        this.set('grantType', available[0].type);
-      } else {
-        this.set('grantType', '');
-      }
+      this.grantType = available[0].type;
     } else if (available.length === 1) {
-      this.set('grantType', available[0].type);
+      this.grantType = available[0].type;
     }
   }
   /**
@@ -1790,58 +1413,6 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     return defaults;
   }
   /**
-   * Computes boolean value for `isSelectedType` if `grantType` is set.
-   *
-   * @param {String} grantType Current grant type.
-   * @return {Boolean} True when the value is set.
-   */
-  _computeIsSelectedType(grantType) {
-    return !!grantType;
-  }
-  /**
-   * Clears grant type selection.
-   */
-  _clearTypeSelection() {
-    this.grantType = '';
-  }
-  /**
-   * Computes the label for selected step title.
-   *
-   * @param {String} grantType Selected grant type.
-   * @return {String} Label to render
-   */
-  _computeSelectedTypeLabel(grantType) {
-    switch (grantType) {
-      case 'implicit':
-        return 'Access token (browser flow)';
-      case 'authorization_code':
-        return 'Authorization code (server flow)';
-      case 'client_credentials':
-        return 'Client credentials';
-      case 'password':
-        return 'Password';
-      default:
-        if (!this.grantTypes) {
-          return '';
-        }
-        const item = this.grantTypes.find((item) => item.type === grantType);
-        return item ? item.label : 'Custom grant';
-    }
-  }
-
-  _updateStepperState(noStepper) {
-    this._typeSelectorForceOpened = noStepper ? true : false; // can be undefined
-  }
-
-  _noGrantTypeChanged(newValue, oldValue) {
-    if (newValue) {
-      this.stepStartIndex--;
-    } else if (oldValue !== undefined) {
-      this.stepStartIndex++;
-    }
-  }
-
-  /**
    * Handler for the `request-header-changed` custom event.
    * If the panel is opened the it checks if current header updates
    * authorization.
@@ -1849,10 +1420,12 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {Event} e
    */
   _headerChangedHandler(e) {
-    if (e.defaultPrevented || e.target === this) {
+    /* istanbul ignore if */
+    if (e.defaultPrevented || this._getEventTarget(e) === this) {
       return;
     }
     let name = e.detail.name;
+    /* istanbul ignore if */
     if (!name) {
       return;
     }
@@ -1863,7 +1436,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     let value = e.detail.value;
     if (!value) {
       if (this.accessToken) {
-        this.set('accessToken', '');
+        this.accessToken = '';
       }
       return;
     }
@@ -1871,12 +1444,26 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     const lowerType = (this.tokenType || 'bearer').toLowerCase();
     if (lowerValue.indexOf(lowerType) !== 0) {
       if (this.accessToken) {
-        this.set('accessToken', '');
+        this.accessToken = '';
       }
       return;
     }
-    value = value.substr(7);
-    this.set('accessToken', value);
+    value = value.substr(lowerType.length + 1).trim();
+    this.accessToken = value;
+  }
+
+  _modelForCustomType(type) {
+    let model;
+    if (type === 'auth-query') {
+      model = this._authQueryParameters;
+    } else if (type === 'token-query') {
+      model = this._tokenQueryParameters;
+    } else if (type === 'token-headers') {
+      model = this._tokenHeaders;
+    } else {
+      model = this._tokenBody;
+    }
+    return model;
   }
   /**
    * Toggles documentartion for custom property.
@@ -1884,62 +1471,15 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {CustomEvent} e
    */
   _toggleDocumentation(e) {
-    const target = e.target;
-    const source = target.dataset.source;
-    if (!source) {
-      throw new Error('Could not find source of the event.');
-    }
-    const repeater = this.shadowRoot.querySelector('[data-repeater="' + source + '"]');
-    if (!repeater) {
-      throw new Error('Could not find repeater for the item.');
-    }
-    const model = repeater.modelForElement(target).get('item');
-    let selector = '.custom-data-field-docs[data-source="' + source + '"]';
-    selector += '[data-key="' + model.name + '"]';
-    const docsContainer = this.shadowRoot.querySelector(selector);
-    if (!docsContainer) {
-      throw new Error('Could not find documentation container.');
-    }
-    if (!docsContainer.children[0]) {
-      this._createDocsElements(model, docsContainer);
-    } else {
-      docsContainer.children[0].opened = !docsContainer.children[0].opened;
-    }
-  }
-  /**
-   * Creates a documentation element.
-   *
-   * @param {Object} model
-   * @param {Element} appendTo
-   */
-  _createDocsElements(model, appendTo) {
-    const collapse = document.createElement('iron-collapse');
-    const marked = document.createElement('marked-element');
-    const wrapper = document.createElement('div');
-
-    collapse.dataset.docsCollapse = true;
-    wrapper.className = 'markdown-body';
-    wrapper.slot = 'markdown-html';
-    marked.appendChild(wrapper);
-    collapse.appendChild(marked);
-    appendTo.appendChild(collapse);
-
-    marked.markdown = model.description;
-    afterNextRender(this, () => {
-      collapse.opened = true;
-    });
-  }
-  /**
-   * Clears all custom data documention nodes.
-   */
-  _clearDocs() {
-    const nodes = this.shadowRoot.querySelectorAll('[data-docs-collapse="true"]');
-    if (!nodes || !nodes.length) {
+    const index = Number(e.currentTarget.dataset.index);
+    const type = e.currentTarget.dataset.type;
+    if (index !== index || !type) {
       return;
     }
-    nodes.forEach((node) => node.parentNode.removeChild(node));
+    const model = this._modelForCustomType(type);
+    model[index].docsOpened = !model[index].docsOpened;
+    this.requestUpdate();
   }
-
   /**
    * Dispatches analytics event.
    *
@@ -1971,9 +1511,9 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
     const elm = this.shadowRoot.querySelector('clipboard-copy');
     elm.content = node.innerText;
     if (elm.copy()) {
-      this.$.clipboardToast.opened = true;
+      this.shadowRoot.querySelector('#clipboardToast').opened = true;
     }
-    afterNextRender(this, () => {
+    setTimeout(() => {
       if (document.body.createTextRange) {
         const range = document.body.createTextRange();
         range.moveToElementText(node);
@@ -1986,6 +1526,377 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
         selection.addRange(range);
       }
     });
+  }
+
+  _advHandler(e) {
+    this._setSettingsInputValue('advancedOpened', e.target.checked);
+  }
+
+  _selectionHandler(e) {
+    const { value } = e.detail;
+    const { name } = e.target.parentElement;
+    this._setSettingsInputValue(name, value);
+  }
+
+  _valueHandler(e) {
+    const { name, value } = e.target;
+    this._setSettingsInputValue(name, value);
+    const persistent = e.target.dataset.persistent;
+    if (persistent === 'true') {
+      this._storeSessionProperty(this.storeKeys[name], value);
+    }
+  }
+
+  _customValueChanged(e) {
+    const index = Number(e.target.dataset.index);
+    const type = e.target.dataset.type;
+    /* istanbul ignore if */
+    if (index !== index || !type) {
+      return;
+    }
+    const value = e.target.value;
+    const model = this._modelForCustomType(type);
+    model[index].value = value;
+    this._settingsChanged();
+  }
+
+  _scopesChanged(e) {
+    this.scopes = e.detail.value;
+  }
+
+  _getGrantTypeTemplate() {
+    const {
+      grantType,
+      outlined,
+      legacy,
+      readOnly,
+      disabled,
+      noGrantType
+    } = this;
+    const items = this.grantTypes || [];
+    return html`
+    <anypoint-dropdown-menu
+      name="grantType"
+      required
+      autovalidate
+      class="grant-dropdown"
+      ?hidden="${noGrantType}"
+      .outlined="${outlined}"
+      .legacy="${legacy}"
+      .readOnly="${readOnly}"
+      .disabled="${disabled}"
+    >
+      <label slot="label">Grant type</label>
+      <anypoint-listbox
+        slot="dropdown-content"
+        .selected="${grantType}"
+        @selected-changed="${this._selectionHandler}"
+        data-name="grantType"
+        .outlined="${outlined}"
+        .legacy="${legacy}"
+        .readOnly="${readOnly}"
+        .disabled="${disabled}"
+        attrforselected="data-value">
+        ${items.map((item) =>
+    html`<anypoint-item .legacy="${legacy}" data-value="${item.type}">${item.label}</anypoint-item>`)}
+      </anypoint-listbox>
+    </anypoint-dropdown-menu>`;
+  }
+
+  _getCustomPropertiesTemplate() {
+    const { _authQueryParameters, _tokenQueryParameters, _tokenHeaders, _tokenBody } = this;
+    return html`
+    ${_authQueryParameters && _authQueryParameters.length ?
+      html`<div class="subtitle">Authorization request query parameters</div>
+      ${this._templateForCustomArray(_authQueryParameters, 'auth-query')}` : ''}
+    ${_tokenQueryParameters && _tokenQueryParameters.length ?
+      html`<div class="subtitle">Token request query parameters</div>
+      ${this._templateForCustomArray(_tokenQueryParameters, 'token-query')}` : ''}
+    ${_tokenHeaders && _tokenHeaders.length ?
+      html`<div class="subtitle">Token request headers</div>
+      ${this._templateForCustomArray(_tokenHeaders, 'token-headers')}` : ''}
+    ${_tokenBody && _tokenBody.length ?
+      html`<div class="subtitle">Token request body</div>
+      ${this._templateForCustomArray(_tokenBody, 'token-body')}` : ''}
+    `;
+  }
+
+  _templateForCustomArray(items, type) {
+    const {
+      outlined,
+      legacy,
+      readOnly,
+      disabled,
+      noDocs
+    } = this;
+    return items.map((item, index) => html`<div class="custom-data-field">
+      <div class="field-value">
+        <api-property-form-item
+          .model="${item}"
+          .value="${item.value}"
+          name="${item.name}"
+          ?readonly="${readOnly}"
+          ?outlined="${outlined}"
+          ?legacy="${legacy}"
+          ?disabled="${disabled}"
+          data-type="${type}"
+          data-index="${index}"
+          @value-changed="${this._customValueChanged}"
+          @input="${this._inputHandler}"></api-property-form-item>
+          ${item.hasDescription && !noDocs ? html`<anypoint-icon-button
+            class="hint-icon"
+            title="Toggle description"
+            aria-label="Press to toggle description"
+            data-type="${type}"
+            data-index="${index}"
+            @click="${this._toggleDocumentation}">
+            <iron-icon icon="arc:help"></iron-icon>
+          </anypoint-icon-button>` : undefined}
+      </div>
+      ${item.hasDescription && !noDocs && item.docsOpened ? html`<div class="docs-container">
+        <arc-marked .markdown="${item.description}">
+          <div slot="markdown-html" class="markdown-body"></div>
+        </arc-marked>
+      </div>` : ''}
+    </div>`);
+  }
+
+  _getRedirectTemplate() {
+    const {
+      redirectUri
+    } = this;
+    return html`<div class="subtitle">Redirect URI</div>
+    <section>
+      <div class="redirect-section">
+        <p class="redirect-info">Set this redirect URI in OAuth 2.0 provider settings.</p>
+        <p class="read-only-param-field padding">
+          <span class="code" @click="${this._clickCopyAction}">${redirectUri}</span>
+        </p>
+      </div>
+    </section>`;
+  }
+
+  _getAdvancedTemplate(customGrantRequired) {
+    const {
+      outlined,
+      legacy,
+      readOnly,
+      disabled,
+      isAdvanced,
+      advancedOpened,
+      grantType,
+      isCustomGrant,
+      authorizationUri,
+      accessTokenUri,
+      username,
+      password,
+      allowedScopes,
+      preventCustomScopes,
+      scopes
+    } = this;
+    const authUriDisabled = disabled ||
+      this._isFieldDisabled(isCustomGrant, grantType, 'implicit', 'authorization_code');
+    const atUriDisabled = disabled ||
+      this._isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code', 'password');
+    const passwdDisabled = disabled ||
+      this._isFieldDisabled(isCustomGrant, grantType, 'password');
+    return html`
+    ${isAdvanced ? html`<div class="adv-toggle">
+      <div class="adv-toggle">
+        <anypoint-checkbox
+          class="adv-settings-input"
+          .checked="${advancedOpened}"
+          @change="${this._advHandler}"
+          .disabled="${readOnly}"
+        >Advanced settings</anypoint-checkbox>
+      </div>
+    </div>` : ''}
+
+    <div class="advanced-section" ?hidden="${!advancedOpened}">
+      <anypoint-input
+        ?required="${customGrantRequired}"
+        autovalidate
+        name="authorizationUri"
+        .value="${authorizationUri}"
+        @input="${this._valueHandler}"
+        type="url"
+        autocomplete="on"
+        hiddable
+        data-persistent="true"
+        data-visible="implicit authorization_code"
+        .outlined="${outlined}"
+        .legacy="${legacy}"
+        .readOnly="${readOnly}"
+        .disabled="${authUriDisabled}"
+        title="The authorization URL to initialize the OAuth flow. Check your provider's documentation">
+        <label slot="label">Authorization URI</label>
+      </anypoint-input>
+
+      <anypoint-input
+        ?required="${customGrantRequired}"
+        autovalidate
+        name="accessTokenUri"
+        .value="${accessTokenUri}"
+        @input="${this._valueHandler}"
+        type="url"
+        autocomplete="on"
+        hiddable
+        data-persistent="true"
+        data-visible="client_credentials authorization_code password"
+        .outlined="${outlined}"
+        .legacy="${legacy}"
+        .readOnly="${readOnly}"
+        .disabled="${atUriDisabled}"
+        title="The access token URL is used by server implementations to exchange code for access token">
+        <label slot="label">Access token URI</label>
+      </anypoint-input>
+
+      <anypoint-masked-input
+        ?required="${customGrantRequired}"
+        autovalidate
+        name="username"
+        .value="${username}"
+        @input="${this._valueHandler}"
+        autocomplete="on"
+        hiddable
+        data-persistent="true"
+        data-visible="password"
+        .outlined="${outlined}"
+        .legacy="${legacy}"
+        .readOnly="${readOnly}"
+        .disabled="${passwdDisabled}"
+        title="The user name required for this OAuth authentication">
+        <label slot="label">Username</label>
+      </anypoint-masked-input>
+
+      <anypoint-masked-input
+        ?required="${customGrantRequired}"
+        autovalidate
+        name="password"
+        .value="${password}"
+        @input="${this._valueHandler}"
+        autocomplete="on"
+        hiddable
+        data-persistent="true"
+        data-visible="password"
+        .outlined="${outlined}"
+        .legacy="${legacy}"
+        .readOnly="${readOnly}"
+        .disabled="${passwdDisabled}"
+        title="The password required for this OAuth authentication">
+        <label slot="label">Password</label>
+      </anypoint-masked-input>
+
+      <div>
+        <oauth2-scope-selector
+          .allowedScopes="${allowedScopes}"
+          .preventCustomScopes="${preventCustomScopes}"
+          .value="${scopes}"
+          .readOnly="${readOnly}"
+          .disabled="${disabled}"
+          .outlined="${outlined}"
+          .legacy="${legacy}"
+          name="scopes"
+          @value-changed="${this._scopesChanged}"></oauth2-scope-selector>
+      </div>
+    </div>
+    `;
+  }
+
+  render() {
+    const {
+      outlined,
+      legacy,
+      readOnly,
+      disabled,
+      grantType,
+      isCustomGrant,
+      clientId,
+      clientSecret,
+      accessToken,
+      _authorizing
+    } = this;
+
+    const customGrantRequired = !isCustomGrant;
+    const secretDisabled = disabled ||
+      this._isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code');
+    const hasAccessToken = !!accessToken;
+    return html`
+    <iron-form data-grant="${grantType}">
+      <form autocomplete="on" ?is-custom-grant="${isCustomGrant}">
+          ${this._getGrantTypeTemplate()}
+          ${this._authPanelTitle()}
+          <section>
+            <anypoint-masked-input
+              ?required="${customGrantRequired}"
+              autovalidate
+              name="clientId"
+              .value="${clientId}"
+              @input="${this._valueHandler}"
+              autocomplete="on"
+              data-persistent="true"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${disabled}"
+              title="The client ID registered in your OAuth provider">
+              <label slot="label">Client id</label>
+            </anypoint-masked-input>
+
+            <anypoint-masked-input
+              ?required="${customGrantRequired}"
+              autovalidate
+              name="clientSecret"
+              .value="${clientSecret}"
+              @input="${this._valueHandler}"
+              autocomplete="on"
+              hiddable
+              data-persistent="true"
+              data-visible="client_credentials authorization_code"
+              .outlined="${outlined}"
+              .legacy="${legacy}"
+              .readOnly="${readOnly}"
+              .disabled="${secretDisabled}"
+              title="The client secret is a generated by your provider unique string for your app">
+              <label slot="label">Client secret</label>
+            </anypoint-masked-input>
+            ${this._getCustomPropertiesTemplate()}
+            ${this._getAdvancedTemplate(customGrantRequired)}
+          </section>
+          ${this._getRedirectTemplate()}
+      </form>
+    </iron-form>
+
+    ${hasAccessToken ?
+      html`<div class="current-token">
+        <label class="token-label">Current token</label>
+        <p class="read-only-param-field padding">
+          <span class="code" @click="${this._clickCopyAction}">${accessToken}</span>
+        </p>
+        <div class="authorize-actions">
+          <anypoint-button
+            ?disabled="${_authorizing}"
+            class="auth-button"
+            emphasis="medium"
+            data-type="refresh-token"
+            @click="${this.authorize}">Refresh access token</anypoint-button>
+          <paper-spinner .active="${_authorizing}"></paper-spinner>
+        </div>
+      </div>` :
+    html`<div class="authorize-actions">
+      <anypoint-button
+        ?disabled="${_authorizing}"
+        class="auth-button"
+        emphasis="medium"
+        data-type="get-token"
+        @click="${this.authorize}">Request access token</anypoint-button>
+      <paper-spinner .active="${_authorizing}"></paper-spinner>
+    </div>`}
+
+    <paper-toast text="" duration="5000"></paper-toast>
+    <paper-toast class="error-toast" text="" duration="5000"></paper-toast>
+    <paper-toast text="Value copied to clipboard" id="clipboardToast" duration="2000"></paper-toast>
+    <clipboard-copy></clipboard-copy>`;
   }
   /**
    * Fired when user requested to perform an authorization.
@@ -2052,4 +1963,4 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodsMixin(EventsTargetMixin
    * @param {String} tokenType Token type reported by the server.
    */
 }
-window.customElements.define(AuthMethodOauth2.is, AuthMethodOauth2);
+window.customElements.define('auth-method-oauth2', AuthMethodOauth2);

@@ -445,6 +445,17 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
     return ['HMAC-SHA1', 'RSA-SHA1', 'PLAINTEXT'];
   }
 
+  get amf() {
+    return this._amf;
+  }
+
+  set amf(value) {
+    /* istanbul ignore else */
+    if (this._sop('amf', value)) {
+      this._amfSettingsChanged();
+    }
+  }
+
   get amfSettings() {
     return this._amfSettings;
   }
@@ -452,7 +463,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
   set amfSettings(value) {
     /* istanbul ignore else */
     if (this._sop('amfSettings', value)) {
-      this._amfSettingsChanged(value);
+      this._amfSettingsChanged();
     }
   }
 
@@ -670,10 +681,9 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
   }
   /**
    * Called when the AMF object change
-   *
-   * @param {Object} model AMF model for authorization settings.
    */
-  _amfSettingsChanged(model) {
+  _amfSettingsChanged() {
+    const model = this.amfSettings;
     if (!model) {
       this.signatureMethods = this.defaultSignatureMethods;
       return;

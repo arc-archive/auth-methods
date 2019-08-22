@@ -169,4 +169,33 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
   _authPanelTitle() {
     return html`<div class="form-title">Set authorization data</div>`;
   }
+
+  /**
+   * Restores an item from a session store and assigns it to a local
+   * property.
+   * @param {String} sessionKey Session storage key
+   * @param {String} localKey This component's property
+   */
+  _restoreSessionProperty(sessionKey, localKey) {
+    if (!this[localKey]) {
+      const value = sessionStorage.getItem(sessionKey);
+      if (value) {
+        this.localKey = value;
+      }
+    }
+  }
+  /**
+   * Stores a property in a session storage.
+   * @param {String} sessionKey A storage key
+   * @param {String} value Value to store
+   */
+  _storeSessionProperty(sessionKey, value) {
+    if (!value) {
+      return;
+    }
+    if (typeof value === 'object') {
+      value = JSON.stringify(value);
+    }
+    sessionStorage.setItem(sessionKey, value);
+  }
 }
