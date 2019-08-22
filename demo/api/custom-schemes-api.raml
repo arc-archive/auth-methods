@@ -1,0 +1,14 @@
+#%RAML 1.0
+title: Custom Schemes example
+version: v1
+baseUri: http://api.domain.com/
+
+securitySchemes:
+  custom1: !include x-custom.raml
+  custom2: !include x-other.raml
+/custom1:
+  get:
+    securedBy: [custom1]
+/custom2:
+  get:
+    securedBy: [custom2]

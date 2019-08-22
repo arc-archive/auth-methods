@@ -1,10 +1,18 @@
-const AmfLoader = {};
-AmfLoader.load = function(endpointIndex, compact) {
-  endpointIndex = endpointIndex || 0;
-  const file = '/oauth2-api' + (compact ? '-compact' : '') + '.json';
-  const url = location.protocol + '//' + location.host +
-    location.pathname.substr(0, location.pathname.lastIndexOf('/'))
-    .replace('/test', '/demo') + file;
+
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { LitElement } from 'lit-element';
+
+export const AmfLoader = {};
+
+class HelperElement extends AmfHelperMixin(LitElement) {}
+window.customElements.define('helper-element', HelperElement);
+
+const helper = new HelperElement();
+
+AmfLoader.load = async function(fileName, compact) {
+  compact = compact ? '-compact' : '';
+  const file = `${fileName}${compact}.json`;
+  const url = location.protocol + '//' + location.host + '/base/demo/' + file;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', (e) => {
@@ -15,42 +23,31 @@ AmfLoader.load = function(endpointIndex, compact) {
         reject(e);
         return;
       }
-      const ns = ApiElements.Amf.ns;
-      const original = data;
-      if (data instanceof Array) {
-        data = data[0];
-      }
-      const encKey = compact ? 'doc:encodes' :
-        ns.raml.vocabularies.document + 'encodes';
-      let encodes = data[encKey];
-      if (encodes instanceof Array) {
-        encodes = encodes[0];
-      }
-      const endKey = compact ? 'raml-http:endpoint' :
-        ns.raml.vocabularies.http + 'endpoint';
-      let endpoints = encodes[endKey];
-      if (endpoints && !(endpoints instanceof Array)) {
-        endpoints = [endpoints];
-      }
-      const endpoint = endpoints[endpointIndex];
-      const opKey = compact ? 'hydra:supportedOperation' :
-        ns.w3.hydra.core + 'supportedOperation';
-      let methods = endpoint[opKey];
-      if (!(methods instanceof Array)) {
-        methods = [methods];
-      }
-      const method = methods[0];
-      const secKey = compact ? 'security:security' :
-        ns.raml.vocabularies.security + 'security';
-      let security = method[secKey];
-      if (security instanceof Array) {
-        security = security[0];
-      }
-      resolve([original, security]);
+      resolve(data);
     });
     xhr.addEventListener('error',
-      () => reject(new Error('Unable to load model file')));
+        () => reject(new Error('Unable to load model file')));
     xhr.open('GET', url);
     xhr.send();
   });
+};
+
+AmfLoader.lookupOperation = function(model, endpoint, operation) {
+  helper.amf = model;
+  const webApi = helper._computeWebApi(model);
+  const endPoint = helper._computeEndpointByPath(webApi, endpoint);
+  const opKey = helper._getAmfKey(helper.ns.w3.hydra.supportedOperation);
+  const ops = helper._ensureArray(endPoint[opKey]);
+  return ops.find((item) => helper._getValue(item, helper.ns.w3.hydra.core + 'method') === operation);
+};
+
+AmfLoader.lookupSecurity = function(model, endpoint, operation) {
+  helper.amf = model;
+  const method = AmfLoader.lookupOperation(model, endpoint, operation);
+  const secKey = helper._getAmfKey(helper.ns.raml.vocabularies.security + 'security');
+  let security = method[secKey];
+  if (security instanceof Array) {
+    security = security[0];
+  }
+  return security;
 };

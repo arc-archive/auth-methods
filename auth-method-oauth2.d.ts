@@ -5,44 +5,18 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-oauth2.html
+ *   auth-method-oauth2.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/utils/render-status.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-button/paper-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../paper-styles/paper-styles.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="../paper-toast/paper-toast.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../oauth2-scope-selector/oauth2-scope-selector.d.ts" />
-/// <reference path="../paper-spinner/paper-spinner.d.ts" />
-/// <reference path="../iron-collapse/iron-collapse.d.ts" />
-/// <reference path="../paper-ripple/paper-ripple.d.ts" />
-/// <reference path="../paper-checkbox/paper-checkbox.d.ts" />
-/// <reference path="../clipboard-copy/clipboard-copy.d.ts" />
-/// <reference path="../api-view-model-transformer/api-view-model-transformer.d.ts" />
-/// <reference path="../api-property-form-item/api-property-form-item.d.ts" />
-/// <reference path="../marked-element/marked-element.d.ts" />
-/// <reference path="../markdown-styles/markdown-styles.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
-/// <reference path="../iron-meta/iron-meta.d.ts" />
-/// <reference path="auth-methods-mixin.d.ts" />
-/// <reference path="auth-methods-styles.d.ts" />
-/// <reference path="auth-method-step.d.ts" />
+import {html, css} from 'lit-element';
+
+import {AuthMethodBase} from './auth-method-base.js';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 
 declare namespace UiElements {
 
@@ -89,7 +63,7 @@ declare namespace UiElements {
    * The `oauth2-authorization` can be set anywhere in the DOM up from this element siblings to the
    * body. See demo for example usage.
    *
-   *      ## Redirect URL
+   *  ## Redirect URL
    * Most OAuth 2 providers requires setting the redirect URL with the request. This can't be changed
    * by the user and redirect URL can be only set in the provider's settings panel. The element
    * accepts the `redirectUri` property which will be displayed to the user that (s)he has to set up
@@ -108,7 +82,8 @@ declare namespace UiElements {
    *
    * This is not yet supported in RAML. However, working together with RAML spec creators,
    * an official RAML annotation to extend OAuth 2.0 settings has been created.
-   * The annotation source can be found in the [RAML organization repository](https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).
+   * The annotation source can be found in the [RAML organization repository]
+   * (https://github.com/raml-org/raml-annotations/blob/master/annotations/security-schemes/oauth-2-custom-settings.raml).
    *
    * When the annotation is applied to the `ramlSettings` property, this element renders
    * additional form inputs to support custom schemes.
@@ -184,7 +159,7 @@ declare namespace UiElements {
    * `oauth2-client-id` and `oauth2-client-secret` will be used to prepopulate
    * the form if the form doesn't contain this properties already.
    *
-   * Note, values changed by the user are persistant per browser session
+   * Note, values changed by the user are persistent per browser session
    * (until browser is closed). Refresing the page will restore user input
    * instead the one defined in `iron-meta` elements.
    *
@@ -194,62 +169,42 @@ declare namespace UiElements {
    * <iron-meta key="oauth2-client-id" value="abcd"></iron-meta>
    * <iron-meta key="oauth2-client-secret" value="efgh"></iron-meta>
    * ```
-   *
-   * ## Styling
-   *
-   * `<auth-method-oauth2>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--auth-method-oauth2` | Mixin applied to the element. | `{}`
-   * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
-   * `--auth-grant-dropdown` | Mixin applied to the authorization grants dropdown list | `{}`
-   *
-   * This is very basic element. Style inputs using `paper-input`'s or `
-   * paper-toggle`'s css variables.
-   *
-   * ### Theming
-   * Use this mixins as a theming option across all ARC elements.
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--icon-button` | Mixin applied to `paper-icon-buttons`. | `{}`
-   * `--icon-button-hover` | Mixin applied to `paper-icon-buttons` when hovered. | `{}`
-   * `--input-line-color` | Mixin applied to the input underline | `{}`
-   * `--form-label` | Mixin applied to form labels. It will not affect `paper-*` labels | `{}`
-   * `--auth-button` | Mixin applied to authorization action buttons | `{}`
-   * `--auth-button-hover` | Mixin applied to authorization buttons when hovered | `{}`
-   * `--auth-button-disabled` | Mixin applied to authorization buttons when disabled | `{}`
-   * `--auth-button-narrow` | Mixin applied to authorization action buttons when narrow layout | `{}`
-   * `--auth-button-narrow-hover` | Mixin applied to authorization buttons when hovered and narrow layout | `{}`
-   * `--auth-button-narrow-disabled` | | Mixin applied to authorization buttons when disabled and narrow layout | `{}`
-   * `--auth-redirect-section` | Mixin applied to the redirect uri section | `{}`
-   * `--error-toast` | Mixin applied to the error toast message | `{}`
-   * `--warning-primary-color` | Error toast background color | `#FF7043`
-   * `--warning-contrast-color` | Error toast color | `#fff`
-   *
-   * ## Changes in version 2
-   *
-   * - Renamed properties
-   *  - `authUrl` -> `authorizationUri`
-   *  - `redirectUrl` -> `redirectUri`
-   *  - `accessTokenUrl` -> `accessTokenUri`
-   *  - `tokenValue` -> `accessToken`
-   *  - `hasTokenValue` -> `hasAccessToken`
-   * - Added `tokenType` to the events describing type of the token.
-   * By default it's `Bearer`
-   * - **The element does not support RAML js data model anymore**. It uses
-   * [AMF](https://github.com/mulesoft/amf/) `json/ld` model. Use AMF to read
-   * API spec file (RAML, OAS, etc) and load settings via `amfSettings`
-   * property
-   * - Added `deliveryMethod` and `deliveryName` properties to the
-   * `detail.setting` object.
    */
   class AuthMethodOauth2 extends
-    ArcBehaviors.EventsTargetBehavior(
-    ArcBehaviors.AuthMethodsMixin(
-    ApiElements.AmfHelperMixin(
-    Object))) {
+    AmfHelperMixin(
+    AuthMethodBase) {
+    amf: any;
+
+    /**
+     * Seleted authorization grand type.
+     */
+    grantType: string|null|undefined;
+
+    /**
+     * Currently available grant types.
+     */
+    grantTypes: any[]|null|undefined;
+
+    /**
+     * When the user authorized the app it should be set to the token value.
+     * This element do not perform authorization. Other elements must intercept
+     * `oauth2-token-requested` and perform the authorization.
+     */
+    accessToken: string|null|undefined;
+
+    /**
+     * Received from the response token value.
+     * By default it is "bearer" as the only one defined in OAuth 2.0
+     * spec.
+     * If the token response contains `tokenType` property this value is
+     * updated.
+     */
+    tokenType: string|null|undefined;
+
+    /**
+     * AMF json/ld mode describing security scheme.
+     */
+    amfSettings: object|null|undefined;
     readonly _queryModelOpts: any;
     readonly _headersModelOpts: any;
 
@@ -261,24 +216,9 @@ declare namespace UiElements {
     readonly storeKeys: any;
 
     /**
-     * Seleted authorization grand type.
-     */
-    grantType: string|null|undefined;
-
-    /**
      * Computed value, true if the grant type is a cutom definition.
      */
-    readonly isCustomGrant: boolean|null|undefined;
-
-    /**
-     * Computed value, true if the `grantType` is set.
-     */
-    readonly isSelectedType: boolean|null|undefined;
-
-    /**
-     * If true, OAuth flow selector will be collapsed.
-     */
-    forceHideTypeSelector: boolean|null|undefined;
+    isCustomGrant: boolean|null|undefined;
 
     /**
      * The client ID for the auth token.
@@ -343,59 +283,14 @@ declare namespace UiElements {
     _authorizing: boolean|null|undefined;
 
     /**
-     * When the user authorized the app it should be set to the token value.
-     * This element do not perform authorization. Other elements must intercept
-     * `oauth2-token-requested` and perform the authorization. As a result the element
-     * performing an authorization should set back the auth token on the event target object
-     * (this element).
-     */
-    accessToken: string|null|undefined;
-
-    /**
-     * Received from the response token value.
-     * By default it is "bearer" as the only one defined in OAuth 2.0
-     * spec.
-     * If the token response contains `tokenType` property this value is
-     * updated.
-     */
-    tokenType: string|null|undefined;
-
-    /**
-     * Computed value, true if access token is set.
-     */
-    readonly hasAccessToken: boolean|null|undefined;
-
-    /**
-     * AMF json/ld mode describing security scheme.
-     */
-    amfSettings: object|null|undefined;
-
-    /**
-     * Currently available grant types.
-     */
-    grantTypes: any[]|null|undefined;
-
-    /**
-     * `true` whem the element has been initialized.
-     * When changed it dispatches first oauth settings event with initial
-     * values.
-     */
-    _initialized: boolean|null|undefined;
-
-    /**
-     * If true, the flow type selector will be forced to be opened
-     */
-    _typeSelectorForceOpened: boolean|null|undefined;
-
-    /**
-     * The element will automatically hide following fileds it the element has been initialized
+     * The element automatically hides following fileds it the element has been initialized
      * with values for this fields (without user interaction):
      *
      * - autorization url
      * - token url
      * - scopes
      *
-     * If all this values are set then the element will set `isAdvanced` attribute and set
+     * If all this values are set then the element sets `isAdvanced` attribute and sets
      * `advancedOpened` to false
      *
      * Setting this property will prevent this behavior.
@@ -403,8 +298,8 @@ declare namespace UiElements {
     noAuto: boolean|null|undefined;
 
     /**
-     * If set it will render autorization url, token url and scopes as advanced options
-     * activated on user interaction.
+     * If set it renders autorization url, token url and scopes as advanced options
+     * which are then invisible by default. User can oen setting using the UI.
      */
     isAdvanced: boolean|null|undefined;
 
@@ -426,7 +321,7 @@ declare namespace UiElements {
      * and one of it is `customSettings`.
      * See https://github.com/raml-org/raml-annotations for definition.
      */
-    readonly authQueryParameters: any[]|null|undefined;
+    _authQueryParameters: any[]|null|undefined;
 
     /**
      * List of query parameters to apply to token request.
@@ -436,7 +331,7 @@ declare namespace UiElements {
      * and one of it is `customSettings`.
      * See https://github.com/raml-org/raml-annotations for definition.
      */
-    readonly tokenQueryParameters: any[]|null|undefined;
+    _tokenQueryParameters: any[]|null|undefined;
 
     /**
      * List of headers to apply to token request.
@@ -446,7 +341,7 @@ declare namespace UiElements {
      * and one of it is `customSettings`.
      * See https://github.com/raml-org/raml-annotations for definition.
      */
-    readonly tokenHeaders: any[]|null|undefined;
+    _tokenHeaders: any[]|null|undefined;
 
     /**
      * List of body parameters to apply to token request.
@@ -456,7 +351,7 @@ declare namespace UiElements {
      * and one of it is `customSettings`.
      * See https://github.com/raml-org/raml-annotations for definition.
      */
-    readonly tokenBody: any[]|null|undefined;
+    _tokenBody: any[]|null|undefined;
 
     /**
      * Default delivery method of access token. Reported with
@@ -485,9 +380,18 @@ declare namespace UiElements {
      * or narrow area on desktop.
      */
     narrow: boolean|null|undefined;
+    constructor(type: any);
+
+    /**
+     * Restores settings from stored value.
+     *
+     * @param settings Object returned by `getSettings()`
+     */
+    restore(settings: object|null): void;
+    firstUpdated(): void;
+    updated(): void;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
-    ready(): void;
 
     /**
      * This function hides all non-crucial fields that has been pre-filled when element has been
@@ -503,23 +407,6 @@ declare namespace UiElements {
      * It does not override values already set.
      */
     _autoRestore(): void;
-
-    /**
-     * Restores an item from a session store and assigns it to a local
-     * property.
-     *
-     * @param sessionKey Session storage key
-     * @param localKey This component's property
-     */
-    _restoreSessionProperty(sessionKey: String|null, localKey: String|null): void;
-
-    /**
-     * Stores a property in a session storage.
-     *
-     * @param sessionKey A storage key
-     * @param value Value to store
-     */
-    _storeSessionProperty(sessionKey: String|null, value: String|null): void;
 
     /**
      * Sets `clientId` property from `iron-meta` if created.
@@ -539,26 +426,11 @@ declare namespace UiElements {
      * @returns `true` if valid, `false` otherwise.
      */
     validate(): Boolean|null;
-    _clientIdChanged(value: any): void;
-    _clientSecretChanged(value: any): void;
-    _authorizationUriChanged(value: any): void;
-    _accessTokenUriChanged(value: any): void;
-    _passwordChanged(value: any): void;
-    _usernameChanged(value: any): void;
-    _accessTokenChanged(value: any): void;
-    _tokenTypeChanged(value: any): void;
-    _settingsChanged(): void;
 
     /**
      * Checks if the HTML element should be visible in the UI for given properties.
      */
-    _isFieldDisabled(): any;
-
-    /**
-     * Computes the `required` attribute on input fileld.
-     * When using custom grant type all fields are not required.
-     */
-    _isFieldRequired(isCustomGrant: Boolean|null): Boolean|null;
+    _isFieldDisabled(...args: any[]): any;
 
     /**
      * Dispatches the `oauth2-token-requested` event.
@@ -624,20 +496,6 @@ declare namespace UiElements {
     _computeCustomParameters(params: any[]|null): any[]|null|undefined;
 
     /**
-     * Restores settings from stored value.
-     *
-     * @param settings Object returned by `getSettings()`
-     */
-    restore(settings: object|null): void;
-
-    /**
-     * Computes value for `hasAccessToken` property
-     *
-     * @param newValue Token changed value
-     */
-    _computeHasToken(newValue: String|null): Boolean|null;
-
-    /**
      * Handler for `oauth2-error` custom event.
      * Informs the user about the error in the flow if the state property
      * is the one used with the request.
@@ -651,10 +509,8 @@ declare namespace UiElements {
 
     /**
      * Handler to set up data from the AMF model.
-     *
-     * @param model Security model of AMF
      */
-    _amfChanged(model: object|null): void;
+    _amfSettingsChanged(): void;
     _setupOAuthDeliveryMethod(model: any): void;
 
     /**
@@ -668,7 +524,7 @@ declare namespace UiElements {
     _getOauth2DeliveryMethod(info: object|null): object|null;
 
     /**
-     * Reads API security definition and applies itn to the view as predefined
+     * Reads API security definition and applies in to the view as predefined
      * values.
      *
      * @param model AMF model describing settings of the security
@@ -773,49 +629,17 @@ declare namespace UiElements {
     _computeGrantList(allowed: Array<String|null>|null): Array<object|null>|null;
 
     /**
-     * Computes boolean value for `isSelectedType` if `grantType` is set.
-     *
-     * @param grantType Current grant type.
-     * @returns True when the value is set.
-     */
-    _computeIsSelectedType(grantType: String|null): Boolean|null;
-
-    /**
-     * Clears grant type selection.
-     */
-    _clearTypeSelection(): void;
-
-    /**
-     * Computes the label for selected step title.
-     *
-     * @param grantType Selected grant type.
-     * @returns Label to render
-     */
-    _computeSelectedTypeLabel(grantType: String|null): String|null;
-    _updateStepperState(noStepper: any): void;
-    _noGrantTypeChanged(newValue: any, oldValue: any): void;
-
-    /**
      * Handler for the `request-header-changed` custom event.
      * If the panel is opened the it checks if current header updates
      * authorization.
      */
-    _headerChangedHandler(e: any): void;
+    _headerChangedHandler(e: Event|null): void;
+    _modelForCustomType(type: any): any;
 
     /**
      * Toggles documentartion for custom property.
      */
     _toggleDocumentation(e: CustomEvent|null): void;
-
-    /**
-     * Creates a documentation element.
-     */
-    _createDocsElements(model: object|null, appendTo: Element|null): void;
-
-    /**
-     * Clears all custom data documention nodes.
-     */
-    _clearDocs(): void;
 
     /**
      * Dispatches analytics event.
@@ -831,9 +655,23 @@ declare namespace UiElements {
      * should be coppied to clipboard when user is interacting with it.
      */
     _clickCopyAction(e: ClickEvent|null): void;
+    _advHandler(e: any): void;
+    _selectionHandler(e: any): void;
+    _valueHandler(e: any): void;
+    _customValueChanged(e: any): void;
+    _scopesChanged(e: any): void;
+    _getGrantTypeTemplate(): any;
+    _getCustomPropertiesTemplate(): any;
+    _templateForCustomArray(items: any, type: any): any;
+    _getRedirectTemplate(): any;
+    _getAdvancedTemplate(customGrantRequired: any): any;
+    render(): any;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-oauth2": UiElements.AuthMethodOauth2;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-oauth2": UiElements.AuthMethodOauth2;
+  }
 }

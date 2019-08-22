@@ -5,28 +5,16 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-digest.html
+ *   auth-method-digest.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-checkbox/paper-checkbox.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../iron-collapse/iron-collapse.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="../paper-dropdown-menu/paper-dropdown-menu.d.ts" />
-/// <reference path="../paper-listbox/paper-listbox.d.ts" />
-/// <reference path="../paper-item/paper-item.d.ts" />
-/// <reference path="auth-methods-mixin.d.ts" />
-/// <reference path="auth-methods-styles.d.ts" />
-/// <reference path="auth-method-step.d.ts" />
+import {html, css} from 'lit-element';
+
+import {AuthMethodBase} from './auth-method-base.js';
 
 declare namespace UiElements {
 
@@ -72,30 +60,13 @@ declare namespace UiElements {
    * and `body-value-changed` events on the window object. Once the event is handled
    * it will set up corresponding properties.
    * All this events must have a `value` property set on event's detail object.
-   *
-   *
-   * ## Changes in version 2.0
-   *
-   * - `CryptoJS` library is not included by default. Use
-   * `advanced-rest-client/cryptojs-lib` component to include the library if
-   * your project doesn't use crypto libraries already.
-   *
-   * ### Styling
-   *
-   * `<auth-methods>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--auth-method-digest` | Mixin applied to the element. | `{}`
-   * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
-   *
-   * This is very basic element. Style inputs using `paper-input`'s or `
-   * paper-toggle`'s css variables.
    */
-  class AuthMethodDigest extends
-    ArcBehaviors.EventsTargetBehavior(
-    ArcBehaviors.AuthMethodsMixin(
-    Object)) {
+  class AuthMethodDigest extends AuthMethodBase {
+
+    /**
+     * Current request URL.
+     */
+    requestUrl: string|null|undefined;
 
     /**
      * The password.
@@ -157,18 +128,24 @@ declare namespace UiElements {
      * Request HTTP method
      */
     httpMethod: string|null|undefined;
-
-    /**
-     * Current request URL.
-     */
-    requestUrl: string|null|undefined;
+    _requestUri: string|null|undefined;
 
     /**
      * Current request body.
      */
     requestBody: string|null|undefined;
+    constructor(type: any);
+
+    /**
+     * Restores settings from stored value.
+     *
+     * @param settings Object returned by `_getSettings()`
+     */
+    restore(settings: object|null): void;
+    render(): any;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
+    firstUpdated(): void;
 
     /**
      * Validates the form.
@@ -184,26 +161,14 @@ declare namespace UiElements {
      * Authorization header.
      */
     getSettings(): object|null;
-
-    /**
-     * Restores settings from stored value.
-     *
-     * @param settings Object returned by `_getSettings()`
-     */
-    restore(settings: object|null): void;
     _processInput(): void;
-
-    /**
-     * Clears usernamr field
-     */
-    clearUsername(): void;
 
     /**
      * Generates client nonce.
      *
      * @returns Generated client nonce.
      */
-    generateCnonce(): any;
+    generateCnonce(): String|null;
 
     /**
      * Generates the response header based on the parameters provided in the
@@ -229,19 +194,19 @@ declare namespace UiElements {
      * Handler to the `url-value-changed` event. When the element handle this
      * event it will update the `requestUrl` property.
      */
-    _onUrlChanged(e: any): void;
+    _onUrlChanged(e: CustomEvent|null): void;
 
     /**
      * Handler to the `http-method-changed` event. When the element handle this
      * event it will update the `httpMethod` property.
      */
-    _onHttpMethodChanged(e: any): void;
+    _onHttpMethodChanged(e: CustomEvent|null): void;
 
     /**
      * Handler to the `body-value-changed` event. When the element handle this
      * event it will update the `requestBody` property.
      */
-    _onBodyChanged(e: any): void;
+    _onBodyChanged(e: CustomEvent|null): void;
 
     /**
      * Handler to the `auth-settings-changed` event (fired by all auth panels).
@@ -249,10 +214,18 @@ declare namespace UiElements {
      * then the form will be updated to incomming values.
      * This helps to sync changes between elements in the same app.
      */
-    _onAuthSettings(e: any): void;
+    _onAuthSettings(e: CustomEvent|null): void;
+    _advHandler(e: any): void;
+    _qopHandler(e: any): void;
+    _algorithmHandler(e: any): void;
+    _valueHandler(e: any): void;
+    _processRequestUrl(value: any): void;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-digest": UiElements.AuthMethodDigest;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-digest": UiElements.AuthMethodDigest;
+  }
 }

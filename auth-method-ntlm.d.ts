@@ -5,23 +5,16 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   auth-method-ntlm.html
+ *   auth-method-ntlm.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer.d.ts" />
-/// <reference path="../events-target-behavior/events-target-behavior.d.ts" />
-/// <reference path="../paper-masked-input/paper-masked-input.d.ts" />
-/// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
-/// <reference path="../paper-input/paper-input.d.ts" />
-/// <reference path="../arc-icons/arc-icons.d.ts" />
-/// <reference path="../iron-form/iron-form.d.ts" />
-/// <reference path="auth-methods-mixin.d.ts" />
-/// <reference path="auth-methods-styles.d.ts" />
-/// <reference path="auth-method-step.d.ts" />
+import {html, css} from 'lit-element';
+
+import {AuthMethodBase} from './auth-method-base.js';
 
 declare namespace UiElements {
 
@@ -40,28 +33,13 @@ declare namespace UiElements {
    * ```html
    * <auth-method-ntlm username="john" password="doe" domain="my-nt-domain"></auth-method-ntlm>
    * ```
-   *
-   * ### Styling
-   *
-   * `<auth-methods>` provides the following custom properties and mixins for styling:
-   *
-   * Custom property | Description | Default
-   * ----------------|-------------|----------
-   * `--auth-method-ntlm` | Mixin applied to the element. | `{}`
-   * `--auth-method-panel` | Mixin applied to all auth elements. | `{}`
-   *
-   * This is very basic element. Style inputs using `paper-input`'s or `
-   * paper-toggle`'s css variables.
    */
-  class AuthMethodNtlm extends
-    ArcBehaviors.EventsTargetBehavior(
-    ArcBehaviors.AuthMethodsMixin(
-    Object)) {
+  class AuthMethodNtlm extends AuthMethodBase {
 
     /**
-     * The domain parameter for the request.
+     * The username.
      */
-    domain: string|null|undefined;
+    username: string|null|undefined;
 
     /**
      * The password.
@@ -69,9 +47,20 @@ declare namespace UiElements {
     password: string|null|undefined;
 
     /**
-     * The username.
+     * The domain parameter for the request.
      */
-    username: string|null|undefined;
+    domain: string|null|undefined;
+    constructor(type: any);
+
+    /**
+     * Restores settings from stored value.
+     *
+     * @param settings Object returned by `_getSettings()`
+     */
+    restore(settings: object|null): void;
+    reset(): void;
+    render(): any;
+    firstUpdated(): void;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
 
@@ -81,7 +70,6 @@ declare namespace UiElements {
      * @returns `true` if valid, `false` otherwise.
      */
     validate(): Boolean|null;
-    _settingsChanged(): void;
 
     /**
      * Creates a settings object with user provided data.
@@ -91,26 +79,19 @@ declare namespace UiElements {
     getSettings(): object|null;
 
     /**
-     * Restores settings from stored value.
-     *
-     * @param settings Object returned by `_getSettings()`
-     */
-    restore(settings: object|null): void;
-
-    /**
-     * Removes a value from the (paper-)input going up through path of the event.
-     */
-    _clearField(e: any): void;
-
-    /**
      * Handler for the `auth-settings-changed` event (fired by all auth panels).
      * If the event was fired by other element with the same method ttype
      * then the form will be updated to incomming values.
      */
-    _onAuthSettings(e: any): void;
+    _onAuthSettings(e: Event|null): void;
+    _valueHandler(e: any): void;
+    _valueChanged(): void;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "auth-method-ntlm": UiElements.AuthMethodNtlm;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "auth-method-ntlm": UiElements.AuthMethodNtlm;
+  }
 }
