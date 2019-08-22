@@ -920,3 +920,12 @@
 
 
 
+# [4.0.0](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...4.0.0) (2019-08-22)
+
+
+### Bug Fixes
+
+* fixes [#16](https://github.com/advanced-rest-client/auth-methods/issues/16) - client id and secret is not available for poassword ([a1131e4](https://github.com/advanced-rest-client/auth-methods/commit/a1131e4))
+
+
+
