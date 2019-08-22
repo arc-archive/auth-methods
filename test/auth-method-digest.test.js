@@ -57,12 +57,12 @@ describe('<auth-method-digest>', function() {
       assert.equal(element.type, 'digest');
     });
 
-    it('does not produce the model without values', async () => {
+    it('produces model when initializing', async () => {
       const element = await basicFixture();
       const spy = sinon.stub();
       element.addEventListener('auth-settings-changed', spy);
       await aTimeout();
-      assert.isFalse(spy.called);
+      assert.isTrue(spy.called);
     });
 
     it('produces the model with initial values', async () => {

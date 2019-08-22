@@ -200,10 +200,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
   }
 
   firstUpdated() {
-    const { _queryParameters, _headers } = this;
-    if (_queryParameters || _headers) {
-      this._settingsChanged();
-    }
+    this._settingsChanged();
   }
 
   _attachListeners(node) {

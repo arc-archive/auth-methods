@@ -162,10 +162,7 @@ class AuthMethodBasic extends AuthMethodBase {
   }
 
   firstUpdated() {
-    const { username, password } = this;
-    if (username || password) {
-      this._valueChanged();
-    }
+    this._valueChanged();
   }
 
   /**

@@ -331,10 +331,7 @@ class AuthMethodDigest extends AuthMethodBase {
   }
 
   firstUpdated() {
-    const { username, password } = this;
-    if (username || password) {
-      this._settingsChanged();
-    }
+    this._settingsChanged();
   }
   /**
    * Validates the form.
@@ -343,6 +340,10 @@ class AuthMethodDigest extends AuthMethodBase {
    */
   validate() {
     const form = this.shadowRoot.querySelector('iron-form');
+    /* istanbul ignore if */
+    if (!form) {
+      return true;
+    }
     return form ? form.validate() : true;
   }
   /**

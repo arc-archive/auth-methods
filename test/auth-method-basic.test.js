@@ -31,6 +31,14 @@ describe('<auth-method-basic>', function() {
       const element = await basicFixture();
       assert.equal(element.username, '');
     });
+
+    it('produces model when initializing', async () => {
+      const element = await basicFixture();
+      const spy = sinon.stub();
+      element.addEventListener('auth-settings-changed', spy);
+      await aTimeout();
+      assert.isTrue(spy.called);
+    });
   });
 
   describe('settings computation', () => {

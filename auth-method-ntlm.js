@@ -154,10 +154,7 @@ class AuthMethodNtlm extends AuthMethodBase {
   }
 
   firstUpdated() {
-    const { username, password, domain } = this;
-    if (username || password || domain) {
-      this._settingsChanged();
-    }
+    this._valueChanged();
   }
 
   _attachListeners(node) {
