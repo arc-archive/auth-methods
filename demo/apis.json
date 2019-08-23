@@ -1,5 +1,6 @@
 {
   "api/oauth2-api.raml": "RAML 1.0",
   "api/custom-schemes-api.raml": "RAML 1.0",
-  "api/oauth1-api.raml": "RAML 1.0"
+  "api/oauth1-api.raml": "RAML 1.0",
+  "APIC-168/APIC-168.raml": "RAML 1.0"
 }

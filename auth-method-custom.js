@@ -314,12 +314,26 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       return;
     }
     const hKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'header');
-    const pKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'parameter');
     this._createViewModel('header', this._ensureArray(scheme[hKey]));
-    this._createViewModel('parameter', this._ensureArray(scheme[pKey]));
+    const params = this._readParamsProperties(scheme);
+    this._createViewModel('parameter', params);
     this._schemeName = this._getValue(model, prefix + 'name');
     this._schemeDescription = this._getValue(scheme, this.ns.schema.desc);
     this._settingsChanged();
+  }
+
+  _readParamsProperties(scheme) {
+    const pKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'parameter');
+    let result = this._ensureArray(scheme[pKey]);
+    if (result) {
+      return result;
+    }
+    const qKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'queryString');
+    result = this._ensureArray(scheme[qKey]);
+    if (result) {
+      result = result[0];
+    }
+    return result;
   }
   /**
    * Generates view model using the tranformer.

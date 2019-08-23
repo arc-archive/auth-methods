@@ -105,9 +105,13 @@ class ComponentDemo extends ApiDemoPageBase {
   }
 
   _apiListTemplate() {
-    return html`
-    <paper-item data-src="custom-schemes-api.json">Demo api</paper-item>
-    <paper-item data-src="custom-schemes-api-compact.json">Demo api - compact model</paper-item>`;
+    return [
+      ['custom-schemes-api', 'Demo API'],
+      ['APIC-168', 'Custom scheme support (APIC-168)']
+    ].map(([file, label]) => html`
+      <paper-item data-src="${file}-compact.json">${label} - compact model</paper-item>
+      <paper-item data-src="${file}.json">${label}</paper-item>
+      `);
   }
 
   _demoTemplate() {
