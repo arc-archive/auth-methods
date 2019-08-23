@@ -500,5 +500,17 @@ describe('<auth-method-oauth2>', function() {
         });
       });
     });
+
+    describe('a11y', () => {
+      it('is accessible when empty', async () => {
+        const element = await implicitModelFixture();
+        await assert.isAccessible(element);
+      });
+
+      it('is accessible when with data', async () => {
+        const element = await dataFixture();
+        await assert.isAccessible(element);
+      });
+    });
   });
 });

@@ -313,6 +313,25 @@ describe('<auth-method-oauth2>', function() {
             assert.equal(result.customData.token.body[0].value, value);
           });
         });
+
+        describe('a11y', () => {
+          let amf;
+          let element;
+          before(async () => {
+            amf = await AmfLoader.load(apiFile, compact);
+          });
+
+          beforeEach(async () => {
+            clearStorage();
+            const security = AmfLoader.lookupSecurity(amf, '/with-annotations', 'get');
+            element = await modelFixture(amf, security);
+            await aTimeout();
+          });
+
+          it('is accessible when with data', async () => {
+            await assert.isAccessible(element);
+          });
+        });
       });
     });
   });
