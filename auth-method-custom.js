@@ -250,8 +250,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
         ?disabled="${disabled}"
         data-type="${type}"
         data-index="${index}"
-        @value-changed="${this._inputValueChanged}"
-        @input="${this._inputHandler}"></api-property-form-item>
+        @value-changed="${this._inputValueChanged}"></api-property-form-item>
         ${item.hasDescription && !noDocs ? html`<anypoint-icon-button
           class="hint-icon"
           title="Toggle description"
@@ -377,19 +376,6 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
   toggleSchemeDocumentation() {
     this.documentationOpened = !this.documentationOpened;
   }
-
-  _inputHandler(e) {
-    const index = Number(e.target.dataset.index);
-    const type = e.target.dataset.type;
-    if (index !== index || !type) {
-      return;
-    }
-    const model = type === 'query' ? this._queryParameters : this._headers;
-    model[index].value = e.target.value;
-    this.__isInputEvent = true;
-    this._settingsChanged();
-    this.__isInputEvent = false;
-  }
   /**
    * Handler for the `request-header-changed` event.
    * It updates value for a single header if this header is already on the list.
@@ -453,6 +439,9 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     const { name } = model[index];
     const { value } = e.detail;
     model[index].value = value;
+    this.__isInputEvent = true;
+    this._settingsChanged();
+    this.__isInputEvent = false;
     const eventType = type === 'header' ? 'request-header-changed' : 'query-parameter-changed';
     this.dispatchEvent(new CustomEvent(eventType, {
       detail: {

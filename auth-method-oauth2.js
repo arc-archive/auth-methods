@@ -1649,8 +1649,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
           ?disabled="${disabled}"
           data-type="${type}"
           data-index="${index}"
-          @value-changed="${this._customValueChanged}"
-          @input="${this._inputHandler}"></api-property-form-item>
+          @value-changed="${this._customValueChanged}"></api-property-form-item>
           ${item.hasDescription && !noDocs ? html`<anypoint-icon-button
             class="hint-icon"
             title="Toggle description"

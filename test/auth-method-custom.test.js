@@ -310,20 +310,18 @@ describe('<auth-method-custom>', function() {
 
         it('dispatches the event immediately after header value change', async () => {
           const item = element.shadowRoot.querySelector(`api-property-form-item[name="SpecialTokenHeader"]`);
-          item.value = 'test';
           const spy = sinon.stub();
           element.addEventListener('auth-settings-changed', spy);
-          item.dispatchEvent(new CustomEvent('input', { bubbles: true, composed: true }));
+          item.value = 'test';
           const detail = spy.args[0][0].detail;
           assert.equal(detail.settings.SpecialTokenHeader, 'test', 'header is set');
         });
 
         it('dispatches the event immediately after query value change', async () => {
           const item = element.shadowRoot.querySelector(`api-property-form-item[name="debugTokenParam"]`);
-          item.value = 'Warning';
           const spy = sinon.stub();
           element.addEventListener('auth-settings-changed', spy);
-          item.dispatchEvent(new CustomEvent('input', { bubbles: true, composed: true }));
+          item.value = 'Warning';
           const detail = spy.args[0][0].detail;
           assert.equal(detail.settings.debugTokenParam, 'Warning', 'param is set');
         });
