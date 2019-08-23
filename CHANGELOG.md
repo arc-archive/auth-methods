@@ -949,3 +949,15 @@
 
 
 
+## [4.0.3](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...4.0.3) (2019-08-23)
+
+
+### Bug Fixes
+
+* adding missing dependency ([d90c15e](https://github.com/advanced-rest-client/auth-methods/commit/d90c15e))
+* fixes [#16](https://github.com/advanced-rest-client/auth-methods/issues/16) - client id and secret is not available for poassword ([a1131e4](https://github.com/advanced-rest-client/auth-methods/commit/a1131e4))
+* fixes advanced-rest-client/api-view-model-transformer[#2](https://github.com/advanced-rest-client/auth-methods/issues/2) ([4738afc](https://github.com/advanced-rest-client/auth-methods/commit/4738afc))
+* fixing model upgrading from api-property-form-item ([7fb123f](https://github.com/advanced-rest-client/auth-methods/commit/7fb123f))
+
+
+
