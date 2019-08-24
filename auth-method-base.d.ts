@@ -21,7 +21,9 @@ export {AuthMethodBase};
 /**
  * Base class for all authorization methods
  */
-declare class AuthMethodBase {
+declare class AuthMethodBase extends
+  EventsTargetMixin(
+  LitElement) {
   constructor(type: any);
 
   /**

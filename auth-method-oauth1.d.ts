@@ -164,6 +164,9 @@ declare namespace UiElements {
      */
     signatureMethods: any[]|null|undefined;
     constructor(type: any);
+    connectedCallback(): void;
+    updated(): void;
+    render(): any;
 
     /**
      * Restores settings from stored value.
@@ -172,11 +175,8 @@ declare namespace UiElements {
      */
     restore(settings: object|null): void;
     _createModel(type: any): any;
-    render(): any;
-    connectedCallback(): void;
     _attachListeners(): void;
     _detachListeners(): void;
-    updated(): void;
 
     /**
      * Validates the form.

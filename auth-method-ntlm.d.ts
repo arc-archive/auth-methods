@@ -51,6 +51,8 @@ declare namespace UiElements {
      */
     domain: string|null|undefined;
     constructor(type: any);
+    firstUpdated(): void;
+    render(): any;
 
     /**
      * Restores settings from stored value.
@@ -59,8 +61,6 @@ declare namespace UiElements {
      */
     restore(settings: object|null): void;
     reset(): void;
-    render(): any;
-    firstUpdated(): void;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
 

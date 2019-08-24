@@ -135,6 +135,8 @@ declare namespace UiElements {
      */
     requestBody: string|null|undefined;
     constructor(type: any);
+    firstUpdated(): void;
+    render(): any;
 
     /**
      * Restores settings from stored value.
@@ -142,10 +144,8 @@ declare namespace UiElements {
      * @param settings Object returned by `_getSettings()`
      */
     restore(settings: object|null): void;
-    render(): any;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
-    firstUpdated(): void;
 
     /**
      * Validates the form.

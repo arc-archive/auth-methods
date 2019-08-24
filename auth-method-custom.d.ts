@@ -76,9 +76,9 @@ declare namespace UiElements {
      */
     documentationOpened: boolean|null|undefined;
     constructor(type: any);
-    render(): any;
     disconnectedCallback(): void;
     firstUpdated(): void;
+    render(): any;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
     _getHeadersTemplate(): any;
@@ -93,6 +93,7 @@ declare namespace UiElements {
      */
     validate(): Boolean|null;
     _schemeChanged(): void;
+    _readParamsProperties(scheme: any): any;
 
     /**
      * Generates view model using the tranformer.
@@ -117,7 +118,6 @@ declare namespace UiElements {
      * Toggles docs opened state
      */
     toggleSchemeDocumentation(): void;
-    _inputHandler(e: any): void;
 
     /**
      * Handler for the `request-header-changed` event.

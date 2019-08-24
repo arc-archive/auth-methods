@@ -15,6 +15,9 @@ import { LitElement, html } from 'lit-element';
 import { EventsTargetMixin } from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
 /**
  * Base class for all authorization methods
+ *
+ * @appliesMixin EventsTargetMixin
+ * @extends LitElement
  */
 export class AuthMethodBase extends EventsTargetMixin(LitElement) {
   static get properties() {

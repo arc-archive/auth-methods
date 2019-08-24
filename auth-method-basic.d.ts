@@ -48,6 +48,8 @@ declare namespace UiElements {
      */
     password: string|null|undefined;
     constructor(type: any);
+    firstUpdated(): void;
+    render(): any;
 
     /**
      * Restores settings from stored value.
@@ -60,10 +62,8 @@ declare namespace UiElements {
      * Resets state of the form.
      */
     reset(): void;
-    render(): any;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
-    firstUpdated(): void;
 
     /**
      * Validates the form.

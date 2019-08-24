@@ -381,6 +381,9 @@ declare namespace UiElements {
      */
     narrow: boolean|null|undefined;
     constructor(type: any);
+    updated(): void;
+    firstUpdated(): void;
+    render(): any;
 
     /**
      * Restores settings from stored value.
@@ -388,8 +391,6 @@ declare namespace UiElements {
      * @param settings Object returned by `getSettings()`
      */
     restore(settings: object|null): void;
-    firstUpdated(): void;
-    updated(): void;
     _attachListeners(node: any): void;
     _detachListeners(node: any): void;
 
@@ -665,7 +666,6 @@ declare namespace UiElements {
     _templateForCustomArray(items: any, type: any): any;
     _getRedirectTemplate(): any;
     _getAdvancedTemplate(customGrantRequired: any): any;
-    render(): any;
   }
 }
 
