@@ -36,6 +36,7 @@ describe('Issue APIC-168', function() {
           const security = AmfLoader.lookupSecurity(amf, '/querystring', 'get');
           const element = await modelFixture(amf, security);
           await aTimeout();
+          await aTimeout();
           const node = element.shadowRoot.querySelector('[name="queryString"]');
           assert.ok(node);
         });
@@ -43,6 +44,7 @@ describe('Issue APIC-168', function() {
         it('includes scalar value in settings', async () => {
           const security = AmfLoader.lookupSecurity(amf, '/querystring', 'get');
           const element = await modelFixture(amf, security);
+          await aTimeout();
           await aTimeout();
           const input = element.shadowRoot.querySelector('[name="queryString"]');
           input.value = 'test';
@@ -57,6 +59,7 @@ describe('Issue APIC-168', function() {
           const security = AmfLoader.lookupSecurity(amf, '/querystring2', 'get');
           const element = await modelFixture(amf, security);
           await aTimeout();
+          await aTimeout();
           const node1 = element.shadowRoot.querySelector('[name="start"]');
           assert.ok(node1, 'start property is rendered');
           const node2 = element.shadowRoot.querySelector('[name="page-size"]');
@@ -66,6 +69,7 @@ describe('Issue APIC-168', function() {
         it('includes object value in settings', async () => {
           const security = AmfLoader.lookupSecurity(amf, '/querystring2', 'get');
           const element = await modelFixture(amf, security);
+          await aTimeout();
           await aTimeout();
           const input = element.shadowRoot.querySelector('[name="start"]');
           input.value = 10;
