@@ -514,7 +514,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   }
 
   get tokenType() {
-    return this._tokenType || 'Bearer';
+    return this._tokenType;
   }
 
   set tokenType(value) {
@@ -599,6 +599,9 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     }
     this._autoHide();
     this._autoRestore();
+    if (!this._tokenType) {
+      this._tokenType = 'Bearer';
+    }
   }
 
   updated() {
@@ -643,7 +646,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       clientId: 'auth.methods.latest.client_id',
       clientSecret: 'auth.methods.latest.client_secret',
       authorizationUri: 'auth.methods.latest.auth_uri',
-      accessTokenUri: 'auth.methods.latest.auth_uri',
+      accessTokenUri: 'auth.methods.latest.token_uri',
       username: 'auth.methods.latest.username',
       password: 'auth.methods.latest.password',
       token: 'auth.methods.latest.auth_token',

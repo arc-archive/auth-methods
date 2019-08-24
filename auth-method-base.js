@@ -183,7 +183,7 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
     if (!this[localKey]) {
       const value = sessionStorage.getItem(sessionKey);
       if (value) {
-        this.localKey = value;
+        this[localKey] = value;
       }
     }
   }

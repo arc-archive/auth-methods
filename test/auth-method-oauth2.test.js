@@ -60,10 +60,11 @@ describe('<auth-method-oauth2>', function() {
   });
 
   describe('oauth2-token-response event', () => {
-    before(() => clearStorage());
+    after(() => clearStorage());
 
     let element;
     beforeEach(async () => {
+      clearStorage();
       element = await basicFixture();
     });
 
@@ -233,6 +234,51 @@ describe('<auth-method-oauth2>', function() {
       assert.equal(element.accessTokenUri, cnf.accessTokenUri);
       assert.equal(element.clientSecret, cnf.clientSecret);
       assert.equal(element.authorizationUri, authorizationUri);
+    });
+  });
+
+  describe('_autoRestore()', () => {
+    after(() => clearStorage());
+
+    [
+      ['auth.methods.latest.client_id', 'clientId', 'a'],
+      ['auth.methods.latest.client_secret', 'clientSecret', 'b'],
+      ['auth.methods.latest.auth_uri', 'authorizationUri', 'https://c.com'],
+      ['auth.methods.latest.token_uri', 'accessTokenUri', 'https://d.com'],
+      ['auth.methods.latest.username', 'username', 'e'],
+      ['auth.methods.latest.password', 'password', 'f'],
+      ['auth.methods.latest.auth_token', 'accessToken', 'g'],
+      ['auth.methods.latest.tokenType', 'tokenType', 'h']
+    ].forEach(([key, property, value]) => {
+      it(`auto restores ${property}`, async () => {
+        clearStorage();
+        sessionStorage.setItem(key, value);
+        const element = await basicFixture();
+        assert.equal(element[property], value);
+      });
+    });
+  });
+
+  describe('_storeSessionProperty()', () => {
+    after(() => clearStorage());
+
+    [
+      ['auth.methods.latest.client_id', 'clientId', 'a'],
+      ['auth.methods.latest.client_secret', 'clientSecret', 'b'],
+      ['auth.methods.latest.auth_uri', 'authorizationUri', 'https://c.com'],
+      ['auth.methods.latest.token_uri', 'accessTokenUri', 'https://d.com'],
+      ['auth.methods.latest.username', 'username', 'e'],
+      ['auth.methods.latest.password', 'password', 'f'],
+      ['auth.methods.latest.auth_token', 'accessToken', 'g'],
+      ['auth.methods.latest.tokenType', 'tokenType', 'h']
+    ].forEach(([key, property, value]) => {
+      it(`auto stores ${property}`, async () => {
+        clearStorage();
+        const element = await basicFixture();
+        element[property] = value;
+        sessionStorage.setItem(key, value);
+        assert.equal(sessionStorage.getItem(key), value);
+      });
     });
   });
 
