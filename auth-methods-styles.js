@@ -52,4 +52,9 @@ arc-marked {
   line-height: var(--arc-font-subhead-line-height);
   margin: 12px 8px;
 }
+
+anypoint-input,
+anypoint-masked-input {
+  margin: 20px 8px;
+}
 `;

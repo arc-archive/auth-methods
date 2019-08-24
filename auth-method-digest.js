@@ -108,7 +108,8 @@ class AuthMethodDigest extends AuthMethodBase {
           .outlined="${outlined}"
           .legacy="${legacy}"
           .readOnly="${readOnly}"
-          .disabled="${disabled}">
+          .disabled="${disabled}"
+          invalidmessage="Username is required">
           <label slot="label">User name</label>
         </anypoint-input>
         <anypoint-masked-input
@@ -144,7 +145,8 @@ class AuthMethodDigest extends AuthMethodBase {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Realm is required">
             <label slot="label">Server issued realm</label>
           </anypoint-input>
 
@@ -159,7 +161,8 @@ class AuthMethodDigest extends AuthMethodBase {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Nonce is required">
             <label slot="label">Server issued nonce</label>
           </anypoint-input>
 
@@ -195,7 +198,8 @@ class AuthMethodDigest extends AuthMethodBase {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Nonce count is required">
             <label slot="label">Nounce count</label>
           </anypoint-input>
 
@@ -231,7 +235,8 @@ class AuthMethodDigest extends AuthMethodBase {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Server issued opaque is required">
             <label slot="label">Server issued opaque string</label>
           </anypoint-input>
 
@@ -246,7 +251,8 @@ class AuthMethodDigest extends AuthMethodBase {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Client nounce is required">
             <label slot="label">Client nounce</label>
           </anypoint-input>
         </div>` : ''}

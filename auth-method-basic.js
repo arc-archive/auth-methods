@@ -76,7 +76,8 @@ class AuthMethodBasic extends AuthMethodBase {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Username is required">
             <label slot="label">User name</label>
           </anypoint-input>
           <anypoint-masked-input

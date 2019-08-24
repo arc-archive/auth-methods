@@ -186,7 +186,8 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Consumer key is required">
             <label slot="label">Consumer key</label>
           </anypoint-masked-input>
 
@@ -289,7 +290,8 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Timestamp is required">
             <label slot="label">Timestamp</label>
             <anypoint-icon-button
               slot="suffix"
@@ -311,7 +313,8 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             .outlined="${outlined}"
             .legacy="${legacy}"
             .readOnly="${readOnly}"
-            .disabled="${disabled}">
+            .disabled="${disabled}"
+            invalidmessage="Nonce is required">
             <label slot="label">Nonce</label>
             <anypoint-icon-button
               slot="suffix"
