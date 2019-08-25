@@ -352,8 +352,10 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     }
     if (type === 'header') {
       this._headers = data;
+      this._notifyModelChanged(type, data);
     } else if (type === 'parameter') {
       this._queryParameters = data;
+      this._notifyModelChanged(type, data);
     }
   }
   /**
@@ -455,6 +457,15 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     this.__isInputEvent = true;
     this._settingsChanged();
     this.__isInputEvent = false;
+    this._dispatchParamChanged(type, name, value);
+  }
+  /**
+   * Dispatches header/query parameter changed event - depending on the type.
+   * @param {String} type `header` or `query`
+   * @param {String} name name of the property
+   * @param {String} value changed value
+   */
+  _dispatchParamChanged(type, name, value) {
     const eventType = type === 'header' ? 'request-header-changed' : 'query-parameter-changed';
     this.dispatchEvent(new CustomEvent(eventType, {
       detail: {
@@ -464,6 +475,18 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       bubbles: true,
       composed: true
     }));
+  }
+  /**
+   * Calls `_dispatchParamChanged()` on each item to notify other editors about
+   * value change.
+   * @param {String} type Changed type.
+   * @param {String} data View model
+   */
+  _notifyModelChanged(type, data) {
+    if (!data || !data.length) {
+      return;
+    }
+    data.forEach((item) => this._dispatchParamChanged(type, item.name, item.value));
   }
   /**
    * Fired when the any of the auth method settings has changed.
