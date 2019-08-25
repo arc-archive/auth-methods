@@ -155,17 +155,6 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     return !!this._schemeDescription;
   }
 
-  get amf() {
-    return this._amf;
-  }
-
-  set amf(value) {
-    /* istanbul ignore else */
-    if (this._sop('amf', value)) {
-      this._schemeChanged();
-    }
-  }
-
   get amfSettings() {
     return this._amfSettings;
   }
@@ -210,6 +199,12 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
   _detachListeners(node) {
     node.removeEventListener('request-header-changed', this._headerChangedHandler);
     node.removeEventListener('query-parameter-changed', this._parameterChangedHandler);
+  }
+  /**
+   * Overrides `AmfHelperMixin.__amfChanged`
+   */
+  __amfChanged() {
+    this._schemeChanged();
   }
 
   _getHeadersTemplate() {

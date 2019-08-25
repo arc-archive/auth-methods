@@ -448,17 +448,6 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
     return ['HMAC-SHA1', 'RSA-SHA1', 'PLAINTEXT'];
   }
 
-  get amf() {
-    return this._amf;
-  }
-
-  set amf(value) {
-    /* istanbul ignore else */
-    if (this._sop('amf', value)) {
-      this._amfSettingsChanged();
-    }
-  }
-
   get amfSettings() {
     return this._amfSettings;
   }
@@ -505,7 +494,12 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
   updated() {
     this._settingsChanged();
   }
-
+  /**
+   * Overrides `AmfHelperMixin.__amfChanged`
+   */
+  __amfChanged() {
+    this._amfSettingsChanged();
+  }
   /**
    * Validates the form.
    *

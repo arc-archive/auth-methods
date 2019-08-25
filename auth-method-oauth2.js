@@ -524,17 +524,6 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     }
   }
 
-  get amf() {
-    return this._amf;
-  }
-
-  set amf(value) {
-    /* istanbul ignore else */
-    if (this._sop('amf', value)) {
-      this._amfSettingsChanged();
-    }
-  }
-
   get amfSettings() {
     return this._amfSettings;
   }
@@ -618,6 +607,12 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     window.removeEventListener('oauth2-error', this._oauth2ErrorHandler);
     window.removeEventListener('oauth2-token-response', this._tokenSuccessHandler);
     node.removeEventListener('request-header-changed', this._headerChangedHandler);
+  }
+  /**
+   * Overrides `AmfHelperMixin.__amfChanged`
+   */
+  __amfChanged() {
+    this._amfSettingsChanged();
   }
   /**
    * This function hides all non-crucial fields that has been pre-filled when element has been
