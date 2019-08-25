@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import { LitElement, html } from 'lit-element';
+import { LitElement } from 'lit-element';
 import { EventsTargetMixin } from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
 /**
  * Base class for all authorization methods
@@ -168,11 +168,6 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
     }
     return target;
   }
-
-  _authPanelTitle() {
-    return html`<div class="form-title">Set authorization data</div>`;
-  }
-
   /**
    * Restores an item from a session store and assigns it to a local
    * property.

@@ -1840,7 +1840,6 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     <iron-form data-grant="${grantType}">
       <form autocomplete="on" ?is-custom-grant="${isCustomGrant}">
           ${this._getGrantTypeTemplate()}
-          ${this._authPanelTitle()}
           <section>
             <anypoint-masked-input
               ?required="${clientIdRequired}"

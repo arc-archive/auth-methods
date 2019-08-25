@@ -94,7 +94,6 @@ class AuthMethodDigest extends AuthMethodBase {
       fullForm
     } = this;
     return html`
-    ${this._authPanelTitle()}
     <iron-form>
       <form autocomplete="on">
         <anypoint-input

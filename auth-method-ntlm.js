@@ -60,7 +60,6 @@ class AuthMethodNtlm extends AuthMethodBase {
       disabled
     } = this;
     return html`
-      ${this._authPanelTitle()}
       <iron-form>
         <form autocomplete="on">
           <anypoint-input

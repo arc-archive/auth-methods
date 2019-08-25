@@ -89,7 +89,6 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       documentationOpened
     } = this;
     return html`
-      ${this._authPanelTitle()}
       <section>
         ${_schemeName ? html`<div class="scheme-header">
           <div class="subtitle">

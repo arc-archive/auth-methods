@@ -80,7 +80,6 @@ declare class AuthMethodBase extends
    */
   _settingsChanged(): void;
   _getEventTarget(e: any): any;
-  _authPanelTitle(): any;
 
   /**
    * Restores an item from a session store and assigns it to a local
