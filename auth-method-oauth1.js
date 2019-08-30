@@ -117,7 +117,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
       signatureMethods,
       _authorizing,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled
     } = this;
@@ -131,7 +131,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             required
             autovalidate
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
           >
@@ -142,12 +142,12 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
               @selected-changed="${this._selectionHandler}"
               data-name="authTokenMethod"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${disabled}"
               attrforselected="data-value">
-              <anypoint-item .legacy="${legacy}" data-value="GET">GET</anypoint-item>
-              <anypoint-item .legacy="${legacy}" data-value="POST">POST</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-value="GET">GET</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-value="POST">POST</anypoint-item>
             </anypoint-listbox>
           </anypoint-dropdown-menu>
 
@@ -156,7 +156,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             autovalidate
             name="authParamsLocation"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
           >
@@ -167,12 +167,13 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
               @selected-changed="${this._selectionHandler}"
               data-name="authParamsLocation"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${disabled}"
               attrforselected="data-value">
-              <anypoint-item .legacy="${legacy}" data-value="querystring">Query string</anypoint-item>
-              <anypoint-item .legacy="${legacy}" data-value="authorization">Authorization header</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-value="querystring">Query string</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}"
+                data-value="authorization">Authorization header</anypoint-item>
             </anypoint-listbox>
           </anypoint-dropdown-menu>
 
@@ -184,7 +185,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             @input="${this._valueHandler}"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Consumer key is required">
@@ -197,7 +198,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             @input="${this._valueHandler}"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Consumer secret</label>
@@ -209,7 +210,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             @input="${this._valueHandler}"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Token</label>
@@ -221,7 +222,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             @input="${this._valueHandler}"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Token secret</label>
@@ -234,7 +235,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="text"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Request token URL</label>
@@ -247,7 +248,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="url"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Token Authorization URL</label>
@@ -260,7 +261,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="url"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">User authorization dialog URL</label>
@@ -273,7 +274,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="url"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Redirect URL</label>
@@ -288,7 +289,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="number"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Timestamp is required">
@@ -311,7 +312,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="text"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Nonce is required">
@@ -332,7 +333,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
             type="text"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Realm</label>
@@ -344,7 +345,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
               autovalidate
               name="signatureMethod"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${disabled}"
             >
@@ -355,12 +356,12 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
                 @selected-changed="${this._selectionHandler}"
                 data-name="signatureMethod"
                 .outlined="${outlined}"
-                .legacy="${legacy}"
+                .compatibility="${compatibility}"
                 .readOnly="${readOnly}"
                 .disabled="${disabled}"
                 attrforselected="data-value">
                 ${signatureMethods.map((item) =>
-              html`<anypoint-item .legacy="${legacy}" data-value="${item}">${item}</anypoint-item>`)}
+              html`<anypoint-item .compatibility="${compatibility}" data-value="${item}">${item}</anypoint-item>`)}
               </anypoint-listbox>
             </anypoint-dropdown-menu>` :
             ''}

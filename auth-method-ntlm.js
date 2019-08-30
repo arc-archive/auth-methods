@@ -55,7 +55,7 @@ class AuthMethodNtlm extends AuthMethodBase {
       password,
       domain,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled
     } = this;
@@ -71,7 +71,7 @@ class AuthMethodNtlm extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Username is required">
@@ -83,7 +83,7 @@ class AuthMethodNtlm extends AuthMethodBase {
             @input="${this._valueHandler}"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Password</label>
@@ -95,7 +95,7 @@ class AuthMethodNtlm extends AuthMethodBase {
             type="text"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">NT domain</label>

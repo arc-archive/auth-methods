@@ -14,7 +14,7 @@ class ComponentDemo extends DemoBase {
       demoStates,
       darkThemeActive,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled
     } = this;
@@ -35,7 +35,7 @@ class ComponentDemo extends DemoBase {
       <auth-method-basic
         slot="content"
         ?outlined="${outlined}"
-        ?legacy="${legacy}"
+        ?compatibility="${compatibility}"
         ?readOnly="${readOnly}"
         ?disabled="${disabled}"
         username="test"
@@ -70,7 +70,7 @@ class ComponentDemo extends DemoBase {
           <li><b>Filled</b> (default)</li>
           <li><b>Outlined</b></li>
           <li>
-            <b>Legacy</b> - To provide compatibility with legacy Anypoint design
+            <b>Compatibility</b> - To provide compatibility with Anypoint design
           </li>
         </ul>
 

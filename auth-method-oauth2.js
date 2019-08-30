@@ -1574,7 +1574,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     const {
       grantType,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       noGrantType
@@ -1588,7 +1588,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       class="grant-dropdown"
       ?hidden="${noGrantType}"
       .outlined="${outlined}"
-      .legacy="${legacy}"
+      .compatibility="${compatibility}"
       .readOnly="${readOnly}"
       .disabled="${disabled}"
     >
@@ -1599,12 +1599,12 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         @selected-changed="${this._selectionHandler}"
         data-name="grantType"
         .outlined="${outlined}"
-        .legacy="${legacy}"
+        .compatibility="${compatibility}"
         .readOnly="${readOnly}"
         .disabled="${disabled}"
         attrforselected="data-value">
         ${items.map((item) =>
-    html`<anypoint-item .legacy="${legacy}" data-value="${item.type}">${item.label}</anypoint-item>`)}
+    html`<anypoint-item .compatibility="${compatibility}" data-value="${item.type}">${item.label}</anypoint-item>`)}
       </anypoint-listbox>
     </anypoint-dropdown-menu>`;
   }
@@ -1630,7 +1630,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   _templateForCustomArray(items, type) {
     const {
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       noDocs
@@ -1643,7 +1643,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
           name="${item.name}"
           ?readonly="${readOnly}"
           ?outlined="${outlined}"
-          ?legacy="${legacy}"
+          ?compatibility="${compatibility}"
           ?disabled="${disabled}"
           data-type="${type}"
           data-index="${index}"
@@ -1684,7 +1684,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   _getAdvancedTemplate(customGrantRequired) {
     const {
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       isAdvanced,
@@ -1730,7 +1730,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         data-persistent="true"
         data-visible="implicit authorization_code"
         .outlined="${outlined}"
-        .legacy="${legacy}"
+        .compatibility="${compatibility}"
         .readOnly="${readOnly}"
         .disabled="${authUriDisabled}"
         title="The authorization URL to initialize the OAuth flow. Check your provider's documentation"
@@ -1750,7 +1750,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         data-persistent="true"
         data-visible="client_credentials authorization_code password"
         .outlined="${outlined}"
-        .legacy="${legacy}"
+        .compatibility="${compatibility}"
         .readOnly="${readOnly}"
         .disabled="${atUriDisabled}"
         title="The access token URL is used by server implementations to exchange code for access token"
@@ -1769,7 +1769,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         data-persistent="true"
         data-visible="password"
         .outlined="${outlined}"
-        .legacy="${legacy}"
+        .compatibility="${compatibility}"
         .readOnly="${readOnly}"
         .disabled="${passwdDisabled}"
         title="The user name required for this OAuth authentication"
@@ -1788,7 +1788,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
         data-persistent="true"
         data-visible="password"
         .outlined="${outlined}"
-        .legacy="${legacy}"
+        .compatibility="${compatibility}"
         .readOnly="${readOnly}"
         .disabled="${passwdDisabled}"
         title="The password required for this OAuth authentication"
@@ -1804,7 +1804,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
           .readOnly="${readOnly}"
           .disabled="${disabled}"
           .outlined="${outlined}"
-          .legacy="${legacy}"
+          .compatibility="${compatibility}"
           name="scopes"
           @value-changed="${this._scopesChanged}"></oauth2-scope-selector>
       </div>
@@ -1815,7 +1815,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   render() {
     const {
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       grantType,
@@ -1847,7 +1847,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               hiddable
               data-visible="implicit authorization_code"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${disabled}"
               title="The client ID registered in your OAuth provider"
@@ -1866,7 +1866,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               data-persistent="true"
               data-visible="authorization_code"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${secretDisabled}"
               title="The client secret is a generated by your provider unique string for your app"

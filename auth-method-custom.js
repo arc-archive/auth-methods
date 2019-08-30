@@ -85,7 +85,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       _schemeDescription,
       _hasSchemeDescription,
       outlined,
-      legacy,
+      compatibility,
       documentationOpened
     } = this;
     return html`
@@ -98,7 +98,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
               title="Toggle description"
               aria-label="Press to toggle schema description"
               ?outlined="${outlined}"
-              ?legacy="${legacy}"
+              ?compatibility="${compatibility}"
               @click="${this.toggleSchemeDocumentation}">
               <iron-icon icon="arc:help"></iron-icon>
             </anypoint-icon-button>` : ''}
@@ -221,18 +221,18 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     }
     const {
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       noDocs
     } = this;
     return html`<section>
     ${items.map((item, index) =>
-    this._formItemTemplate(item, index, outlined, legacy, readOnly, disabled, noDocs, type))}
+    this._formItemTemplate(item, index, outlined, compatibility, readOnly, disabled, noDocs, type))}
     </section>`;
   }
 
-  _formItemTemplate(item, index, outlined, legacy, readOnly, disabled, noDocs, type) {
+  _formItemTemplate(item, index, outlined, compatibility, readOnly, disabled, noDocs, type) {
     return html`<div class="field-value">
       <api-property-form-item
         .model="${item}"
@@ -240,7 +240,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
         name="${item.name}"
         ?readonly="${readOnly}"
         ?outlined="${outlined}"
-        ?legacy="${legacy}"
+        ?compatibility="${compatibility}"
         ?disabled="${disabled}"
         data-type="${type}"
         data-index="${index}"

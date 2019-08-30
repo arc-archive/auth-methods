@@ -39,7 +39,11 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
        */
       disabled: { type: Boolean },
       /**
-       * Enables Anypoint legacy styling
+       * Enables compatibility with Anypoint components.
+       */
+      compatibility: { type: Boolean },
+      /**
+       * @deprecated Use `compatibility` instead
        */
       legacy: { type: Boolean },
       /**
@@ -47,6 +51,14 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
        */
       outlined: { type: Boolean }
     };
+  }
+
+  get legacy() {
+    return this.compatibility;
+  }
+
+  set legacy(value) {
+    this.compatibility = value;
   }
 
   constructor(type) {

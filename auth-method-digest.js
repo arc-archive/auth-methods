@@ -88,7 +88,7 @@ class AuthMethodDigest extends AuthMethodBase {
       username,
       password,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       fullForm
@@ -105,7 +105,7 @@ class AuthMethodDigest extends AuthMethodBase {
           autovalidate
           autocomplete="on"
           .outlined="${outlined}"
-          .legacy="${legacy}"
+          .compatibility="${compatibility}"
           .readOnly="${readOnly}"
           .disabled="${disabled}"
           invalidmessage="Username is required">
@@ -117,7 +117,7 @@ class AuthMethodDigest extends AuthMethodBase {
           @input="${this._valueHandler}"
           autocomplete="on"
           .outlined="${outlined}"
-          .legacy="${legacy}"
+          .compatibility="${compatibility}"
           .readOnly="${readOnly}"
           .disabled="${disabled}">
           <label slot="label">Password</label>
@@ -142,7 +142,7 @@ class AuthMethodDigest extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Realm is required">
@@ -158,7 +158,7 @@ class AuthMethodDigest extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Nonce is required">
@@ -167,7 +167,7 @@ class AuthMethodDigest extends AuthMethodBase {
 
           <anypoint-dropdown-menu
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
           >
@@ -177,12 +177,12 @@ class AuthMethodDigest extends AuthMethodBase {
               .selected="${this.qop}"
               @selected-changed="${this._qopHandler}"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${disabled}"
               attrforselected="data-qop">
-              <anypoint-item .legacy="${legacy}" data-qop="auth">auth</anypoint-item>
-              <anypoint-item .legacy="${legacy}" data-qop="auth-int">auth-int</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-qop="auth">auth</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-qop="auth-int">auth-int</anypoint-item>
             </anypoint-listbox>
           </anypoint-dropdown-menu>
 
@@ -195,7 +195,7 @@ class AuthMethodDigest extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Nonce count is required">
@@ -204,7 +204,7 @@ class AuthMethodDigest extends AuthMethodBase {
 
           <anypoint-dropdown-menu
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
           >
@@ -214,12 +214,12 @@ class AuthMethodDigest extends AuthMethodBase {
               .selected="${this.algorithm}"
               @selected-changed="${this._algorithmHandler}"
               .outlined="${outlined}"
-              .legacy="${legacy}"
+              .compatibility="${compatibility}"
               .readOnly="${readOnly}"
               .disabled="${disabled}"
               attrforselected="data-algorithm">
-              <anypoint-item .legacy="${legacy}" data-algorithm="MD5">MD5</anypoint-item>
-              <anypoint-item .legacy="${legacy}" data-algorithm="MD5-sess">MD5-sess</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-algorithm="MD5">MD5</anypoint-item>
+              <anypoint-item .compatibility="${compatibility}" data-algorithm="MD5-sess">MD5-sess</anypoint-item>
             </anypoint-listbox>
           </anypoint-dropdown-menu>
 
@@ -232,7 +232,7 @@ class AuthMethodDigest extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Server issued opaque is required">
@@ -248,7 +248,7 @@ class AuthMethodDigest extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Client nounce is required">

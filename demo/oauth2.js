@@ -19,14 +19,14 @@ class ComponentDemo extends ApiDemoPageBase {
 
     this.initObservableProperties([
       'outlined',
-      'legacy',
+      'compatibility',
       'readOnly',
       'disabled',
       'authSettings',
       'authSettingsValue',
       'security'
     ]);
-    this.demoStates = ['Filled', 'Outlined', 'Legacy'];
+    this.demoStates = ['Filled', 'Outlined', 'Anypoint'];
     this._demoStateHandler = this._demoStateHandler.bind(this);
     this._toggleMainOption = this._toggleMainOption.bind(this);
     this._authSettingsChanged = this._authSettingsChanged.bind(this);
@@ -57,15 +57,15 @@ class ComponentDemo extends ApiDemoPageBase {
     switch (state) {
       case 0:
         this.outlined = false;
-        this.legacy = false;
+        this.compatibility = false;
         break;
       case 1:
         this.outlined = true;
-        this.legacy = false;
+        this.compatibility = false;
         break;
       case 2:
         this.outlined = false;
-        this.legacy = true;
+        this.compatibility = true;
         break;
     }
   }
@@ -136,7 +136,7 @@ class ComponentDemo extends ApiDemoPageBase {
       demoStates,
       darkThemeActive,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled,
       amf,
@@ -168,7 +168,7 @@ class ComponentDemo extends ApiDemoPageBase {
               .amf="${amf}"
               .amfSettings="${security}"
               ?outlined="${outlined}"
-              ?legacy="${legacy}"
+              ?compatibility="${compatibility}"
               ?readOnly="${readOnly}"
               ?disabled="${disabled}"
               accesstokenuri="https://www.googleapis.com/oauth2/v4/token"
@@ -231,7 +231,7 @@ class ComponentDemo extends ApiDemoPageBase {
           <li><b>Filled</b> (default)</li>
           <li><b>Outlined</b></li>
           <li>
-            <b>Legacy</b> - To provide compatibility with legacy Anypoint design
+            <b>Compatibility</b> - To provide compatibility with Anypoint design
           </li>
         </ul>
 

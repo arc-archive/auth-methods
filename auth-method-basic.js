@@ -57,7 +57,7 @@ class AuthMethodBasic extends AuthMethodBase {
       username,
       password,
       outlined,
-      legacy,
+      compatibility,
       readOnly,
       disabled
     } = this;
@@ -73,7 +73,7 @@ class AuthMethodBasic extends AuthMethodBase {
             autovalidate
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}"
             invalidmessage="Username is required">
@@ -85,7 +85,7 @@ class AuthMethodBasic extends AuthMethodBase {
             @input="${this._passwordHandler}"
             autocomplete="on"
             .outlined="${outlined}"
-            .legacy="${legacy}"
+            .compatibility="${compatibility}"
             .readOnly="${readOnly}"
             .disabled="${disabled}">
             <label slot="label">Password</label>
