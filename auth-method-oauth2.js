@@ -1659,7 +1659,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
           </anypoint-icon-button>` : undefined}
       </div>
       ${item.hasDescription && !noDocs && item.docsOpened ? html`<div class="docs-container">
-        <arc-marked .markdown="${item.description}">
+        <arc-marked .markdown="${item.description}" sanitize>
           <div slot="markdown-html" class="markdown-body"></div>
         </arc-marked>
       </div>` : ''}
