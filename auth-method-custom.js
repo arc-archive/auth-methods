@@ -18,7 +18,7 @@ import markdownStyles from '@advanced-rest-client/markdown-styles/markdown-style
 import formStyles from '@api-components/api-form-mixin/api-form-styles.js';
 import authStyles from './auth-methods-styles.js';
 import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
-import '@advanced-rest-client/arc-icons/arc-icons.js';
+import { help } from '@advanced-rest-client/arc-icons/ArcIcons.js';
 import '@anypoint-web-components/anypoint-input/anypoint-input.js';
 import '@polymer/iron-form/iron-form.js';
 import '@advanced-rest-client/arc-marked/arc-marked.js';
@@ -99,8 +99,9 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
               aria-label="Press to toggle schema description"
               ?outlined="${outlined}"
               ?compatibility="${compatibility}"
-              @click="${this.toggleSchemeDocumentation}">
-              <iron-icon icon="arc:help"></iron-icon>
+              @click="${this.toggleSchemeDocumentation}"
+            >
+              <span class="icon">${help}</span>
             </anypoint-icon-button>` : ''}
           </div>
           ${_hasSchemeDescription && documentationOpened ? html`<div class="docs-container">
@@ -251,8 +252,9 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
           aria-label="Press to toggle description"
           data-type="${type}"
           data-index="${index}"
-          @click="${this._toggleDocumentation}">
-          <iron-icon icon="arc:help"></iron-icon>
+          @click="${this._toggleDocumentation}"
+        >
+          <span class="icon">${help}</span>
         </anypoint-icon-button>` : undefined}
     </div>
     ${item.hasDescription && !noDocs && item.docsOpened ? html`<div class="docs-container">

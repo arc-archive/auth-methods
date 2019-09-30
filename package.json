@@ -46,7 +46,6 @@
     "@api-components/api-property-form-item": "^3.0.9",
     "@api-components/api-view-model-transformer": "^3.0.5",
     "@polymer/iron-form": "^3.0.0",
-    "@polymer/iron-icon": "^3.0.0",
     "@polymer/iron-meta": "^3.0.0",
     "@polymer/paper-ripple": "^3.0.0",
     "@polymer/paper-spinner": "^3.0.2",
