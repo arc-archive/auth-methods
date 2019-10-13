@@ -1,6 +1,6 @@
 import { fixture, assert, aTimeout, html } from '@open-wc/testing';
 import { AmfLoader } from './amf-loader.js';
-import sinon from 'sinon/pkg/sinon-esm.js';
+import * as sinon from 'sinon/pkg/sinon-esm.js';
 import '../auth-method-oauth2.js';
 
 describe('<auth-method-oauth2>', function() {
@@ -182,14 +182,14 @@ describe('<auth-method-oauth2>', function() {
           });
 
           it('updates custom auth body item', async () => {
-            const input = element.shadowRoot.querySelectorAll('[data-type="token-body"]')[1];
+            const input = element.shadowRoot.querySelectorAll('[data-type="token-body"]')[0];
             input.value = value;
             const spy = sinon.stub();
             element.addEventListener('auth-settings-changed', spy);
             await aTimeout();
             await aTimeout();
             const result = spy.args[0][0].detail.settings;
-            assert.equal(result.customData.token.body[1].value, value);
+            assert.equal(result.customData.token.body[0].value, value);
           });
         });
 
@@ -283,8 +283,8 @@ describe('<auth-method-oauth2>', function() {
             const value = 'test-aq';
             element._authQueryParameters[4].value = value;
             const result = element.getSettings();
-            assert.equal(result.customData.auth.parameters[0].name, 'resource');
-            assert.equal(result.customData.auth.parameters[0].value, value);
+            assert.equal(result.customData.auth.parameters[1].name, 'repetableParam2');
+            assert.equal(result.customData.auth.parameters[1].value, value);
           });
 
           it('Custom values are not set when not required', function() {

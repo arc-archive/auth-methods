@@ -1,9 +1,8 @@
 import { fixture, assert, nextFrame, aTimeout, html } from '@open-wc/testing';
-import sinon from 'sinon/pkg/sinon-esm.js';
+import * as sinon from 'sinon/pkg/sinon-esm.js';
 import { AmfLoader } from './amf-loader.js';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../auth-method-custom.js';
-
 
 describe('<auth-method-custom>', function() {
   async function basicFixture() {

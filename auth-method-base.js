@@ -43,10 +43,6 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
        */
       compatibility: { type: Boolean },
       /**
-       * @deprecated Use `compatibility` instead
-       */
-      legacy: { type: Boolean },
-      /**
        * Enables Material Design outlined style
        */
       outlined: { type: Boolean }

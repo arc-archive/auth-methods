@@ -1020,20 +1020,19 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       return;
     }
     const model = this.amfSettings;
-    const prefix = this.ns.raml.vocabularies.security;
-    if (!this._hasType(model, prefix + 'ParametrizedSecurityScheme')) {
+    if (!this._hasType(model, this.ns.aml.vocabularies.security.ParametrizedSecurityScheme)) {
       this._setupOAuthDeliveryMethod();
       this._updateGrantTypes();
       return;
     }
-    const shKey = this._getAmfKey(prefix + 'scheme');
+    const shKey = this._getAmfKey(this.ns.aml.vocabularies.security.scheme);
     let scheme = model[shKey];
     let type;
     if (scheme) {
       if (scheme instanceof Array) {
         scheme = scheme[0];
       }
-      type = this._getValue(scheme, prefix + 'type');
+      type = this._getValue(scheme, this.ns.aml.vocabularies.security.type);
     }
     const isOauth2 = type === 'OAuth 2.0';
     if (!isOauth2) {
@@ -1042,7 +1041,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       return;
     }
     this._setupOAuthDeliveryMethod(scheme);
-    const sKey = this._getAmfKey(this.ns.raml.vocabularies.security + 'settings');
+    const sKey = this._getAmfKey(this.ns.aml.vocabularies.security.settings);
     let settings = scheme[sKey];
     if (settings instanceof Array) {
       settings = settings[0];
@@ -1079,10 +1078,9 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     if (!info) {
       return result;
     }
-    const http = this.ns.raml.vocabularies.http;
-    const hKey = this._getAmfKey(http + 'header');
-    const pKey = this._getAmfKey(http + 'parameter');
-    const nKey = this._getAmfKey(this.ns.schema.schemaName);
+    const hKey = this._getAmfKey(this.ns.aml.vocabularies.apiContract.header);
+    const pKey = this._getAmfKey(this.ns.aml.vocabularies.apiContract.parameter);
+    const nKey = this._getAmfKey(this.ns.aml.vocabularies.core.name);
     let header = info[hKey];
     if (header instanceof Array) {
       header = header[0];
@@ -1119,14 +1117,14 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     if (!model) {
       return;
     }
-    const sec = this.ns.raml.vocabularies.security;
-    if (!this._hasType(model, sec + 'OAuth2Settings')) {
+    const sec = this.ns.aml.vocabularies.security;
+    if (!this._hasType(model, sec.OAuth2Settings)) {
       return;
     }
-    this.authorizationUri = this._getValue(model, sec + 'authorizationUri') || '';
-    this.accessTokenUri = this._getValue(model, sec + 'accessTokenUri') || '';
-    this.scopes = this._redSecurityScopes(model[this._getAmfKey(sec + 'scope')]);
-    const apiGrants = this._getValueArray(model, sec + 'authorizationGrant');
+    this.authorizationUri = this._getValue(model, sec.authorizationUri) || '';
+    this.accessTokenUri = this._getValue(model, sec.accessTokenUri) || '';
+    this.scopes = this._redSecurityScopes(model[this._getAmfKey(sec.scope)]);
+    const apiGrants = this._getValueArray(model, sec.authorizationGrant);
     const annotationKey = this._amfCustomSettingsKey(model);
     const annotation = annotationKey ? model[annotationKey] : undefined;
     const grants = this._applyAnnotationGranst(apiGrants, annotation);
@@ -1153,7 +1151,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     }
     const result = [];
     for (let i = 0, len = model.length; i < len; i++) {
-      const value = this._getValue(model[i], this.ns.raml.vocabularies.security + 'name');
+      const value = this._getValue(model[i], this.ns.aml.vocabularies.core.name);
       if (!value) {
         continue;
       }
@@ -1168,7 +1166,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
    */
   _amfCustomSettingsKey(model) {
     const keys = Object.keys(model);
-    const data = this.ns.raml.vocabularies.data;
+    const data = this.ns.aml.vocabularies.data;
     const settingsKeys = [
       this._getAmfKey(data + 'authorizationSettings'),
       this._getAmfKey(data + 'authorizationGrants'),
@@ -1195,13 +1193,13 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     if (!gransts) {
       gransts = [];
     }
-    const d = this.ns.raml.vocabularies.data;
+    const d = this.ns.aml.vocabularies.data;
     let model = annotation[this._getAmfKey(d + 'authorizationGrants')];
     model = this._ensureArray(model);
     if (!model || !model.length) {
       return gransts;
     }
-    const list = model[0][this._getAmfKey(this.ns.w3.name + '1999/02/22-rdf-syntax-ns#member')];
+    const list = model[0][this._getAmfKey(this.ns.w3.rdfSchema.member)];
     const addedGrants = [];
     list.forEach((item) => {
       const v = this._getValue(item, d + 'value');
@@ -1251,7 +1249,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     if (!annotation) {
       return;
     }
-    const d = this.ns.raml.vocabularies.data;
+    const d = this.ns.aml.vocabularies.data;
     const qpKey = this._getAmfKey(d + 'queryParameters');
     let authSettings = annotation[this._getAmfKey(d + 'authorizationSettings')];
     let tokenSettings = annotation[this._getAmfKey(d + 'accessTokenSettings')];
@@ -1553,13 +1551,14 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
   }
 
   _customValueChanged(e) {
-    const index = Number(e.target.dataset.index);
-    const type = e.target.dataset.type;
+    const { target } = e;
+    const index = Number(target.dataset.index);
+    const type = target.dataset.type;
     /* istanbul ignore if */
     if (index !== index || !type) {
       return;
     }
-    const value = e.target.value;
+    const { value } = target;
     const model = this._modelForCustomType(type);
     model[index].value = value;
     this._settingsChanged();

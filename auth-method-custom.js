@@ -294,37 +294,37 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
     const prefix = this.ns.raml.vocabularies.security;
     this._headers = undefined;
     this._queryParameters = undefined;
-    if (!this._hasType(model, this.ns.raml.vocabularies.security + 'ParametrizedSecurityScheme')) {
+    if (!this._hasType(model, prefix.ParametrizedSecurityScheme)) {
       return;
     }
-    const shKey = this._getAmfKey(prefix + 'scheme');
+    const shKey = this._getAmfKey(prefix.scheme);
     let scheme = model[shKey];
     let type;
     if (scheme) {
       if (scheme instanceof Array) {
         scheme = scheme[0];
       }
-      type = this._getValue(scheme, prefix + 'type');
+      type = this._getValue(scheme, prefix.type);
     }
     if (!type || type.indexOf('x-') !== 0) {
       return;
     }
-    const hKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'header');
+    const hKey = this._getAmfKey(this.ns.aml.vocabularies.apiContract.header);
     this._createViewModel('header', this._ensureArray(scheme[hKey]));
     const params = this._readParamsProperties(scheme);
     this._createViewModel('parameter', params);
-    this._schemeName = this._getValue(model, prefix + 'name');
-    this._schemeDescription = this._getValue(scheme, this.ns.schema.desc);
+    this._schemeName = this._getValue(model, this.ns.aml.vocabularies.core.name);
+    this._schemeDescription = this._getValue(scheme, this.ns.aml.vocabularies.core.description);
     this._settingsChanged();
   }
 
   _readParamsProperties(scheme) {
-    const pKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'parameter');
+    const pKey = this._getAmfKey(this.ns.aml.vocabularies.apiContract.parameter);
     let result = this._ensureArray(scheme[pKey]);
     if (result) {
       return result;
     }
-    const qKey = this._getAmfKey(this.ns.raml.vocabularies.http + 'queryString');
+    const qKey = this._getAmfKey(this.ns.aml.vocabularies.apiContract.queryString);
     result = this._ensureArray(scheme[qKey]);
     if (result) {
       result = result[0];

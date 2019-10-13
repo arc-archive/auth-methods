@@ -697,21 +697,21 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
       this.signatureMethods = this.defaultSignatureMethods;
       return;
     }
-    const prefix = this.ns.raml.vocabularies.security;
-    const shKey = this._getAmfKey(prefix + 'scheme');
+    const prefix = this.ns.aml.vocabularies.security;
+    const shKey = this._getAmfKey(prefix.scheme);
     let scheme = model[shKey];
     let type;
     if (scheme) {
       if (scheme instanceof Array) {
         scheme = scheme[0];
       }
-      type = this._getValue(scheme, prefix + 'type');
+      type = this._getValue(scheme, prefix.type);
     }
     if (type !== 'OAuth 1.0') {
       this.signatureMethods = this.defaultSignatureMethods;
       return;
     }
-    const sKey = this._getAmfKey(this.ns.raml.vocabularies.security + 'settings');
+    const sKey = this._getAmfKey(prefix.settings);
     let settings = scheme[sKey];
     if (settings instanceof Array) {
       settings = settings[0];
@@ -720,10 +720,10 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
       this.signatureMethods = this.defaultSignatureMethods;
       return;
     }
-    this.requestTokenUri = this._getValue(settings, prefix + 'requestTokenUri');
-    this.authorizationUri = this._getValue(settings, prefix + 'authorizationUri');
-    this.accessTokenUri = this._getValue(settings, prefix + 'tokenCredentialsUri');
-    const signaturtes = this._getValueArray(settings, prefix + 'signature');
+    this.requestTokenUri = this._getValue(settings, prefix.requestTokenUri);
+    this.authorizationUri = this._getValue(settings, prefix.authorizationUri);
+    this.accessTokenUri = this._getValue(settings, prefix.tokenCredentialsUri);
+    const signaturtes = this._getValueArray(settings, prefix.signature);
     if (!signaturtes || !signaturtes.length) {
       this.signatureMethods = this.defaultSignatureMethods;
     } else {

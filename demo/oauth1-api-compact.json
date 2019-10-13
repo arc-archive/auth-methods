@@ -11,54 +11,55 @@
 {
 "@id": "#22",
 "@type": [
-"schema-org:WebAPI",
+"apiContract:WebAPI",
 "doc:RootDomainElement",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "Oauth 2.0 example"
 }
 ],
-"raml-http:server": [
+"apiContract:server": [
 {
 "@id": "#29",
 "@type": [
-"raml-http:Server",
+"apiContract:Server",
 "doc:DomainElement"
 ],
-"raml-http:url": [
+"core:urlTemplate": [
 {
 "@value": "http://api.domain.com/{version}/"
 }
 ],
-"raml-http:variable": [
+"apiContract:variable": [
 {
 "@id": "#30",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "version"
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "path"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#31",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -109,7 +110,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:url"
+"@value": "core:urlTemplate"
 }
 ],
 "sourcemaps:value": [
@@ -137,31 +138,31 @@
 ]
 }
 ],
-"schema-org:version": [
+"core:version": [
 {
 "@value": "v1"
 }
 ],
-"raml-http:endpoint": [
+"apiContract:endpoint": [
 {
 "@id": "#23",
 "@type": [
-"raml-http:EndPoint",
+"apiContract:EndPoint",
 "doc:DomainElement"
 ],
-"raml-http:path": [
+"apiContract:path": [
 {
 "@value": "/oauth1"
 }
 ],
-"hydra:supportedOperation": [
+"apiContract:supportedOperation": [
 {
 "@id": "#24",
 "@type": [
-"hydra:Operation",
+"apiContract:Operation",
 "doc:DomainElement"
 ],
-"hydra:method": [
+"apiContract:method": [
 {
 "@value": "get"
 }
@@ -173,7 +174,7 @@
 "security:ParametrizedSecurityScheme",
 "doc:DomainElement"
 ],
-"security:name": [
+"core:name": [
 {
 "@value": "oauth1"
 }
@@ -185,7 +186,7 @@
 "security:SecurityScheme",
 "doc:DomainElement"
 ],
-"security:name": [
+"core:name": [
 {
 "@value": "oauth1"
 }
@@ -195,7 +196,7 @@
 "@value": "OAuth 1.0"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
 }
@@ -327,12 +328,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "security:settings"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(3,0)-(4,0)]"
+"@value": "[(4,0)-(9,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "security:type"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(2,0)-(3,0)]"
 }
 ]
 },
@@ -351,12 +364,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "security:type"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(2,0)-(3,0)]"
+"@value": "[(3,0)-(4,0)]"
 }
 ]
 }
@@ -453,22 +466,22 @@
 {
 "@id": "#26",
 "@type": [
-"raml-http:EndPoint",
+"apiContract:EndPoint",
 "doc:DomainElement"
 ],
-"raml-http:path": [
+"apiContract:path": [
 {
 "@value": "/custom"
 }
 ],
-"hydra:supportedOperation": [
+"apiContract:supportedOperation": [
 {
 "@id": "#27",
 "@type": [
-"hydra:Operation",
+"apiContract:Operation",
 "doc:DomainElement"
 ],
-"hydra:method": [
+"apiContract:method": [
 {
 "@value": "get"
 }
@@ -480,7 +493,7 @@
 "security:ParametrizedSecurityScheme",
 "doc:DomainElement"
 ],
-"security:name": [
+"core:name": [
 {
 "@value": "custom1"
 }
@@ -492,7 +505,7 @@
 "security:SecurityScheme",
 "doc:DomainElement"
 ],
-"security:name": [
+"core:name": [
 {
 "@value": "custom1"
 }
@@ -502,48 +515,49 @@
 "@value": "x-my-custom"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
 }
 ],
-"raml-http:header": [
+"apiContract:header": [
 {
 "@id": "#3",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "SpecialTokenHeader"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "SpecialTokenHeader"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Used to send a custom token.\n"
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "header"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#4",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -558,7 +572,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Used to send a custom token.\n"
 }
@@ -587,7 +601,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -635,12 +649,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(16,6)-(18,0)]"
+"@value": "[(15,4)-(19,0)]"
 }
 ]
 },
@@ -655,49 +669,62 @@
 "@value": "[(15,4)-(19,0)]"
 }
 ]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(16,6)-(18,0)]"
+}
+]
 }
 ]
 }
 ]
 }
 ],
-"raml-http:parameter": [
+"apiContract:parameter": [
 {
 "@id": "#5",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "debugTokenParam"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "debugTokenParam"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Select one of available values to run the request in the debug mode with selected level."
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": false
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "query"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#6",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -712,7 +739,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Select one of available values to run the request in the debug mode with selected level."
 }
@@ -731,8 +758,17 @@
 ],
 "data:value": [
 {
-"@value": "Info",
-"@type": "xsd:string"
+"@value": "Info"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_1"
 }
 ],
 "sourcemaps:sources": [
@@ -769,8 +805,17 @@
 ],
 "data:value": [
 {
-"@value": "Log",
-"@type": "xsd:string"
+"@value": "Log"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_2"
 }
 ],
 "sourcemaps:sources": [
@@ -807,8 +852,17 @@
 ],
 "data:value": [
 {
-"@value": "Warning",
-"@type": "xsd:string"
+"@value": "Warning"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_3"
 }
 ],
 "sourcemaps:sources": [
@@ -845,8 +899,17 @@
 ],
 "data:value": [
 {
-"@value": "Error",
-"@type": "xsd:string"
+"@value": "Error"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_4"
 }
 ],
 "sourcemaps:sources": [
@@ -883,8 +946,17 @@
 ],
 "data:value": [
 {
-"@value": "Critical",
-"@type": "xsd:string"
+"@value": "Critical"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_5"
 }
 ],
 "sourcemaps:sources": [
@@ -973,7 +1045,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -997,12 +1069,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "hydra:required"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(24,6)-(25,0)]"
+"@value": "[(20,4)-(25,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(21,6)-(22,0)]"
 }
 ]
 },
@@ -1021,12 +1105,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "apiContract:required"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(21,6)-(22,0)]"
+"@value": "[(24,6)-(25,0)]"
 }
 ]
 }
@@ -1037,39 +1121,40 @@
 {
 "@id": "#12",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "booleanTokenParam"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "booleanTokenParam"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Just to test boolean values."
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "query"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#13",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -1084,7 +1169,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Just to test boolean values."
 }
@@ -1099,8 +1184,17 @@
 ],
 "data:value": [
 {
-"@value": "true",
-"@type": "xsd:boolean"
+"@value": "true"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#boolean"
+}
+],
+"core:name": [
+{
+"@value": "scalar_1"
 }
 ],
 "sourcemaps:sources": [
@@ -1168,12 +1262,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "shacl:datatype"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(27,6)-(28,0)]"
+"@value": "[(26,6)-(27,0)]"
 }
 ]
 },
@@ -1192,12 +1286,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "shacl:datatype"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(26,6)-(27,0)]"
+"@value": "[(27,6)-(28,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "shacl:defaultValue"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(28,6)-(29,0)]"
 }
 ]
 }
@@ -1216,12 +1322,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(26,6)-(27,0)]"
+"@value": "[(25,4)-(29,0)]"
 }
 ]
 },
@@ -1236,30 +1342,42 @@
 "@value": "[(25,4)-(29,0)]"
 }
 ]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(26,6)-(27,0)]"
+}
+]
 }
 ]
 }
 ]
 }
 ],
-"hydra:response": [
+"apiContract:response": [
 {
 "@id": "#15",
 "@type": [
-"raml-http:Response",
+"apiContract:Response",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "401"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Bad token.\n"
 }
 ],
-"hydra:statusCode": [
+"apiContract:statusCode": [
 {
 "@value": "401"
 }
@@ -1274,7 +1392,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -1302,15 +1420,15 @@
 {
 "@id": "#16",
 "@type": [
-"raml-http:Response",
+"apiContract:Response",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "403"
 }
 ],
-"hydra:statusCode": [
+"apiContract:statusCode": [
 {
 "@value": "403"
 }
@@ -1363,7 +1481,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "hydra:response"
+"@value": "apiContract:response"
 }
 ],
 "sourcemaps:value": [
@@ -1375,7 +1493,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:header"
+"@value": "apiContract:header"
 }
 ],
 "sourcemaps:value": [
@@ -1411,7 +1529,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -1423,7 +1541,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:parameter"
+"@value": "apiContract:parameter"
 }
 ],
 "sourcemaps:value": [
@@ -1547,7 +1665,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:version"
+"@value": "core:version"
 }
 ],
 "sourcemaps:value": [
@@ -1559,7 +1677,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:name"
+"@value": "core:name"
 }
 ],
 "sourcemaps:value": [
@@ -1583,7 +1701,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:server"
+"@value": "apiContract:server"
 }
 ],
 "sourcemaps:value": [
@@ -1597,11 +1715,16 @@
 ]
 }
 ],
+"doc:version": [
+{
+"@value": "2.0.0"
+}
+],
 "doc:references": [
 {
 "@id": "#1",
 "@type": [
-"doc:SecuritySchemeFragment",
+"security:SecuritySchemeFragment",
 "doc:Fragment",
 "doc:Unit"
 ],
@@ -1617,48 +1740,49 @@
 "@value": "x-my-custom"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
 }
 ],
-"raml-http:header": [
+"apiContract:header": [
 {
 "@id": "#3",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "SpecialTokenHeader"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "SpecialTokenHeader"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Used to send a custom token.\n"
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "header"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#4",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -1673,7 +1797,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Used to send a custom token.\n"
 }
@@ -1702,7 +1826,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -1750,12 +1874,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(16,6)-(18,0)]"
+"@value": "[(15,4)-(19,0)]"
 }
 ]
 },
@@ -1770,49 +1894,62 @@
 "@value": "[(15,4)-(19,0)]"
 }
 ]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(16,6)-(18,0)]"
+}
+]
 }
 ]
 }
 ]
 }
 ],
-"raml-http:parameter": [
+"apiContract:parameter": [
 {
 "@id": "#5",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "debugTokenParam"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "debugTokenParam"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Select one of available values to run the request in the debug mode with selected level."
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": false
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "query"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#6",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -1827,7 +1964,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Select one of available values to run the request in the debug mode with selected level."
 }
@@ -1846,8 +1983,17 @@
 ],
 "data:value": [
 {
-"@value": "Info",
-"@type": "xsd:string"
+"@value": "Info"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_1"
 }
 ],
 "sourcemaps:sources": [
@@ -1884,8 +2030,17 @@
 ],
 "data:value": [
 {
-"@value": "Log",
-"@type": "xsd:string"
+"@value": "Log"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_2"
 }
 ],
 "sourcemaps:sources": [
@@ -1922,8 +2077,17 @@
 ],
 "data:value": [
 {
-"@value": "Warning",
-"@type": "xsd:string"
+"@value": "Warning"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_3"
 }
 ],
 "sourcemaps:sources": [
@@ -1960,8 +2124,17 @@
 ],
 "data:value": [
 {
-"@value": "Error",
-"@type": "xsd:string"
+"@value": "Error"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_4"
 }
 ],
 "sourcemaps:sources": [
@@ -1998,8 +2171,17 @@
 ],
 "data:value": [
 {
-"@value": "Critical",
-"@type": "xsd:string"
+"@value": "Critical"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_5"
 }
 ],
 "sourcemaps:sources": [
@@ -2088,7 +2270,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -2112,12 +2294,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "hydra:required"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(24,6)-(25,0)]"
+"@value": "[(20,4)-(25,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(21,6)-(22,0)]"
 }
 ]
 },
@@ -2136,12 +2330,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "apiContract:required"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(21,6)-(22,0)]"
+"@value": "[(24,6)-(25,0)]"
 }
 ]
 }
@@ -2152,39 +2346,40 @@
 {
 "@id": "#12",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "booleanTokenParam"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "booleanTokenParam"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Just to test boolean values."
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "query"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#13",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -2199,7 +2394,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Just to test boolean values."
 }
@@ -2214,8 +2409,17 @@
 ],
 "data:value": [
 {
-"@value": "true",
-"@type": "xsd:boolean"
+"@value": "true"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#boolean"
+}
+],
+"core:name": [
+{
+"@value": "scalar_1"
 }
 ],
 "sourcemaps:sources": [
@@ -2283,12 +2487,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "shacl:datatype"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(27,6)-(28,0)]"
+"@value": "[(26,6)-(27,0)]"
 }
 ]
 },
@@ -2307,12 +2511,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "shacl:datatype"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(26,6)-(27,0)]"
+"@value": "[(27,6)-(28,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "shacl:defaultValue"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(28,6)-(29,0)]"
 }
 ]
 }
@@ -2331,12 +2547,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(26,6)-(27,0)]"
+"@value": "[(25,4)-(29,0)]"
 }
 ]
 },
@@ -2351,30 +2567,42 @@
 "@value": "[(25,4)-(29,0)]"
 }
 ]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(26,6)-(27,0)]"
+}
+]
 }
 ]
 }
 ]
 }
 ],
-"hydra:response": [
+"apiContract:response": [
 {
 "@id": "#15",
 "@type": [
-"raml-http:Response",
+"apiContract:Response",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "401"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Bad token.\n"
 }
 ],
-"hydra:statusCode": [
+"apiContract:statusCode": [
 {
 "@value": "401"
 }
@@ -2389,7 +2617,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -2417,15 +2645,15 @@
 {
 "@id": "#16",
 "@type": [
-"raml-http:Response",
+"apiContract:Response",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "403"
 }
 ],
-"hydra:statusCode": [
+"apiContract:statusCode": [
 {
 "@value": "403"
 }
@@ -2478,7 +2706,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "hydra:response"
+"@value": "apiContract:response"
 }
 ],
 "sourcemaps:value": [
@@ -2490,7 +2718,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:header"
+"@value": "apiContract:header"
 }
 ],
 "sourcemaps:value": [
@@ -2526,7 +2754,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -2538,7 +2766,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:parameter"
+"@value": "apiContract:parameter"
 }
 ],
 "sourcemaps:value": [
@@ -2550,6 +2778,11 @@
 ]
 }
 ]
+}
+],
+"doc:version": [
+{
+"@value": "2.0.0"
 }
 ],
 "sourcemaps:sources": [
@@ -2578,7 +2811,7 @@
 {
 "@id": "#17",
 "@type": [
-"doc:SecuritySchemeFragment",
+"security:SecuritySchemeFragment",
 "doc:Fragment",
 "doc:Unit"
 ],
@@ -2594,7 +2827,7 @@
 "@value": "OAuth 1.0"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
 }
@@ -2726,12 +2959,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "security:settings"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(3,0)-(4,0)]"
+"@value": "[(4,0)-(9,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "security:type"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(2,0)-(3,0)]"
 }
 ]
 },
@@ -2750,18 +2995,23 @@
 {
 "sourcemaps:element": [
 {
-"@value": "security:type"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(2,0)-(3,0)]"
+"@value": "[(3,0)-(4,0)]"
 }
 ]
 }
 ]
 }
 ]
+}
+],
+"doc:version": [
+{
+"@value": "2.0.0"
 }
 ],
 "sourcemaps:sources": [
@@ -2795,7 +3045,7 @@
 "security:SecurityScheme",
 "doc:DomainElement"
 ],
-"security:name": [
+"core:name": [
 {
 "@value": "custom1"
 }
@@ -2805,48 +3055,49 @@
 "@value": "x-my-custom"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
 }
 ],
-"raml-http:header": [
+"apiContract:header": [
 {
 "@id": "#3",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "SpecialTokenHeader"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "SpecialTokenHeader"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Used to send a custom token.\n"
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "header"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#4",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -2861,7 +3112,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Used to send a custom token.\n"
 }
@@ -2890,7 +3141,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -2938,12 +3189,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(16,6)-(18,0)]"
+"@value": "[(15,4)-(19,0)]"
 }
 ]
 },
@@ -2958,49 +3209,62 @@
 "@value": "[(15,4)-(19,0)]"
 }
 ]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(16,6)-(18,0)]"
+}
+]
 }
 ]
 }
 ]
 }
 ],
-"raml-http:parameter": [
+"apiContract:parameter": [
 {
 "@id": "#5",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "debugTokenParam"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "debugTokenParam"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Select one of available values to run the request in the debug mode with selected level."
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": false
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "query"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#6",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -3015,7 +3279,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Select one of available values to run the request in the debug mode with selected level."
 }
@@ -3034,8 +3298,17 @@
 ],
 "data:value": [
 {
-"@value": "Info",
-"@type": "xsd:string"
+"@value": "Info"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_1"
 }
 ],
 "sourcemaps:sources": [
@@ -3072,8 +3345,17 @@
 ],
 "data:value": [
 {
-"@value": "Log",
-"@type": "xsd:string"
+"@value": "Log"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_2"
 }
 ],
 "sourcemaps:sources": [
@@ -3110,8 +3392,17 @@
 ],
 "data:value": [
 {
-"@value": "Warning",
-"@type": "xsd:string"
+"@value": "Warning"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_3"
 }
 ],
 "sourcemaps:sources": [
@@ -3148,8 +3439,17 @@
 ],
 "data:value": [
 {
-"@value": "Error",
-"@type": "xsd:string"
+"@value": "Error"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_4"
 }
 ],
 "sourcemaps:sources": [
@@ -3186,8 +3486,17 @@
 ],
 "data:value": [
 {
-"@value": "Critical",
-"@type": "xsd:string"
+"@value": "Critical"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#string"
+}
+],
+"core:name": [
+{
+"@value": "scalar_5"
 }
 ],
 "sourcemaps:sources": [
@@ -3276,7 +3585,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -3300,12 +3609,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "hydra:required"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(24,6)-(25,0)]"
+"@value": "[(20,4)-(25,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(21,6)-(22,0)]"
 }
 ]
 },
@@ -3324,12 +3645,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "apiContract:required"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(21,6)-(22,0)]"
+"@value": "[(24,6)-(25,0)]"
 }
 ]
 }
@@ -3340,39 +3661,40 @@
 {
 "@id": "#12",
 "@type": [
-"raml-http:Parameter",
+"apiContract:Parameter",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "booleanTokenParam"
 }
 ],
-"raml-http:paramName": [
+"apiContract:paramName": [
 {
 "@value": "booleanTokenParam"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Just to test boolean values."
 }
 ],
-"hydra:required": [
+"apiContract:required": [
 {
 "@value": true
 }
 ],
-"raml-http:binding": [
+"apiContract:binding": [
 {
 "@value": "query"
 }
 ],
-"raml-http:schema": [
+"raml-shapes:schema": [
 {
 "@id": "#13",
 "@type": [
 "raml-shapes:ScalarShape",
+"raml-shapes:AnyShape",
 "shacl:Shape",
 "raml-shapes:Shape",
 "doc:DomainElement"
@@ -3387,7 +3709,7 @@
 "@value": "schema"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Just to test boolean values."
 }
@@ -3402,8 +3724,17 @@
 ],
 "data:value": [
 {
-"@value": "true",
-"@type": "xsd:boolean"
+"@value": "true"
+}
+],
+"shacl:datatype": [
+{
+"@id": "http://www.w3.org/2001/XMLSchema#boolean"
+}
+],
+"core:name": [
+{
+"@value": "scalar_1"
 }
 ],
 "sourcemaps:sources": [
@@ -3471,12 +3802,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "shacl:datatype"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(27,6)-(28,0)]"
+"@value": "[(26,6)-(27,0)]"
 }
 ]
 },
@@ -3495,12 +3826,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "shacl:datatype"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(26,6)-(27,0)]"
+"@value": "[(27,6)-(28,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "shacl:defaultValue"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(28,6)-(29,0)]"
 }
 ]
 }
@@ -3519,12 +3862,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "raml-shapes:schema"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(26,6)-(27,0)]"
+"@value": "[(25,4)-(29,0)]"
 }
 ]
 },
@@ -3539,30 +3882,42 @@
 "@value": "[(25,4)-(29,0)]"
 }
 ]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(26,6)-(27,0)]"
+}
+]
 }
 ]
 }
 ]
 }
 ],
-"hydra:response": [
+"apiContract:response": [
 {
 "@id": "#15",
 "@type": [
-"raml-http:Response",
+"apiContract:Response",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "401"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "Bad token.\n"
 }
 ],
-"hydra:statusCode": [
+"apiContract:statusCode": [
 {
 "@value": "401"
 }
@@ -3577,7 +3932,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -3605,15 +3960,15 @@
 {
 "@id": "#16",
 "@type": [
-"raml-http:Response",
+"apiContract:Response",
 "doc:DomainElement"
 ],
-"schema-org:name": [
+"core:name": [
 {
 "@value": "403"
 }
 ],
-"hydra:statusCode": [
+"apiContract:statusCode": [
 {
 "@value": "403"
 }
@@ -3666,7 +4021,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "hydra:response"
+"@value": "apiContract:response"
 }
 ],
 "sourcemaps:value": [
@@ -3678,7 +4033,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:header"
+"@value": "apiContract:header"
 }
 ],
 "sourcemaps:value": [
@@ -3714,7 +4069,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
@@ -3726,7 +4081,7 @@
 {
 "sourcemaps:element": [
 {
-"@value": "raml-http:parameter"
+"@value": "apiContract:parameter"
 }
 ],
 "sourcemaps:value": [
@@ -3759,7 +4114,7 @@
 "security:SecurityScheme",
 "doc:DomainElement"
 ],
-"security:name": [
+"core:name": [
 {
 "@value": "oauth1"
 }
@@ -3769,7 +4124,7 @@
 "@value": "OAuth 1.0"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
 }
@@ -3901,12 +4256,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "security:settings"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(3,0)-(4,0)]"
+"@value": "[(4,0)-(9,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "security:type"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(2,0)-(3,0)]"
 }
 ]
 },
@@ -3925,12 +4292,12 @@
 {
 "sourcemaps:element": [
 {
-"@value": "security:type"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(2,0)-(3,0)]"
+"@value": "[(3,0)-(4,0)]"
 }
 ]
 }
@@ -3955,17 +4322,15 @@
 ],
 "@context": {
 "@base": "amf://id",
-"raml-http": "http://a.ml/vocabularies/http#",
 "shacl": "http://www.w3.org/ns/shacl#",
 "raml-shapes": "http://a.ml/vocabularies/shapes#",
 "security": "http://a.ml/vocabularies/security#",
 "data": "http://a.ml/vocabularies/data#",
 "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
 "doc": "http://a.ml/vocabularies/document#",
-"sourcemaps": "http://a.ml/vocabularies/document-source-maps#",
-"schema-org": "http://schema.org/",
-"xsd": "http://www.w3.org/2001/XMLSchema#",
-"hydra": "http://www.w3.org/ns/hydra/core#"
+"apiContract": "http://a.ml/vocabularies/apiContract#",
+"core": "http://a.ml/vocabularies/core#",
+"sourcemaps": "http://a.ml/vocabularies/document-source-maps#"
 }
 }
 ]

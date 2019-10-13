@@ -1,5 +1,5 @@
 import { fixture, assert, aTimeout, html, nextFrame } from '@open-wc/testing';
-import sinon from 'sinon/pkg/sinon-esm.js';
+import * as sinon from 'sinon/pkg/sinon-esm.js';
 import { AmfLoader } from './amf-loader.js';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../auth-method-oauth2.js';
@@ -467,7 +467,7 @@ describe('<auth-method-oauth2>', function() {
             const value = 1234;
             element._authQueryParameters[0].value = value;
             const result = element.getSettings();
-            assert.lengthOf(result.customData.auth.parameters, 2, 'has two items');
+            assert.lengthOf(result.customData.auth.parameters, 1, 'has one item');
             assert.equal(result.customData.auth.parameters[0].value, value);
           });
 
