@@ -99,7 +99,7 @@ ${this.authSettingsValue ? this.authSettingsValue : 'Model not ready'}
 
   contentTemplate() {
     return html `
-      <h2>Auth method basic</h2>
+      <h2>Auth method digest</h2>
       ${this._demoTemplate()}
       ${this._introductionTemplate()}
       ${this._usageTemplate()}

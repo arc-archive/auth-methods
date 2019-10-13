@@ -53,15 +53,14 @@ arc-marked {
   margin: 12px 8px;
 }
 
-anypoint-input,
-anypoint-masked-input {
-  margin: 20px 8px;
-}
-
 .icon {
   display: inline-block;
   width: 24px;
   height: 24px;
   fill: currentColor;
+}
+
+api-property-form-item {
+  margin: -8px 0px;
 }
 `;

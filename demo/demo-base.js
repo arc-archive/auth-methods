@@ -9,7 +9,7 @@ export class DemoBase extends ArcDemoPage {
     super();
     this.initObservableProperties([
       'outlined',
-      'legacy',
+      'compatibility',
       'readOnly',
       'disabled',
       'authSettings',
@@ -23,20 +23,8 @@ export class DemoBase extends ArcDemoPage {
 
   _demoStateHandler(e) {
     const state = e.detail.value;
-    switch (state) {
-      case 0:
-        this.outlined = false;
-        this.legacy = false;
-        break;
-      case 1:
-        this.outlined = true;
-        this.legacy = false;
-        break;
-      case 2:
-        this.outlined = false;
-        this.legacy = true;
-        break;
-    }
+    this.outlined = state === 1;
+    this.compatibility = state === 2;
   }
 
   _toggleMainOption(e) {

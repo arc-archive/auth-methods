@@ -75,6 +75,10 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
         display: flex;
         flex-direction: row;
         align-items: center;
+      }
+
+      .docs-container {
+        margin-top: 8px;
       }`
     ];
   }

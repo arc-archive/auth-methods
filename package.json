@@ -1,7 +1,7 @@
 {
   "name": "@advanced-rest-client/auth-methods",
   "description": "A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "license": "Apache-2.0",
   "main": "auth-methods.js",
   "keywords": [
@@ -38,7 +38,7 @@
     "@anypoint-web-components/anypoint-button": "^1.0.11",
     "@anypoint-web-components/anypoint-checkbox": "^1.0.1",
     "@anypoint-web-components/anypoint-dropdown-menu": "^0.1.11",
-    "@anypoint-web-components/anypoint-input": "^0.2.5",
+    "@anypoint-web-components/anypoint-input": "^0.2.8",
     "@anypoint-web-components/anypoint-item": "^1.0.4",
     "@anypoint-web-components/anypoint-listbox": "^1.0.3",
     "@api-components/amf-helper-mixin": "^4.0.13",
