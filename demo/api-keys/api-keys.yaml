@@ -1,0 +1,82 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: OAS API key API
+
+host: domain.com
+basePath: /api/v1
+schemes:
+  - https
+security:
+  - clientQuery: []
+    clientMulti: []
+  - clientSecret: []
+  - clientCookie: []
+
+securityDefinitions:
+  clientQuery:
+    type: apiKey
+    name: client_id
+    in: query
+  clientSecret:
+    type: apiKey
+    name: client_secret
+    in: header
+  clientCookie:
+    type: apiKey
+    name: client_secret
+    in: cookie
+  clientMulti:
+    type: apiKey
+    name: client_multi
+    in: header
+
+paths:
+  '/query':
+    get:
+      security:
+        - clientQuery: []
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/header':
+    get:
+      security:
+        - clientSecret: []
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/cookie':
+    get:
+      security:
+        - clientCookie: []
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/multi':
+    get:
+      security:
+        - clientQuery: []
+          clientMulti: []
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  Error:
+    type: object
+    properties:
+      name:
+        type: string
+        example: ServerException
+      message:
+        type: string
+        example: Some server error occurred
