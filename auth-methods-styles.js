@@ -3,7 +3,11 @@ export default css `
 anypoint-input,
 anypoint-masked-input {
   width: auto;
-  display: block;
+  display: inline-block;
+}
+
+api-property-form-item {
+  margin: -8px 0px;
 }
 
 .edit-icon {
@@ -58,9 +62,5 @@ arc-marked {
   width: 24px;
   height: 24px;
   fill: currentColor;
-}
-
-api-property-form-item {
-  margin: -8px 0px;
 }
 `;

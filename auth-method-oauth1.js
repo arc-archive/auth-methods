@@ -93,6 +93,13 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
 
       .authorize-actions {
         margin-top: 12px;
+      }
+
+      anypoint-input,
+      anypoint-masked-input {
+        display: inline-block;
+        width: calc(100% - 16px);
+        margin: 8px;
       }`
     ];
   }

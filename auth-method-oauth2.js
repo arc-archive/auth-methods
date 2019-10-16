@@ -270,7 +270,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       *[data-grant="client_credentials"] *[data-visible~="client_credentials"],
       *[data-grant="implicit"] *[data-visible~="implicit"],
       *[data-grant="password"] *[data-visible~="password"] {
-        display: block;
+        display: inline-block;
       }
 
       form[is-custom-grant] *[data-visible] {
@@ -309,6 +309,23 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
 
        .read-only-param-field.padding {
          padding: 12px;
+       }
+
+       anypoint-input,
+       anypoint-masked-input {
+         display: inline-block;
+         width: calc(100% - 16px);
+         margin: 16px 8px;
+       }
+
+       :host([compatibility]) anypoint-input,
+       :host([compatibility]) anypoint-masked-input {
+         margin-top: 20px;
+         margin-bottom: 20px;
+       }
+
+       :host([compatibility]) api-property-form-item {
+         margin: 0.1px 0;
        }`
     ];
   }

@@ -19,7 +19,6 @@ import formStyles from '@api-components/api-form-mixin/api-form-styles.js';
 import authStyles from './auth-methods-styles.js';
 import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
 import { help } from '@advanced-rest-client/arc-icons/ArcIcons.js';
-import '@anypoint-web-components/anypoint-input/anypoint-input.js';
 import '@polymer/iron-form/iron-form.js';
 import '@advanced-rest-client/arc-marked/arc-marked.js';
 import '@api-components/api-view-model-transformer/api-view-model-transformer.js';
@@ -69,6 +68,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
 
       api-property-form-item {
         flex: 1;
+        margin: 0.1px 0;
       }
 
       .subtitle {
@@ -93,35 +93,33 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       documentationOpened
     } = this;
     return html`
-      <section>
-        ${_schemeName ? html`<div class="scheme-header">
-          <div class="subtitle">
-            <span>Scheme: ${_schemeName}</span>
-            ${_hasSchemeDescription ? html`<anypoint-icon-button
-              class="hint-icon"
-              title="Toggle description"
-              aria-label="Press to toggle schema description"
-              ?outlined="${outlined}"
-              ?compatibility="${compatibility}"
-              @click="${this.toggleSchemeDocumentation}"
-            >
-              <span class="icon">${help}</span>
-            </anypoint-icon-button>` : ''}
-          </div>
-          ${_hasSchemeDescription && documentationOpened ? html`<div class="docs-container">
-            <arc-marked .markdown="${_schemeDescription}" main-docs sanitize>
-              <div slot="markdown-html" class="markdown-body"></div>
-            </arc-marked>
-          </div>` : ''}
+      ${_schemeName ? html`<div class="scheme-header">
+        <div class="subtitle">
+          <span>Scheme: ${_schemeName}</span>
+          ${_hasSchemeDescription ? html`<anypoint-icon-button
+            class="hint-icon"
+            title="Toggle description"
+            aria-label="Press to toggle schema description"
+            ?outlined="${outlined}"
+            ?compatibility="${compatibility}"
+            @click="${this.toggleSchemeDocumentation}"
+          >
+            <span class="icon">${help}</span>
+          </anypoint-icon-button>` : ''}
+        </div>
+        ${_hasSchemeDescription && documentationOpened ? html`<div class="docs-container">
+          <arc-marked .markdown="${_schemeDescription}" main-docs sanitize>
+            <div slot="markdown-html" class="markdown-body"></div>
+          </arc-marked>
         </div>` : ''}
+      </div>` : ''}
 
-        <iron-form>
-          <form autocomplete="on">
-            ${this._getHeadersTemplate()}
-            ${this._getQueryTemplate()}
-          </form>
-        </iron-form>
-      </section>`;
+      <iron-form>
+        <form autocomplete="on">
+          ${this._getHeadersTemplate()}
+          ${this._getQueryTemplate()}
+        </form>
+      </iron-form>`;
   }
 
   static get properties() {
@@ -231,10 +229,9 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       disabled,
       noDocs
     } = this;
-    return html`<section>
+    return html`
     ${items.map((item, index) =>
-    this._formItemTemplate(item, index, outlined, compatibility, readOnly, disabled, noDocs, type))}
-    </section>`;
+    this._formItemTemplate(item, index, outlined, compatibility, readOnly, disabled, noDocs, type))}`;
   }
 
   _formItemTemplate(item, index, outlined, compatibility, readOnly, disabled, noDocs, type) {
