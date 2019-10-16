@@ -7,11 +7,6 @@ host: domain.com
 basePath: /api/v1
 schemes:
   - https
-security:
-  - clientQuery: []
-    clientMulti: []
-  - clientSecret: []
-  - clientCookie: []
 
 securityDefinitions:
   clientQuery:
