@@ -20,6 +20,7 @@ import '@polymer/iron-form/iron-form.js';
 import '@anypoint-web-components/anypoint-radio-button/anypoint-radio-button.js';
 import '@anypoint-web-components/anypoint-radio-button/anypoint-radio-group.js';
 import '@anypoint-web-components/anypoint-item/anypoint-item.js';
+import '@advanced-rest-client/date-time/date-time.js';
 /**
  * The `<auth-method-basic>` element displays a form to provide the Basic
  * auth credentials.
@@ -49,50 +50,57 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
       css`
       :host {
         display: block;
+      }
+
+      .button-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      anypoint-radio-button {
+        width: 100%;
+        margin: 8px 0;
+      }
+
+      .name {
+        font-weight: 500;
+      }
+
+      .created {
+        font-size: 0.85rem;
+        color: var(--auth-method-certificate-second-line-color, initial);
       }`
     ];
   }
 
   render() {
     const {
-      username,
-      password,
-      outlined,
       compatibility,
-      readOnly,
-      disabled
+      items
     } = this;
+    if (!items || !items.length) {
+      return html`<p>There are no certificates installed in the application.</p>`;
+    }
     return html`
-      <iron-form>
-        <form autocomplete="on">
-          <anypoint-input
-            .value="${username}"
-            @input="${this._usernameHandler}"
-            name="username"
-            type="text"
-            required
-            autovalidate
-            autocomplete="on"
-            .outlined="${outlined}"
-            .compatibility="${compatibility}"
-            .readOnly="${readOnly}"
-            .disabled="${disabled}"
-            invalidmessage="Username is required">
-            <label slot="label">User name</label>
-          </anypoint-input>
-          <anypoint-masked-input
-            name="password"
-            .value="${password}"
-            @input="${this._passwordHandler}"
-            autocomplete="on"
-            .outlined="${outlined}"
-            .compatibility="${compatibility}"
-            .readOnly="${readOnly}"
-            .disabled="${disabled}">
-            <label slot="label">Password</label>
-          </anypoint-masked-input>
-        </form>
-      </iron-form>`;
+    <div class="title">Select a certificate</div>
+    <anypoint-radio-group ?compatibility="${compatibility}">
+    ${items.map((item) => html`<anypoint-radio-button ?compatibility="${compatibility}">
+      <div class="button-content">
+        <span class="name">${item.name}</span>
+        <span class="created">Added:
+          <date-time
+            .date="${item.created}"
+            year="numeric"
+            month="numeric"
+            day="numeric"
+            hour="numeric"
+            minute="numeric"
+          ></date-time>
+        </span>
+      </div>
+    </anypoint-radio-button>`)}
+    </anypoint-radio-group>
+    `;
   }
 
   static get properties() {

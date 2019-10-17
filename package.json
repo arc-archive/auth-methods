@@ -33,6 +33,7 @@
     "@advanced-rest-client/arc-marked": "^1.0.4",
     "@advanced-rest-client/client-certificates-consumer-mixin": "^1.0.0",
     "@advanced-rest-client/clipboard-copy": "^3.0.1",
+    "@advanced-rest-client/date-time": "^3.0.2",
     "@advanced-rest-client/events-target-mixin": "^3.0.0",
     "@advanced-rest-client/markdown-styles": "^3.1.0",
     "@advanced-rest-client/oauth2-scope-selector": "^3.0.3",
