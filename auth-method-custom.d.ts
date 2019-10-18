@@ -42,7 +42,6 @@ declare namespace UiElements {
   class AuthMethodCustom extends
     AmfHelperMixin(
     AuthMethodBase) {
-    amf: any;
     readonly _hasSchemeDescription: any;
 
     /**
@@ -84,7 +83,7 @@ declare namespace UiElements {
     _getHeadersTemplate(): any;
     _getQueryTemplate(): any;
     _formListTemplate(items: any, type: any): any;
-    _formItemTemplate(item: any, index: any, outlined: any, legacy: any, readOnly: any, disabled: any, noDocs: any, type: any): any;
+    _formItemTemplate(item: any, index: any, outlined: any, compatibility: any, readOnly: any, disabled: any, noDocs: any, type: any): any;
 
     /**
      * Validates the form.
@@ -144,6 +143,24 @@ declare namespace UiElements {
      * event. Other components can update their state when the value change.
      */
     _inputValueChanged(e: CustomEvent|null): void;
+
+    /**
+     * Dispatches header/query parameter changed event - depending on the type.
+     *
+     * @param type `header` or `query`
+     * @param name name of the property
+     * @param value changed value
+     */
+    _dispatchParamChanged(type: String|null, name: String|null, value: String|null): void;
+
+    /**
+     * Calls `_dispatchParamChanged()` on each item to notify other editors about
+     * value change.
+     *
+     * @param type Changed type.
+     * @param data View model
+     */
+    _notifyModelChanged(type: String|null, data: String|null): void;
   }
 }
 

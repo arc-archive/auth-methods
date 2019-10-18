@@ -65,7 +65,6 @@ declare namespace UiElements {
   class AuthMethodOauth1 extends
     ApiElements.AmfHelperMixin(
     AuthMethodBase) {
-    amf: any;
 
     /**
      * Returns default list of signature methods for OAuth1
