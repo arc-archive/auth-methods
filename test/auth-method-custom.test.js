@@ -270,7 +270,7 @@ describe('<auth-method-custom>', function() {
         });
 
         it('does not render item description', async () => {
-          const node = element.shadowRoot.querySelector('section > .docs-container');
+          const node = element.shadowRoot.querySelector('.docs-container');
           assert.notOk(node);
         });
 
@@ -278,7 +278,7 @@ describe('<auth-method-custom>', function() {
           const button = element.shadowRoot.querySelector('.field-value .hint-icon');
           MockInteractions.tap(button);
           await nextFrame();
-          const node = element.shadowRoot.querySelector('section > .docs-container');
+          const node = element.shadowRoot.querySelector('.docs-container');
           assert.ok(node);
         });
       });
