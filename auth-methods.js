@@ -4,6 +4,7 @@ import './auth-method-ntlm.js';
 import './auth-method-oauth2.js';
 import './auth-method-oauth1.js';
 import './auth-method-custom.js';
+import './auth-method-certificate.js';
 
 /**
 @license
