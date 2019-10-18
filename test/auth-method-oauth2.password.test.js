@@ -1,5 +1,5 @@
 import { fixture, assert, aTimeout, html, nextFrame } from '@open-wc/testing';
-import sinon from 'sinon/pkg/sinon-esm.js';
+import * as sinon from 'sinon/pkg/sinon-esm.js';
 import { AmfLoader } from './amf-loader.js';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../auth-method-oauth2.js';
@@ -135,7 +135,7 @@ describe('<auth-method-oauth2>', function() {
       it('Access token URI is not hidden', () => {
         const node = element.shadowRoot.querySelector('[name="accessTokenUri"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Access token URI is required', () => {
@@ -151,7 +151,7 @@ describe('<auth-method-oauth2>', function() {
       it('Username is none hidden', () => {
         const node = element.shadowRoot.querySelector('[name="username"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Username is required', () => {
@@ -167,7 +167,7 @@ describe('<auth-method-oauth2>', function() {
       it('Password is not hidden', () => {
         const node = element.shadowRoot.querySelector('[name="password"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Password is required', () => {
