@@ -5,7 +5,7 @@ import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.
 import '@advanced-rest-client/arc-models/client-certificate-model.js';
 import '../auth-method-certificate.js';
 
-describe.only('<auth-method-certificate>', function() {
+describe('<auth-method-certificate>', function() {
   async function basicFixture() {
     return (await fixture(`<auth-method-certificate></auth-method-certificate>`));
   }
