@@ -101,7 +101,8 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
   render() {
     const {
       compatibility,
-      items
+      items,
+      selected
     } = this;
     if (!items || !items.length) {
       return html`<p class="empty-screen">There are no certificates installed in the application.</p>`;
@@ -113,6 +114,7 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
         ?compatibility="${compatibility}"
         attrForSelected="data-id"
         fallbackSelection="none"
+        .selected="${selected}"
         @selected-changed="${this._selectedHandler}"
       >
         <anypoint-radio-button
