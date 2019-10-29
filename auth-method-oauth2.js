@@ -1905,7 +1905,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
           <anypoint-button
             ?disabled="${_authorizing}"
             class="auth-button"
-            compatibility="${compatibility}"
+            ?compatibility="${compatibility}"
             emphasis="medium"
             data-type="refresh-token"
             @click="${this.authorize}">Refresh access token</anypoint-button>
@@ -1916,7 +1916,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       <anypoint-button
         ?disabled="${_authorizing}"
         class="auth-button"
-        compatibility="${compatibility}"
+        ?compatibility="${compatibility}"
         emphasis="medium"
         data-type="get-token"
         @click="${this.authorize}">Request access token</anypoint-button>
