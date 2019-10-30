@@ -1098,3 +1098,24 @@
 
 
 
+## [5.0.7](https://github.com/advanced-rest-client/auth-methods/compare/3.0.0-preview...5.0.7) (2019-10-30)
+
+
+### Bug Fixes
+
+* adding missing dependency ([d90c15e](https://github.com/advanced-rest-client/auth-methods/commit/d90c15e52a47d0de2a8ba6537620d4ba3520edd7))
+* fixes [#16](https://github.com/advanced-rest-client/auth-methods/issues/16) - client id and secret is not available for poassword ([a1131e4](https://github.com/advanced-rest-client/auth-methods/commit/a1131e43e41c402befcd5b14b1bb586b73916842))
+* fixes advanced-rest-client/api-view-model-transformer[#2](https://github.com/advanced-rest-client/auth-methods/issues/2) ([4738afc](https://github.com/advanced-rest-client/auth-methods/commit/4738afcbe9741cbba1bf6157c062e47f06d62acd))
+* fixing custom method initialization issue ([938a0ad](https://github.com/advanced-rest-client/auth-methods/commit/938a0ad2d31ea797ae4f4dc498a450cc15e47223))
+* fixing input spacing ([d0de7cc](https://github.com/advanced-rest-client/auth-methods/commit/d0de7cc4db2d2e732c795ac828353e1856b20697))
+* fixing model upgrading from api-property-form-item ([7fb123f](https://github.com/advanced-rest-client/auth-methods/commit/7fb123f7910fcb0de788dcbf77257ce548cccf5a))
+* fixing oauth2 state auto store/restore ([2b380dd](https://github.com/advanced-rest-client/auth-methods/commit/2b380dd885e1f9e118119183d13ac5563817675a))
+
+
+### Features
+
+* adding client certificate panel ([73e9b26](https://github.com/advanced-rest-client/auth-methods/commit/73e9b26620b6047ac1614f88499c3b9f0c34f8cf))
+* adding error messages to the fields ([bf7b060](https://github.com/advanced-rest-client/auth-methods/commit/bf7b060a9761ea1c1ad14cd34f68cbacf858ea48))
+
+
+
