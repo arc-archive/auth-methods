@@ -173,7 +173,6 @@ declare namespace UiElements {
   class AuthMethodOauth2 extends
     AmfHelperMixin(
     AuthMethodBase) {
-    amf: any;
 
     /**
      * Seleted authorization grand type.

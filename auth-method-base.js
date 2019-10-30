@@ -101,11 +101,16 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
    * Generates auth data model by calling `validate()` and `getSettings()` functions.
    *
    * @param {String} type Auth form type.
-   * @return {Object} Gnerated data model
+   * @return {Object|undefined} Gnerated data model or undefined when the settings
+   * should be cleared
    */
   _createModel(type) {
+    const settings = this.getSettings();
+    if (!settings) {
+      return;
+    }
     return {
-      settings: this.getSettings(),
+      settings,
       type,
       valid: this.validate()
     };
@@ -119,7 +124,7 @@ export class AuthMethodBase extends EventsTargetMixin(LitElement) {
   _notifySettingsChange(type) {
     const detail = this._createModel(type);
     const e = new CustomEvent('auth-settings-changed', {
-      detail: detail,
+      detail,
       bubbles: true,
       composed: true
     });

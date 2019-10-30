@@ -12,7 +12,7 @@
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-import {LitElement, html} from 'lit-element';
+import {LitElement} from 'lit-element';
 
 import {EventsTargetMixin} from '@advanced-rest-client/events-target-mixin/events-target-mixin.js';
 
@@ -24,6 +24,7 @@ export {AuthMethodBase};
 declare class AuthMethodBase extends
   EventsTargetMixin(
   LitElement) {
+  legacy: any;
   constructor(type: any);
 
   /**
@@ -51,9 +52,10 @@ declare class AuthMethodBase extends
    * Generates auth data model by calling `validate()` and `getSettings()` functions.
    *
    * @param type Auth form type.
-   * @returns Gnerated data model
+   * @returns Gnerated data model or undefined when the settings
+   * should be cleared
    */
-  _createModel(type: String|null): object|null;
+  _createModel(type: String|null): object|null|undefined;
 
   /**
    * Generates data model and disaptches `auth-settings-changed` custom event.

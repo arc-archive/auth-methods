@@ -45,6 +45,11 @@ class AuthMethodNtlm extends AuthMethodBase {
       css`
       :host {
         display: block;
+      }
+
+      anypoint-input,
+      anypoint-masked-input {
+        display: block;
       }`
     ];
   }

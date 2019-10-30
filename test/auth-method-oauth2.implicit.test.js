@@ -104,7 +104,7 @@ describe('<auth-method-oauth2>', function() {
       it('Authorization URI is not hidden', () => {
         const node = element.shadowRoot.querySelector('[name="authorizationUri"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Authorization URI is not disabled', () => {

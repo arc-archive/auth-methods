@@ -117,7 +117,7 @@ describe('<auth-method-oauth2>', function() {
       it('Client secret is not hidden', () => {
         const node = element.shadowRoot.querySelector('[name="clientSecret"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Advanced settings checkbox is not rendered', () => {
@@ -128,7 +128,7 @@ describe('<auth-method-oauth2>', function() {
       it('Authorization URI is not hidden', () => {
         const node = element.shadowRoot.querySelector('[name="authorizationUri"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Authorization URI is not disabled', () => {
@@ -144,7 +144,7 @@ describe('<auth-method-oauth2>', function() {
       it('Access token URI is not hidden', () => {
         const node = element.shadowRoot.querySelector('[name="accessTokenUri"]');
         const display = getComputedStyle(node).display;
-        assert.equal(display, 'block');
+        assert.equal(display, 'inline-block');
       });
 
       it('Access token URI is required', () => {
