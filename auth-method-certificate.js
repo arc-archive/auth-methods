@@ -71,15 +71,24 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
       anypoint-radio-button {
         width: 100%;
         margin: 8px 0;
+        align-items: flex-start;
+      }
+
+      .default {
+        align-items: center;
       }
 
       .name {
-        font-weight: 500;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 8px;
+        margin-top: 7px;
       }
 
       .created {
         font-size: 0.85rem;
         color: var(--auth-method-certificate-second-line-color, initial);
+        font-weight: 200;
       }
 
       .list {
@@ -92,7 +101,8 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
   render() {
     const {
       compatibility,
-      items
+      items,
+      selected
     } = this;
     if (!items || !items.length) {
       return html`<p class="empty-screen">There are no certificates installed in the application.</p>`;
@@ -104,31 +114,30 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
         ?compatibility="${compatibility}"
         attrForSelected="data-id"
         fallbackSelection="none"
+        .selected="${selected}"
         @selected-changed="${this._selectedHandler}"
       >
         <anypoint-radio-button
           data-id="none"
           ?compatibility="${compatibility}"
+          class="default"
         >None</anypoint-radio-button>
         ${items.map((item) => html`<anypoint-radio-button
           data-id="${item._id}"
           ?compatibility="${compatibility}"
         >
-          <div class="button-content">
-            <div class="cert-type-ico">${item.type}</div>
-            <div class="cert-meta">
-              <span class="name">${item.name}</span>
-              <span class="created">Added:
-                <date-time
-                  .date="${item.created}"
-                  year="numeric"
-                  month="numeric"
-                  day="numeric"
-                  hour="numeric"
-                  minute="numeric"
-                ></date-time>
-              </span>
-            </div>
+          <div class="cert-meta">
+            <span class="name">${item.name}</span>
+            <span class="created">Added:
+              <date-time
+                .date="${item.created}"
+                year="numeric"
+                month="numeric"
+                day="numeric"
+                hour="numeric"
+                minute="numeric"
+              ></date-time>
+            </span>
           </div>
         </anypoint-radio-button>`)}
       </anypoint-radio-group>

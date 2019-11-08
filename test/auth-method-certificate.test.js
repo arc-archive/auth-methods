@@ -1,4 +1,4 @@
-import { fixture, assert, html, aTimeout } from '@open-wc/testing';
+import { fixture, assert, html, aTimeout, nextFrame } from '@open-wc/testing';
 import * as sinon from 'sinon/pkg/sinon-esm.js';
 import { DataGenerator } from '@advanced-rest-client/arc-data-generator/arc-data-generator.js';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
@@ -84,6 +84,17 @@ describe('<auth-method-certificate>', function() {
     it('does not render empty state', async () => {
       const node = element.shadowRoot.querySelector('.empty-screen');
       assert.notOk(node);
+    });
+
+    it('selects button group when selected changes', async () => {
+      const item = element.items[0];
+      const id = item._id;
+      element.selected = id;
+      await nextFrame();
+      const group = element.shadowRoot.querySelector('anypoint-radio-group');
+      const button = element.shadowRoot.querySelector(`[data-id="${id}"]`);
+      assert.equal(group.selected, id, 'group selection is set');
+      assert.isTrue(button.checked, 'button is checked');
     });
   });
 

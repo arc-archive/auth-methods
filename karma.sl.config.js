@@ -5,7 +5,8 @@ const createBaseConfig = require('./karma.conf.js');
 
 module.exports = (config) => {
   const cnf = slSettings();
-  cnf.sauceLabs.testName = 'oauth2-scope-selector';
+  cnf.sauceLabs.testName = 'auth-methods';
+  cnf.sauceLabs.idleTimeout = 150;
   cnf.browsers = [
     'SL_Chrome',
     'SL_Chrome-1',
