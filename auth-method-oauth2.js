@@ -193,7 +193,7 @@ import '@polymer/iron-meta/iron-meta.js';
  * @extends AuthMethodBase
  */
 class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
-  static get styles() {
+  get styles() {
     return [
       markdownStyles,
       formStyles,
@@ -1846,7 +1846,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     const secretDisabled = disabled ||
       this._isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code');
     const hasAccessToken = !!accessToken;
-    return html`
+    return html`<style>${this.styles}</style>
     <iron-form data-grant="${grantType}">
       <form autocomplete="on" ?is-custom-grant="${isCustomGrant}">
           ${this._getGrantTypeTemplate()}

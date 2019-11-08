@@ -70,7 +70,7 @@ import '@anypoint-web-components/anypoint-item/anypoint-item.js';
  * @extends AuthMethodBase
  */
 class AuthMethodDigest extends AuthMethodBase {
-  static get styles() {
+  get styles() {
     return [
       authStyles,
       css`
@@ -90,7 +90,7 @@ class AuthMethodDigest extends AuthMethodBase {
       disabled,
       fullForm
     } = this;
-    return html`
+    return html`<style>${this.styles}</style>
     <iron-form>
       <form autocomplete="on">
         <anypoint-input

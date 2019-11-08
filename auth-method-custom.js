@@ -49,7 +49,7 @@ import '@api-components/api-property-form-item/api-property-form-item.js';
  * @extends AuthMethodBase
  */
 class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
-  static get styles() {
+  get styles() {
     return [
       markdownStyles,
       formStyles,
@@ -92,7 +92,7 @@ class AuthMethodCustom extends AmfHelperMixin(AuthMethodBase) {
       compatibility,
       documentationOpened
     } = this;
-    return html`
+    return html`<style>${this.styles}</style>
       ${_schemeName ? html`<div class="scheme-header">
         <div class="subtitle">
           <span>Scheme: ${_schemeName}</span>
