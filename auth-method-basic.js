@@ -40,7 +40,7 @@ import '@polymer/iron-form/iron-form.js';
  * @extends AuthMethodBase
  */
 class AuthMethodBasic extends AuthMethodBase {
-  static get styles() {
+  get styles() {
     return [
       authStyles,
       css`
@@ -64,7 +64,7 @@ class AuthMethodBasic extends AuthMethodBase {
       readOnly,
       disabled
     } = this;
-    return html`
+    return html`<style>${this.styles}</style>
       <iron-form>
         <form autocomplete="on">
           <anypoint-input

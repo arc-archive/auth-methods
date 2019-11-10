@@ -75,7 +75,7 @@ import '@polymer/paper-spinner/paper-spinner.js';
  * @extends AuthMethodBase
  */
 class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
-  static get styles() {
+  get styles() {
     return [
       authStyles,
       css`
@@ -128,7 +128,7 @@ class AuthMethodOauth1 extends AmfHelperMixin(AuthMethodBase) {
       disabled
     } = this;
     const hasSignatureMethods = !!(signatureMethods && signatureMethods.length);
-    return html`
+    return html`<style>${this.styles}</style>
     <div class="form">
       <iron-form>
         <form autocomplete="on">

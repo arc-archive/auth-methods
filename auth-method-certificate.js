@@ -43,7 +43,7 @@ import '@advanced-rest-client/date-time/date-time.js';
  * @extends AuthMethodBase
  */
 class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBase) {
-  static get styles() {
+  get styles() {
     return [
       authStyles,
       css`
@@ -107,7 +107,7 @@ class AuthMethodCertificate extends ClientCertificatesConsumerMixin(AuthMethodBa
     if (!items || !items.length) {
       return html`<p class="empty-screen">There are no certificates installed in the application.</p>`;
     }
-    return html`
+    return html`<style>${this.styles}</style>
     <div class="form-title">Select a certificate</div>
     <div class="list">
       <anypoint-radio-group
