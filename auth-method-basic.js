@@ -50,7 +50,9 @@ class AuthMethodBasic extends AuthMethodBase {
 
       anypoint-input,
       anypoint-masked-input {
-        display: block;
+        display: inline-block;
+        width: calc(100% - 16px);
+        margin: 8px;
       }`
     ];
   }
