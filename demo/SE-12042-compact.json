@@ -1,7417 +1,2893 @@
 [
-{
-"@id": "",
-"@type": [
-"doc:Document",
-"doc:Fragment",
-"doc:Module",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#42",
-"@type": [
-"apiContract:WebAPI",
-"doc:RootDomainElement",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Security Scheme Mocking Service Test"
-}
-],
-"core:description": [
-{
-"@value": "In the Design Centre, when you use custom authentication and the mocking service, you will see:\n\n1\u00A0  Authorization method\n<Method Name>\u00A0\n\u00A0\n2\u00A0  Set authorization data\"\n\u00A0\nThe authorization data may be already filled out, however the error:\n\"Fill in required parameters\"\n\u00A0\nremains. If you fill in at least one field, the error disappears, however the request still cannot be sent. All Authorization fields must be re-typed before you can submit the request\n\nSteps to reproduce\n\nCreate a new API Specification\nImport the attached File\nRun the Mocking Service for api.xml\nClick \"Authorize and Send\"\n\u2013 This fails\n\nRe-type the Client ID and Client Secret\n\nClick \"Authorize and Send\"\n\u2013 This works\n\nWorkaround\nRe-type in the values and everything works!\n"
-}
-],
-"apiContract:server": [
-{
-"@id": "#47",
-"@type": [
-"apiContract:Server",
-"doc:DomainElement"
-],
-"core:urlTemplate": [
-{
-"@value": "https://anypoint.mulesoft.com/mocking/api/v1/links/217a24f8-9a87-4663-b3e8-4f807e661d80/"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#47/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:urlTemplate"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-}
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#47"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:accepts": [
-{
-"@value": "application/json"
-}
-],
-"apiContract:contentType": [
-{
-"@value": "application/json"
-}
-],
-"apiContract:scheme": [
-{
-"@value": "HTTPS"
-}
-],
-"core:version": [
-{
-"@value": "v1.0.0"
-}
-],
-"apiContract:endpoint": [
-{
-"@id": "#43",
-"@type": [
-"apiContract:EndPoint",
-"doc:DomainElement"
-],
-"apiContract:path": [
-{
-"@value": "/check/api-status"
-}
-],
-"apiContract:supportedOperation": [
-{
-"@id": "#44",
-"@type": [
-"apiContract:Operation",
-"doc:DomainElement"
-],
-"apiContract:method": [
-{
-"@value": "get"
-}
-],
-"apiContract:returns": [
-{
-"@id": "#45",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "200"
-}
-],
-"core:description": [
-{
-"@value": "A successful API status check."
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "200"
-}
-],
-"apiContract:payload": [
-{
-"@id": "#11",
-"@type": [
-"apiContract:Payload",
-"doc:DomainElement"
-],
-"core:mediaType": [
-{
-"@value": "application/json"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#4/linked_3",
-"@type": [
-"shacl:NodeShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"doc:link-target": [
-{
-"@id": "#4"
-}
-],
-"doc:link-label": [
-{
-"@value": "amf_inline_type_1"
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#11/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#11"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(48,10)-(53,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#45/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(46,8)-(47,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#45"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(45,6)-(53,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"security:security": [
-{
-"@id": "#46",
-"@type": [
-"security:ParametrizedSecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "x-clientIdSecret"
-}
-],
-"security:scheme": [
-{
-"@id": "#41",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "x-clientIdSecret"
-}
-],
-"security:type": [
-{
-"@value": "x-custom"
-}
-],
-"core:description": [
-{
-"@value": "This security scheme authenticates the source of an API call by requiring the calling application to provide credentials, in the form of a Client ID and Client Secret, in the request headers."
-}
-],
-"apiContract:header": [
-{
-"@id": "#30",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Client-Id"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "Client-Id"
-}
-],
-"core:description": [
-{
-"@value": "A valid Client ID that uniquely identifies the consuming application"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#31",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "A valid Client ID that uniquely identifies the consuming application"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#32",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#32",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "283a6722121141feb7a929793d5c"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#32/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "283a6722121141feb7a929793d5c"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#32/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#30"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#31/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#31"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,6)-(13,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,6)-(13,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#31"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,6)-(14,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#30/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#30"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,6)-(13,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#33",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Client-Secret"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "Client-Secret"
-}
-],
-"core:description": [
-{
-"@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#34",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#35",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#35",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "1421b7a929793d51fe283a67221c"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#35/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "1421b7a929793d51fe283a67221c"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#35/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#33"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#34/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#34"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,6)-(17,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(17,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#34"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,6)-(18,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#33/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#33"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(17,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:parameter": [
-{
-"@id": "#36",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "testParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "testParam"
-}
-],
-"core:description": [
-{
-"@value": "Test query parameter"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#37",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Test query parameter"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#38",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#38",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "x-test-value"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#38/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "x-test-value"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#38/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#36"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#37/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#37"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,6)-(8,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,6)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#37"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,6)-(9,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#36/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#36"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,6)-(8,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#41/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:declared-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#41"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:parameter"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#41"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(19,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#41"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#46/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#46"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,11)-(8,27)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#44/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:returns"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(44,4)-(53,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#44"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(43,2)-(53,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#43/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#43"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(42,0)-(53,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#42/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:single-value-array": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:contentType"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:accepts"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:version"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(5,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:contentType"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,0)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:server"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#42"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(53,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,0)-(39,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:accepts"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,0)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:scheme"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,0)-(7,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#42"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"doc:references": [
-{
-"@id": "#1",
-"@type": [
-"doc:ExternalFragment",
-"doc:Fragment",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#2",
-"@type": [
-"doc:ExternalDomainElement",
-"doc:DomainElement"
-],
-"doc:raw": [
-{
-"@value": "#%RAML 1.0 NamedExample\nvalue:\n  status: \"Service unavailable\"\n  apiName: \"AirportLabs Flight xAPI\"\n  apiVersion: \"v2.1.3\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-03-10T15:33:12.64Z"
-}
-],
-"core:mediaType": [
-{
-"@value": "application/raml+yaml"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#2/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#2"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#1/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#1"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(7,39)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#3",
-"@type": [
-"raml-shapes:DataTypeFragment",
-"doc:Fragment",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#4",
-"@type": [
-"shacl:NodeShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:closed": [
-{
-"@value": false
-}
-],
-"shacl:property": [
-{
-"@id": "#18",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#status"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#19",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "status"
-}
-],
-"core:name": [
-{
-"@value": "Status"
-}
-],
-"core:description": [
-{
-"@value": "The current status of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#19/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,4)-(9,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,4)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,4)-(9,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "status"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#18/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#18"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(10,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#20",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#apiName"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#21",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "apiName"
-}
-],
-"core:name": [
-{
-"@value": "API-Name"
-}
-],
-"core:description": [
-{
-"@value": "The current name of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#21/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,4)-(13,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(12,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,4)-(14,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(14,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,4)-(13,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "apiName"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#20/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(14,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#22",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#apiVersion"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#23",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "apiVersion"
-}
-],
-"core:name": [
-{
-"@value": "API-Version"
-}
-],
-"core:description": [
-{
-"@value": "The fully qualified version number of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#23/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#23"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,4)-(17,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(16,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,4)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#23"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,4)-(17,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "apiVersion"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#22/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#22"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(18,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#24",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#serverHost"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#25",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "serverHost"
-}
-],
-"core:name": [
-{
-"@value": "Server Host"
-}
-],
-"core:description": [
-{
-"@value": "The host of the server where the application is currently deployed."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#25/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#25"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,4)-(21,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(19,4)-(20,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,4)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#25"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,2)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(21,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "serverHost"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#24/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#24"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,2)-(22,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#26",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#currentTime"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#27",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#dateTime"
-}
-],
-"shacl:name": [
-{
-"@value": "currentTime"
-}
-],
-"core:name": [
-{
-"@value": "Current Time"
-}
-],
-"core:description": [
-{
-"@value": "The current system time of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#27/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#27"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(25,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,4)-(24,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(25,18)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#27"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,2)-(25,18)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(24,4)-(25,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "currentTime"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#26/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#26"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,2)-(25,18)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:name": [
-{
-"@value": "amf_inline_type_1"
-}
-],
-"core:name": [
-{
-"@value": "CheckAPIStatusResponse"
-}
-],
-"core:description": [
-{
-"@value": "A dataType used to form a response to the resuable check API status endpoint."
-}
-],
-"apiContract:examples": [
-{
-"@id": "#5",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "success"
-}
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#5",
-"@type": [
-"data:Object",
-"data:Node",
-"doc:DomainElement"
-],
-"data:status": [
-{
-"@id": "#6",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "OK"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#6/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,10)-(3,14)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiName": [
-{
-"@id": "#7",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Chroma Flight sAPI"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#7/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#7"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,11)-(4,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiVersion": [
-{
-"@id": "#8",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "v1.0.1"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#8/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#8"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,14)-(5,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:serverHost": [
-{
-"@id": "#9",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "ip-172-22-117-36"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#9/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#9"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,14)-(6,32)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:currentTime": [
-{
-"@id": "#10",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "2019-01-12T23:20:50.52Z"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#dateTime"
-}
-],
-"core:name": [
-{
-"@value": "scalar_6"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#10/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#10"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,16)-(7,39)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"core:name": [
-{
-"@value": "object_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "data:currentTime"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiVersion"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:status"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,2)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiName"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,2)-(5,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:serverHost"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "\n  status: \"OK\"\n  apiName: \"Chroma Flight sAPI\"\n  apiVersion: \"v1.0.1\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-01-12T23:20:50.52Z"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(51,14)-(52,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(51,14)-(52,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,6)-(7,39)]"
-}
-]
-}
-],
-"sourcemaps:local-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#11"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#12",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "fail"
-}
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#12",
-"@type": [
-"data:Object",
-"data:Node",
-"doc:DomainElement"
-],
-"data:status": [
-{
-"@id": "#13",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Service unavailable"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#13/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,10)-(3,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiName": [
-{
-"@id": "#14",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "AirportLabs Flight xAPI"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#14/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#14"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,11)-(4,36)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiVersion": [
-{
-"@id": "#15",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "v2.1.3"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#15/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#15"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,14)-(5,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:serverHost": [
-{
-"@id": "#16",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "ip-172-22-117-36"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#16/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#16"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,14)-(6,32)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:currentTime": [
-{
-"@id": "#17",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "2019-03-10T15:33:12.64Z"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#dateTime"
-}
-],
-"core:name": [
-{
-"@value": "scalar_6"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#17/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#17"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,16)-(7,39)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"core:name": [
-{
-"@value": "object_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "data:currentTime"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiVersion"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:status"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,2)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiName"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,2)-(5,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:serverHost"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "\n  status: \"Service unavailable\"\n  apiName: \"AirportLabs Flight xAPI\"\n  apiVersion: \"v2.1.3\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-03-10T15:33:12.64Z"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(52,14)-(53,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(52,14)-(53,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,6)-(7,39)]"
-}
-]
-}
-],
-"sourcemaps:local-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#11"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#4/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:inline-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(25,18)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-}
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(4,4)]"
-}
-]
-}
-],
-"sourcemaps:auto-generated-name": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#3/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#3"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(25,18)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#28",
-"@type": [
-"security:SecuritySchemeFragment",
-"doc:Fragment",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#29",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"security:type": [
-{
-"@value": "x-custom"
-}
-],
-"core:description": [
-{
-"@value": "This security scheme authenticates the source of an API call by requiring the calling application to provide credentials, in the form of a Client ID and Client Secret, in the request headers."
-}
-],
-"apiContract:header": [
-{
-"@id": "#30",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Client-Id"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "Client-Id"
-}
-],
-"core:description": [
-{
-"@value": "A valid Client ID that uniquely identifies the consuming application"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#31",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "A valid Client ID that uniquely identifies the consuming application"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#32",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#32",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "283a6722121141feb7a929793d5c"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#32/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "283a6722121141feb7a929793d5c"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#32/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#30"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#31/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#31"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,6)-(13,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,6)-(13,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#31"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,6)-(14,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#30/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#30"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,6)-(13,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#33",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Client-Secret"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "Client-Secret"
-}
-],
-"core:description": [
-{
-"@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#34",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#35",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#35",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "1421b7a929793d51fe283a67221c"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#35/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "1421b7a929793d51fe283a67221c"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#35/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#33"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#34/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#34"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,6)-(17,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(17,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#34"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,6)-(18,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#33/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#33"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(17,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:parameter": [
-{
-"@id": "#36",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "testParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "testParam"
-}
-],
-"core:description": [
-{
-"@value": "Test query parameter"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#37",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Test query parameter"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#38",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#38",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "x-test-value"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#38/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "x-test-value"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#38/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#36"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#37/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#37"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,6)-(8,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,6)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#37"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,6)-(9,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#36/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#36"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,6)-(8,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#29/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#29"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:parameter"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#29"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(19,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#28/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#28"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(19,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#39",
-"@type": [
-"doc:ExternalFragment",
-"doc:Fragment",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#40",
-"@type": [
-"doc:ExternalDomainElement",
-"doc:DomainElement"
-],
-"doc:raw": [
-{
-"@value": "#%RAML 1.0 NamedExample\nvalue:\n  status: \"OK\"\n  apiName: \"Chroma Flight sAPI\"\n  apiVersion: \"v1.0.1\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-01-12T23:20:50.52Z"
-}
-],
-"core:mediaType": [
-{
-"@value": "application/raml+yaml"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#40/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#40"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#39/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#39"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(7,39)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:declares": [
-{
-"@id": "#41",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "x-clientIdSecret"
-}
-],
-"security:type": [
-{
-"@value": "x-custom"
-}
-],
-"core:description": [
-{
-"@value": "This security scheme authenticates the source of an API call by requiring the calling application to provide credentials, in the form of a Client ID and Client Secret, in the request headers."
-}
-],
-"apiContract:header": [
-{
-"@id": "#30",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Client-Id"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "Client-Id"
-}
-],
-"core:description": [
-{
-"@value": "A valid Client ID that uniquely identifies the consuming application"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#31",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "A valid Client ID that uniquely identifies the consuming application"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#32",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#32",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "283a6722121141feb7a929793d5c"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#32/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "283a6722121141feb7a929793d5c"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#32/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,15)-(14,45)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#32"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#30"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#31/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#31"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,6)-(13,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,6)-(13,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#31"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,6)-(14,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#30/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#30"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,6)-(13,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#33",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Client-Secret"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "Client-Secret"
-}
-],
-"core:description": [
-{
-"@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#34",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#35",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#35",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "1421b7a929793d51fe283a67221c"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#35/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "1421b7a929793d51fe283a67221c"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#35/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,15)-(18,45)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#35"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#33"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#34/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#34"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,6)-(17,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(17,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#34"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,6)-(18,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#33/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#33"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(17,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:parameter": [
-{
-"@id": "#36",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "testParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "testParam"
-}
-],
-"core:description": [
-{
-"@value": "Test query parameter"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#37",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Test query parameter"
-}
-],
-"apiContract:examples": [
-{
-"@id": "#38",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#38",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "x-test-value"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#38/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "x-test-value"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#38/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,15)-(9,27)]"
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#38"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#36"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#37/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#37"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,6)-(8,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,6)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#37"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,6)-(9,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#36/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#36"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,6)-(8,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#41/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:declared-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#41"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:parameter"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#41"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(19,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#41"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#4",
-"@type": [
-"shacl:NodeShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:closed": [
-{
-"@value": false
-}
-],
-"shacl:property": [
-{
-"@id": "#18",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#status"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#19",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "status"
-}
-],
-"core:name": [
-{
-"@value": "Status"
-}
-],
-"core:description": [
-{
-"@value": "The current status of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#19/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,4)-(9,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,4)-(8,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,4)-(9,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "status"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#18/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#18"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(10,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#20",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#apiName"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#21",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "apiName"
-}
-],
-"core:name": [
-{
-"@value": "API-Name"
-}
-],
-"core:description": [
-{
-"@value": "The current name of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#21/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,4)-(13,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,4)-(12,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,4)-(14,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(14,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,4)-(13,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "apiName"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#20/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(14,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#22",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#apiVersion"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#23",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "apiVersion"
-}
-],
-"core:name": [
-{
-"@value": "API-Version"
-}
-],
-"core:description": [
-{
-"@value": "The fully qualified version number of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#23/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#23"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,4)-(17,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(16,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(17,4)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#23"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,4)-(17,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "apiVersion"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#22/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#22"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(18,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#24",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#serverHost"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#25",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "serverHost"
-}
-],
-"core:name": [
-{
-"@value": "Server Host"
-}
-],
-"core:description": [
-{
-"@value": "The host of the server where the application is currently deployed."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#25/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#25"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,4)-(21,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(19,4)-(20,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,4)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#25"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,2)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(21,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "serverHost"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#24/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#24"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,2)-(22,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#26",
-"@type": [
-"shacl:PropertyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:path": [
-{
-"@id": "http://a.ml/vocabularies/data#currentTime"
-}
-],
-"raml-shapes:range": [
-{
-"@id": "#27",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#dateTime"
-}
-],
-"shacl:name": [
-{
-"@value": "currentTime"
-}
-],
-"core:name": [
-{
-"@value": "Current Time"
-}
-],
-"core:description": [
-{
-"@value": "The current system time of the API."
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#27/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#27"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(25,8)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,4)-(24,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(25,18)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#27"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,2)-(25,18)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(24,4)-(25,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:minCount": [
-{
-"@value": 1
-}
-],
-"shacl:name": [
-{
-"@value": "currentTime"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#26/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#26"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,2)-(25,18)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:name": [
-{
-"@value": "amf_inline_type_1"
-}
-],
-"core:name": [
-{
-"@value": "CheckAPIStatusResponse"
-}
-],
-"core:description": [
-{
-"@value": "A dataType used to form a response to the resuable check API status endpoint."
-}
-],
-"apiContract:examples": [
-{
-"@id": "#5",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "success"
-}
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#5",
-"@type": [
-"data:Object",
-"data:Node",
-"doc:DomainElement"
-],
-"data:status": [
-{
-"@id": "#6",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "OK"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#6/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,10)-(3,14)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiName": [
-{
-"@id": "#7",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Chroma Flight sAPI"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#7/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#7"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,11)-(4,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiVersion": [
-{
-"@id": "#8",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "v1.0.1"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#8/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#8"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,14)-(5,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:serverHost": [
-{
-"@id": "#9",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "ip-172-22-117-36"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#9/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#9"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,14)-(6,32)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:currentTime": [
-{
-"@id": "#10",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "2019-01-12T23:20:50.52Z"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#dateTime"
-}
-],
-"core:name": [
-{
-"@value": "scalar_6"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#10/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#10"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,16)-(7,39)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"core:name": [
-{
-"@value": "object_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "data:currentTime"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiVersion"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:status"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,2)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiName"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,2)-(5,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:serverHost"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "\n  status: \"OK\"\n  apiName: \"Chroma Flight sAPI\"\n  apiVersion: \"v1.0.1\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-01-12T23:20:50.52Z"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(51,14)-(52,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(51,14)-(52,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,6)-(7,39)]"
-}
-]
-}
-],
-"sourcemaps:local-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#11"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#12",
-"@type": [
-"apiContract:Example",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "fail"
-}
-],
-"doc:strict": [
-{
-"@value": true
-}
-],
-"doc:structuredValue": [
-{
-"@id": "#12",
-"@type": [
-"data:Object",
-"data:Node",
-"doc:DomainElement"
-],
-"data:status": [
-{
-"@id": "#13",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Service unavailable"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#13/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,10)-(3,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiName": [
-{
-"@id": "#14",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "AirportLabs Flight xAPI"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#14/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#14"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,11)-(4,36)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:apiVersion": [
-{
-"@id": "#15",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "v2.1.3"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#15/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#15"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,14)-(5,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:serverHost": [
-{
-"@id": "#16",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "ip-172-22-117-36"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#16/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#16"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,14)-(6,32)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"data:currentTime": [
-{
-"@id": "#17",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "2019-03-10T15:33:12.64Z"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#dateTime"
-}
-],
-"core:name": [
-{
-"@value": "scalar_6"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#17/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#17"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,16)-(7,39)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"core:name": [
-{
-"@value": "object_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "data:currentTime"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiVersion"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:status"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,2)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:apiName"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,2)-(5,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "data:serverHost"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:raw": [
-{
-"@value": "\n  status: \"Service unavailable\"\n  apiName: \"AirportLabs Flight xAPI\"\n  apiVersion: \"v2.1.3\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-03-10T15:33:12.64Z"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:strict"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "doc:raw"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(7,39)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(52,14)-(53,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(52,14)-(53,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "doc:structuredValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,6)-(7,39)]"
-}
-]
-}
-],
-"sourcemaps:local-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:tracked-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "amf://id#11"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#4/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:inline-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(25,18)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-}
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(4,4)]"
-}
-]
-}
-],
-"sourcemaps:auto-generated-name": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-]
-}
-]
-}
-],
-"@context": {
-"@base": "amf://id",
-"shacl": "http://www.w3.org/ns/shacl#",
-"raml-shapes": "http://a.ml/vocabularies/shapes#",
-"security": "http://a.ml/vocabularies/security#",
-"data": "http://a.ml/vocabularies/data#",
-"doc": "http://a.ml/vocabularies/document#",
-"apiContract": "http://a.ml/vocabularies/apiContract#",
-"core": "http://a.ml/vocabularies/core#",
-"sourcemaps": "http://a.ml/vocabularies/document-source-maps#"
-}
-}
+  {
+    "@id": "",
+    "@type": [
+      "doc:Document",
+      "doc:Fragment",
+      "doc:Module",
+      "doc:Unit"
+    ],
+    "doc:encodes": [
+      {
+        "@id": "#48",
+        "@type": [
+          "apiContract:WebAPI",
+          "doc:RootDomainElement",
+          "doc:DomainElement"
+        ],
+        "core:name": [
+          {
+            "@value": "Security Scheme Mocking Service Test"
+          }
+        ],
+        "core:description": [
+          {
+            "@value": "In the Design Centre, when you use custom authentication and the mocking service, you will see:\n\n1\u00A0  Authorization method\n<Method Name>\u00A0\n\u00A0\n2\u00A0  Set authorization data\"\n\u00A0\nThe authorization data may be already filled out, however the error:\n\"Fill in required parameters\"\n\u00A0\nremains. If you fill in at least one field, the error disappears, however the request still cannot be sent. All Authorization fields must be re-typed before you can submit the request\n\nSteps to reproduce\n\nCreate a new API Specification\nImport the attached File\nRun the Mocking Service for api.xml\nClick \"Authorize and Send\"\n\u2013 This fails\n\nRe-type the Client ID and Client Secret\n\nClick \"Authorize and Send\"\n\u2013 This works\n\nWorkaround\nRe-type in the values and everything works!\n"
+          }
+        ],
+        "apiContract:server": [
+          {
+            "@id": "#54",
+            "@type": [
+              "apiContract:Server",
+              "doc:DomainElement"
+            ],
+            "core:urlTemplate": [
+              {
+                "@value": "https://anypoint.mulesoft.com/mocking/api/v1/links/217a24f8-9a87-4663-b3e8-4f807e661d80/"
+              }
+            ]
+          }
+        ],
+        "apiContract:accepts": [
+          {
+            "@value": "application/json"
+          }
+        ],
+        "apiContract:contentType": [
+          {
+            "@value": "application/json"
+          }
+        ],
+        "apiContract:scheme": [
+          {
+            "@value": "HTTPS"
+          }
+        ],
+        "core:version": [
+          {
+            "@value": "v1.0.0"
+          }
+        ],
+        "apiContract:endpoint": [
+          {
+            "@id": "#49",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/check/api-status"
+              }
+            ],
+            "apiContract:supportedOperation": [
+              {
+                "@id": "#50",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "apiContract:returns": [
+                  {
+                    "@id": "#51",
+                    "@type": [
+                      "apiContract:Response",
+                      "apiContract:Message",
+                      "doc:DomainElement"
+                    ],
+                    "apiContract:statusCode": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "200"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "A successful API status check."
+                      }
+                    ],
+                    "apiContract:payload": [
+                      {
+                        "@id": "#22",
+                        "@type": [
+                          "apiContract:Payload",
+                          "doc:DomainElement"
+                        ],
+                        "core:mediaType": [
+                          {
+                            "@value": "application/json"
+                          }
+                        ],
+                        "raml-shapes:schema": [
+                          {
+                            "@id": "#4/link--2054212698",
+                            "@type": [
+                              "shacl:NodeShape",
+                              "raml-shapes:AnyShape",
+                              "shacl:Shape",
+                              "raml-shapes:Shape",
+                              "doc:DomainElement"
+                            ],
+                            "doc:link-target": [
+                              {
+                                "@id": "#4"
+                              }
+                            ],
+                            "doc:link-label": [
+                              {
+                                "@value": "type"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "security:security": [
+                  {
+                    "@id": "#52",
+                    "@type": [
+                      "security:SecurityRequirement",
+                      "doc:DomainElement"
+                    ],
+                    "security:schemes": [
+                      {
+                        "@id": "#53",
+                        "@type": [
+                          "security:ParametrizedSecurityScheme",
+                          "doc:DomainElement"
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "x-clientIdSecret"
+                          }
+                        ],
+                        "security:scheme": [
+                          {
+                            "@id": "#47",
+                            "@type": [
+                              "security:SecurityScheme",
+                              "doc:DomainElement"
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "x-clientIdSecret"
+                              }
+                            ],
+                            "security:type": [
+                              {
+                                "@value": "x-custom"
+                              }
+                            ],
+                            "core:description": [
+                              {
+                                "@value": "This security scheme authenticates the source of an API call by requiring the calling application to provide credentials, in the form of a Client ID and Client Secret, in the request headers."
+                              }
+                            ],
+                            "apiContract:header": [
+                              {
+                                "@id": "#33",
+                                "@type": [
+                                  "apiContract:Parameter",
+                                  "doc:DomainElement"
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "Client-Id"
+                                  }
+                                ],
+                                "apiContract:paramName": [
+                                  {
+                                    "@value": "Client-Id"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "A valid Client ID that uniquely identifies the consuming application"
+                                  }
+                                ],
+                                "apiContract:required": [
+                                  {
+                                    "@value": true
+                                  }
+                                ],
+                                "apiContract:binding": [
+                                  {
+                                    "@value": "header"
+                                  }
+                                ],
+                                "raml-shapes:schema": [
+                                  {
+                                    "@id": "#34",
+                                    "@type": [
+                                      "raml-shapes:ScalarShape",
+                                      "raml-shapes:AnyShape",
+                                      "shacl:Shape",
+                                      "raml-shapes:Shape",
+                                      "doc:DomainElement"
+                                    ],
+                                    "shacl:datatype": [
+                                      {
+                                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                      }
+                                    ],
+                                    "shacl:name": [
+                                      {
+                                        "@value": "schema"
+                                      }
+                                    ],
+                                    "core:description": [
+                                      {
+                                        "@value": "A valid Client ID that uniquely identifies the consuming application"
+                                      }
+                                    ],
+                                    "apiContract:examples": [
+                                      {
+                                        "@id": "#35",
+                                        "@type": [
+                                          "apiContract:Example",
+                                          "doc:DomainElement"
+                                        ],
+                                        "doc:strict": [
+                                          {
+                                            "@value": true
+                                          }
+                                        ],
+                                        "doc:structuredValue": [
+                                          {
+                                            "@id": "#36",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "283a6722121141feb7a929793d5c"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_1"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "doc:raw": [
+                                          {
+                                            "@value": "283a6722121141feb7a929793d5c"
+                                          }
+                                        ],
+                                        "sourcemaps:sources": [
+                                          {
+                                            "@id": "#35/source-map",
+                                            "@type": [
+                                              "sourcemaps:SourceMap"
+                                            ],
+                                            "sourcemaps:tracked-element": [
+                                              {
+                                                "@id": "#35/source-map/tracked-element/element_0",
+                                                "sourcemaps:element": [
+                                                  {
+                                                    "@value": "amf://id#35"
+                                                  }
+                                                ],
+                                                "sourcemaps:value": [
+                                                  {
+                                                    "@value": "amf://id#33"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "@id": "#37",
+                                "@type": [
+                                  "apiContract:Parameter",
+                                  "doc:DomainElement"
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "Client-Secret"
+                                  }
+                                ],
+                                "apiContract:paramName": [
+                                  {
+                                    "@value": "Client-Secret"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
+                                  }
+                                ],
+                                "apiContract:required": [
+                                  {
+                                    "@value": true
+                                  }
+                                ],
+                                "apiContract:binding": [
+                                  {
+                                    "@value": "header"
+                                  }
+                                ],
+                                "raml-shapes:schema": [
+                                  {
+                                    "@id": "#38",
+                                    "@type": [
+                                      "raml-shapes:ScalarShape",
+                                      "raml-shapes:AnyShape",
+                                      "shacl:Shape",
+                                      "raml-shapes:Shape",
+                                      "doc:DomainElement"
+                                    ],
+                                    "shacl:datatype": [
+                                      {
+                                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                      }
+                                    ],
+                                    "shacl:name": [
+                                      {
+                                        "@value": "schema"
+                                      }
+                                    ],
+                                    "core:description": [
+                                      {
+                                        "@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
+                                      }
+                                    ],
+                                    "apiContract:examples": [
+                                      {
+                                        "@id": "#39",
+                                        "@type": [
+                                          "apiContract:Example",
+                                          "doc:DomainElement"
+                                        ],
+                                        "doc:strict": [
+                                          {
+                                            "@value": true
+                                          }
+                                        ],
+                                        "doc:structuredValue": [
+                                          {
+                                            "@id": "#40",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "1421b7a929793d51fe283a67221c"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_1"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "doc:raw": [
+                                          {
+                                            "@value": "1421b7a929793d51fe283a67221c"
+                                          }
+                                        ],
+                                        "sourcemaps:sources": [
+                                          {
+                                            "@id": "#39/source-map",
+                                            "@type": [
+                                              "sourcemaps:SourceMap"
+                                            ],
+                                            "sourcemaps:tracked-element": [
+                                              {
+                                                "@id": "#39/source-map/tracked-element/element_0",
+                                                "sourcemaps:element": [
+                                                  {
+                                                    "@value": "amf://id#39"
+                                                  }
+                                                ],
+                                                "sourcemaps:value": [
+                                                  {
+                                                    "@value": "amf://id#37"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ],
+                            "apiContract:parameter": [
+                              {
+                                "@id": "#41",
+                                "@type": [
+                                  "apiContract:Parameter",
+                                  "doc:DomainElement"
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "testParam"
+                                  }
+                                ],
+                                "apiContract:paramName": [
+                                  {
+                                    "@value": "testParam"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "Test query parameter"
+                                  }
+                                ],
+                                "apiContract:required": [
+                                  {
+                                    "@value": true
+                                  }
+                                ],
+                                "apiContract:binding": [
+                                  {
+                                    "@value": "query"
+                                  }
+                                ],
+                                "raml-shapes:schema": [
+                                  {
+                                    "@id": "#42",
+                                    "@type": [
+                                      "raml-shapes:ScalarShape",
+                                      "raml-shapes:AnyShape",
+                                      "shacl:Shape",
+                                      "raml-shapes:Shape",
+                                      "doc:DomainElement"
+                                    ],
+                                    "shacl:datatype": [
+                                      {
+                                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                      }
+                                    ],
+                                    "shacl:name": [
+                                      {
+                                        "@value": "schema"
+                                      }
+                                    ],
+                                    "core:description": [
+                                      {
+                                        "@value": "Test query parameter"
+                                      }
+                                    ],
+                                    "apiContract:examples": [
+                                      {
+                                        "@id": "#43",
+                                        "@type": [
+                                          "apiContract:Example",
+                                          "doc:DomainElement"
+                                        ],
+                                        "doc:strict": [
+                                          {
+                                            "@value": true
+                                          }
+                                        ],
+                                        "doc:structuredValue": [
+                                          {
+                                            "@id": "#44",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "x-test-value"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_1"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "doc:raw": [
+                                          {
+                                            "@value": "x-test-value"
+                                          }
+                                        ],
+                                        "sourcemaps:sources": [
+                                          {
+                                            "@id": "#43/source-map",
+                                            "@type": [
+                                              "sourcemaps:SourceMap"
+                                            ],
+                                            "sourcemaps:tracked-element": [
+                                              {
+                                                "@id": "#43/source-map/tracked-element/element_0",
+                                                "sourcemaps:element": [
+                                                  {
+                                                    "@value": "amf://id#43"
+                                                  }
+                                                ],
+                                                "sourcemaps:value": [
+                                                  {
+                                                    "@value": "amf://id#41"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "doc:version": [
+      {
+        "@value": "2.0.0"
+      }
+    ],
+    "doc:root": [
+      {
+        "@value": true
+      }
+    ],
+    "doc:references": [
+      {
+        "@id": "#1",
+        "@type": [
+          "doc:ExternalFragment",
+          "doc:Fragment",
+          "doc:Unit"
+        ],
+        "doc:encodes": [
+          {
+            "@id": "#2",
+            "@type": [
+              "doc:ExternalDomainElement",
+              "doc:DomainElement"
+            ],
+            "doc:raw": [
+              {
+                "@value": "#%RAML 1.0 NamedExample\nvalue:\n  status: \"Service unavailable\"\n  apiName: \"AirportLabs Flight xAPI\"\n  apiVersion: \"v2.1.3\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-03-10T15:33:12.64Z"
+              }
+            ],
+            "core:mediaType": [
+              {
+                "@value": "application/raml+yaml"
+              }
+            ]
+          }
+        ],
+        "doc:version": [
+          {
+            "@value": "2.0.0"
+          }
+        ],
+        "doc:root": [
+          {
+            "@value": false
+          }
+        ]
+      },
+      {
+        "@id": "#3",
+        "@type": [
+          "raml-shapes:DataTypeFragment",
+          "doc:Fragment",
+          "doc:Unit"
+        ],
+        "doc:encodes": [
+          {
+            "@id": "#4",
+            "@type": [
+              "shacl:NodeShape",
+              "raml-shapes:AnyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "shacl:closed": [
+              {
+                "@value": false
+              }
+            ],
+            "shacl:property": [
+              {
+                "@id": "#5",
+                "@type": [
+                  "shacl:PropertyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:path": [
+                  {
+                    "@id": "http://a.ml/vocabularies/data#status"
+                  }
+                ],
+                "raml-shapes:range": [
+                  {
+                    "@id": "#6",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "status"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "Status"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "The current status of the API."
+                      }
+                    ]
+                  }
+                ],
+                "shacl:minCount": [
+                  {
+                    "@value": 1
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "status"
+                  }
+                ]
+              },
+              {
+                "@id": "#7",
+                "@type": [
+                  "shacl:PropertyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:path": [
+                  {
+                    "@id": "http://a.ml/vocabularies/data#apiName"
+                  }
+                ],
+                "raml-shapes:range": [
+                  {
+                    "@id": "#8",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "apiName"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "API-Name"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "The current name of the API."
+                      }
+                    ]
+                  }
+                ],
+                "shacl:minCount": [
+                  {
+                    "@value": 1
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "apiName"
+                  }
+                ]
+              },
+              {
+                "@id": "#9",
+                "@type": [
+                  "shacl:PropertyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:path": [
+                  {
+                    "@id": "http://a.ml/vocabularies/data#apiVersion"
+                  }
+                ],
+                "raml-shapes:range": [
+                  {
+                    "@id": "#10",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "apiVersion"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "API-Version"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "The fully qualified version number of the API."
+                      }
+                    ]
+                  }
+                ],
+                "shacl:minCount": [
+                  {
+                    "@value": 1
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "apiVersion"
+                  }
+                ]
+              },
+              {
+                "@id": "#11",
+                "@type": [
+                  "shacl:PropertyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:path": [
+                  {
+                    "@id": "http://a.ml/vocabularies/data#serverHost"
+                  }
+                ],
+                "raml-shapes:range": [
+                  {
+                    "@id": "#12",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "serverHost"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "Server Host"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "The host of the server where the application is currently deployed."
+                      }
+                    ]
+                  }
+                ],
+                "shacl:minCount": [
+                  {
+                    "@value": 1
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "serverHost"
+                  }
+                ]
+              },
+              {
+                "@id": "#13",
+                "@type": [
+                  "shacl:PropertyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:path": [
+                  {
+                    "@id": "http://a.ml/vocabularies/data#currentTime"
+                  }
+                ],
+                "raml-shapes:range": [
+                  {
+                    "@id": "#14",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "currentTime"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "Current Time"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "The current system time of the API."
+                      }
+                    ]
+                  }
+                ],
+                "shacl:minCount": [
+                  {
+                    "@value": 1
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "currentTime"
+                  }
+                ]
+              }
+            ],
+            "shacl:name": [
+              {
+                "@value": "type"
+              }
+            ],
+            "core:name": [
+              {
+                "@value": "CheckAPIStatusResponse"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "A dataType used to form a response to the resuable check API status endpoint."
+              }
+            ],
+            "apiContract:examples": [
+              {
+                "@id": "#15",
+                "@type": [
+                  "apiContract:Example",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "success"
+                  }
+                ],
+                "doc:strict": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "doc:structuredValue": [
+                  {
+                    "@id": "#16",
+                    "@type": [
+                      "data:Object",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:status": [
+                      {
+                        "@id": "#17",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "OK"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_2"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:apiName": [
+                      {
+                        "@id": "#18",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Chroma Flight sAPI"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_3"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:apiVersion": [
+                      {
+                        "@id": "#19",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "v1.0.1"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_4"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:serverHost": [
+                      {
+                        "@id": "#20",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "ip-172-22-117-36"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_5"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:currentTime": [
+                      {
+                        "@id": "#21",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "2019-01-12T23:20:50.52Z"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_6"
+                          }
+                        ]
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "object_1"
+                      }
+                    ]
+                  }
+                ],
+                "doc:raw": [
+                  {
+                    "@value": "status: \"OK\"\napiName: \"Chroma Flight sAPI\"\napiVersion: \"v1.0.1\"\nserverHost: \"ip-172-22-117-36\"\ncurrentTime: 2019-01-12T23:20:50.52Z"
+                  }
+                ],
+                "sourcemaps:sources": [
+                  {
+                    "@id": "#15/source-map",
+                    "@type": [
+                      "sourcemaps:SourceMap"
+                    ],
+                    "sourcemaps:tracked-element": [
+                      {
+                        "@id": "#15/source-map/tracked-element/element_0",
+                        "sourcemaps:element": [
+                          {
+                            "@value": "amf://id#15"
+                          }
+                        ],
+                        "sourcemaps:value": [
+                          {
+                            "@value": "amf://id#22"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@id": "#23",
+                "@type": [
+                  "apiContract:Example",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "fail"
+                  }
+                ],
+                "doc:strict": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "doc:structuredValue": [
+                  {
+                    "@id": "#24",
+                    "@type": [
+                      "data:Object",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:status": [
+                      {
+                        "@id": "#25",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Service unavailable"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_2"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:apiName": [
+                      {
+                        "@id": "#26",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "AirportLabs Flight xAPI"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_3"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:apiVersion": [
+                      {
+                        "@id": "#27",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "v2.1.3"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_4"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:serverHost": [
+                      {
+                        "@id": "#28",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "ip-172-22-117-36"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_5"
+                          }
+                        ]
+                      }
+                    ],
+                    "data:currentTime": [
+                      {
+                        "@id": "#29",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "2019-03-10T15:33:12.64Z"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_6"
+                          }
+                        ]
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "object_1"
+                      }
+                    ]
+                  }
+                ],
+                "doc:raw": [
+                  {
+                    "@value": "status: \"Service unavailable\"\napiName: \"AirportLabs Flight xAPI\"\napiVersion: \"v2.1.3\"\nserverHost: \"ip-172-22-117-36\"\ncurrentTime: 2019-03-10T15:33:12.64Z"
+                  }
+                ],
+                "sourcemaps:sources": [
+                  {
+                    "@id": "#23/source-map",
+                    "@type": [
+                      "sourcemaps:SourceMap"
+                    ],
+                    "sourcemaps:tracked-element": [
+                      {
+                        "@id": "#23/source-map/tracked-element/element_0",
+                        "sourcemaps:element": [
+                          {
+                            "@value": "amf://id#23"
+                          }
+                        ],
+                        "sourcemaps:value": [
+                          {
+                            "@value": "amf://id#22"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "doc:version": [
+          {
+            "@value": "2.0.0"
+          }
+        ],
+        "doc:root": [
+          {
+            "@value": false
+          }
+        ]
+      },
+      {
+        "@id": "#31",
+        "@type": [
+          "security:SecuritySchemeFragment",
+          "doc:Fragment",
+          "doc:Unit"
+        ],
+        "doc:encodes": [
+          {
+            "@id": "#32",
+            "@type": [
+              "security:SecurityScheme",
+              "doc:DomainElement"
+            ],
+            "security:type": [
+              {
+                "@value": "x-custom"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "This security scheme authenticates the source of an API call by requiring the calling application to provide credentials, in the form of a Client ID and Client Secret, in the request headers."
+              }
+            ],
+            "apiContract:header": [
+              {
+                "@id": "#33",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "Client-Id"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "Client-Id"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "A valid Client ID that uniquely identifies the consuming application"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "header"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#34",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "A valid Client ID that uniquely identifies the consuming application"
+                      }
+                    ],
+                    "apiContract:examples": [
+                      {
+                        "@id": "#35",
+                        "@type": [
+                          "apiContract:Example",
+                          "doc:DomainElement"
+                        ],
+                        "doc:strict": [
+                          {
+                            "@value": true
+                          }
+                        ],
+                        "doc:structuredValue": [
+                          {
+                            "@id": "#36",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "283a6722121141feb7a929793d5c"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_1"
+                              }
+                            ]
+                          }
+                        ],
+                        "doc:raw": [
+                          {
+                            "@value": "283a6722121141feb7a929793d5c"
+                          }
+                        ],
+                        "sourcemaps:sources": [
+                          {
+                            "@id": "#35/source-map",
+                            "@type": [
+                              "sourcemaps:SourceMap"
+                            ],
+                            "sourcemaps:tracked-element": [
+                              {
+                                "@id": "#35/source-map/tracked-element/element_0",
+                                "sourcemaps:element": [
+                                  {
+                                    "@value": "amf://id#35"
+                                  }
+                                ],
+                                "sourcemaps:value": [
+                                  {
+                                    "@value": "amf://id#33"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@id": "#37",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "Client-Secret"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "Client-Secret"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "header"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#38",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
+                      }
+                    ],
+                    "apiContract:examples": [
+                      {
+                        "@id": "#39",
+                        "@type": [
+                          "apiContract:Example",
+                          "doc:DomainElement"
+                        ],
+                        "doc:strict": [
+                          {
+                            "@value": true
+                          }
+                        ],
+                        "doc:structuredValue": [
+                          {
+                            "@id": "#40",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "1421b7a929793d51fe283a67221c"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_1"
+                              }
+                            ]
+                          }
+                        ],
+                        "doc:raw": [
+                          {
+                            "@value": "1421b7a929793d51fe283a67221c"
+                          }
+                        ],
+                        "sourcemaps:sources": [
+                          {
+                            "@id": "#39/source-map",
+                            "@type": [
+                              "sourcemaps:SourceMap"
+                            ],
+                            "sourcemaps:tracked-element": [
+                              {
+                                "@id": "#39/source-map/tracked-element/element_0",
+                                "sourcemaps:element": [
+                                  {
+                                    "@value": "amf://id#39"
+                                  }
+                                ],
+                                "sourcemaps:value": [
+                                  {
+                                    "@value": "amf://id#37"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "apiContract:parameter": [
+              {
+                "@id": "#41",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "testParam"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "testParam"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Test query parameter"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "query"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#42",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "Test query parameter"
+                      }
+                    ],
+                    "apiContract:examples": [
+                      {
+                        "@id": "#43",
+                        "@type": [
+                          "apiContract:Example",
+                          "doc:DomainElement"
+                        ],
+                        "doc:strict": [
+                          {
+                            "@value": true
+                          }
+                        ],
+                        "doc:structuredValue": [
+                          {
+                            "@id": "#44",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "x-test-value"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_1"
+                              }
+                            ]
+                          }
+                        ],
+                        "doc:raw": [
+                          {
+                            "@value": "x-test-value"
+                          }
+                        ],
+                        "sourcemaps:sources": [
+                          {
+                            "@id": "#43/source-map",
+                            "@type": [
+                              "sourcemaps:SourceMap"
+                            ],
+                            "sourcemaps:tracked-element": [
+                              {
+                                "@id": "#43/source-map/tracked-element/element_0",
+                                "sourcemaps:element": [
+                                  {
+                                    "@value": "amf://id#43"
+                                  }
+                                ],
+                                "sourcemaps:value": [
+                                  {
+                                    "@value": "amf://id#41"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "doc:version": [
+          {
+            "@value": "2.0.0"
+          }
+        ],
+        "doc:root": [
+          {
+            "@value": false
+          }
+        ]
+      },
+      {
+        "@id": "#45",
+        "@type": [
+          "doc:ExternalFragment",
+          "doc:Fragment",
+          "doc:Unit"
+        ],
+        "doc:encodes": [
+          {
+            "@id": "#46",
+            "@type": [
+              "doc:ExternalDomainElement",
+              "doc:DomainElement"
+            ],
+            "doc:raw": [
+              {
+                "@value": "#%RAML 1.0 NamedExample\nvalue:\n  status: \"OK\"\n  apiName: \"Chroma Flight sAPI\"\n  apiVersion: \"v1.0.1\"\n  serverHost: \"ip-172-22-117-36\"\n  currentTime:  2019-01-12T23:20:50.52Z"
+              }
+            ],
+            "core:mediaType": [
+              {
+                "@value": "application/raml+yaml"
+              }
+            ]
+          }
+        ],
+        "doc:version": [
+          {
+            "@value": "2.0.0"
+          }
+        ],
+        "doc:root": [
+          {
+            "@value": false
+          }
+        ]
+      }
+    ],
+    "doc:declares": [
+      {
+        "@id": "#47",
+        "@type": [
+          "security:SecurityScheme",
+          "doc:DomainElement"
+        ],
+        "core:name": [
+          {
+            "@value": "x-clientIdSecret"
+          }
+        ],
+        "security:type": [
+          {
+            "@value": "x-custom"
+          }
+        ],
+        "core:description": [
+          {
+            "@value": "This security scheme authenticates the source of an API call by requiring the calling application to provide credentials, in the form of a Client ID and Client Secret, in the request headers."
+          }
+        ],
+        "apiContract:header": [
+          {
+            "@id": "#33",
+            "@type": [
+              "apiContract:Parameter",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "Client-Id"
+              }
+            ],
+            "apiContract:paramName": [
+              {
+                "@value": "Client-Id"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "A valid Client ID that uniquely identifies the consuming application"
+              }
+            ],
+            "apiContract:required": [
+              {
+                "@value": true
+              }
+            ],
+            "apiContract:binding": [
+              {
+                "@value": "header"
+              }
+            ],
+            "raml-shapes:schema": [
+              {
+                "@id": "#34",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "schema"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "A valid Client ID that uniquely identifies the consuming application"
+                  }
+                ],
+                "apiContract:examples": [
+                  {
+                    "@id": "#35",
+                    "@type": [
+                      "apiContract:Example",
+                      "doc:DomainElement"
+                    ],
+                    "doc:strict": [
+                      {
+                        "@value": true
+                      }
+                    ],
+                    "doc:structuredValue": [
+                      {
+                        "@id": "#36",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "283a6722121141feb7a929793d5c"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_1"
+                          }
+                        ]
+                      }
+                    ],
+                    "doc:raw": [
+                      {
+                        "@value": "283a6722121141feb7a929793d5c"
+                      }
+                    ],
+                    "sourcemaps:sources": [
+                      {
+                        "@id": "#35/source-map",
+                        "@type": [
+                          "sourcemaps:SourceMap"
+                        ],
+                        "sourcemaps:tracked-element": [
+                          {
+                            "@id": "#35/source-map/tracked-element/element_0",
+                            "sourcemaps:element": [
+                              {
+                                "@value": "amf://id#35"
+                              }
+                            ],
+                            "sourcemaps:value": [
+                              {
+                                "@value": "amf://id#33"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "#37",
+            "@type": [
+              "apiContract:Parameter",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "Client-Secret"
+              }
+            ],
+            "apiContract:paramName": [
+              {
+                "@value": "Client-Secret"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
+              }
+            ],
+            "apiContract:required": [
+              {
+                "@value": true
+              }
+            ],
+            "apiContract:binding": [
+              {
+                "@value": "header"
+              }
+            ],
+            "raml-shapes:schema": [
+              {
+                "@id": "#38",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "schema"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "A secret key, known only to the consuming application, which can be used to verify its identity"
+                  }
+                ],
+                "apiContract:examples": [
+                  {
+                    "@id": "#39",
+                    "@type": [
+                      "apiContract:Example",
+                      "doc:DomainElement"
+                    ],
+                    "doc:strict": [
+                      {
+                        "@value": true
+                      }
+                    ],
+                    "doc:structuredValue": [
+                      {
+                        "@id": "#40",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "1421b7a929793d51fe283a67221c"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_1"
+                          }
+                        ]
+                      }
+                    ],
+                    "doc:raw": [
+                      {
+                        "@value": "1421b7a929793d51fe283a67221c"
+                      }
+                    ],
+                    "sourcemaps:sources": [
+                      {
+                        "@id": "#39/source-map",
+                        "@type": [
+                          "sourcemaps:SourceMap"
+                        ],
+                        "sourcemaps:tracked-element": [
+                          {
+                            "@id": "#39/source-map/tracked-element/element_0",
+                            "sourcemaps:element": [
+                              {
+                                "@value": "amf://id#39"
+                              }
+                            ],
+                            "sourcemaps:value": [
+                              {
+                                "@value": "amf://id#37"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "apiContract:parameter": [
+          {
+            "@id": "#41",
+            "@type": [
+              "apiContract:Parameter",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "testParam"
+              }
+            ],
+            "apiContract:paramName": [
+              {
+                "@value": "testParam"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "Test query parameter"
+              }
+            ],
+            "apiContract:required": [
+              {
+                "@value": true
+              }
+            ],
+            "apiContract:binding": [
+              {
+                "@value": "query"
+              }
+            ],
+            "raml-shapes:schema": [
+              {
+                "@id": "#42",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "schema"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Test query parameter"
+                  }
+                ],
+                "apiContract:examples": [
+                  {
+                    "@id": "#43",
+                    "@type": [
+                      "apiContract:Example",
+                      "doc:DomainElement"
+                    ],
+                    "doc:strict": [
+                      {
+                        "@value": true
+                      }
+                    ],
+                    "doc:structuredValue": [
+                      {
+                        "@id": "#44",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "x-test-value"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_1"
+                          }
+                        ]
+                      }
+                    ],
+                    "doc:raw": [
+                      {
+                        "@value": "x-test-value"
+                      }
+                    ],
+                    "sourcemaps:sources": [
+                      {
+                        "@id": "#43/source-map",
+                        "@type": [
+                          "sourcemaps:SourceMap"
+                        ],
+                        "sourcemaps:tracked-element": [
+                          {
+                            "@id": "#43/source-map/tracked-element/element_0",
+                            "sourcemaps:element": [
+                              {
+                                "@value": "amf://id#43"
+                              }
+                            ],
+                            "sourcemaps:value": [
+                              {
+                                "@value": "amf://id#41"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "@id": "#4",
+        "@type": [
+          "shacl:NodeShape",
+          "raml-shapes:AnyShape",
+          "shacl:Shape",
+          "raml-shapes:Shape",
+          "doc:DomainElement"
+        ],
+        "shacl:closed": [
+          {
+            "@value": false
+          }
+        ],
+        "shacl:property": [
+          {
+            "@id": "#5",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "shacl:path": [
+              {
+                "@id": "http://a.ml/vocabularies/data#status"
+              }
+            ],
+            "raml-shapes:range": [
+              {
+                "@id": "#6",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "status"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "Status"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "The current status of the API."
+                  }
+                ]
+              }
+            ],
+            "shacl:minCount": [
+              {
+                "@value": 1
+              }
+            ],
+            "shacl:name": [
+              {
+                "@value": "status"
+              }
+            ]
+          },
+          {
+            "@id": "#7",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "shacl:path": [
+              {
+                "@id": "http://a.ml/vocabularies/data#apiName"
+              }
+            ],
+            "raml-shapes:range": [
+              {
+                "@id": "#8",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "apiName"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "API-Name"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "The current name of the API."
+                  }
+                ]
+              }
+            ],
+            "shacl:minCount": [
+              {
+                "@value": 1
+              }
+            ],
+            "shacl:name": [
+              {
+                "@value": "apiName"
+              }
+            ]
+          },
+          {
+            "@id": "#9",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "shacl:path": [
+              {
+                "@id": "http://a.ml/vocabularies/data#apiVersion"
+              }
+            ],
+            "raml-shapes:range": [
+              {
+                "@id": "#10",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "apiVersion"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "API-Version"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "The fully qualified version number of the API."
+                  }
+                ]
+              }
+            ],
+            "shacl:minCount": [
+              {
+                "@value": 1
+              }
+            ],
+            "shacl:name": [
+              {
+                "@value": "apiVersion"
+              }
+            ]
+          },
+          {
+            "@id": "#11",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "shacl:path": [
+              {
+                "@id": "http://a.ml/vocabularies/data#serverHost"
+              }
+            ],
+            "raml-shapes:range": [
+              {
+                "@id": "#12",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "serverHost"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "Server Host"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "The host of the server where the application is currently deployed."
+                  }
+                ]
+              }
+            ],
+            "shacl:minCount": [
+              {
+                "@value": 1
+              }
+            ],
+            "shacl:name": [
+              {
+                "@value": "serverHost"
+              }
+            ]
+          },
+          {
+            "@id": "#13",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "shacl:path": [
+              {
+                "@id": "http://a.ml/vocabularies/data#currentTime"
+              }
+            ],
+            "raml-shapes:range": [
+              {
+                "@id": "#14",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "currentTime"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "Current Time"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "The current system time of the API."
+                  }
+                ]
+              }
+            ],
+            "shacl:minCount": [
+              {
+                "@value": 1
+              }
+            ],
+            "shacl:name": [
+              {
+                "@value": "currentTime"
+              }
+            ]
+          }
+        ],
+        "shacl:name": [
+          {
+            "@value": "type"
+          }
+        ],
+        "core:name": [
+          {
+            "@value": "CheckAPIStatusResponse"
+          }
+        ],
+        "core:description": [
+          {
+            "@value": "A dataType used to form a response to the resuable check API status endpoint."
+          }
+        ],
+        "apiContract:examples": [
+          {
+            "@id": "#15",
+            "@type": [
+              "apiContract:Example",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "success"
+              }
+            ],
+            "doc:strict": [
+              {
+                "@value": true
+              }
+            ],
+            "doc:structuredValue": [
+              {
+                "@id": "#16",
+                "@type": [
+                  "data:Object",
+                  "data:Node",
+                  "doc:DomainElement"
+                ],
+                "data:status": [
+                  {
+                    "@id": "#17",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "OK"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_2"
+                      }
+                    ]
+                  }
+                ],
+                "data:apiName": [
+                  {
+                    "@id": "#18",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "Chroma Flight sAPI"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_3"
+                      }
+                    ]
+                  }
+                ],
+                "data:apiVersion": [
+                  {
+                    "@id": "#19",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "v1.0.1"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_4"
+                      }
+                    ]
+                  }
+                ],
+                "data:serverHost": [
+                  {
+                    "@id": "#20",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "ip-172-22-117-36"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_5"
+                      }
+                    ]
+                  }
+                ],
+                "data:currentTime": [
+                  {
+                    "@id": "#21",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "2019-01-12T23:20:50.52Z"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_6"
+                      }
+                    ]
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "object_1"
+                  }
+                ]
+              }
+            ],
+            "doc:raw": [
+              {
+                "@value": "status: \"OK\"\napiName: \"Chroma Flight sAPI\"\napiVersion: \"v1.0.1\"\nserverHost: \"ip-172-22-117-36\"\ncurrentTime: 2019-01-12T23:20:50.52Z"
+              }
+            ],
+            "sourcemaps:sources": [
+              {
+                "@id": "#15/source-map",
+                "@type": [
+                  "sourcemaps:SourceMap"
+                ],
+                "sourcemaps:tracked-element": [
+                  {
+                    "@id": "#15/source-map/tracked-element/element_0",
+                    "sourcemaps:element": [
+                      {
+                        "@value": "amf://id#15"
+                      }
+                    ],
+                    "sourcemaps:value": [
+                      {
+                        "@value": "amf://id#22"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "#23",
+            "@type": [
+              "apiContract:Example",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "fail"
+              }
+            ],
+            "doc:strict": [
+              {
+                "@value": true
+              }
+            ],
+            "doc:structuredValue": [
+              {
+                "@id": "#24",
+                "@type": [
+                  "data:Object",
+                  "data:Node",
+                  "doc:DomainElement"
+                ],
+                "data:status": [
+                  {
+                    "@id": "#25",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "Service unavailable"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_2"
+                      }
+                    ]
+                  }
+                ],
+                "data:apiName": [
+                  {
+                    "@id": "#26",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "AirportLabs Flight xAPI"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_3"
+                      }
+                    ]
+                  }
+                ],
+                "data:apiVersion": [
+                  {
+                    "@id": "#27",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "v2.1.3"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_4"
+                      }
+                    ]
+                  }
+                ],
+                "data:serverHost": [
+                  {
+                    "@id": "#28",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "ip-172-22-117-36"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_5"
+                      }
+                    ]
+                  }
+                ],
+                "data:currentTime": [
+                  {
+                    "@id": "#29",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "2019-03-10T15:33:12.64Z"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_6"
+                      }
+                    ]
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "object_1"
+                  }
+                ]
+              }
+            ],
+            "doc:raw": [
+              {
+                "@value": "status: \"Service unavailable\"\napiName: \"AirportLabs Flight xAPI\"\napiVersion: \"v2.1.3\"\nserverHost: \"ip-172-22-117-36\"\ncurrentTime: 2019-03-10T15:33:12.64Z"
+              }
+            ],
+            "sourcemaps:sources": [
+              {
+                "@id": "#23/source-map",
+                "@type": [
+                  "sourcemaps:SourceMap"
+                ],
+                "sourcemaps:tracked-element": [
+                  {
+                    "@id": "#23/source-map/tracked-element/element_0",
+                    "sourcemaps:element": [
+                      {
+                        "@value": "amf://id#23"
+                      }
+                    ],
+                    "sourcemaps:value": [
+                      {
+                        "@value": "amf://id#22"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "@context": {
+      "@base": "amf://id",
+      "shacl": "http://www.w3.org/ns/shacl#",
+      "raml-shapes": "http://a.ml/vocabularies/shapes#",
+      "security": "http://a.ml/vocabularies/security#",
+      "data": "http://a.ml/vocabularies/data#",
+      "doc": "http://a.ml/vocabularies/document#",
+      "apiContract": "http://a.ml/vocabularies/apiContract#",
+      "core": "http://a.ml/vocabularies/core#",
+      "sourcemaps": "http://a.ml/vocabularies/document-source-maps#"
+    }
+  }
 ]

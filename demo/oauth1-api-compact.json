@@ -1,4336 +1,1636 @@
 [
-{
-"@id": "",
-"@type": [
-"doc:Document",
-"doc:Fragment",
-"doc:Module",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#22",
-"@type": [
-"apiContract:WebAPI",
-"doc:RootDomainElement",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "Oauth 2.0 example"
-}
-],
-"apiContract:server": [
-{
-"@id": "#29",
-"@type": [
-"apiContract:Server",
-"doc:DomainElement"
-],
-"core:urlTemplate": [
-{
-"@value": "http://api.domain.com/{version}/"
-}
-],
-"apiContract:variable": [
-{
-"@id": "#30",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "version"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "path"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#31",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "version"
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#30/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#30"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#29/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:urlTemplate"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(6,0)]"
-}
-]
-}
-],
-"sourcemaps:synthesized-field": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#29"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "true"
-}
-]
-}
-]
-}
-]
-}
-],
-"core:version": [
-{
-"@value": "v1"
-}
-],
-"apiContract:endpoint": [
-{
-"@id": "#23",
-"@type": [
-"apiContract:EndPoint",
-"doc:DomainElement"
-],
-"apiContract:path": [
-{
-"@value": "/oauth1"
-}
-],
-"apiContract:supportedOperation": [
-{
-"@id": "#24",
-"@type": [
-"apiContract:Operation",
-"doc:DomainElement"
-],
-"apiContract:method": [
-{
-"@value": "get"
-}
-],
-"security:security": [
-{
-"@id": "#25",
-"@type": [
-"security:ParametrizedSecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "oauth1"
-}
-],
-"security:scheme": [
-{
-"@id": "#21",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "oauth1"
-}
-],
-"security:type": [
-{
-"@value": "OAuth 1.0"
-}
-],
-"core:description": [
-{
-"@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
-}
-],
-"security:settings": [
-{
-"@id": "#19",
-"@type": [
-"security:OAuth1Settings",
-"security:Settings",
-"doc:DomainElement"
-],
-"security:requestTokenUri": [
-{
-"@value": "http://api.domain.com/oauth1/request_token"
-}
-],
-"security:authorizationUri": [
-{
-"@value": "http://api.domain.com/oauth1/authorize"
-}
-],
-"security:tokenCredentialsUri": [
-{
-"@value": "http://api.domain.com/oauth1/access_token"
-}
-],
-"security:signature": [
-{
-"@value": "RSA-SHA1"
-},
-{
-"@value": "HMAC-SHA1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#19/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "security:signature"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,2)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:authorizationUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:requestTokenUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:tokenCredentialsUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(8,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#21/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:declared-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "security:settings"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#25/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#25"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,16)-(11,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#24/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#24"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(10,2)-(12,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#23/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#23"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,0)-(12,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#26",
-"@type": [
-"apiContract:EndPoint",
-"doc:DomainElement"
-],
-"apiContract:path": [
-{
-"@value": "/custom"
-}
-],
-"apiContract:supportedOperation": [
-{
-"@id": "#27",
-"@type": [
-"apiContract:Operation",
-"doc:DomainElement"
-],
-"apiContract:method": [
-{
-"@value": "get"
-}
-],
-"security:security": [
-{
-"@id": "#28",
-"@type": [
-"security:ParametrizedSecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "custom1"
-}
-],
-"security:scheme": [
-{
-"@id": "#20",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "custom1"
-}
-],
-"security:type": [
-{
-"@value": "x-my-custom"
-}
-],
-"core:description": [
-{
-"@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
-}
-],
-"apiContract:header": [
-{
-"@id": "#3",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "SpecialTokenHeader"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "SpecialTokenHeader"
-}
-],
-"core:description": [
-{
-"@value": "Used to send a custom token.\n"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#4",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Used to send a custom token.\n"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#4/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,6)-(18,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,6)-(19,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#3/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#3"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(18,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:parameter": [
-{
-"@id": "#5",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "debugTokenParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "debugTokenParam"
-}
-],
-"core:description": [
-{
-"@value": "Select one of available values to run the request in the debug mode with selected level."
-}
-],
-"apiContract:required": [
-{
-"@value": false
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#6",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Select one of available values to run the request in the debug mode with selected level."
-}
-],
-"shacl:in": [
-{
-"@id": "#6/list",
-"@type": "rdfs:Seq",
-"rdfs:_1": [
-{
-"@id": "#7",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Info"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#7/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#7"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,13)-(22,17)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_2": [
-{
-"@id": "#8",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Log"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#8/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#8"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,19)-(22,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_3": [
-{
-"@id": "#9",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Warning"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#9/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#9"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,24)-(22,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_4": [
-{
-"@id": "#10",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Error"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#10/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#10"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,33)-(22,38)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_5": [
-{
-"@id": "#11",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Critical"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#11/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#11"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,40)-(22,48)]"
-}
-]
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#6/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,6)-(23,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:in"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,6)-(23,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,6)-(24,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,6)-(22,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,6)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:required"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(24,6)-(25,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#12",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "booleanTokenParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "booleanTokenParam"
-}
-],
-"core:description": [
-{
-"@value": "Just to test boolean values."
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#13",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#boolean"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Just to test boolean values."
-}
-],
-"shacl:defaultValue": [
-{
-"@id": "#14",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "true"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#boolean"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#14/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#14"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,15)-(28,19)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:defaultValueStr": [
-{
-"@value": "true"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#13/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(27,6)-(27,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:defaultValueStr"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,6)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(26,6)-(27,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(27,6)-(28,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:defaultValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,6)-(29,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(26,6)-(27,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:response": [
-{
-"@id": "#15",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "401"
-}
-],
-"core:description": [
-{
-"@value": "Bad token.\n"
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "401"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#15/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(31,6)-(33,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#15"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(30,4)-(33,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#16",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "403"
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "403"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#16/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#16"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(33,4)-(34,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#20/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:declared-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:response"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(29,2)-(34,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,0)-(13,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(34,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(12,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:parameter"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(19,2)-(29,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#28/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#28"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,16)-(14,23)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#27/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#27"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(13,2)-(15,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#26/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#26"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,0)-(15,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#22/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#22"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:version"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:name"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#22"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(15,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:server"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(6,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"doc:references": [
-{
-"@id": "#1",
-"@type": [
-"security:SecuritySchemeFragment",
-"doc:Fragment",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#2",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"security:type": [
-{
-"@value": "x-my-custom"
-}
-],
-"core:description": [
-{
-"@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
-}
-],
-"apiContract:header": [
-{
-"@id": "#3",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "SpecialTokenHeader"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "SpecialTokenHeader"
-}
-],
-"core:description": [
-{
-"@value": "Used to send a custom token.\n"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#4",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Used to send a custom token.\n"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#4/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,6)-(18,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,6)-(19,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#3/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#3"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(18,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:parameter": [
-{
-"@id": "#5",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "debugTokenParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "debugTokenParam"
-}
-],
-"core:description": [
-{
-"@value": "Select one of available values to run the request in the debug mode with selected level."
-}
-],
-"apiContract:required": [
-{
-"@value": false
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#6",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Select one of available values to run the request in the debug mode with selected level."
-}
-],
-"shacl:in": [
-{
-"@id": "#6/list",
-"@type": "rdfs:Seq",
-"rdfs:_1": [
-{
-"@id": "#7",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Info"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#7/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#7"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,13)-(22,17)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_2": [
-{
-"@id": "#8",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Log"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#8/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#8"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,19)-(22,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_3": [
-{
-"@id": "#9",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Warning"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#9/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#9"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,24)-(22,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_4": [
-{
-"@id": "#10",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Error"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#10/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#10"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,33)-(22,38)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_5": [
-{
-"@id": "#11",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Critical"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#11/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#11"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,40)-(22,48)]"
-}
-]
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#6/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,6)-(23,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:in"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,6)-(23,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,6)-(24,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,6)-(22,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,6)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:required"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(24,6)-(25,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#12",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "booleanTokenParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "booleanTokenParam"
-}
-],
-"core:description": [
-{
-"@value": "Just to test boolean values."
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#13",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#boolean"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Just to test boolean values."
-}
-],
-"shacl:defaultValue": [
-{
-"@id": "#14",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "true"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#boolean"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#14/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#14"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,15)-(28,19)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:defaultValueStr": [
-{
-"@value": "true"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#13/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(27,6)-(27,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:defaultValueStr"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,6)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(26,6)-(27,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(27,6)-(28,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:defaultValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,6)-(29,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(26,6)-(27,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:response": [
-{
-"@id": "#15",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "401"
-}
-],
-"core:description": [
-{
-"@value": "Bad token.\n"
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "401"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#15/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(31,6)-(33,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#15"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(30,4)-(33,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#16",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "403"
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "403"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#16/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#16"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(33,4)-(34,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#2/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#2"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:response"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(29,2)-(34,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,0)-(13,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#2"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(34,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(12,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:parameter"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(19,2)-(29,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#1/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#1"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(34,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#17",
-"@type": [
-"security:SecuritySchemeFragment",
-"doc:Fragment",
-"doc:Unit"
-],
-"doc:encodes": [
-{
-"@id": "#18",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"security:type": [
-{
-"@value": "OAuth 1.0"
-}
-],
-"core:description": [
-{
-"@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
-}
-],
-"security:settings": [
-{
-"@id": "#19",
-"@type": [
-"security:OAuth1Settings",
-"security:Settings",
-"doc:DomainElement"
-],
-"security:requestTokenUri": [
-{
-"@value": "http://api.domain.com/oauth1/request_token"
-}
-],
-"security:authorizationUri": [
-{
-"@value": "http://api.domain.com/oauth1/authorize"
-}
-],
-"security:tokenCredentialsUri": [
-{
-"@value": "http://api.domain.com/oauth1/access_token"
-}
-],
-"security:signature": [
-{
-"@value": "RSA-SHA1"
-},
-{
-"@value": "HMAC-SHA1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#19/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "security:signature"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,2)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:authorizationUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:requestTokenUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:tokenCredentialsUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(8,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#18/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#18"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "security:settings"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#18"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:version": [
-{
-"@value": "2.0.0"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#17/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#17"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(9,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"doc:declares": [
-{
-"@id": "#20",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "custom1"
-}
-],
-"security:type": [
-{
-"@value": "x-my-custom"
-}
-],
-"core:description": [
-{
-"@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
-}
-],
-"apiContract:header": [
-{
-"@id": "#3",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "SpecialTokenHeader"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "SpecialTokenHeader"
-}
-],
-"core:description": [
-{
-"@value": "Used to send a custom token.\n"
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "header"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#4",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Used to send a custom token.\n"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#4/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,6)-(18,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(18,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#4"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,6)-(19,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#3/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#3"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(15,4)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(18,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:parameter": [
-{
-"@id": "#5",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "debugTokenParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "debugTokenParam"
-}
-],
-"core:description": [
-{
-"@value": "Select one of available values to run the request in the debug mode with selected level."
-}
-],
-"apiContract:required": [
-{
-"@value": false
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#6",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Select one of available values to run the request in the debug mode with selected level."
-}
-],
-"shacl:in": [
-{
-"@id": "#6/list",
-"@type": "rdfs:Seq",
-"rdfs:_1": [
-{
-"@id": "#7",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Info"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#7/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#7"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,13)-(22,17)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_2": [
-{
-"@id": "#8",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Log"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_2"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#8/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#8"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,19)-(22,22)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_3": [
-{
-"@id": "#9",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Warning"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_3"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#9/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#9"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,24)-(22,31)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_4": [
-{
-"@id": "#10",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Error"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_4"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#10/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#10"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,33)-(22,38)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"rdfs:_5": [
-{
-"@id": "#11",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "Critical"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#string"
-}
-],
-"core:name": [
-{
-"@value": "scalar_5"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#11/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#11"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,40)-(22,48)]"
-}
-]
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#6/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,6)-(23,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:in"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(22,6)-(23,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(23,6)-(24,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#6"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,6)-(22,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#5/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,6)-(22,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#5"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(20,4)-(25,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:required"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(24,6)-(25,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#12",
-"@type": [
-"apiContract:Parameter",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "booleanTokenParam"
-}
-],
-"apiContract:paramName": [
-{
-"@value": "booleanTokenParam"
-}
-],
-"core:description": [
-{
-"@value": "Just to test boolean values."
-}
-],
-"apiContract:required": [
-{
-"@value": true
-}
-],
-"apiContract:binding": [
-{
-"@value": "query"
-}
-],
-"raml-shapes:schema": [
-{
-"@id": "#13",
-"@type": [
-"raml-shapes:ScalarShape",
-"raml-shapes:AnyShape",
-"shacl:Shape",
-"raml-shapes:Shape",
-"doc:DomainElement"
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#boolean"
-}
-],
-"shacl:name": [
-{
-"@value": "schema"
-}
-],
-"core:description": [
-{
-"@value": "Just to test boolean values."
-}
-],
-"shacl:defaultValue": [
-{
-"@id": "#14",
-"@type": [
-"data:Scalar",
-"data:Node",
-"doc:DomainElement"
-],
-"data:value": [
-{
-"@value": "true"
-}
-],
-"shacl:datatype": [
-{
-"@id": "http://www.w3.org/2001/XMLSchema#boolean"
-}
-],
-"core:name": [
-{
-"@value": "scalar_1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#14/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#14"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,15)-(28,19)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"shacl:defaultValueStr": [
-{
-"@value": "true"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#13/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:type-property-lexical-info": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(27,6)-(27,10)]"
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:defaultValueStr"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,6)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(26,6)-(27,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#13"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:datatype"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(27,6)-(28,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "shacl:defaultValue"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(28,6)-(29,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#12/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "raml-shapes:schema"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#12"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(25,4)-(29,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(26,6)-(27,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"apiContract:response": [
-{
-"@id": "#15",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "401"
-}
-],
-"core:description": [
-{
-"@value": "Bad token.\n"
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "401"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#15/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(31,6)-(33,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#15"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(30,4)-(33,0)]"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#16",
-"@type": [
-"apiContract:Response",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "403"
-}
-],
-"apiContract:statusCode": [
-{
-"@value": "403"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#16/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#16"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(33,4)-(34,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#20/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:declared-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:response"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(29,2)-(34,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(14,2)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(12,0)-(13,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(34,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(12,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:parameter"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(19,2)-(29,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#20"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-},
-{
-"@id": "#21",
-"@type": [
-"security:SecurityScheme",
-"doc:DomainElement"
-],
-"core:name": [
-{
-"@value": "oauth1"
-}
-],
-"security:type": [
-{
-"@value": "OAuth 1.0"
-}
-],
-"core:description": [
-{
-"@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
-}
-],
-"security:settings": [
-{
-"@id": "#19",
-"@type": [
-"security:OAuth1Settings",
-"security:Settings",
-"doc:DomainElement"
-],
-"security:requestTokenUri": [
-{
-"@value": "http://api.domain.com/oauth1/request_token"
-}
-],
-"security:authorizationUri": [
-{
-"@value": "http://api.domain.com/oauth1/authorize"
-}
-],
-"security:tokenCredentialsUri": [
-{
-"@value": "http://api.domain.com/oauth1/access_token"
-}
-],
-"security:signature": [
-{
-"@value": "RSA-SHA1"
-},
-{
-"@value": "HMAC-SHA1"
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#19/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "security:signature"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(8,2)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:authorizationUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(6,2)-(7,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#19"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:requestTokenUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(5,2)-(6,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:tokenCredentialsUri"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(8,0)]"
-}
-]
-}
-]
-}
-]
-}
-],
-"sourcemaps:sources": [
-{
-"@id": "#21/source-map",
-"@type": [
-"sourcemaps:SourceMap"
-],
-"sourcemaps:declared-element": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": ""
-}
-]
-}
-],
-"sourcemaps:lexical": [
-{
-"sourcemaps:element": [
-{
-"@value": "security:settings"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(3,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(2,0)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(3,0)-(4,0)]"
-}
-]
-}
-],
-"sourcemaps:source-vendor": [
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#21"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "RAML 1.0"
-}
-]
-}
-]
-}
-]
-}
-],
-"@context": {
-"@base": "amf://id",
-"shacl": "http://www.w3.org/ns/shacl#",
-"raml-shapes": "http://a.ml/vocabularies/shapes#",
-"security": "http://a.ml/vocabularies/security#",
-"data": "http://a.ml/vocabularies/data#",
-"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-"doc": "http://a.ml/vocabularies/document#",
-"apiContract": "http://a.ml/vocabularies/apiContract#",
-"core": "http://a.ml/vocabularies/core#",
-"sourcemaps": "http://a.ml/vocabularies/document-source-maps#"
-}
-}
+  {
+    "@id": "",
+    "@type": [
+      "doc:Document",
+      "doc:Fragment",
+      "doc:Module",
+      "doc:Unit"
+    ],
+    "doc:encodes": [
+      {
+        "@id": "#22",
+        "@type": [
+          "apiContract:WebAPI",
+          "doc:RootDomainElement",
+          "doc:DomainElement"
+        ],
+        "core:name": [
+          {
+            "@value": "Oauth 2.0 example"
+          }
+        ],
+        "apiContract:server": [
+          {
+            "@id": "#31",
+            "@type": [
+              "apiContract:Server",
+              "doc:DomainElement"
+            ],
+            "core:urlTemplate": [
+              {
+                "@value": "http://api.domain.com/{version}/"
+              }
+            ],
+            "apiContract:variable": [
+              {
+                "@id": "#32",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "version"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "path"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#33",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "version"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "core:version": [
+          {
+            "@value": "v1"
+          }
+        ],
+        "apiContract:endpoint": [
+          {
+            "@id": "#23",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/oauth1"
+              }
+            ],
+            "apiContract:supportedOperation": [
+              {
+                "@id": "#24",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "security:security": [
+                  {
+                    "@id": "#25",
+                    "@type": [
+                      "security:SecurityRequirement",
+                      "doc:DomainElement"
+                    ],
+                    "security:schemes": [
+                      {
+                        "@id": "#26",
+                        "@type": [
+                          "security:ParametrizedSecurityScheme",
+                          "doc:DomainElement"
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "oauth1"
+                          }
+                        ],
+                        "security:scheme": [
+                          {
+                            "@id": "#21",
+                            "@type": [
+                              "security:SecurityScheme",
+                              "doc:DomainElement"
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "oauth1"
+                              }
+                            ],
+                            "security:type": [
+                              {
+                                "@value": "OAuth 1.0"
+                              }
+                            ],
+                            "core:description": [
+                              {
+                                "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
+                              }
+                            ],
+                            "security:settings": [
+                              {
+                                "@id": "#19",
+                                "@type": [
+                                  "security:OAuth1Settings",
+                                  "security:Settings",
+                                  "doc:DomainElement"
+                                ],
+                                "security:requestTokenUri": [
+                                  {
+                                    "@value": "http://api.domain.com/oauth1/request_token"
+                                  }
+                                ],
+                                "security:authorizationUri": [
+                                  {
+                                    "@value": "http://api.domain.com/oauth1/authorize"
+                                  }
+                                ],
+                                "security:tokenCredentialsUri": [
+                                  {
+                                    "@value": "http://api.domain.com/oauth1/access_token"
+                                  }
+                                ],
+                                "security:signature": [
+                                  {
+                                    "@value": "RSA-SHA1"
+                                  },
+                                  {
+                                    "@value": "HMAC-SHA1"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "#27",
+            "@type": [
+              "apiContract:EndPoint",
+              "doc:DomainElement"
+            ],
+            "apiContract:path": [
+              {
+                "@value": "/custom"
+              }
+            ],
+            "apiContract:supportedOperation": [
+              {
+                "@id": "#28",
+                "@type": [
+                  "apiContract:Operation",
+                  "doc:DomainElement"
+                ],
+                "apiContract:method": [
+                  {
+                    "@value": "get"
+                  }
+                ],
+                "security:security": [
+                  {
+                    "@id": "#29",
+                    "@type": [
+                      "security:SecurityRequirement",
+                      "doc:DomainElement"
+                    ],
+                    "security:schemes": [
+                      {
+                        "@id": "#30",
+                        "@type": [
+                          "security:ParametrizedSecurityScheme",
+                          "doc:DomainElement"
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "custom1"
+                          }
+                        ],
+                        "security:scheme": [
+                          {
+                            "@id": "#20",
+                            "@type": [
+                              "security:SecurityScheme",
+                              "doc:DomainElement"
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "custom1"
+                              }
+                            ],
+                            "security:type": [
+                              {
+                                "@value": "x-my-custom"
+                              }
+                            ],
+                            "core:description": [
+                              {
+                                "@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
+                              }
+                            ],
+                            "apiContract:header": [
+                              {
+                                "@id": "#3",
+                                "@type": [
+                                  "apiContract:Parameter",
+                                  "doc:DomainElement"
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "SpecialTokenHeader"
+                                  }
+                                ],
+                                "apiContract:paramName": [
+                                  {
+                                    "@value": "SpecialTokenHeader"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "Used to send a custom token.\n"
+                                  }
+                                ],
+                                "apiContract:required": [
+                                  {
+                                    "@value": true
+                                  }
+                                ],
+                                "apiContract:binding": [
+                                  {
+                                    "@value": "header"
+                                  }
+                                ],
+                                "raml-shapes:schema": [
+                                  {
+                                    "@id": "#4",
+                                    "@type": [
+                                      "raml-shapes:ScalarShape",
+                                      "raml-shapes:AnyShape",
+                                      "shacl:Shape",
+                                      "raml-shapes:Shape",
+                                      "doc:DomainElement"
+                                    ],
+                                    "shacl:datatype": [
+                                      {
+                                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                      }
+                                    ],
+                                    "shacl:name": [
+                                      {
+                                        "@value": "schema"
+                                      }
+                                    ],
+                                    "core:description": [
+                                      {
+                                        "@value": "Used to send a custom token.\n"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ],
+                            "apiContract:parameter": [
+                              {
+                                "@id": "#5",
+                                "@type": [
+                                  "apiContract:Parameter",
+                                  "doc:DomainElement"
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "debugTokenParam"
+                                  }
+                                ],
+                                "apiContract:paramName": [
+                                  {
+                                    "@value": "debugTokenParam"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "Select one of available values to run the request in the debug mode with selected level."
+                                  }
+                                ],
+                                "apiContract:required": [
+                                  {
+                                    "@value": false
+                                  }
+                                ],
+                                "apiContract:binding": [
+                                  {
+                                    "@value": "query"
+                                  }
+                                ],
+                                "raml-shapes:schema": [
+                                  {
+                                    "@id": "#6",
+                                    "@type": [
+                                      "raml-shapes:ScalarShape",
+                                      "raml-shapes:AnyShape",
+                                      "shacl:Shape",
+                                      "raml-shapes:Shape",
+                                      "doc:DomainElement"
+                                    ],
+                                    "shacl:datatype": [
+                                      {
+                                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                      }
+                                    ],
+                                    "shacl:name": [
+                                      {
+                                        "@value": "schema"
+                                      }
+                                    ],
+                                    "core:description": [
+                                      {
+                                        "@value": "Select one of available values to run the request in the debug mode with selected level."
+                                      }
+                                    ],
+                                    "shacl:in": [
+                                      {
+                                        "@id": "#6/list",
+                                        "@type": "rdfs:Seq",
+                                        "rdfs:_1": [
+                                          {
+                                            "@id": "#7",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "Info"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_1"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "rdfs:_2": [
+                                          {
+                                            "@id": "#8",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "Log"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_2"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "rdfs:_3": [
+                                          {
+                                            "@id": "#9",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "Warning"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_3"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "rdfs:_4": [
+                                          {
+                                            "@id": "#10",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "Error"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_4"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "rdfs:_5": [
+                                          {
+                                            "@id": "#11",
+                                            "@type": [
+                                              "data:Scalar",
+                                              "data:Node",
+                                              "doc:DomainElement"
+                                            ],
+                                            "data:value": [
+                                              {
+                                                "@value": "Critical"
+                                              }
+                                            ],
+                                            "shacl:datatype": [
+                                              {
+                                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                                              }
+                                            ],
+                                            "core:name": [
+                                              {
+                                                "@value": "scalar_5"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "@id": "#12",
+                                "@type": [
+                                  "apiContract:Parameter",
+                                  "doc:DomainElement"
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "booleanTokenParam"
+                                  }
+                                ],
+                                "apiContract:paramName": [
+                                  {
+                                    "@value": "booleanTokenParam"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "Just to test boolean values."
+                                  }
+                                ],
+                                "apiContract:required": [
+                                  {
+                                    "@value": true
+                                  }
+                                ],
+                                "apiContract:binding": [
+                                  {
+                                    "@value": "query"
+                                  }
+                                ],
+                                "raml-shapes:schema": [
+                                  {
+                                    "@id": "#13",
+                                    "@type": [
+                                      "raml-shapes:ScalarShape",
+                                      "raml-shapes:AnyShape",
+                                      "shacl:Shape",
+                                      "raml-shapes:Shape",
+                                      "doc:DomainElement"
+                                    ],
+                                    "shacl:datatype": [
+                                      {
+                                        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                                      }
+                                    ],
+                                    "shacl:name": [
+                                      {
+                                        "@value": "schema"
+                                      }
+                                    ],
+                                    "core:description": [
+                                      {
+                                        "@value": "Just to test boolean values."
+                                      }
+                                    ],
+                                    "shacl:defaultValue": [
+                                      {
+                                        "@id": "#14",
+                                        "@type": [
+                                          "data:Scalar",
+                                          "data:Node",
+                                          "doc:DomainElement"
+                                        ],
+                                        "data:value": [
+                                          {
+                                            "@value": "true"
+                                          }
+                                        ],
+                                        "shacl:datatype": [
+                                          {
+                                            "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                                          }
+                                        ],
+                                        "core:name": [
+                                          {
+                                            "@value": "scalar_1"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "shacl:defaultValueStr": [
+                                      {
+                                        "@value": "true"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ],
+                            "apiContract:response": [
+                              {
+                                "@id": "#15",
+                                "@type": [
+                                  "apiContract:Response",
+                                  "apiContract:Message",
+                                  "doc:DomainElement"
+                                ],
+                                "apiContract:statusCode": [
+                                  {
+                                    "@value": "401"
+                                  }
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "401"
+                                  }
+                                ],
+                                "core:description": [
+                                  {
+                                    "@value": "Bad token.\n"
+                                  }
+                                ]
+                              },
+                              {
+                                "@id": "#16",
+                                "@type": [
+                                  "apiContract:Response",
+                                  "apiContract:Message",
+                                  "doc:DomainElement"
+                                ],
+                                "apiContract:statusCode": [
+                                  {
+                                    "@value": "403"
+                                  }
+                                ],
+                                "core:name": [
+                                  {
+                                    "@value": "403"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "doc:version": [
+      {
+        "@value": "2.0.0"
+      }
+    ],
+    "doc:root": [
+      {
+        "@value": true
+      }
+    ],
+    "doc:references": [
+      {
+        "@id": "#1",
+        "@type": [
+          "security:SecuritySchemeFragment",
+          "doc:Fragment",
+          "doc:Unit"
+        ],
+        "doc:encodes": [
+          {
+            "@id": "#2",
+            "@type": [
+              "security:SecurityScheme",
+              "doc:DomainElement"
+            ],
+            "security:type": [
+              {
+                "@value": "x-my-custom"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
+              }
+            ],
+            "apiContract:header": [
+              {
+                "@id": "#3",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "SpecialTokenHeader"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "SpecialTokenHeader"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Used to send a custom token.\n"
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "header"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#4",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "Used to send a custom token.\n"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "apiContract:parameter": [
+              {
+                "@id": "#5",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "debugTokenParam"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "debugTokenParam"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Select one of available values to run the request in the debug mode with selected level."
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": false
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "query"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#6",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "Select one of available values to run the request in the debug mode with selected level."
+                      }
+                    ],
+                    "shacl:in": [
+                      {
+                        "@id": "#6/list",
+                        "@type": "rdfs:Seq",
+                        "rdfs:_1": [
+                          {
+                            "@id": "#7",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "Info"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_1"
+                              }
+                            ]
+                          }
+                        ],
+                        "rdfs:_2": [
+                          {
+                            "@id": "#8",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "Log"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_2"
+                              }
+                            ]
+                          }
+                        ],
+                        "rdfs:_3": [
+                          {
+                            "@id": "#9",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "Warning"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_3"
+                              }
+                            ]
+                          }
+                        ],
+                        "rdfs:_4": [
+                          {
+                            "@id": "#10",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "Error"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_4"
+                              }
+                            ]
+                          }
+                        ],
+                        "rdfs:_5": [
+                          {
+                            "@id": "#11",
+                            "@type": [
+                              "data:Scalar",
+                              "data:Node",
+                              "doc:DomainElement"
+                            ],
+                            "data:value": [
+                              {
+                                "@value": "Critical"
+                              }
+                            ],
+                            "shacl:datatype": [
+                              {
+                                "@id": "http://www.w3.org/2001/XMLSchema#string"
+                              }
+                            ],
+                            "core:name": [
+                              {
+                                "@value": "scalar_5"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@id": "#12",
+                "@type": [
+                  "apiContract:Parameter",
+                  "doc:DomainElement"
+                ],
+                "core:name": [
+                  {
+                    "@value": "booleanTokenParam"
+                  }
+                ],
+                "apiContract:paramName": [
+                  {
+                    "@value": "booleanTokenParam"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Just to test boolean values."
+                  }
+                ],
+                "apiContract:required": [
+                  {
+                    "@value": true
+                  }
+                ],
+                "apiContract:binding": [
+                  {
+                    "@value": "query"
+                  }
+                ],
+                "raml-shapes:schema": [
+                  {
+                    "@id": "#13",
+                    "@type": [
+                      "raml-shapes:ScalarShape",
+                      "raml-shapes:AnyShape",
+                      "shacl:Shape",
+                      "raml-shapes:Shape",
+                      "doc:DomainElement"
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                      }
+                    ],
+                    "shacl:name": [
+                      {
+                        "@value": "schema"
+                      }
+                    ],
+                    "core:description": [
+                      {
+                        "@value": "Just to test boolean values."
+                      }
+                    ],
+                    "shacl:defaultValue": [
+                      {
+                        "@id": "#14",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "true"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_1"
+                          }
+                        ]
+                      }
+                    ],
+                    "shacl:defaultValueStr": [
+                      {
+                        "@value": "true"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "apiContract:response": [
+              {
+                "@id": "#15",
+                "@type": [
+                  "apiContract:Response",
+                  "apiContract:Message",
+                  "doc:DomainElement"
+                ],
+                "apiContract:statusCode": [
+                  {
+                    "@value": "401"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "401"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Bad token.\n"
+                  }
+                ]
+              },
+              {
+                "@id": "#16",
+                "@type": [
+                  "apiContract:Response",
+                  "apiContract:Message",
+                  "doc:DomainElement"
+                ],
+                "apiContract:statusCode": [
+                  {
+                    "@value": "403"
+                  }
+                ],
+                "core:name": [
+                  {
+                    "@value": "403"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "doc:version": [
+          {
+            "@value": "2.0.0"
+          }
+        ],
+        "doc:root": [
+          {
+            "@value": false
+          }
+        ]
+      },
+      {
+        "@id": "#17",
+        "@type": [
+          "security:SecuritySchemeFragment",
+          "doc:Fragment",
+          "doc:Unit"
+        ],
+        "doc:encodes": [
+          {
+            "@id": "#18",
+            "@type": [
+              "security:SecurityScheme",
+              "doc:DomainElement"
+            ],
+            "security:type": [
+              {
+                "@value": "OAuth 1.0"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
+              }
+            ],
+            "security:settings": [
+              {
+                "@id": "#19",
+                "@type": [
+                  "security:OAuth1Settings",
+                  "security:Settings",
+                  "doc:DomainElement"
+                ],
+                "security:requestTokenUri": [
+                  {
+                    "@value": "http://api.domain.com/oauth1/request_token"
+                  }
+                ],
+                "security:authorizationUri": [
+                  {
+                    "@value": "http://api.domain.com/oauth1/authorize"
+                  }
+                ],
+                "security:tokenCredentialsUri": [
+                  {
+                    "@value": "http://api.domain.com/oauth1/access_token"
+                  }
+                ],
+                "security:signature": [
+                  {
+                    "@value": "RSA-SHA1"
+                  },
+                  {
+                    "@value": "HMAC-SHA1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "doc:version": [
+          {
+            "@value": "2.0.0"
+          }
+        ],
+        "doc:root": [
+          {
+            "@value": false
+          }
+        ]
+      }
+    ],
+    "doc:declares": [
+      {
+        "@id": "#20",
+        "@type": [
+          "security:SecurityScheme",
+          "doc:DomainElement"
+        ],
+        "core:name": [
+          {
+            "@value": "custom1"
+          }
+        ],
+        "security:type": [
+          {
+            "@value": "x-my-custom"
+          }
+        ],
+        "core:description": [
+          {
+            "@value": "A custom security scheme for authenticating requests.\nIt allows to set `SpecialToken` header from the authorization panel.\nThe same header should be rendered in the headers editor with console using\nRAML JS parser.\nWith `AMF` console this is separated information.\nThis scheme also sets `debugToken` and `booleanToken` query parameters.\nBoth are enums, however `booleanToken` can only have `true` and `false`\nvalues.\n"
+          }
+        ],
+        "apiContract:header": [
+          {
+            "@id": "#3",
+            "@type": [
+              "apiContract:Parameter",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "SpecialTokenHeader"
+              }
+            ],
+            "apiContract:paramName": [
+              {
+                "@value": "SpecialTokenHeader"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "Used to send a custom token.\n"
+              }
+            ],
+            "apiContract:required": [
+              {
+                "@value": true
+              }
+            ],
+            "apiContract:binding": [
+              {
+                "@value": "header"
+              }
+            ],
+            "raml-shapes:schema": [
+              {
+                "@id": "#4",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "schema"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Used to send a custom token.\n"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "apiContract:parameter": [
+          {
+            "@id": "#5",
+            "@type": [
+              "apiContract:Parameter",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "debugTokenParam"
+              }
+            ],
+            "apiContract:paramName": [
+              {
+                "@value": "debugTokenParam"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "Select one of available values to run the request in the debug mode with selected level."
+              }
+            ],
+            "apiContract:required": [
+              {
+                "@value": false
+              }
+            ],
+            "apiContract:binding": [
+              {
+                "@value": "query"
+              }
+            ],
+            "raml-shapes:schema": [
+              {
+                "@id": "#6",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "schema"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Select one of available values to run the request in the debug mode with selected level."
+                  }
+                ],
+                "shacl:in": [
+                  {
+                    "@id": "#6/list",
+                    "@type": "rdfs:Seq",
+                    "rdfs:_1": [
+                      {
+                        "@id": "#7",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Info"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_1"
+                          }
+                        ]
+                      }
+                    ],
+                    "rdfs:_2": [
+                      {
+                        "@id": "#8",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Log"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_2"
+                          }
+                        ]
+                      }
+                    ],
+                    "rdfs:_3": [
+                      {
+                        "@id": "#9",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Warning"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_3"
+                          }
+                        ]
+                      }
+                    ],
+                    "rdfs:_4": [
+                      {
+                        "@id": "#10",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Error"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_4"
+                          }
+                        ]
+                      }
+                    ],
+                    "rdfs:_5": [
+                      {
+                        "@id": "#11",
+                        "@type": [
+                          "data:Scalar",
+                          "data:Node",
+                          "doc:DomainElement"
+                        ],
+                        "data:value": [
+                          {
+                            "@value": "Critical"
+                          }
+                        ],
+                        "shacl:datatype": [
+                          {
+                            "@id": "http://www.w3.org/2001/XMLSchema#string"
+                          }
+                        ],
+                        "core:name": [
+                          {
+                            "@value": "scalar_5"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "@id": "#12",
+            "@type": [
+              "apiContract:Parameter",
+              "doc:DomainElement"
+            ],
+            "core:name": [
+              {
+                "@value": "booleanTokenParam"
+              }
+            ],
+            "apiContract:paramName": [
+              {
+                "@value": "booleanTokenParam"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "Just to test boolean values."
+              }
+            ],
+            "apiContract:required": [
+              {
+                "@value": true
+              }
+            ],
+            "apiContract:binding": [
+              {
+                "@value": "query"
+              }
+            ],
+            "raml-shapes:schema": [
+              {
+                "@id": "#13",
+                "@type": [
+                  "raml-shapes:ScalarShape",
+                  "raml-shapes:AnyShape",
+                  "shacl:Shape",
+                  "raml-shapes:Shape",
+                  "doc:DomainElement"
+                ],
+                "shacl:datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                  }
+                ],
+                "shacl:name": [
+                  {
+                    "@value": "schema"
+                  }
+                ],
+                "core:description": [
+                  {
+                    "@value": "Just to test boolean values."
+                  }
+                ],
+                "shacl:defaultValue": [
+                  {
+                    "@id": "#14",
+                    "@type": [
+                      "data:Scalar",
+                      "data:Node",
+                      "doc:DomainElement"
+                    ],
+                    "data:value": [
+                      {
+                        "@value": "true"
+                      }
+                    ],
+                    "shacl:datatype": [
+                      {
+                        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                      }
+                    ],
+                    "core:name": [
+                      {
+                        "@value": "scalar_1"
+                      }
+                    ]
+                  }
+                ],
+                "shacl:defaultValueStr": [
+                  {
+                    "@value": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "apiContract:response": [
+          {
+            "@id": "#15",
+            "@type": [
+              "apiContract:Response",
+              "apiContract:Message",
+              "doc:DomainElement"
+            ],
+            "apiContract:statusCode": [
+              {
+                "@value": "401"
+              }
+            ],
+            "core:name": [
+              {
+                "@value": "401"
+              }
+            ],
+            "core:description": [
+              {
+                "@value": "Bad token.\n"
+              }
+            ]
+          },
+          {
+            "@id": "#16",
+            "@type": [
+              "apiContract:Response",
+              "apiContract:Message",
+              "doc:DomainElement"
+            ],
+            "apiContract:statusCode": [
+              {
+                "@value": "403"
+              }
+            ],
+            "core:name": [
+              {
+                "@value": "403"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "@id": "#21",
+        "@type": [
+          "security:SecurityScheme",
+          "doc:DomainElement"
+        ],
+        "core:name": [
+          {
+            "@value": "oauth1"
+          }
+        ],
+        "security:type": [
+          {
+            "@value": "OAuth 1.0"
+          }
+        ],
+        "core:description": [
+          {
+            "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
+          }
+        ],
+        "security:settings": [
+          {
+            "@id": "#19",
+            "@type": [
+              "security:OAuth1Settings",
+              "security:Settings",
+              "doc:DomainElement"
+            ],
+            "security:requestTokenUri": [
+              {
+                "@value": "http://api.domain.com/oauth1/request_token"
+              }
+            ],
+            "security:authorizationUri": [
+              {
+                "@value": "http://api.domain.com/oauth1/authorize"
+              }
+            ],
+            "security:tokenCredentialsUri": [
+              {
+                "@value": "http://api.domain.com/oauth1/access_token"
+              }
+            ],
+            "security:signature": [
+              {
+                "@value": "RSA-SHA1"
+              },
+              {
+                "@value": "HMAC-SHA1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "@context": {
+      "@base": "amf://id",
+      "shacl": "http://www.w3.org/ns/shacl#",
+      "raml-shapes": "http://a.ml/vocabularies/shapes#",
+      "security": "http://a.ml/vocabularies/security#",
+      "data": "http://a.ml/vocabularies/data#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "doc": "http://a.ml/vocabularies/document#",
+      "apiContract": "http://a.ml/vocabularies/apiContract#",
+      "core": "http://a.ml/vocabularies/core#"
+    }
+  }
 ]
