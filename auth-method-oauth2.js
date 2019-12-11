@@ -1138,11 +1138,18 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     if (!this._hasType(model, sec.OAuth2Settings)) {
       return;
     }
-    this.authorizationUri = this._getValue(model, sec.authorizationUri) || '';
-    this.accessTokenUri = this._getValue(model, sec.accessTokenUri) || '';
-    this.scopes = this._redSecurityScopes(model[this._getAmfKey(sec.scope)]);
+    const flows = this._getValueArray(model, sec.flows) || [];
+    // TODO this is temporary in order to support AMF 4 model change
+    const firstFlow = flows[0];
+    if (!firstFlow) return;
+
+    this.authorizationUri = this._getValue(firstFlow, sec.authorizationUri) || '';
+    this.accessTokenUri = this._getValue(firstFlow, sec.accessTokenUri) || '';
+    this.scopes = this._redSecurityScopes(firstFlow[this._getAmfKey(sec.scope)]);
     const apiGrants = this._getValueArray(model, sec.authorizationGrant);
+    // TODO check if this also needs to come from `firstFlow`
     const annotationKey = this._amfCustomSettingsKey(model);
+    // TODO check if this also needs to come from `firstFlow`
     const annotation = annotationKey ? model[annotationKey] : undefined;
     const grants = this._applyAnnotationGranst(apiGrants, annotation);
     if (grants && grants instanceof Array && grants.length) {
