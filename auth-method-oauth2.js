@@ -1138,11 +1138,23 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     if (!this._hasType(model, sec.OAuth2Settings)) {
       return;
     }
-    this.authorizationUri = this._getValue(model, sec.authorizationUri) || '';
-    this.accessTokenUri = this._getValue(model, sec.accessTokenUri) || '';
-    this.scopes = this._redSecurityScopes(model[this._getAmfKey(sec.scope)]);
+
+    /* TODO this is temporary in order to support AMF 4 model change.
+        We need to fully support all flows later on rather than just the first */
+    let possibleFlowsNode = this._getValueArray(model, sec.flows);
+    if (possibleFlowsNode && possibleFlowsNode instanceof Array) {
+      possibleFlowsNode = possibleFlowsNode[0];
+    } else {
+      possibleFlowsNode = model;
+    }
+
+    this.authorizationUri = this._getValue(possibleFlowsNode, sec.authorizationUri) || '';
+    this.accessTokenUri = this._getValue(possibleFlowsNode, sec.accessTokenUri) || '';
+    this.scopes = this._redSecurityScopes(possibleFlowsNode[this._getAmfKey(sec.scope)]);
     const apiGrants = this._getValueArray(model, sec.authorizationGrant);
+    // TODO check if this also needs to come from `possibleFlowsNode`
     const annotationKey = this._amfCustomSettingsKey(model);
+    // TODO check if this also needs to come from `possibleFlowsNode`
     const annotation = annotationKey ? model[annotationKey] : undefined;
     const grants = this._applyAnnotationGranst(apiGrants, annotation);
     if (grants && grants instanceof Array && grants.length) {

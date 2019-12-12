@@ -45,7 +45,12 @@ AmfLoader.lookupSecurity = function(model, endpoint, operation) {
   helper.amf = model;
   const method = AmfLoader.lookupOperation(model, endpoint, operation);
   const secKey = helper._getAmfKey(helper.ns.aml.vocabularies.security.security);
+  const schemesKey = helper._getAmfKey(helper.ns.aml.vocabularies.security.schemes);
   let security = method[secKey];
+  if (security instanceof Array) {
+    security = security[0];
+  }
+  security = security[schemesKey];
   if (security instanceof Array) {
     security = security[0];
   }
