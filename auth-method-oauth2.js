@@ -1141,7 +1141,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
 
     /* TODO this is temporary in order to support AMF 4 model change.
         We need to fully support all flows later on rather than just the first */
-    let possibleFlowsNode = this._getValue(model, sec.flows);
+    let possibleFlowsNode = this._getValueArray(model, sec.flows);
     if (possibleFlowsNode && possibleFlowsNode instanceof Array) {
       possibleFlowsNode = possibleFlowsNode[0];
     } else {
