@@ -86,9 +86,12 @@ class ComponentDemo extends ApiDemoPageBase {
     const secPrefix = helper.ns.raml.vocabularies.security;
     let oauth;
     for (let i = 0, len = security.length; i < len; i++) {
-      const item = security[i];
+      const securityRequirement = security[i];
       const shKey = helper._getAmfKey(secPrefix + 'scheme');
-      let scheme = item[shKey];
+      const schemesKey = helper._getAmfKey(secPrefix + 'schemes');
+      const schemes = securityRequirement[schemesKey];
+      const parametrizedSecurityScheme = schemes[0];
+      let scheme = parametrizedSecurityScheme[shKey];
       if (!scheme) {
         continue;
       }
@@ -97,7 +100,7 @@ class ComponentDemo extends ApiDemoPageBase {
       }
       const modelType = helper._getValue(scheme, secPrefix + 'type');
       if (modelType && modelType.indexOf('x-') === 0) {
-        oauth = item;
+        oauth = parametrizedSecurityScheme;
         break;
       }
     }
