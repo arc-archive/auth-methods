@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/advanced-rest-client/auth-methods.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/auth-methods)
 
 # auth-methods
+**This project is deprecated.** Please use [authorization-method](https://github.com/advanced-rest-client/authorization-method) instead.
 
 A set of elements that contains an UI to create different authorization headers like Basic, OAuth etc
 

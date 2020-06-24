@@ -1872,7 +1872,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               autocomplete="on"
               data-persistent="true"
               hiddable
-              data-visible="implicit authorization_code"
+              data-visible="implicit authorization_code client_credentials"
               .outlined="${outlined}"
               .compatibility="${compatibility}"
               .readOnly="${readOnly}"
@@ -1891,7 +1891,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               autocomplete="on"
               hiddable
               data-persistent="true"
-              data-visible="authorization_code"
+              data-visible="authorization_code client_credentials"
               .outlined="${outlined}"
               .compatibility="${compatibility}"
               .readOnly="${readOnly}"
