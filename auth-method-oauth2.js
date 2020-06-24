@@ -1854,8 +1854,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
     } = this;
 
     const customGrantRequired = !isCustomGrant;
-    const clientIdRequired = ['password'].indexOf(grantType) !== -1 ? false : customGrantRequired;
-    const showClientFields = clientIdRequired && grantType === 'client_credentials';
+    const clientIdRequired = ['client_credentials', 'password'].indexOf(grantType) !== -1 ? false : customGrantRequired;
     const secretDisabled = disabled ||
       this._isFieldDisabled(isCustomGrant, grantType, 'client_credentials', 'authorization_code');
     const hasAccessToken = !!accessToken;
@@ -1872,8 +1871,8 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               @input="${this._valueHandler}"
               autocomplete="on"
               data-persistent="true"
-              ?hiddable="${!showClientFields}"
-              data-visible="implicit authorization_code"
+              hiddable
+              data-visible="implicit authorization_code client_credentials"
               .outlined="${outlined}"
               .compatibility="${compatibility}"
               .readOnly="${readOnly}"
@@ -1890,9 +1889,9 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
               .value="${clientSecret}"
               @input="${this._valueHandler}"
               autocomplete="on"
-              ?hiddable="${!showClientFields}"
+              hiddable
               data-persistent="true"
-              data-visible="authorization_code"
+              data-visible="authorization_code client_credentials"
               .outlined="${outlined}"
               .compatibility="${compatibility}"
               .readOnly="${readOnly}"

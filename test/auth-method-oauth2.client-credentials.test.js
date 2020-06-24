@@ -90,12 +90,12 @@ describe('<auth-method-oauth2>', function() {
 
       it('Client id is required', () => {
         const node = element.shadowRoot.querySelector('[name="clientId"]');
-        assert.isTrue(node.required);
+        assert.notEqual(node.required, true);
       });
 
       it('Client secret is required', () => {
         const node = element.shadowRoot.querySelector('[name="clientSecret"]');
-        assert.isTrue(node.required);
+        assert.notEqual(node.required, true);
       });
 
       it('Client secret is not disabled', () => {
