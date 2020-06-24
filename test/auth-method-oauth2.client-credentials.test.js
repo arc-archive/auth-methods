@@ -88,12 +88,12 @@ describe('<auth-method-oauth2>', function() {
         await aTimeout();
       });
 
-      it('Client id is required', () => {
+      it('Client id is not required', () => {
         const node = element.shadowRoot.querySelector('[name="clientId"]');
         assert.notEqual(node.required, true);
       });
 
-      it('Client secret is required', () => {
+      it('Client secret is not required', () => {
         const node = element.shadowRoot.querySelector('[name="clientSecret"]');
         assert.notEqual(node.required, true);
       });
