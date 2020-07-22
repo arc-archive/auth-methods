@@ -828,6 +828,7 @@ class AuthMethodOauth2 extends AmfHelperMixin(AuthMethodBase) {
       case 'client_credentials':
         // The server flow.
         detail.accessTokenUri = this.accessTokenUri;
+        detail.clientSecret = this.clientSecret;
         this._computeTokenCustomData(detail);
         delete detail.customData.auth;
         break;
