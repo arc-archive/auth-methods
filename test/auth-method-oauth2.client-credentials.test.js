@@ -251,6 +251,11 @@ describe('<auth-method-oauth2>', function() {
         assert.equal(result.clientId, clientId);
       });
 
+      it('clientSecret is set', () => {
+        const result = element.getSettings();
+        assert.equal(result.clientSecret, clientSecret);
+      });
+
       it('accessToken is set', () => {
         let result = element.getSettings();
         assert.equal(result.accessToken, '', 'Token value is empty');
