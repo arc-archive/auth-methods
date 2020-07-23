@@ -2114,3 +2114,40 @@ Array.from function. This commint adds this function in the Polyfill.
  [5bd3d8e](https://github.com/advanced-rest-client/auth-methods/commit/5bd3d8e136592f5c0ad092a4bc0a98d70a4faab1) by Pawel Psztyc
 
 
+<a name="5.0.12"></a>
+## [5.0.12](https://github.com/advanced-rest-client/auth-methods/compare/5.0.7...5.0.12) (2020-07-23)
+
+### Build
+
+* bump version [21bbc27](https://github.com/advanced-rest-client/auth-methods/commit/21bbc271c6849c8c9caf47cd7520f0c894ebf7e8) by Carolina Wright
+* bumping version [5c7090b](https://github.com/advanced-rest-client/auth-methods/commit/5c7090b630f746b8ab4563fe2089ae44acb96ca7) by Pawel
+
+
+### Update
+
+* [ci skip] automated merge master->stage. syncing main branches [e6857aa](https://github.com/advanced-rest-client/auth-methods/commit/e6857aa081d1c48545c02930e1475dd8297103e5) by Ci agent
+* upgrading dependencies, models, and SL config [b175fec](https://github.com/advanced-rest-client/auth-methods/commit/b175fec384022b5073af4474cc0c4d14420e2a0d) by Pawel
+
+
+### Features
+
+* support oauth2 flows amf model change [bump-version] [0923545](https://github.com/advanced-rest-client/auth-methods/commit/0923545f0cee50408b210e648d132fca8e157516) by Francisco Di Giandomenico
+
+
+### Bug Fixes
+
+* add clientSecret to settings when client credentials [09072dd](https://github.com/advanced-rest-client/auth-methods/commit/09072dd2a83eea53384d946347622b6486bd114d) by Carolina Wright
+* apic-432 show client id and secret fields when client credentials (#26) [54cd306](https://github.com/advanced-rest-client/auth-methods/commit/54cd306de4675e4f52c010742c67a93d6b32e2a6) by Carolina Wright
+* fix overlap of invalidMessage [bump-version] [0d00c90](https://github.com/advanced-rest-client/auth-methods/commit/0d00c903c56c98dac01ea087907914e1a6803161) by nicogon
+
+
+### Refactor
+
+* move styles into render() method [b94bb23](https://github.com/advanced-rest-client/auth-methods/commit/b94bb23e8ddf1c91bfefdb9de3cc65042cb3d03e) by TwoPlusTwoOne
+
+
+### Testing
+
+* clientSecret is set [0c1827e](https://github.com/advanced-rest-client/auth-methods/commit/0c1827eafa5e78382ad96aaaca7e0833f164664c) by Carolina Wright
+
+
